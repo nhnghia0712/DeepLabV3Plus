@@ -1,3 +1,7 @@
+/////////////////////////////////////////////////////////////////////////
+// Parameter Declarations
+parameter DATA_WIDTH  = 32;
+
 // Localparam general
 parameter IMAGE_SIZE = IMAGE_WIDTH * IMAGE_HEIGHT;
 

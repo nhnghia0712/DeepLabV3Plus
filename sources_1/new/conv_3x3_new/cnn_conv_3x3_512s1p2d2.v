@@ -34,8 +34,6 @@ module cnn_conv_3x3_512s1p2d2 (
 
 /////////////////////////////////////////////////////////////////////////
 // Parameter Declarations
-parameter DATA_WIDTH  = 32;
-
 // General
 parameter IMAGE_WIDTH     = 153; //Width
 parameter IMAGE_HEIGHT    = 153; //Height

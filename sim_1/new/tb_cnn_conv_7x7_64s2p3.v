@@ -1,33 +1,31 @@
 `timescale 1ns / 1ps
 
-module tb_cnn_conv_3x3_64s1p1 ();
+module tb_cnn_conv_7x7_64s2p3 ();
 
 /////////////////////////////////////////////////////////////////////////
 // Parameter Declarations
 parameter DATA_WIDTH  = 32;
 
 // General
-parameter IMAGE_WIDTH     = 612; //Width
-parameter IMAGE_HEIGHT    = 612; //Height
-parameter CHANNEL_NUM_IN  = 64 ; //The number of channel in
-parameter CHANNEL_NUM_OUT = 64 ; //The number of channel out
-parameter KERNEL          = 3 ; //Kernel width
-parameter RATE            = 1 ; //Rate of dialtion
+parameter  IMAGE_WIDTH      = 1224; //Width
+parameter  IMAGE_HEIGHT     = 1224; //Height
+parameter  CHANNEL_NUM_IN   = 3   ; //The number of channel in
+parameter  CHANNEL_NUM_OUT  = 64  ; //The number of channel out
+parameter  KERNEL           = 7   ; //Kernel width
+localparam SIMULATION_CLOCK = 5   ;
 
-localparam IMAGE_INPUT_FILE = "D:/GitHub/CNNs/Text_file/Input/R.txt";
-localparam WEIGHTS_INPUT_FILE = "D:/GitHub/CNNs/Text_file/Input/weight_test.txt";
-localparam IMAGE_OUTPUT_FILE = "D:/GitHub/CNNs/Text_file/Output/Output_cnn_conv_3x3_64s1p1.txt";
-
-localparam ENDTIME          = (IMAGE_SIZE * CHANNEL_NUM) + IMAGE_WIDTH;
-localparam SIMULATION_CLOCK = 5                                       ;
-localparam SIMULATION_CYCLE = 10                                      ;
-
-// Localparam general
-localparam KERNEL_SIZE          = KERNEL * KERNEL                 ;
-localparam CHANNEL_NUM          = CHANNEL_NUM_IN * CHANNEL_NUM_OUT;
 localparam IMAGE_SIZE           = IMAGE_WIDTH * IMAGE_HEIGHT      ;
+localparam CHANNEL_NUM          = CHANNEL_NUM_IN * CHANNEL_NUM_OUT;
+localparam KERNEL_SIZE          = KERNEL * KERNEL                 ; // 3x3
 localparam CHANNEL_NUM_IN_PIXEL = CHANNEL_NUM_IN * IMAGE_SIZE     ;
 localparam WEIGHT_NUM           = CHANNEL_NUM * KERNEL_SIZE       ; // 2x2x3x3
+
+localparam IMAGE_INPUT_FILE = "D:/GitHub/CNNs/Text_file/Input/RGB.txt";
+localparam WEIGHTS_INPUT_FILE = "D:/GitHub/CNNs/Text_file/Input/weight_test.txt";
+localparam IMAGE_OUTPUT_FILE = "D:/GitHub/CNNs/Text_file/Output/Output_cnn_conv_7x7_64s2p3.txt";
+
+localparam ENDTIME          = (IMAGE_SIZE * CHANNEL_NUM) + IMAGE_WIDTH;
+localparam SIMULATION_CYCLE = SIMULATION_CLOCK * 2                    ;
 
 
 reg                  clk            ;
@@ -86,17 +84,18 @@ always @(posedge clk) begin
 	end
 end
 
-	cnn_conv_3x3_64s1p1 DUT (
-		.clk            (clk            ),
-		.reset          (reset          ),
-		.valid_in       (valid_in       ),
-		.pxl_in         (pxl_in         ),
-		.valid_weight_in(valid_weight_in),
-		.weight_in      (weight_in      ),
-		//output
-		.pxl_out        (pxl_out        ),
-		.valid_out      (valid_out      )
-	);
+cnn_conv_7x7_64s2p3 DUT (
+	.clk            (clk            ),
+	.reset          (reset          ),
+	.valid_in       (valid_in       ),
+	.pxl_in         (pxl_in         ),
+	.valid_weight_in(valid_weight_in),
+	.weight_in      (weight_in      ),
+	//output
+	.pxl_out        (pxl_out        ),
+	.valid_out      (valid_out      )
+);
+
 endmodule
 
 

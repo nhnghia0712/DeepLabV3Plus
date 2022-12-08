@@ -19,7 +19,7 @@
 
 ///////////////////////////////////////////////////////////////////////
 
-module cnn_conv_7x7_multi_channel_new (
+module cnn_conv_7x7_64s2p3 (
   clk, 
   reset,
   valid_in,

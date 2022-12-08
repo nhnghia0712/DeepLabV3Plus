@@ -125,19 +125,131 @@ wire [CHANNEL_NUM_OUT-1:0] mem_valid                     ;
 assign mem[0]       = (valid_mem) ? out_mem:{DATA_WIDTH{1'b0}};
 assign mem_valid[0] = valid_mem;
 
+wire [     DATA_WIDTH-1:0] mem_temp1      [CHANNEL_NUM_OUT-2:0];
+wire [CHANNEL_NUM_OUT-2:0] mem_valid_temp1                     ;
+
+wire [     DATA_WIDTH-1:0] mem_temp2      [CHANNEL_NUM_OUT-2:0];
+wire [CHANNEL_NUM_OUT-2:0] mem_valid_temp2                     ;
+
+wire [     DATA_WIDTH-1:0] mem_temp3      [CHANNEL_NUM_OUT-2:0];
+wire [CHANNEL_NUM_OUT-2:0] mem_valid_temp3                     ;
+
+wire [     DATA_WIDTH-1:0] mem_temp4      [CHANNEL_NUM_OUT-2:0];
+wire [CHANNEL_NUM_OUT-2:0] mem_valid_temp4                     ;
+
+wire [     DATA_WIDTH-1:0] mem_temp5      [CHANNEL_NUM_OUT-2:0];
+wire [CHANNEL_NUM_OUT-2:0] mem_valid_temp5                     ;
+
+wire [     DATA_WIDTH-1:0] mem_temp6      [CHANNEL_NUM_OUT-2:0];
+wire [CHANNEL_NUM_OUT-2:0] mem_valid_temp6                     ;
+
+wire [     DATA_WIDTH-1:0] mem_temp7      [CHANNEL_NUM_OUT-2:0];
+wire [CHANNEL_NUM_OUT-2:0] mem_valid_temp7                     ;
+
 generate
-	for (i = 0; i < CHANNEL_NUM_OUT - 1; i=i+1) begin
+	for (i = 0; i < CHANNEL_NUM_OUT - 1; i = i + 1) begin
 		line_buffer #(
-			.IMAGE_WIDTH(CHANNEL_NUM_IN_PIXEL + (((IMAGE_WIDTH * RATE) + RATE) * CHANNEL_NUM_IN)),
-			.KERNEL     (1                                                                      ),
-			.DIN_WIDTH  (DATA_WIDTH                                                             )
-		) line_buffer (
-			.clk      (clk           ),
-			.reset    (reset         ),
-			.valid_in (mem_valid[i]  ),
-			.data_in  (mem[i]        ),
-			.data_out (mem[i+1]      ),
-			.valid_out(mem_valid[i+1])
+			.IMAGE_WIDTH((CHANNEL_NUM_IN_PIXEL + (((IMAGE_WIDTH * RATE) + RATE) * CHANNEL_NUM_IN) + IMAGE_WIDTH)/8),
+			.KERNEL     (1                                                                                        ),
+			.DIN_WIDTH  (DATA_WIDTH                                                                               )
+		) line_buffer1 (
+			.clk      (clk               ),
+			.reset    (reset             ),
+			.valid_in (mem_valid[i]      ),
+			.data_in  (mem[i]            ),
+			.data_out (mem_temp1[i]      ),
+			.valid_out(mem_valid_temp1[i])
+		);
+
+		line_buffer #(
+			.IMAGE_WIDTH((CHANNEL_NUM_IN_PIXEL + (((IMAGE_WIDTH * RATE) + RATE) * CHANNEL_NUM_IN) + IMAGE_WIDTH)/8),
+			.KERNEL     (1                                                                                        ),
+			.DIN_WIDTH  (DATA_WIDTH                                                                               )
+		) line_buffer2 (
+			.clk      (clk               ),
+			.reset    (reset             ),
+			.valid_in (mem_valid_temp1[i]),
+			.data_in  (mem_temp1[i]      ),
+			.data_out (mem_temp2[i]      ),
+			.valid_out(mem_valid_temp2[i])
+		);
+
+		line_buffer #(
+			.IMAGE_WIDTH((CHANNEL_NUM_IN_PIXEL + (((IMAGE_WIDTH * RATE) + RATE) * CHANNEL_NUM_IN) + IMAGE_WIDTH)/8),
+			.KERNEL     (1                                                                                        ),
+			.DIN_WIDTH  (DATA_WIDTH                                                                               )
+		) line_buffer3 (
+			.clk      (clk               ),
+			.reset    (reset             ),
+			.valid_in (mem_valid_temp2[i]),
+			.data_in  (mem_temp2[i]      ),
+			.data_out (mem_temp3[i]      ),
+			.valid_out(mem_valid_temp3[i])
+		);
+
+		line_buffer #(
+			.IMAGE_WIDTH((CHANNEL_NUM_IN_PIXEL + (((IMAGE_WIDTH * RATE) + RATE) * CHANNEL_NUM_IN) + IMAGE_WIDTH)/8),
+			.KERNEL     (1                                                                                        ),
+			.DIN_WIDTH  (DATA_WIDTH                                                                               )
+		) line_buffer4 (
+			.clk      (clk               ),
+			.reset    (reset             ),
+			.valid_in (mem_valid_temp3[i]),
+			.data_in  (mem_temp3[i]      ),
+			.data_out (mem_temp4[i]      ),
+			.valid_out(mem_valid_temp4[i])
+		);
+
+		line_buffer #(
+			.IMAGE_WIDTH((CHANNEL_NUM_IN_PIXEL + (((IMAGE_WIDTH * RATE) + RATE) * CHANNEL_NUM_IN) + IMAGE_WIDTH)/8),
+			.KERNEL     (1                                                                                        ),
+			.DIN_WIDTH  (DATA_WIDTH                                                                               )
+		) line_buffer5 (
+			.clk      (clk               ),
+			.reset    (reset             ),
+			.valid_in (mem_valid_temp4[i]),
+			.data_in  (mem_temp4[i]      ),
+			.data_out (mem_temp5[i]      ),
+			.valid_out(mem_valid_temp5[i])
+		);
+
+		line_buffer #(
+			.IMAGE_WIDTH((CHANNEL_NUM_IN_PIXEL + (((IMAGE_WIDTH * RATE) + RATE) * CHANNEL_NUM_IN) + IMAGE_WIDTH)/8),
+			.KERNEL     (1                                                                                        ),
+			.DIN_WIDTH  (DATA_WIDTH                                                                               )
+		) line_buffer6 (
+			.clk      (clk               ),
+			.reset    (reset             ),
+			.valid_in (mem_valid_temp5[i]),
+			.data_in  (mem_temp5[i]      ),
+			.data_out (mem_temp6[i]      ),
+			.valid_out(mem_valid_temp6[i])
+		);
+
+		line_buffer #(
+			.IMAGE_WIDTH((CHANNEL_NUM_IN_PIXEL + (((IMAGE_WIDTH * RATE) + RATE) * CHANNEL_NUM_IN) + IMAGE_WIDTH)/8),
+			.KERNEL     (1                                                                                        ),
+			.DIN_WIDTH  (DATA_WIDTH                                                                               )
+		) line_buffer7 (
+			.clk      (clk               ),
+			.reset    (reset             ),
+			.valid_in (mem_valid_temp6[i]),
+			.data_in  (mem_temp6[i]      ),
+			.data_out (mem_temp7[i]      ),
+			.valid_out(mem_valid_temp7[i])
+		);
+
+		line_buffer #(
+			.IMAGE_WIDTH((CHANNEL_NUM_IN_PIXEL + (((IMAGE_WIDTH * RATE) + RATE) * CHANNEL_NUM_IN) + IMAGE_WIDTH)/8),
+			.KERNEL     (1                                                                                        ),
+			.DIN_WIDTH  (DATA_WIDTH                                                                               )
+		) line_buffer8 (
+			.clk      (clk               ),
+			.reset    (reset             ),
+			.valid_in (mem_valid_temp7[i]),
+			.data_in  (mem_temp7[i]      ),
+			.data_out (mem[i+1]          ),
+			.valid_out(mem_valid[i+1]    )
 		);
 	end
 endgenerate
@@ -159,7 +271,7 @@ function [CHANNEL_NUM_OUT-1:0] clogb2 (input [CHANNEL_NUM_OUT-1:0] value);
 	begin
 		clogb2 = {CHANNEL_NUM_OUT{1'b0}};
 		value = value - 1'b1;
-		for(integer i=0;i<CHANNEL_NUM_OUT;i=i+1) begin
+		for(integer i = 0; i < CHANNEL_NUM_OUT; i = i + 1) begin
 			if (value > 0) begin
 				value = value >> 1;
 				clogb2 = clogb2 + 1'b1;

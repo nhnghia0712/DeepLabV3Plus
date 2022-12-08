@@ -7,11 +7,11 @@ module tb_cnn_conv_7x7_multi_channel ();
 parameter DATA_WIDTH  = 32;
 
 // General
-parameter IMAGE_WIDTH     = 12; //Width
-parameter IMAGE_HEIGHT    = 12; //Height
-parameter CHANNEL_NUM_IN  = 4  ; //The number of channel in
-parameter CHANNEL_NUM_OUT = 4  ; //The number of channel out
-parameter KERNEL          = 7  ; //Kernel width
+parameter IMAGE_WIDTH     = 20; //Width
+parameter IMAGE_HEIGHT    = 20; //Height
+parameter CHANNEL_NUM_IN  = 3 ; //The number of channel in
+parameter CHANNEL_NUM_OUT = 4 ; //The number of channel out
+parameter KERNEL          = 7 ; //Kernel width
 
 localparam IMAGE_SIZE           = IMAGE_WIDTH * IMAGE_HEIGHT      ;
 localparam CHANNEL_NUM          = CHANNEL_NUM_IN * CHANNEL_NUM_OUT;
@@ -25,7 +25,7 @@ localparam IMAGE_OUTPUT_FILE = "D:/GitHub/CNNs/Text_file/Output/Output_cnn_conv_
 
 // parameter ENDTIME          = 1000;
 
-localparam ENDTIME          = 3000;
+localparam ENDTIME          = 6000;
 localparam SIMULATION_CLOCK = 5   ;
 localparam SIMULATION_CYCLE = 10  ;
 

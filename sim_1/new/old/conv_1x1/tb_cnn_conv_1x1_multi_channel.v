@@ -9,8 +9,8 @@ parameter DATA_WIDTH  = 32;
 // General
 parameter IMAGE_WIDTH     = 306; //Width
 parameter IMAGE_HEIGHT    = 306; //Height
-parameter CHANNEL_NUM_IN  = 1  ; //The number of channel in
-parameter CHANNEL_NUM_OUT = 1  ; //The number of channel out
+parameter CHANNEL_NUM_IN  = 64 ; //The number of channel in
+parameter CHANNEL_NUM_OUT = 64 ; //The number of channel out
 parameter KERNEL          = 1  ; //Kernel width
 
 // Localparam general
@@ -23,12 +23,12 @@ localparam WEIGHT_NUM           = CHANNEL_NUM * KERNEL_SIZE       ; // 2x2x3x3
 
 localparam IMAGE_INPUT_FILE = "D:/GitHub/CNNs/Text_file/Input/R.txt";
 localparam WEIGHTS_INPUT_FILE = "D:/GitHub/CNNs/Text_file/Input/weight_test.txt";
-localparam IMAGE_OUTPUT_FILE = "D:/GitHub/CNNs/Text_file/Output/Output_cnn_conv_1x1_stride1_306x306_306x306.txt";
+localparam IMAGE_OUTPUT_FILE = "D:/GitHub/CNNs/Text_file/Output/Output_cnn_conv_1x1_stride1_test.txt";
 
 
-localparam ENDTIME          = 60000;
-localparam SIMULATION_CLOCK = 5    ;
-localparam SIMULATION_CYCLE = 10   ;
+localparam ENDTIME          = CHANNEL_NUM * IMAGE_SIZE * 2;
+localparam SIMULATION_CLOCK = 5                           ;
+localparam SIMULATION_CYCLE = 10                          ;
 
 
 reg                  clk            ;
@@ -88,7 +88,7 @@ always @(posedge clk) begin
 		$finish;
 	end
 end
-	cnn_conv_1x1_multi_channel #(
+	cnn_conv_1x1_multi_channel_new #(
 		.DATA_WIDTH     (DATA_WIDTH     ),
 		.IMAGE_WIDTH    (IMAGE_WIDTH    ),
 		.IMAGE_HEIGHT   (IMAGE_HEIGHT   ),

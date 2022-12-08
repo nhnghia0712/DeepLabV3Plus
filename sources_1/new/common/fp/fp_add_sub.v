@@ -72,9 +72,9 @@ always @(posedge clk) begin
 		valid_in_next <= 1'b0;
 	end
 	else if(valid_in)begin
-		valid_in_next <= 1'b1;
+		valid_in_next <= valid_in;
 		if (!(|in_a[30:0]) && in_a[31]) begin
-			in_a_next <= {!in_a[31],in_a[30:0]} ;
+			in_a_next <= {!in_a[31],in_a[30:0]};
 		end
 		else if ( (in_a[31] ^ in_b[31]) && (in_a[30:0] == in_b[30:0]) ) begin
 			in_a_next <= 32'd0;
@@ -82,9 +82,6 @@ always @(posedge clk) begin
 		else begin
 			in_a_next <= in_a;;
 		end
-	end
-	else begin
-		valid_in_next <= 1'b0;
 	end
 end
 
@@ -94,7 +91,7 @@ always @(posedge clk) begin
 	end
 	else if(valid_in)begin
 		if (!(|in_b[30:0]) && in_b[31]) begin
-			in_b_next <= {!in_b[31],in_b[30:0]} ;
+			in_b_next <= {!in_b[31],in_b[30:0]};
 		end
 		else if ( (in_a[31] ^ in_b[31]) && (in_a[30:0] == in_b[30:0]) ) begin
 			in_b_next <= 32'd0;
@@ -112,17 +109,14 @@ reg valid_in_tmp;
 
 always @(posedge clk) begin
 	if(reset) begin
-		in_a_tmp      <= 32'd0;
-		in_b_tmp      <= 32'd0;
+		in_a_tmp     <= 32'd0;
+		in_b_tmp     <= 32'd0;
 		valid_in_tmp <= 1'b0;
 	end
 	else if(valid_in_next)begin
-		in_a_tmp      <= in_a_next;
-		in_b_tmp      <= in_b_next;
-		valid_in_tmp <= 1'b1;
-	end
-	else begin
-		valid_in_tmp <= 1'b0;
+		in_a_tmp     <= in_a_next;
+		in_b_tmp     <= in_b_next;
+		valid_in_tmp <= valid_in_next;
 	end
 end
 
@@ -140,10 +134,7 @@ always @(posedge clk) begin
 	else if(valid_in_tmp)begin
 		in_a_next_tmp     <= in_a_tmp;
 		in_b_next_tmp     <= in_b_tmp;
-		valid_in_next_tmp <= 1'b1;
-	end
-	else begin
-		valid_in_next_tmp <= 1'b0;
+		valid_in_next_tmp <= valid_in_tmp;
 	end
 end
 
@@ -161,10 +152,7 @@ always @(posedge clk) begin
 	else if(valid_in_next_tmp)begin
 		in_a_tmp_next     <= in_a_next_tmp;
 		in_b_tmp_next     <= in_b_next_tmp;
-		valid_in_tmp_next <= 1'b1;
-	end
-	else begin
-		valid_in_tmp_next <= 1'b0;
+		valid_in_tmp_next <= valid_in_next_tmp;
 	end
 end
 
@@ -197,22 +185,15 @@ fp_exponent_add_sub #(.EXP_WIDTH(EXP_WIDTH)) inst1 (
 reg [EXP_WIDTH-1:0] in_exp_a_next;
 reg [EXP_WIDTH-1:0] in_exp_b_next;
 
-// reg valid_exp_in_next;
-
 always @(posedge clk) begin
 	if(reset) begin
-		in_exp_a_next     <= 8'd0;
-		in_exp_b_next     <= 8'd0;
-		// valid_exp_in_next <= 1'b0;
+		in_exp_a_next <= 8'd0;
+		in_exp_b_next <= 8'd0;
 	end
 	else if(valid_in_next)begin
-		in_exp_a_next     <= in_exp_a;
-		in_exp_b_next     <= in_exp_b;
-		// valid_exp_in_next <= 1'b1;
+		in_exp_a_next <= in_exp_a;
+		in_exp_b_next <= in_exp_b;
 	end
-	// else begin
-	// 	valid_exp_in_next <= 1'b0;
-	// end
 end
 
 
@@ -256,15 +237,11 @@ d_flip_flop #(.DATA_WIDTH(EXP_WIDTH)) dff02 (
 reg [MAN_WIDTH+4:0] in_man_a;
 reg [MAN_WIDTH+4:0] in_man_b;
 
-// reg valid_man_in_next;
-
 always @(posedge clk) begin
 	if(reset) begin
-		in_man_a          <= {MAN_WIDTH+5{1'b0}};
-		// valid_man_in_next <= 1'b0;
+		in_man_a <= {MAN_WIDTH+5{1'b0}};
 	end
 	else if(valid_in_next)begin
-		// valid_man_in_next <= 1'b1;
 		if(!(|in_a_next))begin
 			in_man_a <= {MAN_WIDTH+5{1'b0}};
 		end
@@ -272,18 +249,13 @@ always @(posedge clk) begin
 			in_man_a <= {2'b01, in_a_next[DATA_WIDTH-10:0], 3'b000};
 		end
 	end
-	// else begin
-	// 	valid_man_in_next <= 1'b0;
-	// end
 end
 
 always @(posedge clk) begin
 	if(reset) begin
-		in_man_b          <= {MAN_WIDTH+5{1'b0}};
-		// valid_man_in_next <= 1'b0;
+		in_man_b <= {MAN_WIDTH+5{1'b0}};
 	end
 	else if(valid_in_next)begin
-		// valid_man_in_next <= 1'b1;
 		if(!(|in_b_next))begin
 			in_man_b <= {MAN_WIDTH+5{1'b0}};
 		end
@@ -291,9 +263,6 @@ always @(posedge clk) begin
 			in_man_b <= {2'b01, in_b_next[DATA_WIDTH-10:0], 3'b000};
 		end
 	end
-	// else begin
-	// 	valid_man_in_next <= 1'b0;
-	// end
 end
 wire [MAN_WIDTH+4:0] out_man_a;
 wire [MAN_WIDTH+4:0] out_man_b;
@@ -304,18 +273,18 @@ fp_mantissa_add_sub #(
 	.EXP_WIDTH(EXP_WIDTH),
 	.MAN_WIDTH(MAN_WIDTH)
 ) inst2 (
-	.clk        (clk                                                      ),
-	.reset      (reset                                                    ),
-	.valid_in   (valid_out_exp /*& valid_exp_in_next & valid_man_in_next*/),
-	.in_exp_a   (in_exp_a_next                                            ),
-	.in_exp_b   (in_exp_b_next                                            ),
-	.in_exp_diff(out_exp_diff                                             ),
-	.in_man_a   (in_man_a                                                 ),
-	.in_man_b   (in_man_b                                                 ),
+	.clk        (clk          ),
+	.reset      (reset        ),
+	.valid_in   (valid_out_exp),
+	.in_exp_a   (in_exp_a_next),
+	.in_exp_b   (in_exp_b_next),
+	.in_exp_diff(out_exp_diff ),
+	.in_man_a   (in_man_a     ),
+	.in_man_b   (in_man_b     ),
 	
-	.out_man_a  (out_man_a                                                ),
-	.out_man_b  (out_man_b                                                ),
-	.valid_out  (valid_out_man                                            )
+	.out_man_a  (out_man_a    ),
+	.out_man_b  (out_man_b    ),
+	.valid_out  (valid_out_man)
 );
 
 /////////////////////////////////////////////////////////////////////////
@@ -394,7 +363,7 @@ always @(posedge clk)begin
 		valid_out_sub    <= 1'b0;
 	end
 	else if(valid_out_sel_sub)begin
-		valid_out_sub <= 1'b1;
+		valid_out_sub <= valid_out_sel_sub;
 		if(out_man[MAN_WIDTH+4])begin
 			out_sign_bit_sub <= 1'b0;
 			out_man_sub      <= {((out_man[26:3]) + 1'b1), out_man[2:0]};
@@ -407,9 +376,6 @@ always @(posedge clk)begin
 			out_man_sub      <= (~out_man[26:0]) + 1'b1;
 			out_sign_bit_sub <= 1'b1;
 		end
-	end
-	else begin
-		valid_out_sub <= 1'b0;
 	end
 end
 
@@ -451,13 +417,12 @@ always @(posedge clk)begin
 		valid_out_add    <= 1'b0;
 	end
 	else if(valid_out_sel_add && valid_in_tmp_next)begin
+		valid_out_add <= 1'b1;
 		if(!in_a_tmp_next[31] && !in_b_tmp_next[31]) begin
-			valid_out_add    <= 1'b1;
 			out_man_add      <= out_man;
 			out_sign_bit_add <= 1'b0;
 		end
 		else if(in_a_tmp_next[31] && in_b_tmp_next[31]) begin
-			valid_out_add    <= 1'b1;
 			out_man_add      <= out_man;
 			out_sign_bit_add <= 1'b1;
 		end
@@ -510,19 +475,16 @@ always @(posedge clk)begin
 		valid_out_nor     <= 1'b0;
 	end
 	else if(valid_out_sub_nor)begin
-		valid_out_nor     <= 1'b1;
+		valid_out_nor     <= valid_out_sub_nor;
 		out_man_normalize <= out_man_sub_normalize;
 		out_exponent_next <= out_sub_exponent;
 		out_sign_next     <= out_sign_sub;
 	end
 	else if(valid_out_add_nor)begin
-		valid_out_nor     <= 1'b1;
+		valid_out_nor     <= valid_out_add_nor;
 		out_man_normalize <= out_man_add_normalize;
 		out_exponent_next <= out_add_exponent;
 		out_sign_next     <= out_sign_add;
-	end
-	else begin
-		valid_out_nor <= 1'b0;
 	end
 end
 
@@ -575,12 +537,6 @@ wire [MAN_WIDTH-1:0] out_mantissa;
 assign out_mantissa = out_man_rounding[25:3];		
 
 /////////////////////////////////////////////////////////////////////////
-// Sign bit
-// wire out_sign_bit;
-
-// assign out_sign_bit = (valid_out_nor && (in_a_next[DATA_WIDTH-1] == in_b_next[DATA_WIDTH-1])) ? out_sign_bit_add:out_sign_bit_sub;
-
-/////////////////////////////////////////////////////////////////////////
 // Output logic
 always @(posedge clk)begin
 	if(reset) begin
@@ -589,10 +545,7 @@ always @(posedge clk)begin
 	end
 	else if(valid_out_round)begin
 		out       <= {out_sign,out_exponent,out_mantissa};
-		valid_out <= 1'b1;
-	end
-	else begin
-		valid_out <= 1'b0;
+		valid_out <= valid_out_round;
 	end
 end
 

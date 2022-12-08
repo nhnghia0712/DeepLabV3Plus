@@ -1398,102 +1398,60 @@ always @(posedge clk) begin
 	end
 end
 
-assign pxl_out_48 = (!(|cnt_pad[CNT_WIDTH_BUFFER-1:1]) && cnt_pad[0] || !valid_pxl_out_dff_48) 	? {DATA_WIDTH{1'b0}} : pxl_out_dff_48;
-
-assign pxl_out_47 = ((cnt_pad == IMAGE_WIDTH) || !valid_pxl_out_dff_47) 						? {DATA_WIDTH{1'b0}} : pxl_out_dff_47;
-
+assign pxl_out_48 = ((cnt_pad == IMAGE_WIDTH - 1) || !valid_pxl_out_dff_48) 					? {DATA_WIDTH{1'b0}} : pxl_out_dff_48;
+assign pxl_out_47 = ((cnt_pad == IMAGE_WIDTH - 1) || !valid_pxl_out_dff_47) 					? {DATA_WIDTH{1'b0}} : pxl_out_dff_47;
 assign pxl_out_46 = (!valid_pxl_out_dff_46) 													? {DATA_WIDTH{1'b0}} : pxl_out_dff_46;
+assign pxl_out_45 = (!valid_pxl_out_dff_45) 													? {DATA_WIDTH{1'b0}} : pxl_out_dff_45;
+assign pxl_out_44 = (!(|cnt_pad[CNT_WIDTH_BUFFER-1:1]) && cnt_pad[0] || !valid_pxl_out_dff_44) 	? {DATA_WIDTH{1'b0}} : pxl_out_dff_44;
+assign pxl_out_43 = (!(|cnt_pad[CNT_WIDTH_BUFFER-1:1]) && cnt_pad[0] || !valid_pxl_out_dff_43) 	? {DATA_WIDTH{1'b0}} : pxl_out_dff_43;
+assign pxl_out_42 = (!(|cnt_pad[CNT_WIDTH_BUFFER-1:2]) && cnt_pad[0] || !valid_pxl_out_dff_42) 	? {DATA_WIDTH{1'b0}} : pxl_out_dff_42;
 
-assign pxl_out_45 = (!(|cnt_pad[CNT_WIDTH_BUFFER-1:1]) && cnt_pad[0] || !valid_pxl_out_dff_45) 	? {DATA_WIDTH{1'b0}} : pxl_out_dff_45;
-
-assign pxl_out_44 = ((cnt_pad == IMAGE_WIDTH) || !valid_pxl_out_dff_44) 						? {DATA_WIDTH{1'b0}} : pxl_out_dff_44;
-
-assign pxl_out_43 = (!valid_pxl_out_dff_43) 													? {DATA_WIDTH{1'b0}} : pxl_out_dff_43;
-
-assign pxl_out_42 = (!(|cnt_pad[CNT_WIDTH_BUFFER-1:1]) && cnt_pad[0] || !valid_pxl_out_dff_42) 	? {DATA_WIDTH{1'b0}} : pxl_out_dff_42;
-
-assign pxl_out_41 = ((cnt_pad == IMAGE_WIDTH) || !valid_pxl_out_dff_41) 						? {DATA_WIDTH{1'b0}} : pxl_out_dff_41;
-
-assign pxl_out_40 = (!valid_pxl_out_dff_40) 													? {DATA_WIDTH{1'b0}} : pxl_out_dff_40;
-
-assign pxl_out_39 = (!(|cnt_pad[CNT_WIDTH_BUFFER-1:1]) && cnt_pad[0] || !valid_pxl_out_dff_39) 	? {DATA_WIDTH{1'b0}} : pxl_out_dff_39;
-
-assign pxl_out_38 = ((cnt_pad == IMAGE_WIDTH) || !valid_pxl_out_dff_38) 						? {DATA_WIDTH{1'b0}} : pxl_out_dff_38;
-
-assign pxl_out_37 = (!valid_pxl_out_dff_37) 													? {DATA_WIDTH{1'b0}} : pxl_out_dff_37;
-
+assign pxl_out_41 = ((cnt_pad == IMAGE_WIDTH - 1) || !valid_pxl_out_dff_41) 					? {DATA_WIDTH{1'b0}} : pxl_out_dff_41;
+assign pxl_out_40 = ((cnt_pad == IMAGE_WIDTH - 1) || !valid_pxl_out_dff_40) 					? {DATA_WIDTH{1'b0}} : pxl_out_dff_40;
+assign pxl_out_39 = (!valid_pxl_out_dff_39) 													? {DATA_WIDTH{1'b0}} : pxl_out_dff_39;
+assign pxl_out_38 = (!valid_pxl_out_dff_38) 													? {DATA_WIDTH{1'b0}} : pxl_out_dff_38;
+assign pxl_out_37 = (!(|cnt_pad[CNT_WIDTH_BUFFER-1:1]) && cnt_pad[0] || !valid_pxl_out_dff_37) 	? {DATA_WIDTH{1'b0}} : pxl_out_dff_37;
 assign pxl_out_36 = (!(|cnt_pad[CNT_WIDTH_BUFFER-1:1]) && cnt_pad[0] || !valid_pxl_out_dff_36) 	? {DATA_WIDTH{1'b0}} : pxl_out_dff_36;
+assign pxl_out_35 = (!(|cnt_pad[CNT_WIDTH_BUFFER-1:2]) && cnt_pad[0] || !valid_pxl_out_dff_35) 	? {DATA_WIDTH{1'b0}} : pxl_out_dff_35;
 
-assign pxl_out_35 = ((cnt_pad == IMAGE_WIDTH) || !valid_pxl_out_dff_35) 						? {DATA_WIDTH{1'b0}} : pxl_out_dff_35;
-
-assign pxl_out_34 = (!valid_pxl_out_dff_34) 													? {DATA_WIDTH{1'b0}} : pxl_out_dff_34;
-
-assign pxl_out_33 = (!(|cnt_pad[CNT_WIDTH_BUFFER-1:1]) && cnt_pad[0] || !valid_pxl_out_dff_33) 	? {DATA_WIDTH{1'b0}} : pxl_out_dff_33;
-
-assign pxl_out_32 = ((cnt_pad == IMAGE_WIDTH) || !valid_pxl_out_dff_32) 						? {DATA_WIDTH{1'b0}} : pxl_out_dff_32;
-
+assign pxl_out_34 = ((cnt_pad == IMAGE_WIDTH - 1) || !valid_pxl_out_dff_34) 					? {DATA_WIDTH{1'b0}} : pxl_out_dff_34;
+assign pxl_out_33 = ((cnt_pad == IMAGE_WIDTH - 1) || !valid_pxl_out_dff_33) 					? {DATA_WIDTH{1'b0}} : pxl_out_dff_33;
+assign pxl_out_32 = (!valid_pxl_out_dff_32) 													? {DATA_WIDTH{1'b0}} : pxl_out_dff_32;
 assign pxl_out_31 = (!valid_pxl_out_dff_31) 													? {DATA_WIDTH{1'b0}} : pxl_out_dff_31;
-
 assign pxl_out_30 = (!(|cnt_pad[CNT_WIDTH_BUFFER-1:1]) && cnt_pad[0] || !valid_pxl_out_dff_30) 	? {DATA_WIDTH{1'b0}} : pxl_out_dff_30;
+assign pxl_out_29 = (!(|cnt_pad[CNT_WIDTH_BUFFER-1:1]) && cnt_pad[0] || !valid_pxl_out_dff_29) 	? {DATA_WIDTH{1'b0}} : pxl_out_dff_29;
+assign pxl_out_28 = (!(|cnt_pad[CNT_WIDTH_BUFFER-1:2]) && cnt_pad[0] || !valid_pxl_out_dff_28) 	? {DATA_WIDTH{1'b0}} : pxl_out_dff_28;
 
-assign pxl_out_29 = ((cnt_pad == IMAGE_WIDTH) || !valid_pxl_out_dff_29) 						? {DATA_WIDTH{1'b0}} : pxl_out_dff_29;
-
-assign pxl_out_28 = (!valid_pxl_out_dff_28) 													? {DATA_WIDTH{1'b0}} : pxl_out_dff_28;
-
-assign pxl_out_27 = (!(|cnt_pad[CNT_WIDTH_BUFFER-1:1]) && cnt_pad[0] || !valid_pxl_out_dff_27) 	? {DATA_WIDTH{1'b0}} : pxl_out_dff_27;
-
-assign pxl_out_26 = ((cnt_pad == IMAGE_WIDTH) || !valid_pxl_out_dff_26) 						? {DATA_WIDTH{1'b0}} : pxl_out_dff_26;
-
+assign pxl_out_27 = ((cnt_pad == IMAGE_WIDTH - 1) || !valid_pxl_out_dff_27) 					? {DATA_WIDTH{1'b0}} : pxl_out_dff_27;
+assign pxl_out_26 = ((cnt_pad == IMAGE_WIDTH - 1) || !valid_pxl_out_dff_26) 					? {DATA_WIDTH{1'b0}} : pxl_out_dff_26;
 assign pxl_out_25 = (!valid_pxl_out_dff_25) 													? {DATA_WIDTH{1'b0}} : pxl_out_dff_25;
+assign pxl_out_24 = (!valid_pxl_out_dff_24) 													? {DATA_WIDTH{1'b0}} : pxl_out_dff_24;
+assign pxl_out_23 = (!(|cnt_pad[CNT_WIDTH_BUFFER-1:1]) && cnt_pad[0] || !valid_pxl_out_dff_23) 	? {DATA_WIDTH{1'b0}} : pxl_out_dff_23;
+assign pxl_out_22 = (!(|cnt_pad[CNT_WIDTH_BUFFER-1:1]) && cnt_pad[0] || !valid_pxl_out_dff_22) 	? {DATA_WIDTH{1'b0}} : pxl_out_dff_22;
+assign pxl_out_21 = (!(|cnt_pad[CNT_WIDTH_BUFFER-1:2]) && cnt_pad[0] || !valid_pxl_out_dff_21) 	? {DATA_WIDTH{1'b0}} : pxl_out_dff_21;
 
-assign pxl_out_24 = (!(|cnt_pad[CNT_WIDTH_BUFFER-1:1]) && cnt_pad[0] || !valid_pxl_out_dff_24) 	? {DATA_WIDTH{1'b0}} : pxl_out_dff_24;
-
-assign pxl_out_23 = ((cnt_pad == IMAGE_WIDTH) || !valid_pxl_out_dff_23) 						? {DATA_WIDTH{1'b0}} : pxl_out_dff_23;
-
-assign pxl_out_22 = (!valid_pxl_out_dff_22) 													? {DATA_WIDTH{1'b0}} : pxl_out_dff_22;
-
-assign pxl_out_21 = (!(|cnt_pad[CNT_WIDTH_BUFFER-1:1]) && cnt_pad[0] || !valid_pxl_out_dff_21) 	? {DATA_WIDTH{1'b0}} : pxl_out_dff_21;
-
-assign pxl_out_20 = ((cnt_pad == IMAGE_WIDTH) || !valid_pxl_out_dff_20) 						? {DATA_WIDTH{1'b0}} : pxl_out_dff_20;
-
-assign pxl_out_19 = (!valid_pxl_out_dff_19) 													? {DATA_WIDTH{1'b0}} : pxl_out_dff_19;
-
-assign pxl_out_18 = (!(|cnt_pad[CNT_WIDTH_BUFFER-1:1]) && cnt_pad[0] || !valid_pxl_out_dff_18) 	? {DATA_WIDTH{1'b0}} : pxl_out_dff_18;
-
-assign pxl_out_17 = ((cnt_pad == IMAGE_WIDTH) || !valid_pxl_out_dff_17) 						? {DATA_WIDTH{1'b0}} : pxl_out_dff_17;
-
-assign pxl_out_16 = (!valid_pxl_out_dff_16) 													? {DATA_WIDTH{1'b0}} : pxl_out_dff_16;
-
+assign pxl_out_20 = ((cnt_pad == IMAGE_WIDTH - 1) || !valid_pxl_out_dff_20) 					? {DATA_WIDTH{1'b0}} : pxl_out_dff_20;
+assign pxl_out_19 = ((cnt_pad == IMAGE_WIDTH - 1) || !valid_pxl_out_dff_19) 					? {DATA_WIDTH{1'b0}} : pxl_out_dff_19;
+assign pxl_out_18 = (!valid_pxl_out_dff_18) 													? {DATA_WIDTH{1'b0}} : pxl_out_dff_18;
+assign pxl_out_17 = (!valid_pxl_out_dff_17) 													? {DATA_WIDTH{1'b0}} : pxl_out_dff_17;
+assign pxl_out_16 = (!(|cnt_pad[CNT_WIDTH_BUFFER-1:1]) && cnt_pad[0] || !valid_pxl_out_dff_16) 	? {DATA_WIDTH{1'b0}} : pxl_out_dff_16;
 assign pxl_out_15 = (!(|cnt_pad[CNT_WIDTH_BUFFER-1:1]) && cnt_pad[0] || !valid_pxl_out_dff_15) 	? {DATA_WIDTH{1'b0}} : pxl_out_dff_15;
+assign pxl_out_14 = (!(|cnt_pad[CNT_WIDTH_BUFFER-1:2]) && cnt_pad[0] || !valid_pxl_out_dff_14) 	? {DATA_WIDTH{1'b0}} : pxl_out_dff_14;
 
-assign pxl_out_14 = ((cnt_pad == IMAGE_WIDTH) || !valid_pxl_out_dff_14) 						? {DATA_WIDTH{1'b0}} : pxl_out_dff_14;
-
-assign pxl_out_13 = (!valid_pxl_out_dff_13) 													? {DATA_WIDTH{1'b0}} : pxl_out_dff_13;
-
-assign pxl_out_12 = (!(|cnt_pad[CNT_WIDTH_BUFFER-1:1]) && cnt_pad[0] || !valid_pxl_out_dff_12) 	? {DATA_WIDTH{1'b0}} : pxl_out_dff_12;
-
-assign pxl_out_11 = ((cnt_pad == IMAGE_WIDTH) || !valid_pxl_out_dff_11) 						? {DATA_WIDTH{1'b0}} : pxl_out_dff_11;
-
+assign pxl_out_13 = ((cnt_pad == IMAGE_WIDTH - 1) || !valid_pxl_out_dff_13) 					? {DATA_WIDTH{1'b0}} : pxl_out_dff_13;
+assign pxl_out_12 = ((cnt_pad == IMAGE_WIDTH - 1) || !valid_pxl_out_dff_12) 					? {DATA_WIDTH{1'b0}} : pxl_out_dff_12;
+assign pxl_out_11 = (!valid_pxl_out_dff_11) 													? {DATA_WIDTH{1'b0}} : pxl_out_dff_11;
 assign pxl_out_10 = (!valid_pxl_out_dff_10) 													? {DATA_WIDTH{1'b0}} : pxl_out_dff_10;
-
 assign pxl_out_09 = (!(|cnt_pad[CNT_WIDTH_BUFFER-1:1]) && cnt_pad[0] || !valid_pxl_out_dff_09) 	? {DATA_WIDTH{1'b0}} : pxl_out_dff_09;
+assign pxl_out_08 = (!(|cnt_pad[CNT_WIDTH_BUFFER-1:1]) && cnt_pad[0] || !valid_pxl_out_dff_08) 	? {DATA_WIDTH{1'b0}} : pxl_out_dff_08;
+assign pxl_out_07 = (!(|cnt_pad[CNT_WIDTH_BUFFER-1:2]) && cnt_pad[0] || !valid_pxl_out_dff_07) 	? {DATA_WIDTH{1'b0}} : pxl_out_dff_07;
 
-assign pxl_out_08 = ((cnt_pad == IMAGE_WIDTH) || !valid_pxl_out_dff_08) 						? {DATA_WIDTH{1'b0}} : pxl_out_dff_08;
-
-assign pxl_out_07 = (!valid_pxl_out_dff_07) 													? {DATA_WIDTH{1'b0}} : pxl_out_dff_07;
-
-assign pxl_out_06 = (!(|cnt_pad[CNT_WIDTH_BUFFER-1:1]) && cnt_pad[0] || !valid_pxl_out_dff_06) 	? {DATA_WIDTH{1'b0}} : pxl_out_dff_06;
-
-assign pxl_out_05 = ((cnt_pad == IMAGE_WIDTH) || !valid_pxl_out_dff_05) 						? {DATA_WIDTH{1'b0}} : pxl_out_dff_05;
-
+assign pxl_out_06 = ((cnt_pad == IMAGE_WIDTH - 1) || !valid_pxl_out_dff_06) 					? {DATA_WIDTH{1'b0}} : pxl_out_dff_06;
+assign pxl_out_05 = ((cnt_pad == IMAGE_WIDTH - 1) || !valid_pxl_out_dff_05) 					? {DATA_WIDTH{1'b0}} : pxl_out_dff_05;
 assign pxl_out_04 = (!valid_pxl_out_dff_04) 													? {DATA_WIDTH{1'b0}} : pxl_out_dff_04;
-
-assign pxl_out_03 = (!(|cnt_pad[CNT_WIDTH_BUFFER-1:1]) && cnt_pad[0] || !valid_pxl_out_dff_03) 	? {DATA_WIDTH{1'b0}} : pxl_out_dff_03;
-
-assign pxl_out_02 = ((cnt_pad == IMAGE_WIDTH) || !valid_pxl_out_dff_02) 						? {DATA_WIDTH{1'b0}} : pxl_out_dff_02;
-
-assign pxl_out_01 = (!valid_pxl_out_dff_01) 													? {DATA_WIDTH{1'b0}} : pxl_out_dff_01;
-
-assign pxl_out_00 = (!(|cnt_pad[CNT_WIDTH_BUFFER-1:1]) && cnt_pad[0] || !valid_pxl_out_dff_00) 	? {DATA_WIDTH{1'b0}} : pxl_out_dff_00;
+assign pxl_out_03 = (!valid_pxl_out_dff_03) 													? {DATA_WIDTH{1'b0}} : pxl_out_dff_03;
+assign pxl_out_02 = (!(|cnt_pad[CNT_WIDTH_BUFFER-1:1]) && cnt_pad[0] || !valid_pxl_out_dff_02) 	? {DATA_WIDTH{1'b0}} : pxl_out_dff_02;
+assign pxl_out_01 = (!(|cnt_pad[CNT_WIDTH_BUFFER-1:1]) && cnt_pad[0] || !valid_pxl_out_dff_01) 	? {DATA_WIDTH{1'b0}} : pxl_out_dff_01;
+assign pxl_out_00 = (!(|cnt_pad[CNT_WIDTH_BUFFER-1:2]) && cnt_pad[0] || !valid_pxl_out_dff_00) 	? {DATA_WIDTH{1'b0}} : pxl_out_dff_00;
 
 endmodule

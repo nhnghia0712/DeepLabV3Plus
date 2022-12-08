@@ -34,8 +34,6 @@ module cnn_conv_3x3_dilation_multi_channel_new (
 
 /////////////////////////////////////////////////////////////////////////
 // Parameter Declarations
-parameter DATA_WIDTH  = 32;
-
 // General
 parameter IMAGE_WIDTH     = 12; //Width
 parameter IMAGE_HEIGHT    = 12; //Height

@@ -3,11 +3,11 @@
 parameter DATA_WIDTH  = 32;
 
 // General
-parameter IMAGE_WIDTH     = 12; //Width
-parameter IMAGE_HEIGHT    = 12; //Height
-parameter CHANNEL_NUM_IN  = 4 ; //The number of channel in
-parameter CHANNEL_NUM_OUT = 4 ; //The number of channel out
-parameter KERNEL          = 7 ; //Kernel width
+parameter IMAGE_WIDTH     = 1224; //Width
+parameter IMAGE_HEIGHT    = 1224; //Height
+parameter CHANNEL_NUM_IN  = 3   ; //The number of channel in
+parameter CHANNEL_NUM_OUT = 64  ; //The number of channel out
+parameter KERNEL          = 7   ; //Kernel width
 
 // Localparam general
 parameter IMAGE_SIZE = IMAGE_WIDTH * IMAGE_HEIGHT;
