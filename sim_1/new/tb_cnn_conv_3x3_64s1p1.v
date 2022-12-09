@@ -18,7 +18,6 @@ localparam IMAGE_INPUT_FILE = "D:/GitHub/CNNs/Text_file/Input/R.txt";
 localparam WEIGHTS_INPUT_FILE = "D:/GitHub/CNNs/Text_file/Input/weight_test.txt";
 localparam IMAGE_OUTPUT_FILE = "D:/GitHub/CNNs/Text_file/Output/Output_cnn_conv_3x3_64s1p1.txt";
 
-localparam ENDTIME          = (IMAGE_SIZE * CHANNEL_NUM) + IMAGE_WIDTH;
 localparam SIMULATION_CLOCK = 5                                       ;
 localparam SIMULATION_CYCLE = 10                                      ;
 
@@ -29,6 +28,7 @@ localparam IMAGE_SIZE           = IMAGE_WIDTH * IMAGE_HEIGHT      ;
 localparam CHANNEL_NUM_IN_PIXEL = CHANNEL_NUM_IN * IMAGE_SIZE     ;
 localparam WEIGHT_NUM           = CHANNEL_NUM * KERNEL_SIZE       ; // 2x2x3x3
 
+localparam ENDTIME = (IMAGE_SIZE * CHANNEL_NUM) + IMAGE_WIDTH;
 
 reg                  clk            ;
 reg                  reset          ;
