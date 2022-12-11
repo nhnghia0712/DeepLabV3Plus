@@ -7,21 +7,16 @@ module tb_cnn_conv_3x3_dilation_multi_channel ();
 parameter DATA_WIDTH  = 32;
 
 // General
-parameter IMAGE_WIDTH     = 12; //Width
-parameter IMAGE_HEIGHT    = 12; //Height
-parameter CHANNEL_NUM_IN  = 4 ; //The number of channel in
-parameter CHANNEL_NUM_OUT = 4 ; //The number of channel out
-parameter KERNEL          = 3 ; //Kernel width
-parameter RATE            = 4 ; //Rate of dialtion
+parameter IMAGE_WIDTH     = 306; //Width
+parameter IMAGE_HEIGHT    = 306; //Height
+parameter CHANNEL_NUM_IN  = 64 ; //The number of channel in
+parameter CHANNEL_NUM_OUT = 64 ; //The number of channel out
+parameter KERNEL          = 3  ; //Kernel width
+parameter RATE            = 1  ; //Rate of dialtion
 
 localparam IMAGE_INPUT_FILE = "D:/GitHub/CNNs/Text_file/Input/R.txt";
 localparam WEIGHTS_INPUT_FILE = "D:/GitHub/CNNs/Text_file/Input/weight_test.txt";
 localparam IMAGE_OUTPUT_FILE = "D:/GitHub/CNNs/Text_file/Output/Output_cnn_conv_3x3_stride1_test.txt";
-
-// localparam ENDTIME          = 383634000;
-localparam ENDTIME          = 6000;
-localparam SIMULATION_CLOCK = 5   ;
-localparam SIMULATION_CYCLE = 10  ;
 
 // Localparam general
 localparam KERNEL_SIZE          = KERNEL * KERNEL                 ;
@@ -30,6 +25,10 @@ localparam IMAGE_SIZE           = IMAGE_WIDTH * IMAGE_HEIGHT      ;
 localparam CHANNEL_NUM_IN_PIXEL = CHANNEL_NUM_IN * IMAGE_SIZE     ;
 localparam WEIGHT_NUM           = CHANNEL_NUM * KERNEL_SIZE       ; // 2x2x3x3
 
+// localparam ENDTIME          = 383634000;
+localparam ENDTIME          = CHANNEL_NUM_IN_PIXEL * IMAGE_WIDTH;
+localparam SIMULATION_CLOCK = 5                                 ;
+localparam SIMULATION_CYCLE = 10                                ;
 
 reg                  clk            ;
 reg                  reset          ;

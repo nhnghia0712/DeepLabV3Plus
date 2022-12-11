@@ -11,15 +11,15 @@ parameter IMAGE_WIDTH     = 612; //Width
 parameter IMAGE_HEIGHT    = 612; //Height
 parameter CHANNEL_NUM_IN  = 64 ; //The number of channel in
 parameter CHANNEL_NUM_OUT = 64 ; //The number of channel out
-parameter KERNEL          = 3 ; //Kernel width
-parameter RATE            = 1 ; //Rate of dialtion
+parameter KERNEL          = 3  ; //Kernel width
+parameter RATE            = 1  ; //Rate of dialtion
 
 localparam IMAGE_INPUT_FILE = "D:/GitHub/CNNs/Text_file/Input/R.txt";
 localparam WEIGHTS_INPUT_FILE = "D:/GitHub/CNNs/Text_file/Input/weight_test.txt";
 localparam IMAGE_OUTPUT_FILE = "D:/GitHub/CNNs/Text_file/Output/Output_cnn_conv_3x3_64s1p1.txt";
 
-localparam SIMULATION_CLOCK = 5                                       ;
-localparam SIMULATION_CYCLE = 10                                      ;
+localparam SIMULATION_CLOCK = 5 ;
+localparam SIMULATION_CYCLE = 10;
 
 // Localparam general
 localparam KERNEL_SIZE          = KERNEL * KERNEL                 ;
@@ -28,7 +28,7 @@ localparam IMAGE_SIZE           = IMAGE_WIDTH * IMAGE_HEIGHT      ;
 localparam CHANNEL_NUM_IN_PIXEL = CHANNEL_NUM_IN * IMAGE_SIZE     ;
 localparam WEIGHT_NUM           = CHANNEL_NUM * KERNEL_SIZE       ; // 2x2x3x3
 
-localparam ENDTIME = (IMAGE_SIZE * CHANNEL_NUM) + IMAGE_WIDTH;
+localparam ENDTIME = CHANNEL_NUM_IN_PIXEL * IMAGE_WIDTH;
 
 reg                  clk            ;
 reg                  reset          ;

@@ -126,22 +126,23 @@ conv_3x3_dilation_top_new #(
 
 // Add
 conv_64channel_adder_new #(
-  .DATA_WIDTH             (DATA_WIDTH             ),
-  .CHANNEL_NUM_IN         (CHANNEL_NUM_IN         ),
-  .IMAGE_SIZE             (IMAGE_SIZE             ),
-  .IMAGE_WIDTH            (IMAGE_WIDTH            ),
-  .CHANNEL_NUM            (CHANNEL_NUM            ),
-  .ADD_CHANNEL_IN_CNT     (ADD_CHANNEL_IN_CNT     ),
-  .ADD_TEMP_CHANNEL_IN_CNT(ADD_TEMP_CHANNEL_IN_CNT)
+	.DATA_WIDTH             (DATA_WIDTH             ),
+	.CHANNEL_NUM_IN         (CHANNEL_NUM_IN         ),
+	.IMAGE_SIZE             (IMAGE_SIZE             ),
+	.IMAGE_WIDTH            (IMAGE_WIDTH            ),
+	.CHANNEL_NUM            (CHANNEL_NUM            ),
+	.ADD_CHANNEL_IN_CNT     (ADD_CHANNEL_IN_CNT     ),
+	.ADD_TEMP_CHANNEL_IN_CNT(ADD_TEMP_CHANNEL_IN_CNT),
+	.RATE                   (RATE                   )
 ) inst_add (
-  //input
-  .clk      (clk           ),
-  .reset    (reset         ),
-  .valid_in (valid_out_conv),
-  .pxl_in   (pxl_out_conv  ),
-  //output
-  .pxl_out  (pxl_out       ),
-  .valid_out(valid_out     )
+	//input
+	.clk      (clk           ),
+	.reset    (reset         ),
+	.valid_in (valid_out_conv),
+	.pxl_in   (pxl_out_conv  ),
+	//output
+	.pxl_out  (pxl_out       ),
+	.valid_out(valid_out     )
 );
 
 endmodule

@@ -72,7 +72,7 @@ always @(posedge clk) begin
 		valid_in_next <= 1'b0;
 	end
 	else if(valid_in)begin
-		valid_in_next <= valid_in;
+		valid_in_next <= 1'b1;
 		if (!(|in_a[30:0]) && in_a[31]) begin
 			in_a_next <= {!in_a[31],in_a[30:0]};
 		end
@@ -82,6 +82,9 @@ always @(posedge clk) begin
 		else begin
 			in_a_next <= in_a;;
 		end
+	end
+	else begin
+		valid_in_next <= 1'b0;
 	end
 end
 
@@ -116,7 +119,10 @@ always @(posedge clk) begin
 	else if(valid_in_next)begin
 		in_a_tmp     <= in_a_next;
 		in_b_tmp     <= in_b_next;
-		valid_in_tmp <= valid_in_next;
+		valid_in_tmp <= 1'b1;
+	end
+	else begin
+		valid_in_tmp <= 1'b0;
 	end
 end
 
@@ -136,6 +142,9 @@ always @(posedge clk) begin
 		in_b_next_tmp     <= in_b_tmp;
 		valid_in_next_tmp <= valid_in_tmp;
 	end
+	else begin
+		valid_in_next_tmp <= 1'b0;
+	end
 end
 
 reg [DATA_WIDTH-1:0] in_a_tmp_next;
@@ -153,6 +162,9 @@ always @(posedge clk) begin
 		in_a_tmp_next     <= in_a_next_tmp;
 		in_b_tmp_next     <= in_b_next_tmp;
 		valid_in_tmp_next <= valid_in_next_tmp;
+	end
+	else begin
+		valid_in_tmp_next <= 1'b0;
 	end
 end
 
@@ -363,7 +375,7 @@ always @(posedge clk)begin
 		valid_out_sub    <= 1'b0;
 	end
 	else if(valid_out_sel_sub)begin
-		valid_out_sub <= valid_out_sel_sub;
+		valid_out_sub <= 1'b1;
 		if(out_man[MAN_WIDTH+4])begin
 			out_sign_bit_sub <= 1'b0;
 			out_man_sub      <= {((out_man[26:3]) + 1'b1), out_man[2:0]};
@@ -376,6 +388,9 @@ always @(posedge clk)begin
 			out_man_sub      <= (~out_man[26:0]) + 1'b1;
 			out_sign_bit_sub <= 1'b1;
 		end
+	end
+	else begin
+		valid_out_sub <= 1'b0;
 	end
 end
 
@@ -486,6 +501,9 @@ always @(posedge clk)begin
 		out_exponent_next <= out_add_exponent;
 		out_sign_next     <= out_sign_add;
 	end
+	else begin
+		valid_out_nor <= 1'b0;
+	end
 end
 
 wire [EXP_WIDTH-1:0] out_exponent;
@@ -545,7 +563,10 @@ always @(posedge clk)begin
 	end
 	else if(valid_out_round)begin
 		out       <= {out_sign,out_exponent,out_mantissa};
-		valid_out <= valid_out_round;
+		valid_out <= 1'b1;
+	end
+	else begin
+		valid_out <= 1'b0;
 	end
 end
 

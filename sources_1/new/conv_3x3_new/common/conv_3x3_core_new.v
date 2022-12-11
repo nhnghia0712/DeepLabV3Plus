@@ -180,7 +180,7 @@ wire                  valid_out_line_buffer_08;
 // end
 
 line_buffer #(
-  .IMAGE_WIDTH(28        ),
+  .IMAGE_WIDTH(27        ),
   .KERNEL     (1         ),
   .DIN_WIDTH  (DATA_WIDTH)
 ) line_buffer7 (
