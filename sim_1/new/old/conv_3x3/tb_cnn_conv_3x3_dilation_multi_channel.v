@@ -7,10 +7,10 @@ module tb_cnn_conv_3x3_dilation_multi_channel ();
 parameter DATA_WIDTH  = 32;
 
 // General
-parameter IMAGE_WIDTH     = 306; //Width
-parameter IMAGE_HEIGHT    = 306; //Height
+parameter IMAGE_WIDTH     = 153; //Width
+parameter IMAGE_HEIGHT    = 153; //Height
 parameter CHANNEL_NUM_IN  = 64 ; //The number of channel in
-parameter CHANNEL_NUM_OUT = 64 ; //The number of channel out
+parameter CHANNEL_NUM_OUT = 4  ; //The number of channel out
 parameter KERNEL          = 3  ; //Kernel width
 parameter RATE            = 1  ; //Rate of dialtion
 
@@ -26,9 +26,9 @@ localparam CHANNEL_NUM_IN_PIXEL = CHANNEL_NUM_IN * IMAGE_SIZE     ;
 localparam WEIGHT_NUM           = CHANNEL_NUM * KERNEL_SIZE       ; // 2x2x3x3
 
 // localparam ENDTIME          = 383634000;
-localparam ENDTIME          = CHANNEL_NUM_IN_PIXEL * IMAGE_WIDTH;
-localparam SIMULATION_CLOCK = 5                                 ;
-localparam SIMULATION_CYCLE = 10                                ;
+localparam ENDTIME          = CHANNEL_NUM_IN_PIXEL * 2 * CHANNEL_NUM_OUT;
+localparam SIMULATION_CLOCK = 5                                         ;
+localparam SIMULATION_CYCLE = 10                                        ;
 
 reg                  clk            ;
 reg                  reset          ;

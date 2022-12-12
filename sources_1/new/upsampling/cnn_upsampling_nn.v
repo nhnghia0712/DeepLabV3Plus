@@ -31,14 +31,14 @@ module cnn_upsampling_nn (
 
 /////////////////////////////////////////////////////////////////////////
 // Parameter Declarations
-`include "D:/GitHub/CNNs/projectCNNs/projectCNNs.srcs/sources_1/new/param/param_def_upsampling_nn.v"
+`include "D:/GitHub/CNNs/CNN_DeepLabV3Plus/CNN_DeepLabV3Plus.srcs/sources_1/new/param/param_def_upsampling_nn_new.v"
 
 /////////////////////////////////////////////////////////////////////////
 // Port Declarations
-input                  clk            ;
-input                  reset          ;
-input                  valid_in       ;
-input [DATA_WIDTH-1:0] pxl_in         ;
+input                  clk     ;
+input                  reset   ;
+input                  valid_in;
+input [DATA_WIDTH-1:0] pxl_in  ;
 
 /////////////////////////////////////////////////////////////////////////
 // Output Declarations
@@ -47,10 +47,10 @@ output                  valid_out;
 
 /////////////////////////////////////////////////////////////////////////
 // Local Logic and Instantiation
-wire                  clk            ;
-wire                  reset          ;
-wire                  valid_in       ;
-wire [DATA_WIDTH-1:0] pxl_in         ;
+wire                  clk     ;
+wire                  reset   ;
+wire                  valid_in;
+wire [DATA_WIDTH-1:0] pxl_in  ;
 
 reg [DATA_WIDTH-1:0] pxl_out  ;
 reg                  valid_out;

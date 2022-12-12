@@ -27,7 +27,7 @@ module cnn_sigmoid (
 	,in 
 	,out
 	,valid_out
-	
+	,done
 );
 /////////////////////////////////////////////////////////////////////////
 // Parameter Declarations
@@ -44,6 +44,7 @@ input [DATA_WIDTH-1:0] in      ;
 // Output Declarations
 output [DATA_WIDTH-1:0] out      ;
 output                  valid_out;
+output                  done     ;
 
 /////////////////////////////////////////////////////////////////////////
 // Local Logic and Instantiation
@@ -54,6 +55,7 @@ wire [DATA_WIDTH-1:0] in      ;
 
 wire [DATA_WIDTH-1:0] out      ;
 reg                   valid_out;
+reg                   done     ;
 
 /////////////////////////////////////////////////////////////////////////
 wire [DATA_WIDTH-1:0] neg_x;
@@ -131,5 +133,17 @@ always @ (posedge clk or posedge reset)begin
 end
 
 assign out = `r2f(percent);
+
+always @(posedge clk) begin
+	if(reset) begin
+		done <= 1'b0;
+	end
+	else if (valid_out && !state3)begin
+		done <= 1'b1;
+	end
+	else begin
+		done <= 1'b0;
+	end
+end
 
 endmodule

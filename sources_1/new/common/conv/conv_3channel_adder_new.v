@@ -36,6 +36,7 @@ parameter CHANNEL_NUM_IN          = 3                  ;
 parameter IMAGE_SIZE              = 612                ;
 parameter IMAGE_WIDTH             = 12                 ;
 parameter CHANNEL_NUM             = 12                 ;
+parameter RATE                    = 1                  ;
 parameter ADD_CHANNEL_IN_CNT      = $clog2(CHANNEL_NUM);
 parameter ADD_TEMP_CHANNEL_IN_CNT = $clog2(IMAGE_SIZE) ;
 
@@ -73,9 +74,9 @@ genvar i;
 generate
   for (i = 0; i < CHANNEL_NUM_IN - 1; i=i+1) begin
     line_buffer #(
-      .IMAGE_WIDTH(IMAGE_SIZE + (IMAGE_WIDTH * 3) + 3),
-      .KERNEL     (1                                 ),
-      .DIN_WIDTH  (DATA_WIDTH                        )
+      .IMAGE_WIDTH(IMAGE_SIZE + (IMAGE_WIDTH * RATE) + RATE),
+      .KERNEL     (1                                       ),
+      .DIN_WIDTH  (DATA_WIDTH                              )
     ) line_buffer (
       .clk      (clk           ),
       .reset    (reset         ),

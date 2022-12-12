@@ -4,9 +4,8 @@ module tb_cnn_concat_2in ();
 
 /////////////////////////////////////////////////////////////////////////
 // Parameter Declarations
-parameter DATA_WIDTH        = 32                       ;
-parameter POINTER_WIDTH     = $clog2(CHANNEL_NUM_PIXEL); // $clog2(WEIGHT_NUM)
-parameter CHANNEL_NUM_PIXEL = 612*612                  ;
+parameter DATA_WIDTH        = 32     ;
+parameter CHANNEL_NUM_PIXEL = 612*612;
 
 parameter T = 100000000;
 parameter C = 5        ;
@@ -68,10 +67,9 @@ always @(posedge clk) begin
 	end
 end
 
-	cnn_concat_2in #(
+	cnn_concat_2in_new #(
 		.DATA_WIDTH       (DATA_WIDTH       ),
-		.CHANNEL_NUM_PIXEL(CHANNEL_NUM_PIXEL),
-		.POINTER_WIDTH    (POINTER_WIDTH    )
+		.CHANNEL_NUM_PIXEL(CHANNEL_NUM_PIXEL)
 	) DUT (
 		.clk         (clk         ),
 		.reset       (reset       ),

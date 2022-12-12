@@ -4,8 +4,8 @@ module tb_cnn_sigmoid ();
 
 /////////////////////////////////////////////////////////////////////////
 // Parameter Declarations
-parameter DATA_WIDTH        = 32;
-parameter CHANNEL_NUM_PIXEL = 2448*2448 ;
+parameter DATA_WIDTH        = 32       ;
+parameter CHANNEL_NUM_PIXEL = 2448*2448;
 
 localparam IMAGE_INPUT_FILE = "D:/GitHub/CNNs/Text_file/Input/outputR_h.txt";
 localparam IMAGE_OUTPUT_FILE = "D:/GitHub/CNNs/Text_file/Output/Output_cnn_sigmoid.txt";
@@ -23,7 +23,7 @@ reg [DATA_WIDTH-1:0] in      ;
 
 wire [DATA_WIDTH-1:0] out      ;
 wire                  valid_out;
-
+wire                  done     ;
 
 integer i;
 
@@ -52,11 +52,11 @@ always @(posedge clk) begin
 		valid_in <= 1'b0;
 	end
 	#(SIMULATION_CYCLE) i <= i + 1'b1;
-	if(valid_out == 1'b1)begin
+	if(valid_out)begin
 		$fdisplay(image_output,"%h",out);
 	end
-	if(i == ENDTIME) begin
-		$finish;
+	if(done) begin
+		#(SIMULATION_CYCLE) $finish;
 	end
 end
 
@@ -67,7 +67,8 @@ end
 		.in       (in       ),
 		//output
 		.out      (out      ),
-		.valid_out(valid_out)
+		.valid_out(valid_out),
+		.done     (done     )
 	);
 endmodule
 

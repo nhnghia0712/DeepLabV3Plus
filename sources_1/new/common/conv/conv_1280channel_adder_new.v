@@ -19,7 +19,7 @@
 
 ///////////////////////////////////////////////////////////////////////
 
-module conv_2048channel_adder_new (
+module conv_1280channel_adder_new (
   clk, 
   reset,
   valid_in,
@@ -133,7 +133,7 @@ wire [        DATA_WIDTH-1:0] out_add1      [(CHANNEL_NUM_IN/2)-1:0];
 wire [(CHANNEL_NUM_IN/2)-1:0] valid_out_add1                        ;
 
 generate
-  for (i = 0; i < (CHANNEL_NUM_IN/2); i = i + 1) begin
+  for (i = 0; i < (CHANNEL_NUM_IN/2); i = i + 1) begin //640
     fp_add_sub inst_add1 (
       .reset    (reset                                                                    ),
       .clk      (clk                                                                      ),
@@ -150,7 +150,7 @@ wire [        DATA_WIDTH-1:0] out_add2      [(CHANNEL_NUM_IN/4)-1:0];
 wire [(CHANNEL_NUM_IN/4)-1:0] valid_out_add2                        ;
 
 generate
-  for (i = 0; i < (CHANNEL_NUM_IN/4); i = i + 1) begin
+  for (i = 0; i < (CHANNEL_NUM_IN/4); i = i + 1) begin //320
     fp_add_sub inst_add1 (
       .reset    (reset                                                     ),
       .clk      (clk                                                       ),
@@ -167,7 +167,7 @@ wire [        DATA_WIDTH-1:0] out_add3      [(CHANNEL_NUM_IN/8)-1:0];
 wire [(CHANNEL_NUM_IN/8)-1:0] valid_out_add3                        ;
 
 generate
-  for (i = 0; i < (CHANNEL_NUM_IN/8); i = i + 1) begin
+  for (i = 0; i < (CHANNEL_NUM_IN/8); i = i + 1) begin //160
     fp_add_sub inst_add1 (
       .reset    (reset                                                     ),
       .clk      (clk                                                       ),
@@ -184,7 +184,7 @@ wire [         DATA_WIDTH-1:0] out_add4      [(CHANNEL_NUM_IN/16)-1:0];
 wire [(CHANNEL_NUM_IN/16)-1:0] valid_out_add4                         ;
 
 generate
-  for (i = 0; i < (CHANNEL_NUM_IN/16); i = i + 1) begin
+  for (i = 0; i < (CHANNEL_NUM_IN/16); i = i + 1) begin //80
     fp_add_sub inst_add1 (
       .reset    (reset                                                      ),
       .clk      (clk                                                        ),
@@ -201,7 +201,7 @@ wire [         DATA_WIDTH-1:0] out_add5      [(CHANNEL_NUM_IN/32)-1:0];
 wire [(CHANNEL_NUM_IN/32)-1:0] valid_out_add5                         ;
 
 generate
-  for (i = 0; i < (CHANNEL_NUM_IN/32); i = i + 1) begin
+  for (i = 0; i < (CHANNEL_NUM_IN/32); i = i + 1) begin //40
     fp_add_sub inst_add1 (
       .reset    (reset                                                      ),
       .clk      (clk                                                        ),
@@ -218,7 +218,7 @@ wire [         DATA_WIDTH-1:0] out_add6      [(CHANNEL_NUM_IN/64)-1:0];
 wire [(CHANNEL_NUM_IN/64)-1:0] valid_out_add6                         ;
 
 generate
-  for (i = 0; i < (CHANNEL_NUM_IN/64); i = i + 1) begin
+  for (i = 0; i < (CHANNEL_NUM_IN/64); i = i + 1) begin //20
     fp_add_sub inst_add1 (
       .reset    (reset                                                      ),
       .clk      (clk                                                        ),
@@ -235,7 +235,7 @@ wire [          DATA_WIDTH-1:0] out_add7      [(CHANNEL_NUM_IN/128)-1:0];
 wire [(CHANNEL_NUM_IN/128)-1:0] valid_out_add7                          ;
 
 generate
-  for (i = 0; i < (CHANNEL_NUM_IN/128); i = i + 1) begin
+  for (i = 0; i < (CHANNEL_NUM_IN/128); i = i + 1) begin //10
     fp_add_sub inst_add1 (
       .reset    (reset                                                       ),
       .clk      (clk                                                         ),
@@ -252,7 +252,7 @@ wire [          DATA_WIDTH-1:0] out_add8      [(CHANNEL_NUM_IN/256)-1:0];
 wire [(CHANNEL_NUM_IN/256)-1:0] valid_out_add8                          ;
 
 generate
-  for (i = 0; i < (CHANNEL_NUM_IN/256); i = i + 1) begin
+  for (i = 0; i < (CHANNEL_NUM_IN/256); i = i + 1) begin //5
     fp_add_sub inst_add1 (
       .reset    (reset                                                       ),
       .clk      (clk                                                         ),
@@ -265,48 +265,60 @@ generate
   end
 endgenerate
 
-wire [          DATA_WIDTH-1:0] out_add9      [(CHANNEL_NUM_IN/512)-1:0];
-wire [(CHANNEL_NUM_IN/512)-1:0] valid_out_add9                          ;
+wire [DATA_WIDTH-1:0] out_line_buffer1      ;
+wire                  valid_out_line_buffer1;
+
+line_buffer #(
+  .IMAGE_WIDTH(18        ),
+  .KERNEL     (1         ),
+  .DIN_WIDTH  (DATA_WIDTH)
+) line_buffer1 (
+  .clk      (clk                   ),
+  .reset    (reset                 ),
+  .valid_in (valid_out_add8[4]     ),
+  .data_in  (out_add8[4]           ),
+  .data_out (out_line_buffer1      ),
+  .valid_out(valid_out_line_buffer1)
+);
+
+wire [DATA_WIDTH-1:0] out_add9      [1:0];
+wire [           1:0] valid_out_add9     ;
 
 generate
-  for (i = 0; i < (CHANNEL_NUM_IN/512); i = i + 1) begin
+  for (i = 0; i < 2; i = i + 1) begin // 2
     fp_add_sub inst_add1 (
-      .reset    (reset                                                       ),
-      .clk      (clk                                                         ),
-      .valid_in (valid_out_add8[i] & valid_out_add8[i + (CHANNEL_NUM_IN/512)]),
-      .in_a     (out_add8[i]                                                 ),
-      .in_b     (out_add8[i + (CHANNEL_NUM_IN/512)]                          ),
-      .out      (out_add9[i]                                                 ),
-      .valid_out(valid_out_add9[i]                                           )
+      .reset    (reset                                    ),
+      .clk      (clk                                      ),
+      .valid_in (valid_out_add8[i] & valid_out_add8[i + 2]),
+      .in_a     (out_add8[i]                              ),
+      .in_b     (out_add8[i + 2]                          ),
+      .out      (out_add9[i]                              ),
+      .valid_out(valid_out_add9[i]                        )
     );
   end
 endgenerate
 
-wire [          DATA_WIDTH-1:0] out_add10      [(CHANNEL_NUM_IN/1024)-1:0];
-wire [(CHANNEL_NUM_IN/1024)-1:0] valid_out_add10                          ;
-
-generate
-  for (i = 0; i < (CHANNEL_NUM_IN/1024); i = i + 1) begin
-    fp_add_sub inst_add1 (
-      .reset    (reset                                                        ),
-      .clk      (clk                                                          ),
-      .valid_in (valid_out_add9[i] & valid_out_add9[i + (CHANNEL_NUM_IN/1024)]),
-      .in_a     (out_add9[i]                                                  ),
-      .in_b     (out_add9[i + (CHANNEL_NUM_IN/1024)]                          ),
-      .out      (out_add10[i]                                                 ),
-      .valid_out(valid_out_add10[i]                                           )
-    );
-  end
-endgenerate
+wire [DATA_WIDTH-1:0] out_add10      ;
+wire                  valid_out_add10;
 
 fp_add_sub inst_add1 (
-  .reset    (reset                                  ),
-  .clk      (clk                                    ),
-  .valid_in (valid_out_add10[0] & valid_out_add10[1]),
-  .in_a     (out_add10[0]                           ),
-  .in_b     (out_add10[1]                           ),
-  .out      (pxl_out                                ),
-  .valid_out(valid_out                              )
+  .reset    (reset                                ),
+  .clk      (clk                                  ),
+  .valid_in (valid_out_add9[0] & valid_out_add9[1]),
+  .in_a     (out_add9[0]                          ),
+  .in_b     (out_add9[1]                          ),
+  .out      (out_add10                            ),
+  .valid_out(valid_out_add10                      )
+);
+
+fp_add_sub inst_add2 (
+  .reset    (reset                                   ),
+  .clk      (clk                                     ),
+  .valid_in (valid_out_add10 & valid_out_line_buffer1),
+  .in_a     (out_add10                               ),
+  .in_b     (out_line_buffer1                        ),
+  .out      (pxl_out                                 ),
+  .valid_out(valid_out                               )
 );
 
 endmodule

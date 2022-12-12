@@ -22,6 +22,7 @@
 module cnn_conv_3x3_64s1p1 (
   clk, 
   reset,
+  stride2,
   valid_in,
   pxl_in,
   valid_weight_in,
@@ -45,12 +46,13 @@ parameter RATE            = 1  ; //Rate of dialtion
 
 /////////////////////////////////////////////////////////////////////////
 // Port Declarations
-input                  clk             ;
-input                  reset           ;
-input                  valid_in        ;
-input [DATA_WIDTH-1:0] pxl_in          ;
-input                  valid_weight_in ;
-input [DATA_WIDTH-1:0] weight_in       ;
+input                  clk            ;
+input                  reset          ;
+input                  stride2        ;
+input                  valid_in       ;
+input [DATA_WIDTH-1:0] pxl_in         ;
+input                  valid_weight_in;
+input [DATA_WIDTH-1:0] weight_in      ;
 
 /////////////////////////////////////////////////////////////////////////
 // Output Declarations
@@ -59,12 +61,13 @@ output                  valid_out       ;
 
 /////////////////////////////////////////////////////////////////////////
 // Local Logic and Instantiation
-wire                  clk             ;
-wire                  reset           ;
-wire                  valid_in        ;
-wire [DATA_WIDTH-1:0] pxl_in          ;
-wire                  valid_weight_in ;
-wire [DATA_WIDTH-1:0] weight_in       ;
+wire                  clk            ;
+wire                  reset          ;
+wire                  stride2        ;
+wire                  valid_in       ;
+wire [DATA_WIDTH-1:0] pxl_in         ;
+wire                  valid_weight_in;
+wire [DATA_WIDTH-1:0] weight_in      ;
 
 wire [DATA_WIDTH-1:0] pxl_out         ;
 wire                  valid_out       ;
@@ -99,29 +102,29 @@ wire [DATA_WIDTH-1:0] pxl_out_conv  ;
 wire                  valid_out_conv;
 
 conv_3x3_dilation_top_new #(
-  .DATA_WIDTH                  (DATA_WIDTH                  ),
-  .IMAGE_WIDTH                 (IMAGE_WIDTH                 ),
-  .IMAGE_HEIGHT                (IMAGE_HEIGHT                ),
-  .CHANNEL_NUM_IN              (CHANNEL_NUM_IN              ),
-  .CHANNEL_NUM_OUT             (CHANNEL_NUM_OUT             ),
-  .KERNEL                      (KERNEL                      ),
-  .IMAGE_SIZE                  (IMAGE_SIZE                  ),
-  .RATE                        (RATE                        ),
-  .CNT_WIDTH_BUFFER            (CNT_WIDTH_BUFFER            ),
-  .POINTER_WIDTH_BUFFER_WEIGHTS(POINTER_WIDTH_BUFFER_WEIGHTS),
-  .CNT_WIDTH_BUFFER_WEIGHTS    (CNT_WIDTH_BUFFER_WEIGHTS    )
+	.DATA_WIDTH                  (DATA_WIDTH                  ),
+	.IMAGE_WIDTH                 (IMAGE_WIDTH                 ),
+	.IMAGE_HEIGHT                (IMAGE_HEIGHT                ),
+	.CHANNEL_NUM_IN              (CHANNEL_NUM_IN              ),
+	.CHANNEL_NUM_OUT             (CHANNEL_NUM_OUT             ),
+	.KERNEL                      (KERNEL                      ),
+	.IMAGE_SIZE                  (IMAGE_SIZE                  ),
+	.RATE                        (RATE                        ),
+	.CNT_WIDTH_BUFFER            (CNT_WIDTH_BUFFER            ),
+	.POINTER_WIDTH_BUFFER_WEIGHTS(POINTER_WIDTH_BUFFER_WEIGHTS),
+	.CNT_WIDTH_BUFFER_WEIGHTS    (CNT_WIDTH_BUFFER_WEIGHTS    )
 ) inst_conv (
-  //input
-  .clk            (clk                ),
-  .reset          (reset              ),
-  .stride2        (1'b0               ),
-  .valid_in       (valid_loop_data_out),
-  .pxl_in         (loop_data_out      ),
-  .valid_weight_in(valid_weight_in    ),
-  .weight_in      (weight_in          ),
-  //output
-  .pxl_out        (pxl_out_conv       ),
-  .valid_out      (valid_out_conv     )
+	//input
+	.clk            (clk                ),
+	.reset          (reset              ),
+	.stride2        (stride2            ),
+	.valid_in       (valid_loop_data_out),
+	.pxl_in         (loop_data_out      ),
+	.valid_weight_in(valid_weight_in    ),
+	.weight_in      (weight_in          ),
+	//output
+	.pxl_out        (pxl_out_conv       ),
+	.valid_out      (valid_out_conv     )
 );
 
 // Add

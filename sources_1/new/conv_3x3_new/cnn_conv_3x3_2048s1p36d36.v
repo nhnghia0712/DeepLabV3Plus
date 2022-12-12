@@ -117,7 +117,7 @@ conv_3x3_dilation_top_new #(
   //input
   .clk            (clk                ),
   .reset          (reset              ),
-  .stride2        (1'b0               ),
+  .stride2        (stride2            ),
   .valid_in       (valid_loop_data_out),
   .pxl_in         (loop_data_out      ),
   .valid_weight_in(valid_weight_in    ),
@@ -135,7 +135,8 @@ conv_2048channel_adder_new #(
   .IMAGE_WIDTH            (IMAGE_WIDTH            ),
   .CHANNEL_NUM            (CHANNEL_NUM            ),
   .ADD_CHANNEL_IN_CNT     (ADD_CHANNEL_IN_CNT     ),
-  .ADD_TEMP_CHANNEL_IN_CNT(ADD_TEMP_CHANNEL_IN_CNT)
+  .ADD_TEMP_CHANNEL_IN_CNT(ADD_TEMP_CHANNEL_IN_CNT),
+  .RATE                   (RATE                   )
 ) inst_add (
   //input
   .clk      (clk           ),

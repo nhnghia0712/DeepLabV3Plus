@@ -33,6 +33,7 @@ localparam ENDTIME = CHANNEL_NUM_IN_PIXEL * IMAGE_WIDTH;
 reg                  clk            ;
 reg                  reset          ;
 reg                  valid_in       ;
+reg                  stride2        ;
 reg [DATA_WIDTH-1:0] pxl_in         ;
 reg                  valid_weight_in;
 reg [DATA_WIDTH-1:0] weight_in      ;
@@ -53,6 +54,7 @@ initial begin
 	valid_in = 1'b0;
 	reset = 1;
 	valid_weight_in = 1'b0;
+	stride2 = 1'b0;
 	#SIMULATION_CYCLE
 		reset = 0;
 	valid_in <= 1'b0;
@@ -89,6 +91,7 @@ end
 	cnn_conv_3x3_64s1p1 DUT (
 		.clk            (clk            ),
 		.reset          (reset          ),
+		.stride2        (stride2        ),
 		.valid_in       (valid_in       ),
 		.pxl_in         (pxl_in         ),
 		.valid_weight_in(valid_weight_in),

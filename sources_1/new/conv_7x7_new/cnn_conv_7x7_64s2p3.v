@@ -122,7 +122,8 @@ conv_3channel_adder_new #(
 	.IMAGE_WIDTH            (IMAGE_WIDTH            ),
 	.CHANNEL_NUM            (CHANNEL_NUM            ),
 	.ADD_CHANNEL_IN_CNT     (ADD_CHANNEL_IN_CNT     ),
-	.ADD_TEMP_CHANNEL_IN_CNT(ADD_TEMP_CHANNEL_IN_CNT)
+	.ADD_TEMP_CHANNEL_IN_CNT(ADD_TEMP_CHANNEL_IN_CNT),
+	.RATE                   (RATE                   )
 ) inst_add (
 	//input
 	.clk      (clk           ),
