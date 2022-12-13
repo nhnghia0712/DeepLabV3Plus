@@ -4,12 +4,12 @@ module tb_cnn_concat_5in ();
 
 /////////////////////////////////////////////////////////////////////////
 // Parameter Declarations
-parameter DATA_WIDTH        = 32     ;
-parameter CHANNEL_NUM_PIXEL = 153*153;
+parameter DATA_WIDTH        = 32   ;
+parameter CHANNEL_NUM_PIXEL = 12*12;
 
-parameter T = 100000;
-parameter C = 5     ;
-parameter I = 10    ;
+parameter T = (CHANNEL_NUM_PIXEL * 5) + 5;
+parameter C = 5                          ;
+parameter I = 10                         ;
 
 
 reg                  clk         ;
@@ -39,10 +39,10 @@ reg [DATA_WIDTH-1:0] In_list_no5[CHANNEL_NUM_PIXEL-1:0];
 reg [DATA_WIDTH-1:0] Out                               ;
 
 initial begin
-	clk = 0;
+	clk = 1'b0;
 	i=0;
 	valid_in_no1 = 1'b0;
-	reset = 1;
+	reset = 1'b1;
 	valid_in_no2 = 1'b0;
 	valid_in_no3 = 1'b0;
 	valid_in_no4 = 1'b0;
@@ -102,7 +102,7 @@ end
 
 	cnn_concat_5in_new #(
 		.DATA_WIDTH       (DATA_WIDTH       ),
-		.POINTER_WIDTH    (POINTER_WIDTH    )
+		.CHANNEL_NUM_PIXEL(CHANNEL_NUM_PIXEL)
 	) DUT (
 		.clk         (clk         ),
 		.reset       (reset       ),

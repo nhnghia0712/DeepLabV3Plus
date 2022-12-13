@@ -4,12 +4,12 @@ module tb_cnn_concat_2in ();
 
 /////////////////////////////////////////////////////////////////////////
 // Parameter Declarations
-parameter DATA_WIDTH        = 32     ;
-parameter CHANNEL_NUM_PIXEL = 612*612;
+parameter DATA_WIDTH        = 32   ;
+parameter CHANNEL_NUM_PIXEL = 12*12;
 
-parameter T = 100000000;
-parameter C = 5        ;
-parameter I = 10       ;
+parameter T = (CHANNEL_NUM_PIXEL * 2) + 2;
+parameter C = 5                          ;
+parameter I = 10                         ;
 
 
 reg                  clk         ;
@@ -30,14 +30,14 @@ reg [DATA_WIDTH-1:0] In_list_no2[CHANNEL_NUM_PIXEL-1:0];
 reg [DATA_WIDTH-1:0] Out                               ;
 
 initial begin
-	clk = 0;
+	clk = 1'b0;
 	i=0;
 	valid_in_no1 = 1'b0;
-	reset = 1;
+	reset = 1'b1;
 	valid_in_no2 = 1'b0;
 	#I
-		reset = 0;
-	valid_in_no1 <= 1'b0;
+		reset = 1'b0;
+	valid_in_no1 = 1'b0;
 	valid_in_no2 = 1'b0;
 	// $readmemh("D:/GitHub/CNNs/Text_file/Input/RGB.txt", In);
 	$readmemb("D:/GitHub/CNNs/Text_file/Input/R.txt", In_list_no1);
@@ -59,7 +59,7 @@ always @(posedge clk) begin
 		valid_in_no2 <= 1'b0;
 	end
 	#(I) i <= i + 1'b1;
-	if(valid_out == 1'b1)begin
+	if(valid_out)begin
 		$fdisplay(Out,"%h",out);
 	end
 	if(i == T) begin

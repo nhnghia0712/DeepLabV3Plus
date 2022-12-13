@@ -67,9 +67,9 @@ wire                  valid_out_line_buffer;
 wire [DATA_WIDTH-1:0] out_line_buffer      ;
 
 line_buffer #(
-  .IMAGE_WIDTH(CHANNEL_NUM_PIXEL + 1),
-  .KERNEL     (1                    ),
-  .DIN_WIDTH  (DATA_WIDTH           )
+  .IMAGE_WIDTH(CHANNEL_NUM_PIXEL),
+  .KERNEL     (1                ),
+  .DIN_WIDTH  (DATA_WIDTH       )
 ) line_buffer0 (
   .clk      (clk                  ),
   .reset    (reset                ),
@@ -81,7 +81,8 @@ line_buffer #(
 
 always @(posedge clk) begin
   if(reset) begin
-    out <= {DATA_WIDTH{1'b0}};
+    out       <= {DATA_WIDTH{1'b0}};
+    valid_out <= 1'b0;
   end
   else if (valid_in_no1) begin
     out       <= in_no1;
@@ -90,6 +91,9 @@ always @(posedge clk) begin
   else if (valid_out_line_buffer) begin
     out       <= out_line_buffer;
     valid_out <= valid_out_line_buffer;
+  end
+  else begin
+    valid_out <= 1'b0;
   end
 end
 

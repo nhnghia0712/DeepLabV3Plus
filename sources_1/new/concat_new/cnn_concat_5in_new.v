@@ -85,9 +85,9 @@ wire                  valid_out_line_buffer1;
 wire [DATA_WIDTH-1:0] out_line_buffer1      ;
 
 line_buffer #(
-  .IMAGE_WIDTH(CHANNEL_NUM_PIXEL + 1),
-  .KERNEL     (1                    ),
-  .DIN_WIDTH  (DATA_WIDTH           )
+  .IMAGE_WIDTH(CHANNEL_NUM_PIXEL),
+  .KERNEL     (1                ),
+  .DIN_WIDTH  (DATA_WIDTH       )
 ) line_buffer1 (
   .clk      (clk                   ),
   .reset    (reset                 ),
@@ -102,9 +102,9 @@ wire                  valid_out_line_buffer2;
 wire [DATA_WIDTH-1:0] out_line_buffer2      ;
 
 line_buffer #(
-  .IMAGE_WIDTH((CHANNEL_NUM_PIXEL * 2) + 1),
-  .KERNEL     (1                          ),
-  .DIN_WIDTH  (DATA_WIDTH                 )
+  .IMAGE_WIDTH((CHANNEL_NUM_PIXEL * 2)),
+  .KERNEL     (1                      ),
+  .DIN_WIDTH  (DATA_WIDTH             )
 ) line_buffer2 (
   .clk      (clk                   ),
   .reset    (reset                 ),
@@ -119,9 +119,9 @@ wire                  valid_out_line_buffer3;
 wire [DATA_WIDTH-1:0] out_line_buffer3      ;
 
 line_buffer #(
-  .IMAGE_WIDTH((CHANNEL_NUM_PIXEL * 3) + 1),
-  .KERNEL     (1                          ),
-  .DIN_WIDTH  (DATA_WIDTH                 )
+  .IMAGE_WIDTH((CHANNEL_NUM_PIXEL * 3)),
+  .KERNEL     (1                      ),
+  .DIN_WIDTH  (DATA_WIDTH             )
 ) line_buffer3 (
   .clk      (clk                   ),
   .reset    (reset                 ),
@@ -136,9 +136,9 @@ wire                  valid_out_line_buffer4;
 wire [DATA_WIDTH-1:0] out_line_buffer4      ;
 
 line_buffer #(
-  .IMAGE_WIDTH((CHANNEL_NUM_PIXEL * 4) + 1),
-  .KERNEL     (1                          ),
-  .DIN_WIDTH  (DATA_WIDTH                 )
+  .IMAGE_WIDTH((CHANNEL_NUM_PIXEL * 4)),
+  .KERNEL     (1                      ),
+  .DIN_WIDTH  (DATA_WIDTH             )
 ) line_buffer4 (
   .clk      (clk                   ),
   .reset    (reset                 ),
@@ -150,7 +150,8 @@ line_buffer #(
 
 always @(posedge clk) begin
   if(reset) begin
-    out <= {DATA_WIDTH{1'b0}};
+    out       <= {DATA_WIDTH{1'b0}};
+    valid_out <= 1'b0;
   end
   else if (valid_in_no1) begin
     out       <= in_no1;
@@ -172,7 +173,11 @@ always @(posedge clk) begin
     out       <= out_line_buffer4;
     valid_out <= valid_out_line_buffer4;
   end
+  else begin
+    valid_out <= 1'b0;
+  end
 end
+
 /////////////////////////////////////////////////////////////////////////
 
 endmodule

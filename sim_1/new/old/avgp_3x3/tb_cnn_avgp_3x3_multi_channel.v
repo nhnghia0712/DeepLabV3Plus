@@ -7,22 +7,22 @@ module tb_cnn_avgp_3x3_multi_channel ();
 parameter DATA_WIDTH  = 32;
 
 // General
-parameter IMAGE_WIDTH  = 153; //Width
-parameter IMAGE_HEIGHT = 153; //Height
-parameter CHANNEL_NUM  = 1  ; //The number of channel
-parameter KERNEL       = 3  ; //3*3 Kernel
-parameter PADDING      = 1  ; //3*3 Kernel
+parameter IMAGE_WIDTH  = 153 ; //Width
+parameter IMAGE_HEIGHT = 153 ; //Height
+parameter KERNEL       = 3   ; //3*3 Kernel
+parameter RATE         = 1   ; //3*3 Kernel
 
-localparam IMAGE_SIZE        = IMAGE_WIDTH * IMAGE_HEIGHT;
-localparam CHANNEL_NUM_PIXEL = CHANNEL_NUM * IMAGE_SIZE  ;
+localparam CHANNEL_NUM_IN       = 2048                       ; //The number of channel
+localparam IMAGE_SIZE           = IMAGE_WIDTH * IMAGE_HEIGHT ;
+localparam CHANNEL_NUM_IN_PIXEL = CHANNEL_NUM_IN * IMAGE_SIZE;
 
 localparam IMAGE_INPUT_FILE = "D:/GitHub/CNNs/Text_file/Input/R.txt";
-localparam IMAGE_OUTPUT_FILE = "D:/GitHub/CNNs/Text_file/Output/Output_cnn_avgp_3x3_153x153_153x153.txt";
+localparam IMAGE_OUTPUT_FILE = "D:/GitHub/CNNs/Text_file/Output/Output_cnn_avgp_3x3_test.txt";
 
 
-parameter ENDTIME          = 60000;
-parameter SIMULATION_CLOCK = 5    ;
-parameter SIMULATION_CYCLE = 10   ;
+parameter ENDTIME          = CHANNEL_NUM_IN * IMAGE_SIZE * 2;
+parameter SIMULATION_CLOCK = 5                              ;
+parameter SIMULATION_CYCLE = 10                             ;
 
 
 reg                  clk     ;
@@ -36,17 +36,17 @@ wire                  valid_out;
 
 integer i;
 
-reg [DATA_WIDTH-1:0] image_input [CHANNEL_NUM_PIXEL-1:0];
+reg [DATA_WIDTH-1:0] image_input [CHANNEL_NUM_IN_PIXEL-1:0];
 reg [DATA_WIDTH-1:0] image_output                       ;
 
 initial begin
 	clk = 0;
 	i=0;
 	valid_in = 1'b0;
-	reset = 1;
+	reset = 1'b1;
 	#SIMULATION_CYCLE
-		reset = 0;
-	valid_in <= 1'b0;
+		reset = 1'b0;
+	valid_in = 1'b0;
 
 	$readmemb(IMAGE_INPUT_FILE, image_input);
 	image_output = $fopen(IMAGE_OUTPUT_FILE);
@@ -57,11 +57,11 @@ always #(SIMULATION_CLOCK) clk = ~ clk;
 always @(posedge clk) begin
 	pxl_in   <= image_input[i];
 	valid_in <= 1'b1;
-	if (i >= CHANNEL_NUM_PIXEL) begin
+	if (i >= CHANNEL_NUM_IN_PIXEL) begin
 		valid_in <= 1'b0;
 	end
 	#(SIMULATION_CYCLE) i <= i + 1'b1;
-	if(valid_out == 1'b1)begin
+	if(valid_out)begin
 		$fdisplay(image_output,"%h",pxl_out);
 	end
 	if(i == ENDTIME) begin
@@ -69,13 +69,13 @@ always @(posedge clk) begin
 	end
 end
 
-	cnn_avgp_3x3_multi_channel #(
-		.DATA_WIDTH  (DATA_WIDTH  ),
-		.IMAGE_WIDTH (IMAGE_WIDTH ),
-		.IMAGE_HEIGHT(IMAGE_HEIGHT),
-		.CHANNEL_NUM (CHANNEL_NUM ),
-		.KERNEL      (KERNEL      ),
-		.PADDING     (PADDING     )
+	cnn_avgp_3x3_top_new #(
+		.DATA_WIDTH    (DATA_WIDTH    ),
+		.IMAGE_WIDTH   (IMAGE_WIDTH   ),
+		.IMAGE_HEIGHT  (IMAGE_HEIGHT  ),
+		.KERNEL        (KERNEL        ),
+		.RATE          (RATE          ),
+		.CHANNEL_NUM_IN(CHANNEL_NUM_IN)
 	) DUT (
 		.clk      (clk      ),
 		.reset    (reset    ),

@@ -21,4 +21,4 @@ parameter POINTER_WIDTH_BUFFER_WEIGHTS = $clog2(WEIGHT_NUM); // $clog2(WEIGHT_NU
 
 // Adder
 parameter ADD_CHANNEL_IN_CNT      = $clog2(CHANNEL_NUM) + 1;
-parameter ADD_TEMP_CHANNEL_IN_CNT = $clog2(IMAGE_SIZE)     ;
+parameter ADD_TEMP_CHANNEL_IN_CNT = $clog2(IMAGE_SIZE)  + 1;

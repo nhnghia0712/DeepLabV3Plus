@@ -95,6 +95,7 @@ conv_loop_data_in_new #(
 	.pxl_out  (loop_data_out      ),
 	.valid_out(valid_loop_data_out)
 );
+
 // Conv
 wire [DATA_WIDTH-1:0] pxl_out_conv  ;
 wire                  valid_out_conv;

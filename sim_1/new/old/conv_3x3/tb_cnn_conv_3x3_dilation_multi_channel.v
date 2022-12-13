@@ -7,12 +7,12 @@ module tb_cnn_conv_3x3_dilation_multi_channel ();
 parameter DATA_WIDTH  = 32;
 
 // General
-parameter IMAGE_WIDTH     = 153; //Width
-parameter IMAGE_HEIGHT    = 153; //Height
-parameter CHANNEL_NUM_IN  = 64 ; //The number of channel in
-parameter CHANNEL_NUM_OUT = 4  ; //The number of channel out
-parameter KERNEL          = 3  ; //Kernel width
-parameter RATE            = 1  ; //Rate of dialtion
+parameter IMAGE_WIDTH     = 12; //Width
+parameter IMAGE_HEIGHT    = 12; //Height
+parameter CHANNEL_NUM_IN  = 64; //The number of channel in
+parameter CHANNEL_NUM_OUT = 2 ; //The number of channel out
+parameter KERNEL          = 3 ; //Kernel width
+parameter RATE            = 1 ; //Rate of dialtion
 
 localparam IMAGE_INPUT_FILE = "D:/GitHub/CNNs/Text_file/Input/R.txt";
 localparam WEIGHTS_INPUT_FILE = "D:/GitHub/CNNs/Text_file/Input/weight_test.txt";
@@ -57,7 +57,7 @@ initial begin
 	stride2 = 1'b0;
 	#SIMULATION_CYCLE
 		reset = 0;
-	valid_in <= 1'b0;
+	valid_in = 1'b0;
 	valid_weight_in = 1'b0;
 
 	$readmemb(IMAGE_INPUT_FILE, image_input);

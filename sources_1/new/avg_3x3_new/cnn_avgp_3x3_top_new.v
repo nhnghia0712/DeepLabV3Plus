@@ -55,6 +55,31 @@ wire [DATA_WIDTH-1:0] pxl_in  ;
 wire [DATA_WIDTH-1:0] pxl_out  ;
 wire                  valid_out;
 
+// Read loop data
+wire [DATA_WIDTH-1:0] loop_data_out      ;
+wire                  valid_loop_data_out;
+
+conv_loop_data_in_new #(
+	.DATA_WIDTH          (DATA_WIDTH          ),
+	.CHANNEL_NUM_IN      (CHANNEL_NUM_IN      ),
+	.CHANNEL_NUM_OUT     (1                   ),
+	.IMAGE_WIDTH         (IMAGE_WIDTH         ),
+	.CHANNEL_NUM_IN_PIXEL(CHANNEL_NUM_IN_PIXEL),
+	.IMAGE_SIZE          (IMAGE_SIZE          ),
+	.LOOP_CHANNEL_IN_CNT (LOOP_CHANNEL_IN_CNT ),
+	.LOOP_COL_CNT        (LOOP_COL_CNT        ),
+	.RATE                (1                   )
+) inst_loop (
+	//input
+	.clk      (clk                ),
+	.reset    (reset              ),
+	.valid_in (valid_in           ),
+	.pxl_in   (pxl_in             ),
+	//output
+	.pxl_out  (loop_data_out      ),
+	.valid_out(valid_loop_data_out)
+);
+
 // Buffer 3x3
 wire [DATA_WIDTH-1:0] pxl_out_00;
 wire [DATA_WIDTH-1:0] pxl_out_01;
@@ -77,23 +102,23 @@ conv_3x3_buffer_dilation_new #(
 	.IMAGE_SIZE      (IMAGE_SIZE      )
 ) inst_buffer (
 	//input
-	.clk         (clk             ),
-	.reset       (reset           ),
-	.valid_in    (valid_in        ),
-	.in          (pxl_in          ),
-	.stride2     (1'b0            ),
+	.clk         (clk                ),
+	.reset       (reset              ),
+	.valid_in    (valid_loop_data_out),
+	.in          (loop_data_out      ),
+	.stride2     (1'b0               ),
 	
-	.pxl_out_00  (pxl_out_00      ),
-	.pxl_out_01  (pxl_out_01      ),
-	.pxl_out_02  (pxl_out_02      ),
-	.pxl_out_03  (pxl_out_03      ),
-	.pxl_out_04  (pxl_out_04      ),
-	.pxl_out_05  (pxl_out_05      ),
-	.pxl_out_06  (pxl_out_06      ),
-	.pxl_out_07  (pxl_out_07      ),
-	.pxl_out_08  (pxl_out_08      ),
-	.valid_out   (valid_out_buffer),
-	.load_weights(/*load_weights*/)
+	.pxl_out_00  (pxl_out_00         ),
+	.pxl_out_01  (pxl_out_01         ),
+	.pxl_out_02  (pxl_out_02         ),
+	.pxl_out_03  (pxl_out_03         ),
+	.pxl_out_04  (pxl_out_04         ),
+	.pxl_out_05  (pxl_out_05         ),
+	.pxl_out_06  (pxl_out_06         ),
+	.pxl_out_07  (pxl_out_07         ),
+	.pxl_out_08  (pxl_out_08         ),
+	.valid_out   (valid_out_buffer   ),
+	.load_weights(/*load_weights*/   )
 );
 
 //Core
