@@ -114,7 +114,17 @@ reg [DATA_WIDTH-1:0] hr_30; reg [DATA_WIDTH-1:0] hr_31;
 
 reg [DATA_WIDTH-1:0] valid_out_next;
 
-assign enable = (valid_in) ? 1'b1:1'b1;
+// assign enable = (valid_in) ? 1'b1:1'b1;
+reg enable;
+
+always @ (*) begin
+    if (reset) begin
+        enable <= 1'b0;
+    end
+    else if (valid_in) begin
+        enable <= 1'b1;
+    end
+end
 
 always @ (posedge clk) begin
     if(reset)begin

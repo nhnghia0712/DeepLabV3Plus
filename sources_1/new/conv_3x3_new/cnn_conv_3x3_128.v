@@ -19,7 +19,7 @@
 
 ///////////////////////////////////////////////////////////////////////
 
-module cnn_conv_3x3_2048s1p36d36 (
+module cnn_conv_3x3_128 (
   clk, 
   reset,
   stride2,
@@ -35,12 +35,12 @@ module cnn_conv_3x3_2048s1p36d36 (
 /////////////////////////////////////////////////////////////////////////
 // Parameter Declarations
 // General
-parameter IMAGE_WIDTH     = 153 ; //Width
-parameter IMAGE_HEIGHT    = 153 ; //Height
-parameter CHANNEL_NUM_IN  = 2048; //The number of channel in
-parameter CHANNEL_NUM_OUT = 2048; //The number of channel out
-parameter KERNEL          = 3   ; //Kernel width
-parameter RATE            = 36  ; //Rate of dialtion
+parameter IMAGE_WIDTH     = 128; //Width
+parameter IMAGE_HEIGHT    = 128; //Height
+parameter CHANNEL_NUM_IN  = 128; //The number of channel in
+parameter CHANNEL_NUM_OUT = 128; //The number of channel out
+parameter KERNEL          = 3  ; //Kernel width
+parameter RATE            = 1  ; //Rate of dialtion
 
 `include "D:/GitHub/CNNs/CNN_DeepLabV3Plus/CNN_DeepLabV3Plus.srcs/sources_1/new/param/param_def_conv_3x3_dilation_new.v"
 
@@ -128,7 +128,7 @@ conv_3x3_dilation_top_new #(
 );
 
 // Add
-conv_2048channel_adder_new #(
+conv_128channel_adder_new #(
   .DATA_WIDTH             (DATA_WIDTH             ),
   .CHANNEL_NUM_IN         (CHANNEL_NUM_IN         ),
   .IMAGE_SIZE             (IMAGE_SIZE             ),

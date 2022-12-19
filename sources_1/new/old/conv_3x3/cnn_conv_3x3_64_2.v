@@ -33,7 +33,7 @@ module cnn_conv_3x3_64_2 (
   weight_in2,
   valid_in3,
   pxl_in3,
-  valid_weight_in13
+  valid_weight_in3,
   weight_in3,
   valid_in4,
   pxl_in4,

@@ -23,34 +23,42 @@ module cnn_conv_3x3_64_3 (
   clk, 
   reset,
   stride2,
+
   valid_in1,
   pxl_in1,
   valid_weight_in1,
   weight_in1,
+
   valid_in2,
   pxl_in2,
   valid_weight_in2,
   weight_in2,
+
   valid_in3,
   pxl_in3,
-  valid_weight_in13
+  valid_weight_in3,
   weight_in3,
+
   valid_in4,
   pxl_in4,
   valid_weight_in4,
   weight_in4,
+
   valid_in5,
   pxl_in5,
   valid_weight_in5,
   weight_in5,
+
   valid_in6,
   pxl_in6,
   valid_weight_in6,
   weight_in6,
+
   valid_in7,
   pxl_in7,
-  valid_weight_in17
+  valid_weight_in7,
   weight_in7,
+
   valid_in8,
   pxl_in8,
   valid_weight_in8,
@@ -94,9 +102,9 @@ input [DATA_WIDTH-1:0] pxl_in4         ;
 input                  valid_weight_in4;
 input [DATA_WIDTH-1:0] weight_in4      ;
 input                  valid_in5       ;
-input [DATA_WIDTH-5:0] pxl_in5         ;
+input [DATA_WIDTH-1:0] pxl_in5         ;
 input                  valid_weight_in5;
-input [DATA_WIDTH-5:0] weight_in5      ;
+input [DATA_WIDTH-1:0] weight_in5      ;
 input                  valid_in6       ;
 input [DATA_WIDTH-1:0] pxl_in6         ;
 input                  valid_weight_in6;
@@ -137,9 +145,9 @@ wire [DATA_WIDTH-1:0] pxl_in4         ;
 wire                  valid_weight_in4;
 wire [DATA_WIDTH-1:0] weight_in4      ;
 wire                  valid_in5       ;
-wire [DATA_WIDTH-5:0] pxl_in5         ;
+wire [DATA_WIDTH-1:0] pxl_in5         ;
 wire                  valid_weight_in5;
-wire [DATA_WIDTH-5:0] weight_in5      ;
+wire [DATA_WIDTH-1:0] weight_in5      ;
 wire                  valid_in6       ;
 wire [DATA_WIDTH-1:0] pxl_in6         ;
 wire                  valid_weight_in6;
