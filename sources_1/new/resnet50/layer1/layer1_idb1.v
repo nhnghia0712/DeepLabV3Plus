@@ -169,23 +169,40 @@ cnn_conv_relu #(.DATA_WIDTH(DATA_WIDTH)) relu1 (
 );
 
 // Line buffer
-wire [DATA_WIDTH-1:0] out_line_buffer      ;
-wire                  valid_out_line_buffer;
+wire [DATA_WIDTH-1:0] out_line_buffer_tmp      ;
+wire                  valid_out_line_buffer_tmp;
 
 line_buffer #(
-    .DIN_WIDTH  (DATA_WIDTH                     ),
-    .IMAGE_WIDTH((IMAGE_SIZE * 64 * 256 * 2 * 4)),
-    .KERNEL     (1                              )
+    .DIN_WIDTH  (DATA_WIDTH                 ),
+    .IMAGE_WIDTH((4210888 + 1040548 + 1040374)/2),
+    .KERNEL     (1                          )
 ) line_buffer1 (
     .clk      (clk                  ),
     .reset    (reset                ),
     .valid_in (valid_in             ),
     .data_in  (pxl_in               ),
     //output
+    .data_out (out_line_buffer_tmp      ),
+    .valid_out(valid_out_line_buffer_tmp)
+);
+    
+wire [DATA_WIDTH-1:0] out_line_buffer      ;
+wire                  valid_out_line_buffer;
+
+line_buffer #(
+    .DIN_WIDTH  (DATA_WIDTH                 ),
+    .IMAGE_WIDTH((4210888 + 1040548 + 1040374)/2),
+    .KERNEL     (1                          )
+) line_buffer2 (
+    .clk      (clk                  ),
+    .reset    (reset                ),
+    .valid_in (valid_out_line_buffer_tmp             ),
+    .data_in  (out_line_buffer_tmp               ),
+    //output
     .data_out (out_line_buffer      ),
     .valid_out(valid_out_line_buffer)
 );
-
+    
 // Add
 fp_add_sub #(.DATA_WIDTH(DATA_WIDTH)) add1 (
     .clk      (clk                                   ),
