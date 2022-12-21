@@ -174,7 +174,7 @@ wire                  valid_out_line_buffer;
 
 line_buffer #(
     .DIN_WIDTH  (DATA_WIDTH                     ),
-    .IMAGE_WIDTH((IMAGE_SIZE * 64 * 256 * 2 * 4)),
+    .IMAGE_WIDTH(1081410 + 269686 + 269616 + 1  ),
     .KERNEL     (1                              )
 ) line_buffer1 (
     .clk      (clk                  ),
