@@ -174,7 +174,7 @@ wire                  valid_out_line_buffer_tmp;
 
 line_buffer #(
     .DIN_WIDTH  (DATA_WIDTH                 ),
-    .IMAGE_WIDTH((4210888 + 1040548 + 1040374)/2),
+    .IMAGE_WIDTH((4210888 + 1040548 + 1040374 + 1)/2),
     .KERNEL     (1                          )
 ) line_buffer1 (
     .clk      (clk                  ),
@@ -191,7 +191,7 @@ wire                  valid_out_line_buffer;
 
 line_buffer #(
     .DIN_WIDTH  (DATA_WIDTH                 ),
-    .IMAGE_WIDTH((4210888 + 1040548 + 1040374)/2),
+    .IMAGE_WIDTH((4210888 + 1040548 + 1040374 + 1)/2),
     .KERNEL     (1                          )
 ) line_buffer2 (
     .clk      (clk                  ),
