@@ -695,6 +695,19 @@ cnn_conv_7x7_3_64 #(
     .valid_out      (valid_out_conv7x7)
 );
 
+// ReLU
+wire [DATA_WIDTH-1:0] out_relu_5      ;
+wire                  valid_out_relu_5;
+
+cnn_conv_relu #(.DATA_WIDTH(DATA_WIDTH)) relu5 (
+    .clk      (clk                ),
+    .reset    (reset              ),
+    .valid_in (valid_out_conv7x7),
+    .in       (out_conv7x7      ),
+    //output
+    .out      (out_relu_5         ),
+    .valid_out(valid_out_relu_5   )
+);
 // Maxp 3x3
 wire [DATA_WIDTH-1:0] out_maxp3x3      ;
 wire                  valid_out_maxp3x3;
@@ -709,8 +722,8 @@ cnn_maxp_3x3_top_new #(
 ) maxp3x3 (
     .clk      (clk              ),
     .reset    (reset            ),
-    .valid_in (valid_out_conv7x7),
-    .pxl_in   (out_conv7x7      ),
+    .valid_in (valid_out_relu_5),
+    .pxl_in   (out_relu_5      ),
     //output
     .pxl_out  (out_maxp3x3      ),
     .valid_out(valid_out_maxp3x3)
