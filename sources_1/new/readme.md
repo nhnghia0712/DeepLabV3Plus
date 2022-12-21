@@ -20,12 +20,12 @@
 >> Latency = Latency = 8 + ((((IMAGE_SIZE + IMAGE_WIDTH + 1) * 1279) + 100 + IMAGE_SIZE) * CHANNEL_NUM_OUT)
 
 ## Avgp 3x3:
-+ Delay   = (RATE * (IMAGE_WIDTH + 1)) + 44
-+ Latency = (RATE * (IMAGE_WIDTH + 1)) + 44 + ((IMAGE_SIZE + (RATE * (IMAGE_WIDTH + 1))) * CHANNEL_NUM_IN)
++ Delay   = IMAGE_WIDTH + 45
++ Latency = IMAGE_WIDTH + 45 + ((IMAGE_SIZE + IMAGE_WIDTH + 1) * CHANNEL_NUM_IN)
 
 ## Maxp 3x3:
-+ Delay   = (RATE * (IMAGE_WIDTH + 1)) + 8
-+ Latency = (RATE * (IMAGE_WIDTH + 1)) + 8 + ((IMAGE_SIZE + (RATE * (IMAGE_WIDTH + 1))) * CHANNEL_NUM_IN)
++ Delay   = IMAGE_WIDTH + 9
++ Latency = IMAGE_WIDTH + 9 + ((IMAGE_SIZE + IMAGE_WIDTH + 1) * CHANNEL_NUM_IN)
 
 ## Conv 7x7:
 + Delay   = (IMAGE_WIDTH * 3) + 63 + ((IMAGE_SZE + (3 * (IMAGE_WIDTH + 1))) * 2) + 19
