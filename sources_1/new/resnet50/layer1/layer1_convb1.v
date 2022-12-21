@@ -204,9 +204,9 @@ wire [DATA_WIDTH-1:0] out_line_buffer      ;
 wire                  valid_out_line_buffer;
 
 line_buffer #(
-    .DIN_WIDTH  (DATA_WIDTH                     ),
-    .IMAGE_WIDTH((IMAGE_SIZE * 64 * 256 * 2 * 3)),
-    .KERNEL     (1                              )
+    .DIN_WIDTH  (DATA_WIDTH           ),
+    .IMAGE_WIDTH(1040382 + 1040548 + 1),
+    .KERNEL     (1                    )
 ) line_buffer1 (
     .clk      (clk                  ),
     .reset    (reset                ),
