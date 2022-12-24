@@ -26,9 +26,9 @@ localparam CHANNEL_NUM_IN_PIXEL = CHANNEL_NUM_IN * IMAGE_SIZE     ;
 localparam WEIGHT_NUM           = CHANNEL_NUM * KERNEL_SIZE       ; // 2x2x3x3
 
 // localparam ENDTIME          = 383634000;
-localparam ENDTIME          = (RATE * (IMAGE_WIDTH + 1)) + 45 + ((((IMAGE_SIZE + RATE * (IMAGE_WIDTH + 1)) * (CHANNEL_NUM_IN - 1)) + 55 + IMAGE_SIZE) * CHANNEL_NUM_OUT) - 34;
-localparam SIMULATION_CLOCK = 5                                                                                                                                              ;
-localparam SIMULATION_CYCLE = 10                                                                                                                                             ;
+localparam ENDTIME          = (RATE * (IMAGE_WIDTH + 1)) + 45 + ((((IMAGE_SIZE + (RATE * (IMAGE_WIDTH + 1))) * (CHANNEL_NUM_IN - 1)) + 1 + (9 * $clog2(CHANNEL_NUM_IN)) + IMAGE_SIZE) * CHANNEL_NUM_OUT);
+localparam SIMULATION_CLOCK = 5                                                                                                                                                                         ;
+localparam SIMULATION_CYCLE = 10                                                                                                                                                                        ;
 
 reg                  clk            ;
 reg                  reset          ;
@@ -69,6 +69,19 @@ end
 always #(SIMULATION_CLOCK) clk = ~ clk;
 
 always @(posedge clk) begin
+	// if (j >= IMAGE_SIZE) begin
+	// 	valid_in <= 1'b0;
+	// 	k        <= k + 1'b1;
+	// end
+	// else begin
+	// 	pxl_in   <= image_input[j];
+	// 	valid_in <= 1'b1;
+	// 	j        <= j + 1'b1;
+	// 	k        <= 0;
+	// end
+	// if (k >= IMAGE_SIZE) begin
+	// 	j <= 0;
+	// end
 	pxl_in   <= image_input[i];
 	valid_in <= 1'b1;
 	if (i >= CHANNEL_NUM_IN_PIXEL) begin
@@ -89,13 +102,13 @@ always @(posedge clk) begin
 end
 
 	cnn_conv_3x3_dilation_multi_channel_new #(
-		.DATA_WIDTH                  (DATA_WIDTH                  ),
-		.IMAGE_WIDTH                 (IMAGE_WIDTH                 ),
-		.IMAGE_HEIGHT                (IMAGE_HEIGHT                ),
-		.CHANNEL_NUM_IN              (CHANNEL_NUM_IN              ),
-		.CHANNEL_NUM_OUT             (CHANNEL_NUM_OUT             ),
-		.KERNEL                      (KERNEL                      ),
-		.RATE                        (RATE                        )
+		.DATA_WIDTH     (DATA_WIDTH     ),
+		.IMAGE_WIDTH    (IMAGE_WIDTH    ),
+		.IMAGE_HEIGHT   (IMAGE_HEIGHT   ),
+		.CHANNEL_NUM_IN (CHANNEL_NUM_IN ),
+		.CHANNEL_NUM_OUT(CHANNEL_NUM_OUT),
+		.KERNEL         (KERNEL         ),
+		.RATE           (RATE           )
 	) DUT (
 		.clk            (clk            ),
 		.reset          (reset          ),

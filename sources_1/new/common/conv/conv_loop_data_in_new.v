@@ -201,9 +201,9 @@ generate
 		);
 
 		line_buffer #(
-			.IMAGE_WIDTH((CHANNEL_NUM_IN_PIXEL + (((IMAGE_WIDTH * RATE) + RATE) * CHANNEL_NUM_IN) + 8)/8),
-			.KERNEL     (1                                                                              ),
-			.DIN_WIDTH  (DATA_WIDTH                                                                     )
+			.IMAGE_WIDTH((CHANNEL_NUM_IN_PIXEL + (((IMAGE_WIDTH * RATE) + RATE) * CHANNEL_NUM_IN))/8),
+			.KERNEL     (1                                                                          ),
+			.DIN_WIDTH  (DATA_WIDTH                                                                 )
 		) line_buffer5 (
 			.clk      (clk               ),
 			.reset    (reset             ),
@@ -214,9 +214,9 @@ generate
 		);
 
 		line_buffer #(
-			.IMAGE_WIDTH((CHANNEL_NUM_IN_PIXEL + (((IMAGE_WIDTH * RATE) + RATE) * CHANNEL_NUM_IN) + 8)/8),
-			.KERNEL     (1                                                                              ),
-			.DIN_WIDTH  (DATA_WIDTH                                                                     )
+			.IMAGE_WIDTH((CHANNEL_NUM_IN_PIXEL + (((IMAGE_WIDTH * RATE) + RATE) * CHANNEL_NUM_IN))/8),
+			.KERNEL     (1                                                                          ),
+			.DIN_WIDTH  (DATA_WIDTH                                                                 )
 		) line_buffer6 (
 			.clk      (clk               ),
 			.reset    (reset             ),
@@ -227,9 +227,9 @@ generate
 		);
 
 		line_buffer #(
-			.IMAGE_WIDTH((CHANNEL_NUM_IN_PIXEL + (((IMAGE_WIDTH * RATE) + RATE) * CHANNEL_NUM_IN) + 8)/8),
-			.KERNEL     (1                                                                              ),
-			.DIN_WIDTH  (DATA_WIDTH                                                                     )
+			.IMAGE_WIDTH((CHANNEL_NUM_IN_PIXEL + (((IMAGE_WIDTH * RATE) + RATE) * CHANNEL_NUM_IN))/8),
+			.KERNEL     (1                                                                          ),
+			.DIN_WIDTH  (DATA_WIDTH                                                                 )
 		) line_buffer7 (
 			.clk      (clk               ),
 			.reset    (reset             ),
@@ -240,9 +240,9 @@ generate
 		);
 
 		line_buffer #(
-			.IMAGE_WIDTH((CHANNEL_NUM_IN_PIXEL + (((IMAGE_WIDTH * RATE) + RATE) * CHANNEL_NUM_IN) + 8)/8),
-			.KERNEL     (1                                                                              ),
-			.DIN_WIDTH  (DATA_WIDTH                                                                     )
+			.IMAGE_WIDTH((CHANNEL_NUM_IN_PIXEL + (((IMAGE_WIDTH * RATE) + RATE) * CHANNEL_NUM_IN))/8),
+			.KERNEL     (1                                                                          ),
+			.DIN_WIDTH  (DATA_WIDTH                                                                 )
 		) line_buffer8 (
 			.clk      (clk               ),
 			.reset    (reset             ),

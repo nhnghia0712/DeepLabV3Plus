@@ -19,7 +19,7 @@
 
 ///////////////////////////////////////////////////////////////////////
 
-module cnn_concat_2in (
+module cnn_add (
   clk, 
   reset,
   valid_in_no1,
@@ -60,8 +60,8 @@ wire [DATA_WIDTH-1:0] in_no1      ;
 wire                  valid_in_no2;
 wire [DATA_WIDTH-1:0] in_no2      ;
 
-reg [DATA_WIDTH-1:0] out      ;
-reg                  valid_out;
+wire [DATA_WIDTH-1:0] out      ;
+wire                  valid_out;
 
 /////////////////////////////////////////////////////////////////////////
 reg read_req_no1;
@@ -69,47 +69,49 @@ reg read_req_no1;
 wire [DATA_WIDTH-1:0] out_fifo_no1      ;
 wire                  valid_out_fifo_no1;
 wire                  fifo_full_no1     ;
-wire                  fifo_empty_no1    ;
 
-cnn_fifo_right #(
+cnn_fifo_other #(
   .DATA_WIDTH   (DATA_WIDTH       ),
   .DATA_DEPTH   (CHANNEL_NUM_PIXEL),
   .POINTER_WIDTH(POINTER_WIDTH    )
 ) inst_fifo_no1 (
   //input
-  .clk      (clk               ),
-  .reset    (reset             ),
-  .write    (valid_in_no1      ),
-  .read     (read_req_no1      ),
-  .data_in  (in_no1            ),
+  .clk      (clk                        ),
+  .reset    (reset                      ),
+  .write    (valid_in_no1               ),
+  .read     (read_req_no1 & read_req_no2),
+  .data_in  (in_no1                     ),
   //output
-  .data_out (out_fifo_no1      ),
-  .valid_out(valid_out_fifo_no1),
-  .empty    (fifo_empty_no1    ),
-  .full     (fifo_full_no1     )
-);              
+  .data_out (out_fifo_no1               ),
+  .valid_out(valid_out_fifo_no1         ),
+  .empty    (/*fifo_empty_no1 no use*/  ),
+  .full     (fifo_full_no1              )
+);                 
 
 /////////////////////////////////////////////////////////////////////////
+reg read_req_no2;
+
 wire [DATA_WIDTH-1:0] out_fifo_no2      ;
 wire                  valid_out_fifo_no2;
+wire                  fifo_full_no1     ;
 
-cnn_fifo_right #(
+cnn_fifo_other #(
   .DATA_WIDTH   (DATA_WIDTH       ),
   .DATA_DEPTH   (CHANNEL_NUM_PIXEL),
   .POINTER_WIDTH(POINTER_WIDTH    )
 ) inst_fifo_no2 (
   //input
-  .clk      (clk                      ),
-  .reset    (reset                    ),
-  .write    (valid_in_no2             ),
-  .read     (fifo_empty_no1           ),
-  .data_in  (in_no2                   ),
+  .clk      (clk                       ),
+  .reset    (reset                     ),
+  .write    (valid_in_no2              ),
+  .read     (read_req_no1 & read_req_no2),
+  .data_in  (in_no2                    ),
   //output
-  .data_out (out_fifo_no2             ),
-  .valid_out(valid_out_fifo_no2       ),
-  .empty    (/*fifo_empty_no2 no use*/),
-  .full     (/*fifo_full_no2 no use*/ )
-);           
+  .data_out (out_fifo_no2              ),
+  .valid_out(valid_out_fifo_no2        ),
+  .empty    (/*fifo_empty_no2 no use*/ ),
+  .full     (fifo_full_no2             )
+);              
 
 /////////////////////////////////////////////////////////////////////////
 always @(posedge clk) begin
@@ -121,24 +123,25 @@ always @(posedge clk) begin
   end
 end
 
-/////////////////////////////////////////////////////////////////////////
 always @(posedge clk) begin
   if (reset) begin
-    out       <= {DATA_WIDTH{1'b0}};
-    valid_out <= 1'b0;
+    read_req_no2 <= 1'b0;
   end
-  else if(valid_out_fifo_no1) begin
-    out       <= out_fifo_no1;
-    valid_out <= valid_out_fifo_no1;
-  end
-  else if(valid_out_fifo_no2) begin
-    out       <= out_fifo_no2;
-    valid_out <= valid_out_fifo_no2;
-  end
-  else begin
-    valid_out <= 1'b0;
+  else if(fifo_full_no2) begin
+    read_req_no2 <= 1'b1;
   end
 end
+
+/////////////////////////////////////////////////////////////////////////
+fp_add_sub #(.DATA_WIDTH(DATA_WIDTH)) inst_add (
+  .reset    (reset                                  ),
+  .clk      (clk                                    ),
+  .valid_in (valid_out_fifo_no1 & valid_out_fifo_no2),
+  .in_a     (out_fifo_no1                           ),
+  .in_b     (out_fifo_no2                           ),
+  .out      (out                                    ),
+  .valid_out(valid_out                              )
+);
 
 /////////////////////////////////////////////////////////////////////////
 

@@ -89,7 +89,7 @@ wire                  valid_out_fifo_no1;
 wire                  fifo_full_no1     ;
 wire                  fifo_empty_no1    ;
 
-cnn_fifo_right #(
+cnn_fifo_other #(
   .DATA_WIDTH   (DATA_WIDTH       ),
   .DATA_DEPTH   (CHANNEL_NUM_PIXEL),
   .POINTER_WIDTH(POINTER_WIDTH    )
@@ -113,7 +113,7 @@ wire                  valid_out_fifo_no2;
 wire                  fifo_full_no2     ;
 wire                  fifo_empty_no2    ;
 
-cnn_fifo_right #(
+cnn_fifo_other #(
   .DATA_WIDTH   (DATA_WIDTH       ),
   .DATA_DEPTH   (CHANNEL_NUM_PIXEL),
   .POINTER_WIDTH(POINTER_WIDTH    )
@@ -137,7 +137,7 @@ wire                  valid_out_fifo_no3;
 wire                  fifo_full_no3     ;
 wire                  fifo_empty_no3    ;
 
-cnn_fifo_right #(
+cnn_fifo_other #(
   .DATA_WIDTH   (DATA_WIDTH       ),
   .DATA_DEPTH   (CHANNEL_NUM_PIXEL),
   .POINTER_WIDTH(POINTER_WIDTH    )
@@ -161,7 +161,7 @@ wire                  valid_out_fifo_no4;
 wire                  fifo_full_no4     ;
 wire                  fifo_empty_no4    ;
 
-cnn_fifo_right #(
+cnn_fifo_other #(
   .DATA_WIDTH   (DATA_WIDTH       ),
   .DATA_DEPTH   (CHANNEL_NUM_PIXEL),
   .POINTER_WIDTH(POINTER_WIDTH    )
@@ -185,7 +185,7 @@ wire                  valid_out_fifo_no5;
 // wire                  fifo_full_no5     ;
 // wire                  fifo_empty_no5    ;
 
-cnn_fifo_right #(
+cnn_fifo_other #(
   .DATA_WIDTH   (DATA_WIDTH       ),
   .DATA_DEPTH   (CHANNEL_NUM_PIXEL),
   .POINTER_WIDTH(POINTER_WIDTH    )

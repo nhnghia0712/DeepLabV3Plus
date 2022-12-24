@@ -19,7 +19,7 @@
 
 ///////////////////////////////////////////////////////////////////////
 
-module cnn_conv_1x1_64_64256 (
+module cnn_conv_1x1_256_748512 (
   clk, 
   reset,
   valid_in,
@@ -123,7 +123,7 @@ conv_1x1_top_new #(
 );
 
 // Add
-conv_64channel_adder_new #(
+conv_256channel_adder_new #(
   .DATA_WIDTH             (DATA_WIDTH             ),
   .CHANNEL_NUM_IN         (CHANNEL_NUM_IN         ),
   .IMAGE_SIZE             (IMAGE_SIZE             ),
