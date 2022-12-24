@@ -667,7 +667,7 @@ cnn_conv_relu #(.DATA_WIDTH(DATA_WIDTH)) relu2 (
 wire [DATA_WIDTH-1:0] out_conv3x3_1      ;
 wire                  valid_out_conv3x3_1;
 
-cnn_conv_3x3_64_64256 #(
+cnn_conv_3x3_64_64128 #(
     .DATA_WIDTH     (DATA_WIDTH    ),
     .IMAGE_WIDTH    (IMAGE_WIDTH/4 ),
     .IMAGE_HEIGHT   (IMAGE_HEIGHT/4),
