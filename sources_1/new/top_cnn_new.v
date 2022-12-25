@@ -131,9 +131,6 @@ module top_cnn_new (
     ,valid_weight_in35
     ,weight_in35
 
-    ,valid_weight_in36
-    ,weight_in36
-
     ,pxl_out
     ,valid_out
     ,done
@@ -256,9 +253,6 @@ input [DATA_WIDTH-1:0] weight_in34      ;
 input                  valid_weight_in35;
 input [DATA_WIDTH-1:0] weight_in35      ;
 
-input                  valid_weight_in36;
-input [DATA_WIDTH-1:0] weight_in36      ;
-
 /////////////////////////////////////////////////////////////////////////
 // Output Declarations
 output [DATA_WIDTH-1:0] pxl_out  ;
@@ -376,9 +370,6 @@ wire [DATA_WIDTH-1:0] weight_in34      ;
 
 wire                  valid_weight_in35;
 wire [DATA_WIDTH-1:0] weight_in35      ;
-
-wire                  valid_weight_in36;
-wire [DATA_WIDTH-1:0] weight_in36      ;
 
 wire [DATA_WIDTH-1:0] pxl_out  ;
 wire                  valid_out;
@@ -514,10 +505,7 @@ cnn_resnet18 #(
     
     .valid_weight_in19(valid_weight_in20        ),
     .weight_in19      (weight_in20              ),
-    
-    .valid_weight_in20(valid_weight_in21        ),
-    .weight_in20      (weight_in21              ),
-    
+
     //output
     .out_layer1       (out_resnet18_layer1      ),
     .valid_out_layer1 (valid_out_resnet18_layer1),
@@ -539,29 +527,29 @@ cnn_aspp_new #(
     .valid_in        (valid_out_resnet18),
     .pxl_in          (out_resnet18      ),
     
-    .valid_weight_in1(valid_weight_in22 ),
-    .weight_in1      (weight_in22       ),
+    .valid_weight_in1(valid_weight_in21 ),
+    .weight_in1      (weight_in21       ),
     
-    .valid_weight_in2(valid_weight_in23 ),
-    .weight_in2      (weight_in23       ),
+    .valid_weight_in2(valid_weight_in22 ),
+    .weight_in2      (weight_in22       ),
     
-    .valid_weight_in3(valid_weight_in24 ),
-    .weight_in3      (weight_in24       ),
+    .valid_weight_in3(valid_weight_in23 ),
+    .weight_in3      (weight_in23       ),
     
-    .valid_weight_in4(valid_weight_in25 ),
-    .weight_in4      (weight_in25       ),
+    .valid_weight_in4(valid_weight_in24 ),
+    .weight_in4      (weight_in24       ),
     
-    .valid_weight_in5(valid_weight_in26 ),
-    .weight_in5      (weight_in26       ),
+    .valid_weight_in5(valid_weight_in25 ),
+    .weight_in5      (weight_in25       ),
     
-    .valid_weight_in6(valid_weight_in27 ),
-    .weight_in6      (weight_in27       ),
+    .valid_weight_in6(valid_weight_in26 ),
+    .weight_in6      (weight_in26       ),
     
-    .valid_weight_in7(valid_weight_in28 ),
-    .weight_in7      (weight_in28       ),
+    .valid_weight_in7(valid_weight_in27 ),
+    .weight_in7      (weight_in27       ),
     
-    .valid_weight_in8(valid_weight_in29 ),
-    .weight_in8      (weight_in29       ),
+    .valid_weight_in8(valid_weight_in28 ),
+    .weight_in8      (weight_in28       ),
     
     //output
     .pxl_out         (out_aspp          ),
@@ -585,8 +573,8 @@ cnn_conv_1x1_1280_256 #(
     .stride2        (1'b0               ),
     .valid_in       (valid_out_aspp     ),
     .pxl_in         (out_aspp           ),
-    .valid_weight_in(valid_weight_in30  ),
-    .weight_in      (weight_in30        ),
+    .valid_weight_in(valid_weight_in29  ),
+    .weight_in      (weight_in29        ),
     //output
     .pxl_out        (out_conv1x1_1      ),
     .valid_out      (valid_out_conv1x1_1)
@@ -642,8 +630,8 @@ cnn_conv_1x1_256_748512 #(
     .stride2        (1'b0                  ),
     .valid_in       (valid_out_upsampling_1),
     .pxl_in         (out_upsampling_1      ),
-    .valid_weight_in(valid_weight_in31     ),
-    .weight_in      (weight_in31           ),
+    .valid_weight_in(valid_weight_in30     ),
+    .weight_in      (weight_in30           ),
     //output
     .pxl_out        (out_conv1x1_2         ),
     .valid_out      (valid_out_conv1x1_2   )
@@ -680,8 +668,8 @@ cnn_conv_3x3_64_64128 #(
     .reset          (reset                    ),
     .valid_in       (valid_out_resnet18_layer1),
     .pxl_in         (out_resnet18_layer1      ),
-    .valid_weight_in(valid_weight_in32        ),
-    .weight_in      (weight_in32              ),
+    .valid_weight_in(valid_weight_in31        ),
+    .weight_in      (weight_in31              ),
     .stride2        (1'b0                     ),
     //output
     .pxl_out        (out_conv3x3_1            ),
@@ -705,8 +693,8 @@ cnn_conv_1x1_64_128256 #(
     .stride2        (1'b0               ),
     .valid_in       (valid_out_conv3x3_1),
     .pxl_in         (out_conv3x3_1      ),
-    .valid_weight_in(valid_weight_in33  ),
-    .weight_in      (weight_in33        ),
+    .valid_weight_in(valid_weight_in32  ),
+    .weight_in      (weight_in32        ),
     //output
     .pxl_out        (out_conv1x1_3      ),
     .valid_out      (valid_out_conv1x1_3)
@@ -763,8 +751,8 @@ cnn_conv_3x3_304 #(
     .reset          (reset              ),
     .valid_in       (valid_out_concat   ),
     .pxl_in         (out_concat         ),
-    .valid_weight_in(valid_weight_in34  ),
-    .weight_in      (weight_in34        ),
+    .valid_weight_in(valid_weight_in33  ),
+    .weight_in      (weight_in33        ),
     .stride2        (1'b0               ),
     //output
     .pxl_out        (out_conv3x3_2      ),
@@ -788,8 +776,8 @@ cnn_conv_1x1_304_256 #(
     .stride2        (1'b0               ),
     .valid_in       (valid_out_conv3x3_2),
     .pxl_in         (out_conv3x3_2      ),
-    .valid_weight_in(valid_weight_in35  ),
-    .weight_in      (weight_in35        ),
+    .valid_weight_in(valid_weight_in34  ),
+    .weight_in      (weight_in34        ),
     //output
     .pxl_out        (out_conv1x1_4      ),
     .valid_out      (valid_out_conv1x1_4)
@@ -826,8 +814,8 @@ cnn_conv_1x1_256_748512 #(
     .stride2        (1'b0               ),
     .valid_in       (valid_out_relu_4   ),
     .pxl_in         (out_relu_4         ),
-    .valid_weight_in(valid_weight_in36  ),
-    .weight_in      (weight_in36        ),
+    .valid_weight_in(valid_weight_in35  ),
+    .weight_in      (weight_in35        ),
     //output
     .pxl_out        (out_conv1x1_5      ),
     .valid_out      (valid_out_conv1x1_5)

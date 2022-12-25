@@ -83,9 +83,6 @@ module cnn_resnet18 (
    ,valid_weight_in19
    ,weight_in19
 
-   ,valid_weight_in20
-   ,weight_in20
-
     ,out_layer1
     ,valid_out_layer1
     ,pxl_out
@@ -161,9 +158,6 @@ input [DATA_WIDTH-1:0] weight_in18;
 input                  valid_weight_in19;
 input [DATA_WIDTH-1:0] weight_in19;
 
-input                  valid_weight_in20;
-input [DATA_WIDTH-1:0] weight_in20;
-
 /////////////////////////////////////////////////////////////////////////
 // Output Declarations
 output [DATA_WIDTH-1:0] out_layer1      ;
@@ -235,9 +229,6 @@ wire [DATA_WIDTH-1:0] weight_in18      ;
 wire                  valid_weight_in19;
 wire [DATA_WIDTH-1:0] weight_in19      ;
 
-wire                  valid_weight_in20;
-wire [DATA_WIDTH-1:0] weight_in20      ;
-
 wire [DATA_WIDTH-1:0] out_layer1      ;
 wire                  valid_out_layer1;
 
@@ -267,9 +258,6 @@ resnet18_layer1 #(
   .valid_weight_in4(valid_weight_in4),
   .weight_in4      (weight_in4      ),
   
-  .valid_weight_in5(valid_weight_in5),
-  .weight_in5      (weight_in5      ),
-  
   .pxl_out         (out_layer1      ),
   .valid_out       (valid_out_layer1)
 );
@@ -288,20 +276,20 @@ resnet18_layer2 #(
   .valid_in        (valid_out_layer1 ),
   .pxl_in          (out_layer1       ),
   
-  .valid_weight_in1(valid_weight_in6 ),
-  .weight_in1      (weight_in6       ),
+  .valid_weight_in1(valid_weight_in5 ),
+  .weight_in1      (weight_in5       ),
   
-  .valid_weight_in2(valid_weight_in7 ),
-  .weight_in2      (weight_in7       ),
+  .valid_weight_in2(valid_weight_in6 ),
+  .weight_in2      (weight_in6       ),
   
-  .valid_weight_in3(valid_weight_in8 ),
-  .weight_in3      (weight_in8       ),
+  .valid_weight_in3(valid_weight_in7 ),
+  .weight_in3      (weight_in7       ),
   
-  .valid_weight_in4(valid_weight_in9 ),
-  .weight_in4      (weight_in9       ),
+  .valid_weight_in4(valid_weight_in8 ),
+  .weight_in4      (weight_in8       ),
   
-  .valid_weight_in5(valid_weight_in10),
-  .weight_in5      (weight_in10      ),
+  .valid_weight_in5(valid_weight_in9),
+  .weight_in5      (weight_in9      ),
   
   .pxl_out         (out_layer2       ),
   .valid_out       (valid_out_layer2 )
@@ -321,20 +309,20 @@ resnet18_layer3 #(
   .valid_in        (valid_out_layer2 ),
   .pxl_in          (out_layer2       ),
   
-  .valid_weight_in1(valid_weight_in11),
-  .weight_in1      (weight_in11      ),
+  .valid_weight_in1(valid_weight_in10),
+  .weight_in1      (weight_in10      ),
   
-  .valid_weight_in2(valid_weight_in12),
-  .weight_in2      (weight_in12      ),
+  .valid_weight_in2(valid_weight_in11),
+  .weight_in2      (weight_in11      ),
   
-  .valid_weight_in3(valid_weight_in13),
-  .weight_in3      (weight_in13      ),
+  .valid_weight_in3(valid_weight_in12),
+  .weight_in3      (weight_in12      ),
   
-  .valid_weight_in4(valid_weight_in14),
-  .weight_in4      (weight_in14      ),
+  .valid_weight_in4(valid_weight_in13),
+  .weight_in4      (weight_in13      ),
   
-  .valid_weight_in5(valid_weight_in15),
-  .weight_in5      (weight_in15      ),
+  .valid_weight_in5(valid_weight_in14),
+  .weight_in5      (weight_in14      ),
   
   .pxl_out         (out_layer3       ),
   .valid_out       (valid_out_layer3 )
@@ -351,20 +339,20 @@ resnet18_layer4 #(
   .valid_in        (valid_out_layer3 ),
   .pxl_in          (out_layer3       ),
   
-  .valid_weight_in1(valid_weight_in16),
-  .weight_in1      (weight_in16      ),
+  .valid_weight_in1(valid_weight_in15),
+  .weight_in1      (weight_in15      ),
   
-  .valid_weight_in2(valid_weight_in17),
-  .weight_in2      (weight_in17      ),
+  .valid_weight_in2(valid_weight_in16),
+  .weight_in2      (weight_in16      ),
   
-  .valid_weight_in3(valid_weight_in18),
-  .weight_in3      (weight_in18      ),
+  .valid_weight_in3(valid_weight_in17),
+  .weight_in3      (weight_in17      ),
   
-  .valid_weight_in4(valid_weight_in19),
-  .weight_in4      (weight_in19      ),
+  .valid_weight_in4(valid_weight_in18),
+  .weight_in4      (weight_in18      ),
   
-  .valid_weight_in5(valid_weight_in20),
-  .weight_in5      (weight_in20      ),
+  .valid_weight_in5(valid_weight_in19),
+  .weight_in5      (weight_in19      ),
   
   .pxl_out         (pxl_out          ),
   .valid_out       (valid_out        )
