@@ -43,20 +43,24 @@ wire                  valid_out;
 
 
 integer i;
+integer j;
+integer k;
 
 reg [DATA_WIDTH-1:0] image_input [CHANNEL_NUM_IN_PIXEL-1:0];
 reg [DATA_WIDTH-1:0] weight_input[          WEIGHT_NUM-1:0];
 reg [DATA_WIDTH-1:0] image_output                          ;
 
 initial begin
-	clk = 0;
+	clk = 1'b0;
 	i=0;
+	j=0;
+	k=0;
 	valid_in = 1'b0;
-	reset = 1;
+	reset = 1'b1;
 	valid_weight_in = 1'b0;
 	stride2 = 1'b0;
 	#SIMULATION_CYCLE
-		reset = 0;
+		reset = 1'b0;
 	valid_in = 1'b0;
 	valid_weight_in = 1'b0;
 
@@ -69,31 +73,31 @@ end
 always #(SIMULATION_CLOCK) clk = ~ clk;
 
 always @(posedge clk) begin
-	// if (j >= IMAGE_SIZE) begin
-	// 	valid_in <= 1'b0;
-	// 	k        <= k + 1'b1;
-	// end
-	// else begin
-	// 	pxl_in   <= image_input[j];
-	// 	valid_in <= 1'b1;
-	// 	j        <= j + 1'b1;
-	// 	k        <= 0;
-	// end
-	// if (k >= IMAGE_SIZE) begin
-	// 	j <= 0;
-	// end
-	pxl_in   <= image_input[i];
-	valid_in <= 1'b1;
-	if (i >= CHANNEL_NUM_IN_PIXEL) begin
+	if (j >= IMAGE_SIZE) begin
 		valid_in <= 1'b0;
+		k        <= k + 1'b1;
 	end
-	weight_in       <= weight_input[i];
-	valid_weight_in <= 1'b1;
+	else begin
+		pxl_in   <= image_input[j];
+		valid_in <= 1'b1;
+		j        <= j + 1'b1;
+		k        <= 0;
+	end
+	if (k >= CHANNEL_NUM_IN_PIXEL) begin
+		j <= 0;
+	end
+	// pxl_in   <= image_input[i];
+	// valid_in <= 1'b1;
+	// if (i >= CHANNEL_NUM_IN_PIXEL) begin
+	// 	valid_in <= 1'b0;
+	// end
+	// weight_in       <= weight_input[i];
+	// valid_weight_in <= 1'b1;
 	if (i >= WEIGHT_NUM) begin
 		valid_weight_in <= 1'b0;
 	end
-	#(SIMULATION_CYCLE) i <= i + 1'b1;
-	if(valid_out == 1'b1)begin
+	i <= i + 1'b1;
+	if(valid_out)begin
 		$fdisplay(image_output,"%h",pxl_out);
 	end
 	if(i == ENDTIME) begin
