@@ -10,7 +10,7 @@ parameter DATA_WIDTH  = 32;
 parameter IMAGE_WIDTH     = 16; //Width
 parameter IMAGE_HEIGHT    = 16; //Height
 parameter CHANNEL_NUM_IN  = 64; //The number of channel in
-parameter CHANNEL_NUM_OUT = 2 ; //The number of channel out
+parameter CHANNEL_NUM_OUT = 4 ; //The number of channel out
 parameter KERNEL          = 3 ; //Kernel width
 parameter RATE            = 1 ; //Rate of dialtion
 
@@ -43,8 +43,8 @@ wire                  valid_out;
 
 
 integer i;
-integer j;
-integer k;
+// integer j;
+// integer k;
 
 reg [DATA_WIDTH-1:0] image_input [CHANNEL_NUM_IN_PIXEL-1:0];
 reg [DATA_WIDTH-1:0] weight_input[          WEIGHT_NUM-1:0];
@@ -53,8 +53,8 @@ reg [DATA_WIDTH-1:0] image_output                          ;
 initial begin
 	clk = 1'b0;
 	i=0;
-	j=0;
-	k=0;
+	// j=0;
+	// k=0;
 	valid_in = 1'b0;
 	reset = 1'b1;
 	valid_weight_in = 1'b0;
@@ -73,26 +73,26 @@ end
 always #(SIMULATION_CLOCK) clk = ~ clk;
 
 always @(posedge clk) begin
-	if (j >= IMAGE_SIZE) begin
-		valid_in <= 1'b0;
-		k        <= k + 1'b1;
-	end
-	else begin
-		pxl_in   <= image_input[j];
-		valid_in <= 1'b1;
-		j        <= j + 1'b1;
-		k        <= 0;
-	end
-	if (k >= CHANNEL_NUM_IN_PIXEL) begin
-		j <= 0;
-	end
-	// pxl_in   <= image_input[i];
-	// valid_in <= 1'b1;
-	// if (i >= CHANNEL_NUM_IN_PIXEL) begin
+	// if (j >= IMAGE_SIZE) begin
 	// 	valid_in <= 1'b0;
+	// 	k        <= k + 1'b1;
 	// end
-	// weight_in       <= weight_input[i];
-	// valid_weight_in <= 1'b1;
+	// else begin
+	// 	pxl_in   <= image_input[j];
+	// 	valid_in <= 1'b1;
+	// 	j        <= j + 1'b1;
+	// 	k        <= 0;
+	// end
+	// if (k >= CHANNEL_NUM_IN_PIXEL) begin
+	// 	j <= 0;
+	// end
+	pxl_in   <= image_input[i];
+	valid_in <= 1'b1;
+	if (i >= CHANNEL_NUM_IN_PIXEL) begin
+		valid_in <= 1'b0;
+	end
+	weight_in       <= weight_input[i];
+	valid_weight_in <= 1'b1;
 	if (i >= WEIGHT_NUM) begin
 		valid_weight_in <= 1'b0;
 	end

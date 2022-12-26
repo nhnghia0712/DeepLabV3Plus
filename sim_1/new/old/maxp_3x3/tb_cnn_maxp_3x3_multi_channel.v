@@ -7,10 +7,10 @@ module tb_cnn_maxp_3x3_multi_channel ();
 parameter DATA_WIDTH  = 32;
 
 // General
-parameter IMAGE_WIDTH  = 1224; //Width
-parameter IMAGE_HEIGHT = 1224; //Height
-parameter KERNEL       = 3   ; //3*3 Kernel
-parameter RATE         = 1   ; //3*3 Kernel
+parameter IMAGE_WIDTH  = 16; //Width
+parameter IMAGE_HEIGHT = 16; //Height
+parameter KERNEL       = 3 ; //3*3 Kernel
+parameter RATE         = 1 ; //3*3 Kernel
 
 localparam CHANNEL_NUM_IN       = 64                         ; //The number of channel
 localparam IMAGE_SIZE           = IMAGE_WIDTH * IMAGE_HEIGHT ;
