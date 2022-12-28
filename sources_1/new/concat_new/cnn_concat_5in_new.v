@@ -41,6 +41,10 @@ module cnn_concat_5in_new (
 // Parameter Declarations
 parameter DATA_WIDTH        = 32     ;
 parameter CHANNEL_NUM_PIXEL = 153*153; //The number of channel 6x6x4
+parameter DELAY_02          = 62     ;
+parameter DELAY_03          = 62     ;
+parameter DELAY_04          = 62     ;
+parameter DELAY_05          = 62     ;
 
 /////////////////////////////////////////////////////////////////////////
 // Port Declarations
@@ -85,9 +89,9 @@ wire                  valid_out_line_buffer1;
 wire [DATA_WIDTH-1:0] out_line_buffer1      ;
 
 line_buffer #(
-  .IMAGE_WIDTH(CHANNEL_NUM_PIXEL),
-  .KERNEL     (1                ),
-  .DIN_WIDTH  (DATA_WIDTH       )
+  .IMAGE_WIDTH(CHANNEL_NUM_PIXEL - DELAY_02),
+  .KERNEL     (1                           ),
+  .DIN_WIDTH  (DATA_WIDTH                  )
 ) line_buffer1 (
   .clk      (clk                   ),
   .reset    (reset                 ),
@@ -102,9 +106,9 @@ wire                  valid_out_line_buffer2;
 wire [DATA_WIDTH-1:0] out_line_buffer2      ;
 
 line_buffer #(
-  .IMAGE_WIDTH((CHANNEL_NUM_PIXEL * 2)),
-  .KERNEL     (1                      ),
-  .DIN_WIDTH  (DATA_WIDTH             )
+  .IMAGE_WIDTH((CHANNEL_NUM_PIXEL * 2) - DELAY_03),
+  .KERNEL     (1                                 ),
+  .DIN_WIDTH  (DATA_WIDTH                        )
 ) line_buffer2 (
   .clk      (clk                   ),
   .reset    (reset                 ),
@@ -119,9 +123,9 @@ wire                  valid_out_line_buffer3;
 wire [DATA_WIDTH-1:0] out_line_buffer3      ;
 
 line_buffer #(
-  .IMAGE_WIDTH((CHANNEL_NUM_PIXEL * 3)),
-  .KERNEL     (1                      ),
-  .DIN_WIDTH  (DATA_WIDTH             )
+  .IMAGE_WIDTH((CHANNEL_NUM_PIXEL * 3) - DELAY_04),
+  .KERNEL     (1                                 ),
+  .DIN_WIDTH  (DATA_WIDTH                        )
 ) line_buffer3 (
   .clk      (clk                   ),
   .reset    (reset                 ),
@@ -136,9 +140,9 @@ wire                  valid_out_line_buffer4;
 wire [DATA_WIDTH-1:0] out_line_buffer4      ;
 
 line_buffer #(
-  .IMAGE_WIDTH((CHANNEL_NUM_PIXEL * 4)),
-  .KERNEL     (1                      ),
-  .DIN_WIDTH  (DATA_WIDTH             )
+  .IMAGE_WIDTH((CHANNEL_NUM_PIXEL * 4) - DELAY_05),
+  .KERNEL     (1                                 ),
+  .DIN_WIDTH  (DATA_WIDTH                        )
 ) line_buffer4 (
   .clk      (clk                   ),
   .reset    (reset                 ),

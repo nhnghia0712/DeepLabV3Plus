@@ -28,7 +28,7 @@ localparam IMAGE_SIZE           = IMAGE_WIDTH * IMAGE_HEIGHT      ;
 localparam CHANNEL_NUM_IN_PIXEL = CHANNEL_NUM_IN * IMAGE_SIZE     ;
 localparam WEIGHT_NUM           = CHANNEL_NUM * KERNEL_SIZE       ; // 2x2x3x3
 
-localparam ENDTIME = (RATE * (IMAGE_WIDTH + 1)) + 45 + ((((IMAGE_SIZE + (RATE * (IMAGE_WIDTH + 1))) * (CHANNEL_NUM_IN - 1)) + 1 + (9 * $clog2(CHANNEL_NUM_IN)) + IMAGE_SIZE) * CHANNEL_NUM_OUT);
+localparam ENDTIME = CHANNEL_NUM_IN_PIXEL * IMAGE_WIDTH;
 
 reg                  clk            ;
 reg                  reset          ;
@@ -49,14 +49,16 @@ reg [DATA_WIDTH-1:0] weight_input[          WEIGHT_NUM-1:0];
 reg [DATA_WIDTH-1:0] image_output                          ;
 
 initial begin
-	clk = 1'b0;
+	clk = 0;
 	i=0;
 	valid_in = 1'b0;
-	reset = 1'b1;
+	reset = 1;
 	valid_weight_in = 1'b0;
 	stride2 = 1'b0;
 	#SIMULATION_CYCLE
-		reset = 1'b0;
+		reset = 0;
+	valid_in <= 1'b0;
+	valid_weight_in = 1'b0;
 
 	$readmemb(IMAGE_INPUT_FILE, image_input);
 	$readmemh(WEIGHTS_INPUT_FILE, weight_input);
@@ -67,24 +69,22 @@ end
 always #(SIMULATION_CLOCK) clk = ~ clk;
 
 always @(posedge clk) begin
-	if (!reset) begin
-		pxl_in   <= image_input[i];
-		valid_in <= 1'b1;
-		if (i >= CHANNEL_NUM_IN_PIXEL) begin
-			valid_in <= 1'b0;
-		end
-		weight_in       <= weight_input[i];
-		valid_weight_in <= 1'b1;
-		if (i >= WEIGHT_NUM) begin
-			valid_weight_in <= 1'b0;
-		end
-		#(SIMULATION_CYCLE) i <= i + 1'b1;
-		if(valid_out == 1'b1)begin
-			$fdisplay(image_output,"%h",pxl_out);
-		end
-		if(i == ENDTIME) begin
-			$finish;
-		end
+	pxl_in   <= image_input[i];
+	valid_in <= 1'b1;
+	if (i >= CHANNEL_NUM_IN_PIXEL) begin
+		valid_in <= 1'b0;
+	end
+	weight_in       <= weight_input[i];
+	valid_weight_in <= 1'b1;
+	if (i >= WEIGHT_NUM) begin
+		valid_weight_in <= 1'b0;
+	end
+	#(SIMULATION_CYCLE) i <= i + 1'b1;
+	if(valid_out == 1'b1)begin
+		$fdisplay(image_output,"%h",pxl_out);
+	end
+	if(i == ENDTIME) begin
+		$finish;
 	end
 end
 

@@ -123,6 +123,9 @@ conv_1x1_top_new #(
 );
 
 // Add
+wire [DATA_WIDTH-1:0] adder_out      ;
+wire                  valid_adder_out;
+
 conv_64channel_adder_new #(
   .DATA_WIDTH             (DATA_WIDTH             ),
   .CHANNEL_NUM_IN         (CHANNEL_NUM_IN         ),
@@ -138,8 +141,27 @@ conv_64channel_adder_new #(
   .valid_in (valid_out_conv),
   .pxl_in   (pxl_out_conv  ),
   //output
-  .pxl_out  (pxl_out       ),
-  .valid_out(valid_out     )
+  .pxl_out  (adder_out      ),
+  .valid_out(valid_adder_out)
+);
+
+// Align output
+conv_align_output #(
+  .DATA_WIDTH     (DATA_WIDTH     ),
+  .CHANNEL_NUM_IN (CHANNEL_NUM_IN ),
+  .IMAGE_WIDTH    (IMAGE_WIDTH    ),
+  .IMAGE_SIZE     (IMAGE_SIZE     ),
+  .RATE           (RATE           ),
+  .CHANNEL_NUM_OUT(CHANNEL_NUM_OUT)
+) inst_align (
+  //input
+  .clk      (clk            ),
+  .reset    (reset          ),
+  .valid_in (valid_adder_out),
+  .pxl_in   (adder_out      ),
+  //output
+  .pxl_out  (pxl_out        ),
+  .valid_out(valid_out      )
 );
 
 endmodule
