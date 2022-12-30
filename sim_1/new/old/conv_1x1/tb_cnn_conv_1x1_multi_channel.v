@@ -1,4 +1,4 @@
-`timescale 1ns / 100ps
+`timescale 1ns / 1ps
 
 module tb_cnn_conv_1x1_multi_channel ();
 
@@ -7,10 +7,10 @@ module tb_cnn_conv_1x1_multi_channel ();
 	parameter DATA_WIDTH = 32;
 
 // General
-	parameter IMAGE_WIDTH     = 12; //Width
-	parameter IMAGE_HEIGHT    = 12; //Height
+	parameter IMAGE_WIDTH     = 16; //Width
+	parameter IMAGE_HEIGHT    = 16; //Height
 	parameter CHANNEL_NUM_IN  = 64; //The number of channel in
-	parameter CHANNEL_NUM_OUT = 2 ; //The number of channel out
+	parameter CHANNEL_NUM_OUT = 4 ; //The number of channel out
 	parameter KERNEL          = 1 ; //Kernel width
 
 // Localparam general
@@ -26,9 +26,9 @@ module tb_cnn_conv_1x1_multi_channel ();
 	localparam IMAGE_OUTPUT_FILE = "D:/GitHub/CNNs/Text_file/Output/Output_cnn_conv_1x1_stride1_test.txt";
 
 
-	localparam ENDTIME          = CHANNEL_NUM * IMAGE_SIZE * 2;
-	localparam SIMULATION_CLOCK = 5                           ;
-	localparam SIMULATION_CYCLE = 10                          ;
+	localparam ENDTIME          = 8 + ((IMAGE_SIZE + IMAGE_WIDTH + 1) * (CHANNEL_NUM_IN - 1)) + 1 + (9 * $clog2(CHANNEL_NUM_IN)) + ((((IMAGE_WIDTH + 1 + IMAGE_SIZE) * CHANNEL_NUM_IN) - IMAGE_SIZE)) * (CHANNEL_NUM_OUT - 1);
+	localparam SIMULATION_CLOCK = 5                                                                                                                                                                                          ;
+	localparam SIMULATION_CYCLE = 10                                                                                                                                                                                         ;
 
 
 	reg                  clk            ;
@@ -57,7 +57,7 @@ module tb_cnn_conv_1x1_multi_channel ();
 		valid_weight_in = 1'b0;
 		stride2 = 1'b0;
 		#SIMULATION_CYCLE
-		reset = 1'b0;
+			reset = 1'b0;
 		valid_in = 1'b0;
 		valid_weight_in = 1'b0;
 
@@ -70,22 +70,24 @@ module tb_cnn_conv_1x1_multi_channel ();
 	always #(SIMULATION_CLOCK) clk = ~ clk;
 
 	always @(posedge clk) begin
-		pxl_in   <= image_input[i];
-		valid_in <= 1'b1;
-		if (i >= CHANNEL_NUM_IN_PIXEL) begin
-			valid_in <= 1'b0;
-		end
-		weight_in       <= weight_input[i];
-		valid_weight_in <= 1'b1;
-		if (i >= WEIGHT_NUM) begin
-			valid_weight_in <= 1'b0;
-		end
-		#(SIMULATION_CYCLE) i <= i + 1'b1;
-		if(valid_out)begin
-			$fdisplay(image_output,"%h",pxl_out);
-		end
-		if(i == ENDTIME) begin
-			$finish;
+		if (!reset) begin
+			pxl_in   <= image_input[i];
+			valid_in <= 1'b1;
+			if (i >= CHANNEL_NUM_IN_PIXEL) begin
+				valid_in <= 1'b0;
+			end
+			weight_in       <= weight_input[i];
+			valid_weight_in <= 1'b1;
+			if (i >= WEIGHT_NUM) begin
+				valid_weight_in <= 1'b0;
+			end
+			#(SIMULATION_CYCLE) i <= i + 1'b1;
+			if(valid_out == 1'b1)begin
+				$fdisplay(image_output,"%h",pxl_out);
+			end
+			if(i == ENDTIME) begin
+				$finish;
+			end
 		end
 	end
 	cnn_conv_1x1_multi_channel_new #(

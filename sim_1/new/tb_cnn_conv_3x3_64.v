@@ -28,7 +28,7 @@ localparam IMAGE_SIZE           = IMAGE_WIDTH * IMAGE_HEIGHT      ;
 localparam CHANNEL_NUM_IN_PIXEL = CHANNEL_NUM_IN * IMAGE_SIZE     ;
 localparam WEIGHT_NUM           = CHANNEL_NUM * KERNEL_SIZE       ; // 2x2x3x3
 
-localparam ENDTIME = (RATE * (IMAGE_WIDTH + 1)) + 45 + ((((IMAGE_SIZE + (RATE * (IMAGE_WIDTH + 1))) * (CHANNEL_NUM_IN - 1)) + 1 + (9 * $clog2(CHANNEL_NUM_IN)) + IMAGE_SIZE) * CHANNEL_NUM_OUT);
+localparam ENDTIME = (9 * ($clog2(CHANNEL_NUM_IN))) + (CHANNEL_NUM_OUT * ((IMAGE_SIZE * (CHANNEL_NUM_IN - 1)) + ((CHANNEL_NUM_IN * RATE) * (IMAGE_WIDTH + 1)))) + 46 + (IMAGE_SIZE * CHANNEL_NUM_OUT) + 1;
 
 reg                  clk            ;
 reg                  reset          ;

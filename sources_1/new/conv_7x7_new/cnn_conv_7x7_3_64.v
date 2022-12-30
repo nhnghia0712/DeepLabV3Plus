@@ -66,15 +66,15 @@ wire [DATA_WIDTH-1:0] loop_data_out      ;
 wire                  valid_loop_data_out;
 
 conv_loop_data_in_new #(
-	.DATA_WIDTH          (DATA_WIDTH           ),
-	.CHANNEL_NUM_IN      (CHANNEL_NUM_IN       ),
-	.CHANNEL_NUM_OUT     (CHANNEL_NUM_OUT      ),
-	.IMAGE_WIDTH         ((IMAGE_WIDTH * 3) + 2),
-	.CHANNEL_NUM_IN_PIXEL(CHANNEL_NUM_IN_PIXEL ),
-	.IMAGE_SIZE          (IMAGE_SIZE           ),
-	.LOOP_CHANNEL_IN_CNT (LOOP_CHANNEL_IN_CNT  ),
-	.LOOP_COL_CNT        (LOOP_COL_CNT         ),
-	.RATE                (1                    )
+	.DATA_WIDTH          (DATA_WIDTH          ),
+	.CHANNEL_NUM_IN      (CHANNEL_NUM_IN      ),
+	.CHANNEL_NUM_OUT     (CHANNEL_NUM_OUT     ),
+	.IMAGE_WIDTH         (IMAGE_WIDTH         ),
+	.CHANNEL_NUM_IN_PIXEL(CHANNEL_NUM_IN_PIXEL),
+	.IMAGE_SIZE          (IMAGE_SIZE          ),
+	.LOOP_CHANNEL_IN_CNT (LOOP_CHANNEL_IN_CNT ),
+	.LOOP_COL_CNT        (LOOP_COL_CNT        ),
+	.RATE                (3                   )
 ) inst_loop (
 	//input
 	.clk      (clk                ),
@@ -126,7 +126,7 @@ conv_3channel_adder_new #(
 	.CHANNEL_NUM            (CHANNEL_NUM            ),
 	.ADD_CHANNEL_IN_CNT     (ADD_CHANNEL_IN_CNT     ),
 	.ADD_TEMP_CHANNEL_IN_CNT(ADD_TEMP_CHANNEL_IN_CNT),
-	.RATE                   (RATE                   )
+	.RATE                   (3                      )
 ) inst_add (
 	//input
 	.clk      (clk            ),
@@ -144,7 +144,7 @@ conv_align_output #(
 	.CHANNEL_NUM_IN (CHANNEL_NUM_IN ),
 	.IMAGE_WIDTH    (IMAGE_WIDTH    ),
 	.IMAGE_SIZE     (IMAGE_SIZE     ),
-	.RATE           (RATE           ),
+	.RATE           (3              ),
 	.CHANNEL_NUM_OUT(CHANNEL_NUM_OUT)
 ) inst_align (
 	//input

@@ -369,7 +369,7 @@ cnn_conv_1x1_512_256 #(
     .CHANNEL_NUM_IN (512         ),
     .CHANNEL_NUM_OUT(256         ),
     .KERNEL         (1           )
-) conv42 (
+) conv52 (
     .clk            (clk             ),
     .reset          (reset           ),
     .valid_in       (valid_out_conv51),
@@ -397,9 +397,23 @@ cnn_conv_relu #(.DATA_WIDTH(DATA_WIDTH)) relu5 (
 );
 
 // Concat
-cnn_concat_5in #(
-    .DATA_WIDTH       (DATA_WIDTH                      ),
-    .CHANNEL_NUM_PIXEL(IMAGE_WIDTH * IMAGE_HEIGHT * 256)
+parameter IMAGE_SIZE = IMAGE_WIDTH * IMAGE_HEIGHT                                          ;
+parameter DELAY_01   = (130816 * IMAGE_SIZE) + (131071 * IMAGE_WIDTH) + 131162             ;
+parameter DELAY_02   = DELAY_01 + (261632 * IMAGE_SIZE) + (3145728 * IMAGE_WIDTH) + 3145855;
+parameter DELAY_03   = DELAY_01 + (261632 * IMAGE_SIZE) + (6291456 * IMAGE_WIDTH) + 6291583;
+parameter DELAY_04   = DELAY_01 + (261632 * IMAGE_SIZE) + (9437184 * IMAGE_WIDTH) + 9437311;
+parameter DELAY_05   = DELAY_01 + IMAGE_WIDTH + 46                                         ;
+
+cnn_concat_5in_new #(
+    .DATA_WIDTH    (DATA_WIDTH  ),
+    .IMAGE_WIDTH   (IMAGE_WIDTH ),
+    .IMAGE_HEIGHT  (IMAGE_HEIGHT),
+    .CHANNEL_NUM_IN(256         ),
+    .DELAY_01      (DELAY_01    ),
+    .DELAY_02      (DELAY_02    ),
+    .DELAY_03      (DELAY_03    ),
+    .DELAY_04      (DELAY_04    ),
+    .DELAY_05      (DELAY_05    )
 ) concat1 (
     .clk         (clk             ),
     .reset       (reset           ),

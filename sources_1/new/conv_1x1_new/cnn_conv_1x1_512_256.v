@@ -151,7 +151,7 @@ conv_align_output #(
   .CHANNEL_NUM_IN (CHANNEL_NUM_IN ),
   .IMAGE_WIDTH    (IMAGE_WIDTH    ),
   .IMAGE_SIZE     (IMAGE_SIZE     ),
-  .RATE           (RATE           ),
+  .RATE           (1              ),
   .CHANNEL_NUM_OUT(CHANNEL_NUM_OUT)
 ) inst_align (
   //input

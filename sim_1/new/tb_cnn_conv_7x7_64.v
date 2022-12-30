@@ -7,12 +7,12 @@ module tb_cnn_conv_7x7_64 ();
 parameter DATA_WIDTH  = 32;
 
 // General
-parameter  IMAGE_WIDTH      = 1224; //Width
-parameter  IMAGE_HEIGHT     = 1224; //Height
-parameter  CHANNEL_NUM_IN   = 3   ; //The number of channel in
-parameter  CHANNEL_NUM_OUT  = 64  ; //The number of channel out
-parameter  KERNEL           = 7   ; //Kernel width
-localparam SIMULATION_CLOCK = 5   ;
+parameter  IMAGE_WIDTH      = 16; //Width
+parameter  IMAGE_HEIGHT     = 16; //Height
+parameter  CHANNEL_NUM_IN   = 3 ; //The number of channel in
+parameter  CHANNEL_NUM_OUT  = 4 ; //The number of channel out
+parameter  KERNEL           = 7 ; //Kernel width
+localparam SIMULATION_CLOCK = 5 ;
 
 localparam IMAGE_SIZE           = IMAGE_WIDTH * IMAGE_HEIGHT      ;
 localparam CHANNEL_NUM          = CHANNEL_NUM_IN * CHANNEL_NUM_OUT;
@@ -89,8 +89,7 @@ cnn_conv_7x7_64 #(
 	.IMAGE_HEIGHT   (IMAGE_HEIGHT   ),
 	.CHANNEL_NUM_IN (CHANNEL_NUM_IN ),
 	.CHANNEL_NUM_OUT(CHANNEL_NUM_OUT),
-	.KERNEL         (KERNEL         ),
-	.RATE           (RATE           )
+	.KERNEL         (KERNEL         )
 ) DUT (
 	.clk            (clk            ),
 	.reset          (reset          ),

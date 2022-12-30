@@ -142,6 +142,8 @@ parameter DATA_WIDTH   = 32  ;
 parameter IMAGE_WIDTH  = 2048;
 parameter IMAGE_HEIGHT = 2048;
 
+parameter IMAGE_SIZE = IMAGE_WIDTH * IMAGE_HEIGHT;
+
 /////////////////////////////////////////////////////////////////////////
 // Port Declarations
 input                  clk             ;
@@ -660,7 +662,7 @@ cnn_conv_3x3_64_64128 #(
     .IMAGE_WIDTH    (IMAGE_WIDTH/4 ),
     .IMAGE_HEIGHT   (IMAGE_HEIGHT/4),
     .CHANNEL_NUM_IN (64            ),
-    .CHANNEL_NUM_OUT(64            ),
+    .CHANNEL_NUM_OUT(256           ),
     .KERNEL         (3             ),
     .RATE           (1             )
 ) conv3x3_1 (
@@ -680,11 +682,11 @@ cnn_conv_3x3_64_64128 #(
 wire [DATA_WIDTH-1:0] out_conv1x1_3      ;
 wire                  valid_out_conv1x1_3;
 
-cnn_conv_1x1_64_128256 #(
+cnn_conv_1x1_256_748512 #(
     .DATA_WIDTH     (DATA_WIDTH    ),
     .IMAGE_WIDTH    (IMAGE_WIDTH/4 ),
     .IMAGE_HEIGHT   (IMAGE_HEIGHT/4),
-    .CHANNEL_NUM_IN (64            ),
+    .CHANNEL_NUM_IN (256           ),
     .CHANNEL_NUM_OUT(256           ),
     .KERNEL         (1             )
 ) conv1x1_3 (
@@ -718,10 +720,37 @@ cnn_conv_relu #(.DATA_WIDTH(DATA_WIDTH)) relu3 (
 wire [DATA_WIDTH-1:0] out_concat      ;
 wire                  valid_out_concat;
 
-cnn_concat_2in #(
-    .DATA_WIDTH         (DATA_WIDTH                              ),
-    .CHANNEL_NUM_PIXEL_1((IMAGE_WIDTH/4) * (IMAGE_HEIGHT/4) * 256),
-    .CHANNEL_NUM_PIXEL_2((IMAGE_WIDTH/4) * (IMAGE_HEIGHT/4) * 48 )
+parameter DELAY0_LAYER2 = (12128 * (IMAGE_SIZE/16)) + (16384 * (IMAGE_WIDTH/4)) + 24785 + 9;
+parameter DELAY1_LAYER2 = (32512 * (IMAGE_SIZE/64)) + (32768 * (IMAGE_WIDTH/8)) + 32987 + 9;
+parameter DELAY_LAYER2  = DELAY0_LAYER2 + DELAY1_LAYER2                                    ;
+
+parameter DELAY0_LAYER3 = (48832 * (IMAGE_SIZE/64)) + (65536 * (IMAGE_WIDTH/8)) + 98531 + 9     ;
+parameter DELAY1_LAYER3 = (130560 * (IMAGE_SIZE/256)) + (131072 * (IMAGE_WIDTH/16)) + 131309 + 9;
+parameter DELAY_LAYER3  = DELAY0_LAYER3 + DELAY1_LAYER3                                         ;
+
+parameter DELAY0_LAYER4 = (392192 * (IMAGE_SIZE/256)) + (393216 * (IMAGE_WIDTH/16)) + 393461 + 9;
+parameter DELAY1_LAYER4 = (523264 * (IMAGE_SIZE/256)) + (524288 * (IMAGE_WIDTH/16)) + 524543 + 9;
+parameter DELAY_LAYER4  = DELAY0_LAYER4 + DELAY1_LAYER4                                         ;
+
+parameter DELAY_01_ASPP          = (130816 * (IMAGE_SIZE/256)) + (131071 * (IMAGE_WIDTH/16)) + 131162                  ;
+parameter DELAY_02_ASPP          = DELAY_01_ASPP + (261632 * (IMAGE_SIZE/256)) + (3145728 * (IMAGE_WIDTH/16)) + 3145855;
+parameter DELAY_ASPP             = DELAY_02_ASPP - (IMAGE_SIZE * 256)                                                  ;
+parameter DELAY_CONV1X1_1280_256 = (327424 * (IMAGE_SIZE/256)) + (327679 * (IMAGE_WIDTH/16)) + 327787 + 1              ;
+parameter DELAY_UP               = 1                                                                                   ;
+
+parameter DELAY_CONV1X1_256_48 = (12240 * (IMAGE_SIZE/16)) + (12287 * (IMAGE_WIDTH/4)) + 12368 + 1;
+
+parameter DELAY_TAIL = DELAY_LAYER2 + DELAY_LAYER3 + DELAY_LAYER4 + DELAY_ASPP + DELAY_CONV1X1_1280_256 + DELAY_UP + DELAY_CONV1X1_256_48;
+
+parameter DELAY_CONV3X3_64_256 = (16128 * (IMAGE_SIZE/16)) + (19660 * (IMAGE_WIDTH/4)) + 196708   ;
+parameter DELAY_CONV1X1_256    = (65280 * (IMAGE_SIZE/16)) + (65535 * (IMAGE_WIDTH/4)) + 65616 + 1;
+parameter DELAY_HEAD           = DELAY_CONV3X3_64_256 + DELAY_CONV1X1_256                         ;
+
+parameter SHIFT_WIDTH_CONCAT_2IN = DELAY_TAIL - DELAY_HEAD - ((IMAGE_SIZE/16) * 256);
+
+cnn_concat_2in_new #(
+    .DATA_WIDTH (DATA_WIDTH            ),
+    .SHIFT_WIDTH(SHIFT_WIDTH_CONCAT_2IN)
 ) concat1 (
     .clk         (clk             ),
     .reset       (reset           ),
@@ -830,7 +859,7 @@ cnn_upsampling_nn #(
     .IMAGE_WIDTH (IMAGE_WIDTH/4 ),
     .IMAGE_HEIGHT(IMAGE_HEIGHT/4),
     .CHANNEL_NUM (7             )
-) upsampling1 (
+) upsampling2 (
     .clk      (clk                   ),
     .reset    (reset                 ),
     .valid_in (valid_out_conv1x1_5   ),
@@ -841,15 +870,15 @@ cnn_upsampling_nn #(
 );
 
 // Sigmoid
-cnn_sigmoid #(.DATA_WIDTH(DATA_WIDTH)) sigmoid (
-    .clk      (clk                   ),
-    .reset    (reset                 ),
-    .valid_in (valid_out_upsampling_2),
-    .in       (out_upsampling_2      ),
-    //output
-    .out      (pxl_out               ),
-    .valid_out(valid_out             ),
-    .done     (done                  )
-);
+// cnn_sigmoid #(.DATA_WIDTH(DATA_WIDTH)) sigmoid (
+//     .clk      (clk                   ),
+//     .reset    (reset                 ),
+//     .valid_in (valid_out_upsampling_2),
+//     .in       (out_upsampling_2      ),
+//     //output
+//     .out      (pxl_out               ),
+//     .valid_out(valid_out             ),
+//     .done     (done                  )
+// );
 
 endmodule

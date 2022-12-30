@@ -45,6 +45,8 @@ parameter DATA_WIDTH   = 32 ;
 parameter IMAGE_WIDTH  = 128;
 parameter IMAGE_HEIGHT = 128;
 
+parameter IMAGE_SIZE = IMAGE_WIDTH * IMAGE_HEIGHT;
+
 /////////////////////////////////////////////////////////////////////////
 // Port Declarations
 input                  clk             ;
@@ -167,9 +169,11 @@ cnn_conv_1x1_256_748512 #(
 );
 
 // Add
+parameter SHIFT_WIDTH = (261632 * IMAGE_SIZE) + (262145 * IMAGE_WIDTH) + 262310;
+
 cnn_add #(
-    .DATA_WIDTH       (DATA_WIDTH                          ),
-    .CHANNEL_NUM_PIXEL((IMAGE_WIDTH) * (IMAGE_HEIGHT) * 512)
+    .DATA_WIDTH (DATA_WIDTH ),
+    .SHIFT_WIDTH(SHIFT_WIDTH)
 ) inst_add (
     .clk         (clk            ),
     .reset       (reset          ),

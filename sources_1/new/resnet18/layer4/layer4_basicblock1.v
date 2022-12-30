@@ -138,16 +138,18 @@ cnn_conv_3x3_512 #(
 );
 
 // Add
+parameter SHIFT_WIDTH = (523264 * IMAGE_SIZE) + (524288 * IMAGE_WIDTH) + 524543;
+
 cnn_add #(
-    .DATA_WIDTH       (DATA_WIDTH      ),
-    .CHANNEL_NUM_PIXEL(IMAGE_SIZE * 512)
+    .DATA_WIDTH (DATA_WIDTH ),
+    .SHIFT_WIDTH(SHIFT_WIDTH)
 ) inst_add (
     .clk         (clk            ),
     .reset       (reset          ),
-    .valid_in_no1(valid_in       ),
-    .in_no1      (pxl_in         ),
-    .valid_in_no2(valid_out_conv2),
-    .in_no2      (out_conv2      ),
+    .valid_in_no1(valid_out_conv2),
+    .in_no1      (out_conv2      ),
+    .valid_in_no2(valid_in       ),
+    .in_no2      (pxl_in         ),
     //output
     .out         (pxl_out        ),
     .valid_out   (valid_out      )
