@@ -19,7 +19,7 @@
 
 ///////////////////////////////////////////////////////////////////////
 
-module cnn_add (
+module cnn_add_layer4 (
   clk, 
   reset,
   valid_in_no1,
@@ -33,10 +33,12 @@ module cnn_add (
 
 /////////////////////////////////////////////////////////////////////////
 // Parameter Declarations
-parameter DATA_WIDTH     = 32                         ;
-parameter IMAGE_WIDTH    = 16                         ;
-parameter SHIFT_WIDTH_01 = (8064 * IMAGE_WIDTH) + 8192; //The number of channel 6x6x4
-parameter SHIFT_WIDTH_02 = 8393                       ; //The number of channel 6x6x4
+parameter DATA_WIDTH     = 32     ;
+parameter IMAGE_WIDTH    = 16     ;
+parameter IMAGE_SIZE     = 16     ;
+parameter SHIFT_WIDTH_01 = 612*612; //The number of channel 6x6x4
+parameter SHIFT_WIDTH_02 = 612*612; //The number of channel 6x6x4
+parameter SHIFT_WIDTH_03 = 612*612; //The number of channel 6x6x4
 
 /////////////////////////////////////////////////////////////////////////
 // Port Declarations
@@ -64,8 +66,8 @@ wire [DATA_WIDTH-1:0] in_no2      ;
 wire [DATA_WIDTH-1:0] out      ;
 wire                  valid_out;
 
-wire [ DATA_WIDTH-1:0] mem      [IMAGE_WIDTH-1:0];
-wire [IMAGE_WIDTH-1:0] mem_valid                 ;
+wire [ DATA_WIDTH-1:0] mem      [IMAGE_SIZE-1:0];
+wire [IMAGE_SIZE-1:0] mem_valid                 ;
 
 assign mem[0]       = in_no2;
 assign mem_valid[0] = valid_in_no2;
@@ -73,7 +75,7 @@ assign mem_valid[0] = valid_in_no2;
 genvar i;
 
 generate
-  for (i = 0; i < IMAGE_WIDTH - 1; i= i + 1) begin
+  for (i = 0; i < IMAGE_SIZE - 1; i= i + 1) begin
     line_buffer #(
       .IMAGE_WIDTH(SHIFT_WIDTH_01),
       .KERNEL     (1             ),
@@ -89,19 +91,43 @@ generate
   end
 endgenerate
 
+
+wire [ DATA_WIDTH-1:0] mem2      [IMAGE_WIDTH-1:0];
+wire [IMAGE_WIDTH-1:0] mem_valid2                 ;
+
+assign mem2[0]       = mem[IMAGE_SIZE-1];
+assign mem_valid2[0] = mem_valid[IMAGE_SIZE-1];
+
+generate
+  for (i = 0; i < IMAGE_SIZE - 1; i= i + 1) begin
+    line_buffer #(
+      .IMAGE_WIDTH(SHIFT_WIDTH_02),
+      .KERNEL     (1             ),
+      .DIN_WIDTH  (DATA_WIDTH    )
+    ) line_buffer (
+      .clk      (clk           ),
+      .reset    (reset         ),
+      .valid_in (mem_valid2[i]  ),
+      .data_in  (mem2[i]        ),
+      .data_out (mem2[i+1]      ),
+      .valid_out(mem_valid2[i+1])
+    );
+  end
+endgenerate
+
 /////////////////////////////////////////////////////////////////////////
 wire                  valid_out_line_buffer;
 wire [DATA_WIDTH-1:0] out_line_buffer      ;
 
 line_buffer #(
-  .IMAGE_WIDTH(SHIFT_WIDTH_02),
+  .IMAGE_WIDTH(SHIFT_WIDTH_03),
   .KERNEL     (1             ),
   .DIN_WIDTH  (DATA_WIDTH    )
 ) line_buffer0 (
   .clk      (clk                     ),
   .reset    (reset                   ),
-  .valid_in (mem_valid[IMAGE_WIDTH-1]),
-  .data_in  (mem[IMAGE_WIDTH-1]      ),
+  .valid_in (mem_valid2[IMAGE_WIDTH-1]),
+  .data_in  (mem2[IMAGE_WIDTH-1]      ),
   .data_out (out_line_buffer         ),
   .valid_out(valid_out_line_buffer   )
 );

@@ -35,13 +35,13 @@ module cnn_conv_1x1_multi_channel_new (
 /////////////////////////////////////////////////////////////////////////
 // Parameter Declarations
 // General
-parameter IMAGE_WIDTH     = 306; //Width
-parameter IMAGE_HEIGHT    = 306; //Height
-parameter CHANNEL_NUM_IN  = 1  ; //The number of channel in
-parameter CHANNEL_NUM_OUT = 1  ; //The number of channel out
-parameter KERNEL          = 1  ; //Kernel width
+parameter IMAGE_WIDTH     = 8 ; //Width
+parameter IMAGE_HEIGHT    = 8 ; //Height
+parameter CHANNEL_NUM_IN  = 64; //The number of channel in
+parameter CHANNEL_NUM_OUT = 2 ; //The number of channel out
+parameter KERNEL          = 1 ; //Kernel width
 
-`include "D:/GitHub/CNNs/CNN_DeepLabV3Plus/CNN_DeepLabV3Plus.srcs/sources_1/new/param/param_def_conv_1x1_new.v"
+`include "D:/GitHub/CNNs/CNN_DeepLabV3Plus/CNN_DeepLabV3Plus.srcs/sources_1/new/param/param_def_conv_1x1_new.vh"
 
 /////////////////////////////////////////////////////////////////////////
 // Port Declarations

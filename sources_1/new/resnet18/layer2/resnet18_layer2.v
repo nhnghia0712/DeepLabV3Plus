@@ -47,9 +47,9 @@ module resnet18_layer2 (
 
 /////////////////////////////////////////////////////////////////////////
 // Parameter Declarations
-parameter DATA_WIDTH   = 32 ;
-parameter IMAGE_WIDTH  = 512;
-parameter IMAGE_HEIGHT = 512;
+parameter DATA_WIDTH   = 32;
+parameter IMAGE_WIDTH  = 64;
+parameter IMAGE_HEIGHT = 64;
 
 /////////////////////////////////////////////////////////////////////////
 // Port Declarations

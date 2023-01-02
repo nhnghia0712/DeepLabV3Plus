@@ -41,7 +41,7 @@ parameter CHANNEL_NUM_IN  = 1  ; //The number of channel in
 parameter CHANNEL_NUM_OUT = 1  ; //The number of channel out
 parameter KERNEL          = 1  ; //Kernel width
 
-`include "D:/GitHub/CNNs/CNN_DeepLabV3Plus/CNN_DeepLabV3Plus.srcs/sources_1/new/param/param_def_conv_1x1_new.v"
+`include "D:/GitHub/CNNs/CNN_DeepLabV3Plus/CNN_DeepLabV3Plus.srcs/sources_1/new/param/param_def_conv_1x1_new.vh"
 
 /////////////////////////////////////////////////////////////////////////
 // Port Declarations

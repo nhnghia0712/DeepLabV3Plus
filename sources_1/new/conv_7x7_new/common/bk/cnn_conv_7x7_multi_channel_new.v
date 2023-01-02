@@ -33,7 +33,7 @@ module cnn_conv_7x7_multi_channel_new (
 
 /////////////////////////////////////////////////////////////////////////
 // Parameter Declarations
-`include "D:/GitHub/CNNs/CNN_DeepLabV3Plus/CNN_DeepLabV3Plus.srcs/sources_1/new/param/param_def_conv_7x7_new.v"
+`include "D:/GitHub/CNNs/CNN_DeepLabV3Plus/CNN_DeepLabV3Plus.srcs/sources_1/new/param/param_def_conv_7x7_new.vh"
 
 /////////////////////////////////////////////////////////////////////////
 // Port Declarations

@@ -35,14 +35,14 @@ module cnn_conv_3x3_64_64128 (
 /////////////////////////////////////////////////////////////////////////
 // Parameter Declarations
 // General
-parameter IMAGE_WIDTH     = 128; //Width
-parameter IMAGE_HEIGHT    = 128; //Height
-parameter CHANNEL_NUM_IN  = 64 ; //The number of channel in
-parameter CHANNEL_NUM_OUT = 64 ; //The number of channel out
-parameter KERNEL          = 3  ; //Kernel width
-parameter RATE            = 1  ; //Rate of dialtion
+parameter IMAGE_WIDTH     = 64; //Width
+parameter IMAGE_HEIGHT    = 64; //Height
+parameter CHANNEL_NUM_IN  = 64; //The number of channel in
+parameter CHANNEL_NUM_OUT = 64; //The number of channel out
+parameter KERNEL          = 3 ; //Kernel width
+parameter RATE            = 1 ; //Rate of dialtion
 
-`include "D:/GitHub/CNNs/CNN_DeepLabV3Plus/CNN_DeepLabV3Plus.srcs/sources_1/new/param/param_def_conv_3x3_dilation_new.v"
+`include "D:/GitHub/CNNs/CNN_DeepLabV3Plus/CNN_DeepLabV3Plus.srcs/sources_1/new/param/param_def_conv_3x3_dilation_new.vh"
 
 /////////////////////////////////////////////////////////////////////////
 // Port Declarations

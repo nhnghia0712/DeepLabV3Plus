@@ -31,14 +31,15 @@ module conv_3channel_adder_new (
 
 /////////////////////////////////////////////////////////////////////////
 // Parameter Declarations
-parameter DATA_WIDTH              = 32                 ;
-parameter CHANNEL_NUM_IN          = 3                  ;
-parameter IMAGE_SIZE              = 612                ;
-parameter IMAGE_WIDTH             = 12                 ;
-parameter CHANNEL_NUM             = 12                 ;
-parameter RATE                    = 1                  ;
-parameter ADD_CHANNEL_IN_CNT      = $clog2(CHANNEL_NUM);
-parameter ADD_TEMP_CHANNEL_IN_CNT = $clog2(IMAGE_SIZE) ;
+parameter DATA_WIDTH     = 32 ;
+parameter CHANNEL_NUM_IN = 3  ;
+parameter IMAGE_WIDTH    = 256;
+parameter RATE           = 3  ;
+
+parameter CHANNEL_NUM             = CHANNEL_NUM_IN * 64      ;
+parameter IMAGE_SIZE              = IMAGE_WIDTH * IMAGE_WIDTH;
+parameter ADD_CHANNEL_IN_CNT      = $clog2(CHANNEL_NUM)      ;
+parameter ADD_TEMP_CHANNEL_IN_CNT = $clog2(IMAGE_SIZE)       ;
 
 /////////////////////////////////////////////////////////////////////////
 // Port Declarations

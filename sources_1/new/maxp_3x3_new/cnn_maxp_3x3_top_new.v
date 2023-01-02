@@ -31,7 +31,7 @@ module cnn_maxp_3x3_top_new (
 
 /////////////////////////////////////////////////////////////////////////
 // Parameter Declarations
-`include "D:/GitHub/CNNs/CNN_DeepLabV3Plus/CNN_DeepLabV3Plus.srcs/sources_1/new/param/param_def_maxp_3x3_new.v"
+`include "D:/GitHub/CNNs/CNN_DeepLabV3Plus/CNN_DeepLabV3Plus.srcs/sources_1/new/param/param_def_maxp_3x3_new.vh"
 
 /////////////////////////////////////////////////////////////////////////
 // Port Declarations
@@ -122,6 +122,9 @@ conv_3x3_buffer_dilation_new #(
 );
 
 //Core
+wire [DATA_WIDTH-1:0] out_core      ;
+wire                  valid_out_core;
+
 maxp_3x3_core_new #(.DATA_WIDTH(DATA_WIDTH)) inst_core (
 	.clk      (clk             ),
 	.reset    (reset           ),
@@ -136,8 +139,26 @@ maxp_3x3_core_new #(.DATA_WIDTH(DATA_WIDTH)) inst_core (
 	.pxl_in_07(pxl_out_07      ),
 	.pxl_in_08(pxl_out_08      ),
 	
-	.pxl_out  (pxl_out         ),
-	.valid_out(valid_out       )
+	.pxl_out  (out_core        ),
+	.valid_out(valid_out_core  )
+);
+
+// Align stride2 output
+conv_align_stride2_pooling_output #(
+	.DATA_WIDTH    (DATA_WIDTH    ),
+	.IMAGE_WIDTH   (IMAGE_WIDTH   ),
+	.CHANNEL_NUM_IN(CHANNEL_NUM_IN),
+	.IMAGE_SIZE    (IMAGE_SIZE    )
+) inst_aligns2 (
+	//input
+	.clk      (clk           ),
+	.reset    (reset         ),
+	.stride2  (1'b1          ),
+	.valid_in (valid_out_core),
+	.pxl_in   (out_core      ),
+	//output
+	.pxl_out  (pxl_out       ),
+	.valid_out(valid_out     )
 );
 
 endmodule

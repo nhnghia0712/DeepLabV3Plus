@@ -38,11 +38,9 @@ module layer2_basicblock1 (
 
 /////////////////////////////////////////////////////////////////////////
 // Parameter Declarations
-parameter DATA_WIDTH   = 32 ;
-parameter IMAGE_WIDTH  = 256;
-parameter IMAGE_HEIGHT = 256;
-
-parameter IMAGE_SIZE = IMAGE_WIDTH * IMAGE_HEIGHT;
+parameter DATA_WIDTH   = 32;
+parameter IMAGE_WIDTH  = 32;
+parameter IMAGE_HEIGHT = 32;
 
 /////////////////////////////////////////////////////////////////////////
 // Port Declarations
@@ -138,11 +136,14 @@ cnn_conv_3x3_128_128256 #(
 );
 
 // Add
-parameter SHIFT_WIDTH = (32512 * IMAGE_SIZE) + (32768 * IMAGE_WIDTH) + 32987;
+parameter SHIFT_WIDTH_01 = (32512 * IMAGE_HEIGHT) + 32768;
+parameter SHIFT_WIDTH_02 = 32987                         ;
 
 cnn_add #(
-    .DATA_WIDTH (DATA_WIDTH ),
-    .SHIFT_WIDTH(SHIFT_WIDTH)
+    .DATA_WIDTH    (DATA_WIDTH    ),
+    .IMAGE_WIDTH   (IMAGE_WIDTH   ),
+    .SHIFT_WIDTH_01(SHIFT_WIDTH_01),
+    .SHIFT_WIDTH_02(SHIFT_WIDTH_02)
 ) inst_add (
     .clk         (clk            ),
     .reset       (reset          ),

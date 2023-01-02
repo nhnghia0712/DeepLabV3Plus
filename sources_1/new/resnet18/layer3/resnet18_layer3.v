@@ -47,9 +47,9 @@ module resnet18_layer3 (
 
 /////////////////////////////////////////////////////////////////////////
 // Parameter Declarations
-parameter DATA_WIDTH   = 32 ;
-parameter IMAGE_WIDTH  = 256;
-parameter IMAGE_HEIGHT = 256;
+parameter DATA_WIDTH   = 32;
+parameter IMAGE_WIDTH  = 32;
+parameter IMAGE_HEIGHT = 32;
 
 /////////////////////////////////////////////////////////////////////////
 // Port Declarations

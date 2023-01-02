@@ -38,9 +38,9 @@ module layer4_basicblock1 (
 
 /////////////////////////////////////////////////////////////////////////
 // Parameter Declarations
-parameter DATA_WIDTH   = 32 ;
-parameter IMAGE_WIDTH  = 128;
-parameter IMAGE_HEIGHT = 128;
+parameter DATA_WIDTH   = 32;
+parameter IMAGE_WIDTH  = 16;
+parameter IMAGE_HEIGHT = 16;
 
 parameter IMAGE_SIZE = IMAGE_WIDTH * IMAGE_HEIGHT;
 
@@ -138,11 +138,17 @@ cnn_conv_3x3_512 #(
 );
 
 // Add
-parameter SHIFT_WIDTH = (523264 * IMAGE_SIZE) + (524288 * IMAGE_WIDTH) + 524543;
+parameter SHIFT_WIDTH_01 = 523264;
+parameter SHIFT_WIDTH_02 = 524288;
+parameter SHIFT_WIDTH_03 = 524543;
 
-cnn_add #(
-    .DATA_WIDTH (DATA_WIDTH ),
-    .SHIFT_WIDTH(SHIFT_WIDTH)
+cnn_add_layer4 #(
+    .DATA_WIDTH    (DATA_WIDTH    ),
+    .IMAGE_WIDTH   (IMAGE_WIDTH   ),
+    .IMAGE_SIZE    (IMAGE_SIZE    ),
+    .SHIFT_WIDTH_01(SHIFT_WIDTH_01),
+    .SHIFT_WIDTH_02(SHIFT_WIDTH_02),
+    .SHIFT_WIDTH_03(SHIFT_WIDTH_03)
 ) inst_add (
     .clk         (clk            ),
     .reset       (reset          ),

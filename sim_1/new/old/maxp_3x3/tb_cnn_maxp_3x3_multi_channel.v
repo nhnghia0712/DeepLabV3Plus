@@ -12,7 +12,7 @@ parameter IMAGE_HEIGHT = 16; //Height
 parameter KERNEL       = 3 ; //3*3 Kernel
 parameter RATE         = 1 ; //3*3 Kernel
 
-localparam CHANNEL_NUM_IN       = 64                         ; //The number of channel
+localparam CHANNEL_NUM_IN       = 8                          ; //The number of channel
 localparam IMAGE_SIZE           = IMAGE_WIDTH * IMAGE_HEIGHT ;
 localparam CHANNEL_NUM_IN_PIXEL = CHANNEL_NUM_IN * IMAGE_SIZE;
 
@@ -37,7 +37,7 @@ wire                  valid_out;
 integer i;
 
 reg [DATA_WIDTH-1:0] image_input [CHANNEL_NUM_IN_PIXEL-1:0];
-reg [DATA_WIDTH-1:0] image_output                       ;
+reg [DATA_WIDTH-1:0] image_output                          ;
 
 initial begin
 	clk = 0;

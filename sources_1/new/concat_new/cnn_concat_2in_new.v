@@ -63,21 +63,30 @@ reg [DATA_WIDTH-1:0] out      ;
 reg                  valid_out;
 
 /////////////////////////////////////////////////////////////////////////
-wire                  valid_out_line_buffer;
-wire [DATA_WIDTH-1:0] out_line_buffer      ;
+wire [           DATA_WIDTH-1:0] mem_in      [(SHIFT_WIDTH/1000000)-1:0];
+wire [(SHIFT_WIDTH/1000000)-1:0] mem_valid_in                           ;
 
-line_buffer #(
-  .IMAGE_WIDTH(SHIFT_WIDTH),
-  .KERNEL     (1          ),
-  .DIN_WIDTH  (DATA_WIDTH )
-) line_buffer0 (
-  .clk      (clk                  ),
-  .reset    (reset                ),
-  .valid_in (valid_in_no1         ),
-  .data_in  (in_no1               ),
-  .data_out (out_line_buffer      ),
-  .valid_out(valid_out_line_buffer)
-);
+assign mem_in[0]       = pxl_in;
+assign mem_valid_in[0] = valid_in;
+
+genvar i;
+
+generate
+  for (i = 0; i < (SHIFT_WIDTH/1000000) - 1; i=i+1) begin
+    line_buffer #(
+      .IMAGE_WIDTH(1000000   ),
+      .KERNEL     (1         ),
+      .DIN_WIDTH  (DATA_WIDTH)
+    ) line_buffer (
+      .clk      (clk              ),
+      .reset    (reset            ),
+      .valid_in (mem_valid_in[i]  ),
+      .data_in  (mem_in[i]        ),
+      .data_out (mem_in[i+1]      ),
+      .valid_out(mem_valid_in[i+1])
+    );
+  end
+endgenerate
 
 always @(posedge clk) begin
   if(reset) begin
@@ -88,9 +97,9 @@ always @(posedge clk) begin
     out       <= in_no2;
     valid_out <= valid_in_no2;
   end
-  else if (valid_out_line_buffer) begin
-    out       <= out_line_buffer;
-    valid_out <= valid_out_line_buffer;
+  else if (mem_valid_in[(SHIFT_WIDTH/1000000)-1]) begin
+    out       <= mem_in[(SHIFT_WIDTH/1000000)-1];
+    valid_out <= mem_valid_in[(SHIFT_WIDTH/1000000)-1];
   end
   else begin
     valid_out <= 1'b0;

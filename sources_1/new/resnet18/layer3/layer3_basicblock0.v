@@ -42,10 +42,8 @@ module layer3_basicblock0 (
 /////////////////////////////////////////////////////////////////////////
 // Parameter Declarations
 parameter DATA_WIDTH   = 32 ;
-parameter IMAGE_WIDTH  = 256;
-parameter IMAGE_HEIGHT = 256;
-
-parameter IMAGE_SIZE = IMAGE_WIDTH * IMAGE_HEIGHT;
+parameter IMAGE_WIDTH  = 32;
+parameter IMAGE_HEIGHT = 32;
 
 /////////////////////////////////////////////////////////////////////////
 // Port Declarations
@@ -85,7 +83,7 @@ wire                  valid_out;
 wire [DATA_WIDTH-1:0] out_conv1      ;
 wire                  valid_out_conv1;
 
-cnn_conv_3x3_128_128256 #(
+cnn_conv_3x3_128_128256s2 #(
     .DATA_WIDTH     (DATA_WIDTH  ),
     .IMAGE_WIDTH    (IMAGE_WIDTH ),
     .IMAGE_HEIGHT   (IMAGE_HEIGHT),
@@ -148,7 +146,7 @@ cnn_conv_3x3_256_256512 #(
 wire [DATA_WIDTH-1:0] out_conv3      ;
 wire                  valid_out_conv3;
 
-cnn_conv_1x1_128_256 #(
+cnn_conv_1x1_128_256s2 #(
     .DATA_WIDTH     (DATA_WIDTH  ),
     .IMAGE_WIDTH    (IMAGE_WIDTH ),
     .IMAGE_HEIGHT   (IMAGE_HEIGHT),
@@ -169,11 +167,14 @@ cnn_conv_1x1_128_256 #(
 );
 
 // Add
-parameter SHIFT_WIDTH = (16320 * IMAGE_SIZE) + (32769 * IMAGE_WIDTH) + 65693;
+parameter SHIFT_WIDTH_01 = (16320 * IMAGE_HEIGHT) + 32769;
+parameter SHIFT_WIDTH_02 = 65693                         ;
 
 cnn_add #(
-    .DATA_WIDTH (DATA_WIDTH ),
-    .SHIFT_WIDTH(SHIFT_WIDTH)
+    .DATA_WIDTH    (DATA_WIDTH    ),
+    .IMAGE_WIDTH   (IMAGE_WIDTH   ),
+    .SHIFT_WIDTH_01(SHIFT_WIDTH_01),
+    .SHIFT_WIDTH_02(SHIFT_WIDTH_02)
 ) inst_add (
     .clk         (clk            ),
     .reset       (reset          ),

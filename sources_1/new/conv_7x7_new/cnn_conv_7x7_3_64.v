@@ -33,7 +33,7 @@ module cnn_conv_7x7_3_64 (
 
 /////////////////////////////////////////////////////////////////////////
 // Parameter Declarations
-`include "D:/GitHub/CNNs/CNN_DeepLabV3Plus/CNN_DeepLabV3Plus.srcs/sources_1/new/param/param_def_conv_7x7_new.v"
+`include "D:/GitHub/CNNs/CNN_DeepLabV3Plus/CNN_DeepLabV3Plus.srcs/sources_1/new/param/param_def_conv_7x7_new.vh"
 
 /////////////////////////////////////////////////////////////////////////
 // Port Declarations
@@ -114,6 +114,25 @@ conv_7x7_top_new #(
 	.valid_out      (valid_out_conv     )
 );
 
+// Align stride2 output
+wire [DATA_WIDTH-1:0] align_stride2_out      ;
+wire                  valid_align_stride2_out;
+
+conv_align_stride2_output #(
+  .DATA_WIDTH (DATA_WIDTH ),
+  .IMAGE_WIDTH(IMAGE_WIDTH)
+) inst_aligns2 (
+  //input
+  .clk      (clk                    ),
+  .reset    (reset                  ),
+  .stride2  (stride2                ),
+  .valid_in (valid_out_conv         ),
+  .pxl_in   (pxl_out_conv           ),
+  //output
+  .pxl_out  (align_stride2_out      ),
+  .valid_out(valid_align_stride2_out)
+);
+
 // Add
 wire [DATA_WIDTH-1:0] adder_out      ;
 wire                  valid_adder_out;
@@ -129,23 +148,26 @@ conv_3channel_adder_new #(
 	.RATE                   (3                      )
 ) inst_add (
 	//input
-	.clk      (clk            ),
-	.reset    (reset          ),
-	.valid_in (valid_out_conv ),
-	.pxl_in   (pxl_out_conv   ),
+	.clk      (clk                    ),
+	.reset    (reset                  ),
+	.valid_in (valid_align_stride2_out),
+	.pxl_in   (align_stride2_out      ),
 	//output
-	.pxl_out  (adder_out      ),
-	.valid_out(valid_adder_out)
+	.pxl_out  (adder_out              ),
+	.valid_out(valid_adder_out        )
 );
 
 // Align output
+parameter SHIFT_WIDTH = (((IMAGE_WIDTH * 3 ) + 3 + IMAGE_SIZE) * CHANNEL_NUM_IN) - IMAGE_SIZE/4;
+
 conv_align_output #(
 	.DATA_WIDTH     (DATA_WIDTH     ),
 	.CHANNEL_NUM_IN (CHANNEL_NUM_IN ),
 	.IMAGE_WIDTH    (IMAGE_WIDTH    ),
 	.IMAGE_SIZE     (IMAGE_SIZE     ),
 	.RATE           (3              ),
-	.CHANNEL_NUM_OUT(CHANNEL_NUM_OUT)
+	.CHANNEL_NUM_OUT(CHANNEL_NUM_OUT),
+	.SHIFT_WIDTH    (SHIFT_WIDTH    )
 ) inst_align (
 	//input
 	.clk      (clk            ),

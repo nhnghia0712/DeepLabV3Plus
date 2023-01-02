@@ -38,11 +38,9 @@ module layer1_basicblock (
 
 /////////////////////////////////////////////////////////////////////////
 // Parameter Declarations
-parameter DATA_WIDTH   = 32 ;
-parameter IMAGE_WIDTH  = 512;
-parameter IMAGE_HEIGHT = 512;
-
-parameter IMAGE_SIZE = IMAGE_WIDTH * IMAGE_HEIGHT;
+parameter DATA_WIDTH   = 32;
+parameter IMAGE_WIDTH  = 64;
+parameter IMAGE_HEIGHT = 64;
 
 /////////////////////////////////////////////////////////////////////////
 // Port Declarations
@@ -138,21 +136,24 @@ cnn_conv_3x3_64_64128 #(
 );
 
 // Add
-parameter SHIFT_WIDTH = (8064 * IMAGE_SIZE) + (8192 * IMAGE_WIDTH) + 8393;
+parameter SHIFT_WIDTH_01 = (8064 * IMAGE_HEIGHT) + 8192;
+parameter SHIFT_WIDTH_02 = 8393                        ;
 
 cnn_add #(
-    .DATA_WIDTH (DATA_WIDTH ),
-    .SHIFT_WIDTH(SHIFT_WIDTH)
+	.DATA_WIDTH    (DATA_WIDTH    ),
+	.IMAGE_WIDTH   (IMAGE_WIDTH   ),
+	.SHIFT_WIDTH_01(SHIFT_WIDTH_01),
+	.SHIFT_WIDTH_02(SHIFT_WIDTH_02)
 ) inst_add (
-    .clk         (clk            ),
-    .reset       (reset          ),
-    .valid_in_no1(valid_out_conv2),
-    .in_no1      (out_conv2      ),
-    .valid_in_no2(valid_in       ),
-    .in_no2      (pxl_in         ),
-    //output
-    .out         (pxl_out        ),
-    .valid_out   (valid_out      )
+	.clk         (clk            ),
+	.reset       (reset          ),
+	.valid_in_no1(valid_out_conv2),
+	.in_no1      (out_conv2      ),
+	.valid_in_no2(valid_in       ),
+	.in_no2      (pxl_in         ),
+	//output
+	.out         (pxl_out        ),
+	.valid_out   (valid_out      )
 );
 
 endmodule

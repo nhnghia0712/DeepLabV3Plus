@@ -31,13 +31,14 @@ module conv_loop_data_in_new (
 
 /////////////////////////////////////////////////////////////////////////
 // Parameter Declarations
-parameter DATA_WIDTH           = 32                              ;
-parameter CHANNEL_NUM_IN       = 64                              ;
-parameter CHANNEL_NUM_OUT      = 64                              ;
-parameter CHANNEL_NUM_IN_PIXEL = 612                             ;
-parameter IMAGE_WIDTH          = 12                              ;
-parameter IMAGE_SIZE           = 12                              ;
-parameter RATE                 = 4                               ;
+parameter DATA_WIDTH      = 32;
+parameter CHANNEL_NUM_IN  = 3 ;
+parameter CHANNEL_NUM_OUT = 64;
+parameter IMAGE_WIDTH     = 16;
+parameter RATE            = 3 ;
+
+parameter IMAGE_SIZE           = IMAGE_WIDTH * IMAGE_WIDTH       ;
+parameter CHANNEL_NUM_IN_PIXEL = CHANNEL_NUM_IN * IMAGE_SIZE     ;
 parameter LOOP_CHANNEL_IN_CNT  = $clog2(CHANNEL_NUM_IN)          ;
 parameter LOOP_COL_CNT         = $clog2(IMAGE_SIZE + IMAGE_WIDTH);
 /////////////////////////////////////////////////////////////////////////

@@ -31,12 +31,14 @@ module conv_align_output (
 
 /////////////////////////////////////////////////////////////////////////
 // Parameter Declarations
-parameter DATA_WIDTH      = 32;
-parameter CHANNEL_NUM_IN  = 64;
-parameter CHANNEL_NUM_OUT = 64;
-parameter IMAGE_WIDTH     = 12;
-parameter IMAGE_SIZE      = 12;
-parameter RATE            = 4 ;
+parameter DATA_WIDTH      = 32 ;
+parameter CHANNEL_NUM_IN  = 3  ;
+parameter CHANNEL_NUM_OUT = 64 ;
+parameter IMAGE_WIDTH     = 256;
+parameter IMAGE_SIZE      = 256;
+parameter RATE            = 1  ;
+
+parameter SHIFT_WIDTH = (((IMAGE_WIDTH * RATE ) + RATE + IMAGE_SIZE) * CHANNEL_NUM_IN) - IMAGE_SIZE;
 
 /////////////////////////////////////////////////////////////////////////
 // Port Declarations
@@ -71,9 +73,9 @@ genvar i;
 generate
 	for (i = 0; i < CHANNEL_NUM_OUT - 1; i= i + 1) begin
 		line_buffer #(
-			.IMAGE_WIDTH((((IMAGE_WIDTH * RATE ) + RATE + IMAGE_SIZE) * CHANNEL_NUM_IN) - IMAGE_SIZE),
-			.KERNEL     (1                                                                          ),
-			.DIN_WIDTH  (DATA_WIDTH                                                                 )
+			.IMAGE_WIDTH(SHIFT_WIDTH),
+			.KERNEL     (1          ),
+			.DIN_WIDTH  (DATA_WIDTH )
 		) line_buffer (
 			.clk      (clk           ),
 			.reset    (reset         ),

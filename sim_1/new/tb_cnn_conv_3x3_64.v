@@ -10,7 +10,7 @@ parameter DATA_WIDTH  = 32;
 parameter IMAGE_WIDTH     = 16; //Width
 parameter IMAGE_HEIGHT    = 16; //Height
 parameter CHANNEL_NUM_IN  = 64; //The number of channel in
-parameter CHANNEL_NUM_OUT = 4 ; //The number of channel out
+parameter CHANNEL_NUM_OUT = 2 ; //The number of channel out
 parameter KERNEL          = 3 ; //Kernel width
 parameter RATE            = 1 ; //Rate of dialtion
 
@@ -28,7 +28,7 @@ localparam IMAGE_SIZE           = IMAGE_WIDTH * IMAGE_HEIGHT      ;
 localparam CHANNEL_NUM_IN_PIXEL = CHANNEL_NUM_IN * IMAGE_SIZE     ;
 localparam WEIGHT_NUM           = CHANNEL_NUM * KERNEL_SIZE       ; // 2x2x3x3
 
-localparam ENDTIME = (9 * ($clog2(CHANNEL_NUM_IN))) + (CHANNEL_NUM_OUT * ((IMAGE_SIZE * (CHANNEL_NUM_IN - 1)) + ((CHANNEL_NUM_IN * RATE) * (IMAGE_WIDTH + 1)))) + 46 + (IMAGE_SIZE * CHANNEL_NUM_OUT) + 1;
+localparam ENDTIME = (9 * ($clog2(CHANNEL_NUM_IN))) + (CHANNEL_NUM_OUT * ((IMAGE_SIZE * (CHANNEL_NUM_IN - 1)) + ((CHANNEL_NUM_IN * RATE) * (IMAGE_WIDTH + 1)))) + 46 + (IMAGE_SIZE * (CHANNEL_NUM_OUT-1)) - IMAGE_WIDTH + 1;
 
 reg                  clk            ;
 reg                  reset          ;
@@ -54,7 +54,7 @@ initial begin
 	valid_in = 1'b0;
 	reset = 1'b1;
 	valid_weight_in = 1'b0;
-	stride2 = 1'b0;
+	stride2 = 1'b1;
 	#SIMULATION_CYCLE
 		reset = 1'b0;
 
