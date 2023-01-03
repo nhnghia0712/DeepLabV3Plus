@@ -137,8 +137,8 @@ cnn_conv_3x3_256_256512 #(
 
 // Add
 parameter SHIFT_WIDTH_01 = 130560;
-parameter SHIFT_WIDTH_01 = 131072;
-parameter SHIFT_WIDTH_02 = 131309;
+parameter SHIFT_WIDTH_02 = 131072;
+parameter SHIFT_WIDTH_03 = 131309;
 
 cnn_add_layer4 #(
     .DATA_WIDTH    (DATA_WIDTH    ),
