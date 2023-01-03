@@ -63,8 +63,8 @@ reg [DATA_WIDTH-1:0] out      ;
 reg                  valid_out;
 
 /////////////////////////////////////////////////////////////////////////
-wire [           DATA_WIDTH-1:0] mem_in      [(SHIFT_WIDTH/1000000)-1:0];
-wire [(SHIFT_WIDTH/1000000)-1:0] mem_valid_in                           ;
+wire [         DATA_WIDTH-1:0] mem_in      [(SHIFT_WIDTH/1000000):0];
+wire [(SHIFT_WIDTH/1000000):0] mem_valid_in                         ;
 
 assign mem_in[0]       = in_no1;
 assign mem_valid_in[0] = valid_in_no1;
@@ -72,7 +72,7 @@ assign mem_valid_in[0] = valid_in_no1;
 genvar i;
 
 generate
-  for (i = 0; i < (SHIFT_WIDTH/1000000) - 1; i=i+1) begin
+  for (i = 0; i < (SHIFT_WIDTH/1000000); i=i+1) begin
     line_buffer #(
       .IMAGE_WIDTH(1000000   ),
       .KERNEL     (1         ),
@@ -97,9 +97,9 @@ always @(posedge clk) begin
     out       <= in_no2;
     valid_out <= valid_in_no2;
   end
-  else if (mem_valid_in[(SHIFT_WIDTH/1000000)-1]) begin
-    out       <= mem_in[(SHIFT_WIDTH/1000000)-1];
-    valid_out <= mem_valid_in[(SHIFT_WIDTH/1000000)-1];
+  else if (mem_valid_in[(SHIFT_WIDTH/1000000)]) begin
+    out       <= mem_in[(SHIFT_WIDTH/1000000)];
+    valid_out <= mem_valid_in[(SHIFT_WIDTH/1000000)];
   end
   else begin
     valid_out <= 1'b0;

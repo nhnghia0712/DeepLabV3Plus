@@ -397,23 +397,60 @@ cnn_conv_relu #(.DATA_WIDTH(DATA_WIDTH)) relu5 (
 );
 
 // Concat
-parameter IMAGE_SIZE = IMAGE_WIDTH * IMAGE_HEIGHT                                          ;
-parameter DELAY_01   = (130816 * IMAGE_SIZE) + (131071 * IMAGE_WIDTH) + 131162             ;
-parameter DELAY_02   = DELAY_01 + (261632 * IMAGE_SIZE) + (3145728 * IMAGE_WIDTH) + 3145855;
-parameter DELAY_03   = DELAY_01 + (261632 * IMAGE_SIZE) + (6291456 * IMAGE_WIDTH) + 6291583;
-parameter DELAY_04   = DELAY_01 + (261632 * IMAGE_SIZE) + (9437184 * IMAGE_WIDTH) + 9437311;
-parameter DELAY_05   = DELAY_01 + IMAGE_WIDTH + 46                                         ;
+// parameter IMAGE_SIZE = IMAGE_WIDTH * IMAGE_HEIGHT                                          ;
+// parameter DELAY_01   = (130816 * IMAGE_SIZE) + (131071 * IMAGE_WIDTH) + 131162             ;
+// parameter DELAY_02   = DELAY_01 + (261632 * IMAGE_SIZE) + (3145728 * IMAGE_WIDTH) + 3145855;
+// parameter DELAY_03   = DELAY_01 + (261632 * IMAGE_SIZE) + (6291456 * IMAGE_WIDTH) + 6291583;
+// parameter DELAY_04   = DELAY_01 + (261632 * IMAGE_SIZE) + (9437184 * IMAGE_WIDTH) + 9437311;
+// parameter DELAY_05   = DELAY_01 + IMAGE_WIDTH + 46                                         ;
+
+// parameter SHIFT_WIDTH_01 = DELAY_02 + SHIFT_WIDTH_02 - DELAY_01 - CHANNEL_NUM_IN_PIXEL;
+// parameter SHIFT_WIDTH_02 = DELAY_03 + SHIFT_WIDTH_03 - DELAY_02 - CHANNEL_NUM_IN_PIXEL;
+// parameter SHIFT_WIDTH_03 = DELAY_04 - DELAY_03 - CHANNEL_NUM_IN_PIXEL                 ;
+// parameter SHIFT_WIDTH_05 = DELAY_04 - DELAY_05 + CHANNEL_NUM_IN_PIXEL                 ;
+
+// parameter SHIFT_WIDTH_11 = IMAGE_WIDTH * (3014657 - (132352 * IMAGE_WIDTH));
+// parameter SHIFT_WIDTH_12 = (753641 * 4) + 2;
+
+// parameter SHIFT_WIDTH_21 = IMAGE_WIDTH * 8 * (786432 - (128 * IMAGE_WIDTH));
+// parameter SHIFT_WIDTH_22 = 786432 * 8                                      ;
+
+// parameter SHIFT_WIDTH_31 = IMAGE_WIDTH * 4 * (786432 - (128 * IMAGE_WIDTH));
+// parameter SHIFT_WIDTH_32 = 786432 * 4                                      ;
+
+// parameter SHIFT_WIDTH_51 = IMAGE_WIDTH * 16 * (589824 + (16384 * IMAGE_WIDTH)) - IMAGE_WIDTH;
+// parameter SHIFT_WIDTH_52 = 629151 * 15                                                      ;
+
+// parameter SHIFT_WIDTH_11 = 3014657 - (132352 * IMAGE_WIDTH);
+// parameter SHIFT_WIDTH_12 = 753641                          ;
+
+// parameter SHIFT_WIDTH_21 = 786432 - (128 * IMAGE_WIDTH);
+// parameter SHIFT_WIDTH_22 = 786432                      ;
+
+// parameter SHIFT_WIDTH_31 = 786432 - (128 * IMAGE_WIDTH);
+// parameter SHIFT_WIDTH_32 = 786432                      ;
+
+// parameter SHIFT_WIDTH_51 = 589824 + (16384 * IMAGE_WIDTH);
+// parameter SHIFT_WIDTH_52 = 629151                        ;
 
 cnn_concat_5in_new #(
-    .DATA_WIDTH    (DATA_WIDTH  ),
-    .IMAGE_WIDTH   (IMAGE_WIDTH ),
-    .IMAGE_HEIGHT  (IMAGE_HEIGHT),
-    .CHANNEL_NUM_IN(256         ),
-    .DELAY_01      (DELAY_01    ),
-    .DELAY_02      (DELAY_02    ),
-    .DELAY_03      (DELAY_03    ),
-    .DELAY_04      (DELAY_04    ),
-    .DELAY_05      (DELAY_05    )
+    .DATA_WIDTH (DATA_WIDTH ),
+    .IMAGE_WIDTH(IMAGE_WIDTH),
+    // .IMAGE_HEIGHT  (IMAGE_HEIGHT),
+    // .CHANNEL_NUM_IN(256         ),
+    // .DELAY_01      (DELAY_01    ),
+    // .DELAY_02      (DELAY_02    ),
+    // .DELAY_03      (DELAY_03    ),
+    // .DELAY_04      (DELAY_04    ),
+    // .DELAY_05      (DELAY_05    )
+    // .SHIFT_WIDTH_11(SHIFT_WIDTH_11),
+    // .SHIFT_WIDTH_12(SHIFT_WIDTH_12),
+    // .SHIFT_WIDTH_21(SHIFT_WIDTH_21),
+    // .SHIFT_WIDTH_22(SHIFT_WIDTH_22),
+    // .SHIFT_WIDTH_31(SHIFT_WIDTH_31),
+    // .SHIFT_WIDTH_32(SHIFT_WIDTH_32),
+    // .SHIFT_WIDTH_51(SHIFT_WIDTH_51),
+    // .SHIFT_WIDTH_52(SHIFT_WIDTH_52)
 ) concat1 (
     .clk         (clk             ),
     .reset       (reset           ),

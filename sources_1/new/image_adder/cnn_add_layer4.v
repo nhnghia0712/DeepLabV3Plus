@@ -66,8 +66,8 @@ wire [DATA_WIDTH-1:0] in_no2      ;
 wire [DATA_WIDTH-1:0] out      ;
 wire                  valid_out;
 
-wire [ DATA_WIDTH-1:0] mem      [IMAGE_SIZE-1:0];
-wire [IMAGE_SIZE-1:0] mem_valid                 ;
+wire [DATA_WIDTH-1:0] mem      [IMAGE_SIZE:0];
+wire [  IMAGE_SIZE:0] mem_valid              ;
 
 assign mem[0]       = in_no2;
 assign mem_valid[0] = valid_in_no2;
@@ -75,7 +75,7 @@ assign mem_valid[0] = valid_in_no2;
 genvar i;
 
 generate
-  for (i = 0; i < IMAGE_SIZE - 1; i= i + 1) begin
+  for (i = 0; i < IMAGE_SIZE; i= i + 1) begin
     line_buffer #(
       .IMAGE_WIDTH(SHIFT_WIDTH_01),
       .KERNEL     (1             ),
@@ -91,15 +91,14 @@ generate
   end
 endgenerate
 
+wire [DATA_WIDTH-1:0] mem2      [IMAGE_WIDTH:0];
+wire [ IMAGE_WIDTH:0] mem_valid2               ;
 
-wire [ DATA_WIDTH-1:0] mem2      [IMAGE_WIDTH-1:0];
-wire [IMAGE_WIDTH-1:0] mem_valid2                 ;
-
-assign mem2[0]       = mem[IMAGE_SIZE-1];
-assign mem_valid2[0] = mem_valid[IMAGE_SIZE-1];
+assign mem2[0]       = mem[IMAGE_SIZE];
+assign mem_valid2[0] = mem_valid[IMAGE_SIZE];
 
 generate
-  for (i = 0; i < IMAGE_SIZE - 1; i= i + 1) begin
+  for (i = 0; i < IMAGE_WIDTH; i= i + 1) begin
     line_buffer #(
       .IMAGE_WIDTH(SHIFT_WIDTH_02),
       .KERNEL     (1             ),
