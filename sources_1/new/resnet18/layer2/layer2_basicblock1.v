@@ -136,14 +136,17 @@ cnn_conv_3x3_128_128256 #(
 );
 
 // Add
-parameter SHIFT_WIDTH_01 = (32512 * IMAGE_HEIGHT) + 32768;
-parameter SHIFT_WIDTH_02 = 32987                         ;
+parameter SHIFT_WIDTH_01 = 32512;
+parameter SHIFT_WIDTH_01 = 32768;
+parameter SHIFT_WIDTH_02 = 32987;
 
-cnn_add #(
+cnn_add_layer4 #(
     .DATA_WIDTH    (DATA_WIDTH    ),
     .IMAGE_WIDTH   (IMAGE_WIDTH   ),
+    .IMAGE_SIZE    (IMAGE_SIZE    ),
     .SHIFT_WIDTH_01(SHIFT_WIDTH_01),
-    .SHIFT_WIDTH_02(SHIFT_WIDTH_02)
+    .SHIFT_WIDTH_02(SHIFT_WIDTH_02),
+    .SHIFT_WIDTH_03(SHIFT_WIDTH_03)
 ) inst_add (
     .clk         (clk            ),
     .reset       (reset          ),
