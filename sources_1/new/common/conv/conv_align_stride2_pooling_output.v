@@ -290,59 +290,59 @@ always @(posedge clk) begin : proc_
 			end
 			'd3 : begin
 				out_filter3       <= mem_dff2[clogb2(mem_valid_dff2[(CHANNEL_NUM_IN*2) + 12 - 1:(CHANNEL_NUM_IN*2) + 8]) + (CHANNEL_NUM_IN*2) + 8];
-				valid_out_filter3 <= mem_valid_dff2[clogb2(mem_valid_dff2[(CHANNEL_NUM_IN*2) + 12:(CHANNEL_NUM_IN*2) + 8]) + (CHANNEL_NUM_IN*2) + 8];
+				valid_out_filter3 <= mem_valid_dff2[clogb2(mem_valid_dff2[(CHANNEL_NUM_IN*2) + 12 - 1:(CHANNEL_NUM_IN*2) + 8]) + (CHANNEL_NUM_IN*2) + 8];
 			end
 			'd4 : begin
 				out_filter3       <= mem_dff2[clogb2(mem_valid_dff2[(CHANNEL_NUM_IN*3) + 16 - 1:(CHANNEL_NUM_IN*3) + 12]) + (CHANNEL_NUM_IN*3) + 12];
-				valid_out_filter3 <= mem_valid_dff2[clogb2(mem_valid_dff2[(CHANNEL_NUM_IN*3) + 16:(CHANNEL_NUM_IN*3) + 12]) + (CHANNEL_NUM_IN*3) + 12];
+				valid_out_filter3 <= mem_valid_dff2[clogb2(mem_valid_dff2[(CHANNEL_NUM_IN*3) + 16 - 1:(CHANNEL_NUM_IN*3) + 12]) + (CHANNEL_NUM_IN*3) + 12];
 			end
 			'd5 : begin
 				out_filter3       <= mem_dff2[clogb2(mem_valid_dff2[(CHANNEL_NUM_IN*4) + 20 - 1:(CHANNEL_NUM_IN*4) + 16]) + (CHANNEL_NUM_IN*4) + 16];
-				valid_out_filter3 <= mem_valid_dff2[clogb2(mem_valid_dff2[(CHANNEL_NUM_IN*4) + 20:(CHANNEL_NUM_IN*4) + 16]) + (CHANNEL_NUM_IN*4) + 16];
+				valid_out_filter3 <= mem_valid_dff2[clogb2(mem_valid_dff2[(CHANNEL_NUM_IN*4) + 20 - 1:(CHANNEL_NUM_IN*4) + 16]) + (CHANNEL_NUM_IN*4) + 16];
 			end
 			'd6 : begin
 				out_filter3       <= mem_dff2[clogb2(mem_valid_dff2[(CHANNEL_NUM_IN*5) + 24 - 1:(CHANNEL_NUM_IN*5) + 20]) + (CHANNEL_NUM_IN*5) + 20];
-				valid_out_filter3 <= mem_valid_dff2[clogb2(mem_valid_dff2[(CHANNEL_NUM_IN*5) + 24:(CHANNEL_NUM_IN*5) + 20]) + (CHANNEL_NUM_IN*5) + 20];
+				valid_out_filter3 <= mem_valid_dff2[clogb2(mem_valid_dff2[(CHANNEL_NUM_IN*5) + 24 - 1:(CHANNEL_NUM_IN*5) + 20]) + (CHANNEL_NUM_IN*5) + 20];
 			end
 			'd7 : begin
 				out_filter3       <= mem_dff2[clogb2(mem_valid_dff2[(CHANNEL_NUM_IN*6) + 28 - 1:(CHANNEL_NUM_IN*6) + 24]) + (CHANNEL_NUM_IN*6) + 24];
-				valid_out_filter3 <= mem_valid_dff2[clogb2(mem_valid_dff2[(CHANNEL_NUM_IN*6) + 28:(CHANNEL_NUM_IN*6) + 24]) + (CHANNEL_NUM_IN*6) + 24];
+				valid_out_filter3 <= mem_valid_dff2[clogb2(mem_valid_dff2[(CHANNEL_NUM_IN*6) + 28 - 1:(CHANNEL_NUM_IN*6) + 24]) + (CHANNEL_NUM_IN*6) + 24];
 			end
 			'd8 : begin
 				out_filter3       <= mem_dff2[clogb2(mem_valid_dff2[(CHANNEL_NUM_IN*7) + 32 - 1:(CHANNEL_NUM_IN*7) + 28]) + (CHANNEL_NUM_IN*7) + 28];
-				valid_out_filter3 <= mem_valid_dff2[clogb2(mem_valid_dff2[(CHANNEL_NUM_IN*7) + 32:(CHANNEL_NUM_IN*7) + 28]) + (CHANNEL_NUM_IN*7) + 28];
+				valid_out_filter3 <= mem_valid_dff2[clogb2(mem_valid_dff2[(CHANNEL_NUM_IN*7) + 32 - 1:(CHANNEL_NUM_IN*7) + 28]) + (CHANNEL_NUM_IN*7) + 28];
 			end
 			'd9 : begin
 				out_filter3       <= mem_dff2[clogb2(mem_valid_dff2[(CHANNEL_NUM_IN*8) + 36 - 1:(CHANNEL_NUM_IN*8) + 32]) + (CHANNEL_NUM_IN*8) + 32];
-				valid_out_filter3 <= mem_valid_dff2[clogb2(mem_valid_dff2[(CHANNEL_NUM_IN*8) + 36:(CHANNEL_NUM_IN*8) + 32]) + (CHANNEL_NUM_IN*8) + 32];
+				valid_out_filter3 <= mem_valid_dff2[clogb2(mem_valid_dff2[(CHANNEL_NUM_IN*8) + 36 - 1:(CHANNEL_NUM_IN*8) + 32]) + (CHANNEL_NUM_IN*8) + 32];
 			end
 			'd10 : begin
 				out_filter3       <= mem_dff2[clogb2(mem_valid_dff2[(CHANNEL_NUM_IN*9) + 40 - 1:(CHANNEL_NUM_IN*9) + 36]) + (CHANNEL_NUM_IN*9) + 36];
-				valid_out_filter3 <= mem_valid_dff2[clogb2(mem_valid_dff2[(CHANNEL_NUM_IN*9) + 40:(CHANNEL_NUM_IN*9) + 36]) + (CHANNEL_NUM_IN*9) + 36];
+				valid_out_filter3 <= mem_valid_dff2[clogb2(mem_valid_dff2[(CHANNEL_NUM_IN*9) + 40 - 1:(CHANNEL_NUM_IN*9) + 36]) + (CHANNEL_NUM_IN*9) + 36];
 			end
 			'd11 : begin
 				out_filter3       <= mem_dff2[clogb2(mem_valid_dff2[(CHANNEL_NUM_IN*10) + 44 - 1:(CHANNEL_NUM_IN*10) + 40]) + (CHANNEL_NUM_IN*10) + 40];
-				valid_out_filter3 <= mem_valid_dff2[clogb2(mem_valid_dff2[(CHANNEL_NUM_IN*10) + 44:(CHANNEL_NUM_IN*10) + 40]) + (CHANNEL_NUM_IN*10) + 40];
+				valid_out_filter3 <= mem_valid_dff2[clogb2(mem_valid_dff2[(CHANNEL_NUM_IN*10) + 44 - 1:(CHANNEL_NUM_IN*10) + 40]) + (CHANNEL_NUM_IN*10) + 40];
 			end
 			'd12 : begin
 				out_filter3       <= mem_dff2[clogb2(mem_valid_dff2[(CHANNEL_NUM_IN*11) + 48 - 1:(CHANNEL_NUM_IN*11) + 44]) + (CHANNEL_NUM_IN*11) + 44];
-				valid_out_filter3 <= mem_valid_dff2[clogb2(mem_valid_dff2[(CHANNEL_NUM_IN*11) + 48:(CHANNEL_NUM_IN*11) + 44]) + (CHANNEL_NUM_IN*11) + 44];
+				valid_out_filter3 <= mem_valid_dff2[clogb2(mem_valid_dff2[(CHANNEL_NUM_IN*11) + 48 - 1:(CHANNEL_NUM_IN*11) + 44]) + (CHANNEL_NUM_IN*11) + 44];
 			end
 			'd13 : begin
 				out_filter3       <= mem_dff2[clogb2(mem_valid_dff2[(CHANNEL_NUM_IN*12) + 52 - 1:(CHANNEL_NUM_IN*12) + 48]) + (CHANNEL_NUM_IN*12) + 48];
-				valid_out_filter3 <= mem_valid_dff2[clogb2(mem_valid_dff2[(CHANNEL_NUM_IN*12) + 52:(CHANNEL_NUM_IN*12) + 48]) + (CHANNEL_NUM_IN*12) + 48];
+				valid_out_filter3 <= mem_valid_dff2[clogb2(mem_valid_dff2[(CHANNEL_NUM_IN*12) + 52 - 1:(CHANNEL_NUM_IN*12) + 48]) + (CHANNEL_NUM_IN*12) + 48];
 			end
 			'd14 : begin
 				out_filter3       <= mem_dff2[clogb2(mem_valid_dff2[(CHANNEL_NUM_IN*13) + 56 - 1:(CHANNEL_NUM_IN*13) + 52]) + (CHANNEL_NUM_IN*13) + 52];
-				valid_out_filter3 <= mem_valid_dff2[clogb2(mem_valid_dff2[(CHANNEL_NUM_IN*13) + 56:(CHANNEL_NUM_IN*13) + 52]) + (CHANNEL_NUM_IN*13) + 52];
+				valid_out_filter3 <= mem_valid_dff2[clogb2(mem_valid_dff2[(CHANNEL_NUM_IN*13) + 56 - 1:(CHANNEL_NUM_IN*13) + 52]) + (CHANNEL_NUM_IN*13) + 52];
 			end
 			'd15 : begin
 				out_filter3       <= mem_dff2[clogb2(mem_valid_dff2[(CHANNEL_NUM_IN*14) + 60 - 1:(CHANNEL_NUM_IN*14) + 56]) + (CHANNEL_NUM_IN*14) + 56];
-				valid_out_filter3 <= mem_valid_dff2[clogb2(mem_valid_dff2[(CHANNEL_NUM_IN*14) + 60:(CHANNEL_NUM_IN*14) + 56]) + (CHANNEL_NUM_IN*14) + 56];
+				valid_out_filter3 <= mem_valid_dff2[clogb2(mem_valid_dff2[(CHANNEL_NUM_IN*14) + 60 - 1:(CHANNEL_NUM_IN*14) + 56]) + (CHANNEL_NUM_IN*14) + 56];
 			end
 			'd16 : begin
 				out_filter3       <= mem_dff2[clogb2(mem_valid_dff2[(CHANNEL_NUM_IN*15) + 64 - 1:(CHANNEL_NUM_IN*15) + 60]) + (CHANNEL_NUM_IN*15) + 60];
-				valid_out_filter3 <= mem_valid_dff2[clogb2(mem_valid_dff2[(CHANNEL_NUM_IN*15) + 64:(CHANNEL_NUM_IN*15) + 60]) + (CHANNEL_NUM_IN*15) + 60];
+				valid_out_filter3 <= mem_valid_dff2[clogb2(mem_valid_dff2[(CHANNEL_NUM_IN*15) + 64 - 1:(CHANNEL_NUM_IN*15) + 60]) + (CHANNEL_NUM_IN*15) + 60];
 			end
 			default : /* default */;
 		endcase
