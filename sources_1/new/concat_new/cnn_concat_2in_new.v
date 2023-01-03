@@ -66,8 +66,8 @@ reg                  valid_out;
 wire [           DATA_WIDTH-1:0] mem_in      [(SHIFT_WIDTH/1000000)-1:0];
 wire [(SHIFT_WIDTH/1000000)-1:0] mem_valid_in                           ;
 
-assign mem_in[0]       = pxl_in;
-assign mem_valid_in[0] = valid_in;
+assign mem_in[0]       = in_no1;
+assign mem_valid_in[0] = valid_in_no1;
 
 genvar i;
 
