@@ -751,18 +751,18 @@ wire                  valid_out_concat;
 // parameter DELAY_HEAD           = (((20352 * IMAGE_SIZE) + (85195 * IMAGE_WIDTH)) / 4) + 262325;
                                  
 // parameter SHIFT_WIDTH_CONCAT_2IN = DELAY_TAIL - DELAY_HEAD - ((IMAGE_SIZE/16) * 256); // 363 220 744 ***
-//     parameter SHIFT_WIDTH_CONCAT_2IN_01 = 163195 * (IMAGE_SIZE / 64);
-//     parameter SHIFT_WIDTH_CONCAT_2IN_02 = 545177 * (IMAGE_WIDTH / 2);
-//     parameter SHIFT_WIDTH_CONCAT_2IN_03 = IMAGE_WIDTH / 8;
-//     parameter SHIFT_WIDTH_CONCAT_2IN_04 = (429807 * 10) - 1;
-    
-    parameter SHIFT_WIDTH_CONCAT_2IN_01 = 163195;
-    parameter SHIFT_WIDTH_CONCAT_2IN_02 = 545177;
-    parameter SHIFT_WIDTH_CONCAT_2IN_03 = IMAGE_WIDTH / 8;
-    parameter SHIFT_WIDTH_CONCAT_2IN_04 = 429807;
-    
+// parameter SHIFT_WIDTH_CONCAT_2IN_01 = 163195 * (IMAGE_SIZE / 64);
+// parameter SHIFT_WIDTH_CONCAT_2IN_02 = 545177 * (IMAGE_WIDTH / 2);
+// parameter SHIFT_WIDTH_CONCAT_2IN_03 = IMAGE_WIDTH / 8           ;
+// parameter SHIFT_WIDTH_CONCAT_2IN_04 = (429807 * 10) - 1         ;
+
+parameter SHIFT_WIDTH_CONCAT_2IN_01 = 163195         ;
+parameter SHIFT_WIDTH_CONCAT_2IN_02 = 545177         ;
+parameter SHIFT_WIDTH_CONCAT_2IN_03 = IMAGE_WIDTH / 8;
+parameter SHIFT_WIDTH_CONCAT_2IN_04 = 429807         ;
+
 cnn_concat_2in_new #(
-    .DATA_WIDTH (DATA_WIDTH            ),
+    .DATA_WIDTH    (DATA_WIDTH               ),
     .SHIFT_WIDTH_01(SHIFT_WIDTH_CONCAT_2IN_01),
     .SHIFT_WIDTH_02(SHIFT_WIDTH_CONCAT_2IN_02),
     .SHIFT_WIDTH_03(SHIFT_WIDTH_CONCAT_2IN_03),
