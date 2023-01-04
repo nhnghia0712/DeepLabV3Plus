@@ -4,9 +4,9 @@ module tb_cnn_concat_5in ();
 
 /////////////////////////////////////////////////////////////////////////
 // Parameter Declarations
-parameter DATA_WIDTH        = 32           ;
-parameter IMAGE_WIDTH       = 8            ;
-parameter CHANNEL_NUM_PIXEL = IMAGE_WIDTH*2;
+parameter DATA_WIDTH        = 32                         ;
+parameter IMAGE_WIDTH       = 16                         ;
+parameter CHANNEL_NUM_PIXEL = IMAGE_WIDTH*IMAGE_WIDTH*512;
 
 parameter T = (CHANNEL_NUM_PIXEL * 5) + 5;
 parameter C = 5                          ;
