@@ -53,7 +53,7 @@ wire                  valid_in;
 wire [DATA_WIDTH-1:0] pxl_in  ;
 
 wire [DATA_WIDTH-1:0] pxl_out  ;
-wire                  valid_out;
+reg                   valid_out;
 
 // Read loop data
 wire [DATA_WIDTH-1:0] loop_data_out      ;
@@ -144,21 +144,67 @@ maxp_3x3_core_new #(.DATA_WIDTH(DATA_WIDTH)) inst_core (
 );
 
 // Align stride2 output
-conv_align_stride2_pooling_output #(
-	.DATA_WIDTH    (DATA_WIDTH    ),
-	.IMAGE_WIDTH   (IMAGE_WIDTH   ),
-	.CHANNEL_NUM_IN(CHANNEL_NUM_IN),
-	.IMAGE_SIZE    (IMAGE_SIZE    )
-) inst_aligns2 (
+// conv_align_stride2_pooling_output #(
+// 	.DATA_WIDTH    (DATA_WIDTH    ),
+// 	.IMAGE_WIDTH   (IMAGE_WIDTH   ),
+// 	.CHANNEL_NUM_IN(CHANNEL_NUM_IN),
+// 	.IMAGE_SIZE    (IMAGE_SIZE    )
+// ) inst_aligns2 (
+// 	//input
+// 	.clk      (clk           ),
+// 	.reset    (reset         ),
+// 	.stride2  (1'b1          ),
+// 	.valid_in (valid_out_core),
+// 	.pxl_in   (out_core      ),
+// 	//output
+// 	.pxl_out  (pxl_out       ),
+// 	.valid_out(valid_out     )
+// );
+
+// FIFO
+wire [DATA_WIDTH-1:0] pxl_out_fifo_1;
+wire                  fifo_full_1   ;
+wire                  fifo_empty_1  ;
+
+wire [DATA_WIDTH-1:0] pxl_out_fifo_2;
+wire                  fifo_full_2   ;
+wire                  fifo_empty_2  ;
+
+fifo_generator_0 inst_fifo1 (
 	//input
-	.clk      (clk           ),
-	.reset    (reset         ),
-	.stride2  (1'b1          ),
-	.valid_in (valid_out_core),
-	.pxl_in   (out_core      ),
+	.clk  (clk           ),
+	.srst (reset         ),
+	.wr_en(valid_out_core),
+	.rd_en(fifo_full_2   ),
+	.din  (out_core      ),
 	//output
-	.pxl_out  (pxl_out       ),
-	.valid_out(valid_out     )
+	.dout (pxl_out_fifo_1),
+	.full (fifo_full_1   ),
+	.empty(fifo_empty_1  )
 );
+
+fifo_generator_0 inst_fifo2 (
+	//input
+	.clk  (clk                         ),
+	.srst (reset                       ),
+	.wr_en(valid_out_core & fifo_full_1),
+	.rd_en(fifo_empty_1                ),
+	.din  (out_core                    ),
+	//output
+	.dout (pxl_out_fifo_2              ),
+	.full (fifo_full_2                 ),
+	.empty(fifo_empty_2                )
+);
+
+assign pxl_out = (fifo_full_2) ? pxl_out_fifo_1:pxl_out_fifo_2;
+
+always @(posedge clk) begin
+	if(reset) begin
+		valid_out <= 1'b0;
+	end
+	else begin
+		valid_out <= fifo_full_2 | (fifo_empty_1 & !fifo_empty_2);
+	end
+end
 
 endmodule

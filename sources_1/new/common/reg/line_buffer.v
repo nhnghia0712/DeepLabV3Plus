@@ -30,9 +30,9 @@ module line_buffer(
 
 /////////////////////////////////////////////////////////////////////////
 // Parameter Declarations
-parameter IMAGE_WIDTH = 32;
-parameter KERNEL      = 1 ; //3*3 Kernel
-parameter DIN_WIDTH   = 32;
+parameter IMAGE_WIDTH = 50000;
+parameter KERNEL      = 1    ; //3*3 Kernel
+parameter DIN_WIDTH   = 32   ;
 
 parameter DATA_WIDTH = IMAGE_WIDTH - (KERNEL - 1);
 
