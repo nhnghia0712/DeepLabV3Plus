@@ -76,7 +76,7 @@ wire                  valid_out       ;
 wire [DATA_WIDTH-1:0] out_conv1      ;
 wire                  valid_out_conv1;
 
-cnn_conv_3x3_64_64128 #(
+cnn_conv_01_02_3x3 #(
     .DATA_WIDTH     (DATA_WIDTH  ),
     .IMAGE_WIDTH    (IMAGE_WIDTH ),
     .IMAGE_HEIGHT   (IMAGE_HEIGHT),
@@ -90,7 +90,6 @@ cnn_conv_3x3_64_64128 #(
     .pxl_in         (pxl_in          ),
     .valid_weight_in(valid_weight_in1),
     .weight_in      (weight_in1      ),
-    .stride2        (1'b0            ),
     //output
     .pxl_out        (out_conv1       ),
     .valid_out      (valid_out_conv1 )
@@ -114,7 +113,7 @@ cnn_conv_relu #(.DATA_WIDTH(DATA_WIDTH)) relu1 (
 wire [DATA_WIDTH-1:0] out_conv2      ;
 wire                  valid_out_conv2;
 
-cnn_conv_3x3_64_64128 #(
+cnn_conv_01_02_3x3 #(
     .DATA_WIDTH     (DATA_WIDTH  ),
     .IMAGE_WIDTH    (IMAGE_WIDTH ),
     .IMAGE_HEIGHT   (IMAGE_HEIGHT),
@@ -129,31 +128,22 @@ cnn_conv_3x3_64_64128 #(
     .pxl_in         (out_relu        ),
     .valid_weight_in(valid_weight_in2),
     .weight_in      (weight_in2      ),
-    .stride2        (1'b0            ),
     //output
     .pxl_out        (out_conv2       ),
     .valid_out      (valid_out_conv2 )
 );
 
 // Add
-parameter SHIFT_WIDTH_01 = (8064 * IMAGE_HEIGHT) + 8192;
-parameter SHIFT_WIDTH_02 = 8393                        ;
-
-cnn_add #(
-	.DATA_WIDTH    (DATA_WIDTH    ),
-	.IMAGE_WIDTH   (IMAGE_WIDTH   ),
-	.SHIFT_WIDTH_01(SHIFT_WIDTH_01),
-	.SHIFT_WIDTH_02(SHIFT_WIDTH_02)
-) inst_add (
-	.clk         (clk            ),
-	.reset       (reset          ),
-	.valid_in_no1(valid_out_conv2),
-	.in_no1      (out_conv2      ),
-	.valid_in_no2(valid_in       ),
-	.in_no2      (pxl_in         ),
-	//output
-	.out         (pxl_out        ),
-	.valid_out   (valid_out      )
+cnn_add_layer14 #(.DATA_WIDTH(DATA_WIDTH)) inst_add (
+    .clk         (clk            ),
+    .reset       (reset          ),
+    .valid_in_no1(valid_out_conv2),
+    .in_no1      (out_conv2      ),
+    .valid_in_no2(valid_in       ),
+    .in_no2      (pxl_in         ),
+    //output
+    .out         (pxl_out        ),
+    .valid_out   (valid_out      )
 );
 
 endmodule

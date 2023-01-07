@@ -31,7 +31,12 @@ module cnn_upsampling_nn (
 
 /////////////////////////////////////////////////////////////////////////
 // Parameter Declarations
-`include "D:/GitHub/CNNs/CNN_DeepLabV3Plus/CNN_DeepLabV3Plus.srcs/sources_1/new/param/param_def_upsampling_nn_new.vh"
+// General
+parameter IMAGE_WIDTH  = 64; //Width
+parameter IMAGE_HEIGHT = 64; //Height
+parameter CHANNEL_NUM  = 7 ; //The number of channel
+
+`include "D:/GitHub/CNNs/CNN_DeepLabV3Plus/CNN_DeepLabV3Plus.srcs/sources_1/new/param/param_def_upsampling_nn.vh"
 
 /////////////////////////////////////////////////////////////////////////
 // Port Declarations

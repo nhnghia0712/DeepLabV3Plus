@@ -83,7 +83,7 @@ wire                  valid_out;
 wire [DATA_WIDTH-1:0] out_conv1      ;
 wire                  valid_out_conv1;
 
-cnn_conv_3x3_64_64128s2 #(
+cnn_conv_03_3x3 #(
     .DATA_WIDTH     (DATA_WIDTH  ),
     .IMAGE_WIDTH    (IMAGE_WIDTH ),
     .IMAGE_HEIGHT   (IMAGE_HEIGHT),
@@ -97,7 +97,6 @@ cnn_conv_3x3_64_64128s2 #(
     .pxl_in         (pxl_in          ),
     .valid_weight_in(valid_weight_in1),
     .weight_in      (weight_in1      ),
-    .stride2        (1'b1            ),
     //output
     .pxl_out        (out_conv1       ),
     .valid_out      (valid_out_conv1 )
@@ -121,7 +120,7 @@ cnn_conv_relu #(.DATA_WIDTH(DATA_WIDTH)) relu1 (
 wire [DATA_WIDTH-1:0] out_conv2  ;
 wire                  valid_out_conv2;
 
-cnn_conv_3x3_128_128256 #(
+cnn_conv_04_05_06_3x3 #(
     .DATA_WIDTH     (DATA_WIDTH    ),
     .IMAGE_WIDTH    (IMAGE_WIDTH/2 ),
     .IMAGE_HEIGHT   (IMAGE_HEIGHT/2),
@@ -136,7 +135,6 @@ cnn_conv_3x3_128_128256 #(
     .pxl_in         (out_relu        ),
     .valid_weight_in(valid_weight_in2),
     .weight_in      (weight_in2      ),
-    .stride2        (1'b0            ),
     //output
     .pxl_out        (out_conv2       ),
     .valid_out      (valid_out_conv2 )
@@ -146,11 +144,11 @@ cnn_conv_3x3_128_128256 #(
 wire [DATA_WIDTH-1:0] out_conv3      ;
 wire                  valid_out_conv3;
 
-cnn_conv_1x1_64_128256s2 #(
+cnn_conv_01_1x1 #(
     .DATA_WIDTH     (DATA_WIDTH  ),
     .IMAGE_WIDTH    (IMAGE_WIDTH ),
     .IMAGE_HEIGHT   (IMAGE_HEIGHT),
-    .CHANNEL_NUM_IN (64         ),
+    .CHANNEL_NUM_IN (64          ),
     .CHANNEL_NUM_OUT(128         ),
     .KERNEL         (1           )
 ) conv4 (
@@ -160,22 +158,13 @@ cnn_conv_1x1_64_128256s2 #(
     .pxl_in         (pxl_in          ),
     .valid_weight_in(valid_weight_in3),
     .weight_in      (weight_in3      ),
-    .stride2        (1'b1            ),
     //output
     .pxl_out        (out_conv3       ),
     .valid_out      (valid_out_conv3 )
 );
 
 // Add
-parameter SHIFT_WIDTH_01 = (4064 * IMAGE_HEIGHT) + 8193;
-parameter SHIFT_WIDTH_02 = 16532                       ;
-
-cnn_add #(
-    .DATA_WIDTH    (DATA_WIDTH    ),
-    .IMAGE_WIDTH   (IMAGE_WIDTH   ),
-    .SHIFT_WIDTH_01(SHIFT_WIDTH_01),
-    .SHIFT_WIDTH_02(SHIFT_WIDTH_02)
-) inst_add (
+cnn_add_layer2 #(.DATA_WIDTH(DATA_WIDTH)) inst_add (
     .clk         (clk            ),
     .reset       (reset          ),
     .valid_in_no1(valid_out_conv2),
