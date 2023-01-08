@@ -122,14 +122,10 @@ conv_1x1_top_09 #(
 wire [DATA_WIDTH-1:0] adder_out      ;
 wire                  valid_adder_out;
 
-conv_1280channel_adder #(
-  .DATA_WIDTH             (DATA_WIDTH             ),
-  .CHANNEL_NUM_IN         (CHANNEL_NUM_IN         ),
-  .IMAGE_SIZE             (IMAGE_SIZE             ),
-  .IMAGE_WIDTH            (IMAGE_WIDTH            ),
-  .CHANNEL_NUM            (CHANNEL_NUM            ),
-  .ADD_CHANNEL_IN_CNT     (ADD_CHANNEL_IN_CNT     ),
-  .ADD_TEMP_CHANNEL_IN_CNT(ADD_TEMP_CHANNEL_IN_CNT)
+conv_channel_in_adder_16x16 #(
+  .DATA_WIDTH    (DATA_WIDTH    ),
+  .CHANNEL_NUM_IN(CHANNEL_NUM_IN),
+  .IMAGE_SIZE    (IMAGE_SIZE    )
 ) inst_add (
   //input
   .clk      (clk           ),

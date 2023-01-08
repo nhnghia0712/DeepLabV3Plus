@@ -127,15 +127,12 @@ conv_3x3_top_03 #(
 wire [DATA_WIDTH-1:0] adder_out      ;
 wire                  valid_adder_out;
 
-conv_64channel_adder #(
-	.DATA_WIDTH             (DATA_WIDTH             ),
-	.CHANNEL_NUM_IN         (CHANNEL_NUM_IN         ),
-	.IMAGE_SIZE             (IMAGE_SIZE             ),
-	.IMAGE_WIDTH            (IMAGE_WIDTH            ),
-	.CHANNEL_NUM            (CHANNEL_NUM            ),
-	.ADD_CHANNEL_IN_CNT     (ADD_CHANNEL_IN_CNT     ),
-	.ADD_TEMP_CHANNEL_IN_CNT(ADD_TEMP_CHANNEL_IN_CNT),
-	.RATE                   (RATE                   )
+conv_channel_in_adder_64x64s2 #(
+	.DATA_WIDTH    (DATA_WIDTH    ),
+	.CHANNEL_NUM_IN(CHANNEL_NUM_IN),
+	.IMAGE_SIZE    (IMAGE_SIZE/4  ),
+	.IMAGE_WIDTH   (IMAGE_WIDTH/2 ),
+	.RATE          (RATE          )
 ) inst_add (
 	//input
 	.clk      (clk            ),

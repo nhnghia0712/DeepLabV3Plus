@@ -122,23 +122,19 @@ conv_1x1_top_10 #(
 wire [DATA_WIDTH-1:0] adder_out      ;
 wire                  valid_adder_out;
 
-conv_256channel_adder #(
-  .DATA_WIDTH             (DATA_WIDTH             ),
-  .CHANNEL_NUM_IN         (CHANNEL_NUM_IN         ),
-  .IMAGE_SIZE             (IMAGE_SIZE             ),
-  .IMAGE_WIDTH            (IMAGE_WIDTH            ),
-  .CHANNEL_NUM            (CHANNEL_NUM            ),
-  .ADD_CHANNEL_IN_CNT     (ADD_CHANNEL_IN_CNT     ),
-  .ADD_TEMP_CHANNEL_IN_CNT(ADD_TEMP_CHANNEL_IN_CNT)
+conv_channel_in_adder_64x64 #(
+	.DATA_WIDTH    (DATA_WIDTH    ),
+	.CHANNEL_NUM_IN(CHANNEL_NUM_IN),
+	.IMAGE_SIZE    (IMAGE_SIZE    )
 ) inst_add (
-  //input
-  .clk      (clk           ),
-  .reset    (reset         ),
-  .valid_in (valid_out_conv),
-  .pxl_in   (pxl_out_conv  ),
-  //output
-  .pxl_out  (adder_out      ),
-  .valid_out(valid_adder_out)
+	//input
+	.clk      (clk            ),
+	.reset    (reset          ),
+	.valid_in (valid_out_conv ),
+	.pxl_in   (pxl_out_conv   ),
+	//output
+	.pxl_out  (adder_out      ),
+	.valid_out(valid_adder_out)
 );
 
 // Align output

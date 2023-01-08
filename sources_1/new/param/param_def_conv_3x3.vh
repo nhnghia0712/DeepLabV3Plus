@@ -19,7 +19,3 @@ parameter CNT_WIDTH_BUFFER = $clog2(IMAGE_WIDTH); // $clog2(IMAGE_WIDTH_PADDING)
 
 parameter POINTER_WIDTH_BUFFER_WEIGHTS = $clog2(WEIGHT_NUM) ; // $clog2(WEIGHT_NUM) + 1 // For Buffer Weights = log2(WEIGHT_NUM)
 parameter CNT_WIDTH_BUFFER_WEIGHTS     = $clog2(KERNEL_SIZE); // $clog2(KERNEL_SIZE) // For Buffer Weights = log2(KERNEL_SIZE)
-
-// Adder
-parameter ADD_CHANNEL_IN_CNT      = $clog2(CHANNEL_NUM) + 1;
-parameter ADD_TEMP_CHANNEL_IN_CNT = $clog2(IMAGE_SIZE) + 1 ;

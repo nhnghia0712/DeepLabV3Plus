@@ -18,7 +18,3 @@ parameter LOOP_COL_CNT        = $clog2(IMAGE_SIZE + (IMAGE_WIDTH + 1));
 parameter CNT_WIDTH_BUFFER = $clog2(IMAGE_SIZE); // $clog2(IMAGE_SIZE)  // For Buffer = log2(IMAGE_SIZE)
 
 parameter POINTER_WIDTH_BUFFER_WEIGHTS = $clog2(WEIGHT_NUM); // $clog2(WEIGHT_NUM) + 1 // For Buffer Weights = log2(WEIGHT_NUM)
-
-// Adder
-parameter ADD_CHANNEL_IN_CNT      = $clog2(CHANNEL_NUM) + 1;
-parameter ADD_TEMP_CHANNEL_IN_CNT = $clog2(IMAGE_SIZE)  + 1;

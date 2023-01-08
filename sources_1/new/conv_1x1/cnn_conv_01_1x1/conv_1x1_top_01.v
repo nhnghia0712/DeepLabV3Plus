@@ -97,11 +97,7 @@ wire [DATA_WIDTH-1:0] out_buffer_weight;
 
 wire valid_out_buffer_weight;
 
-conv_1x1_buffer_weights_01 #(
-	.DATA_WIDTH                  (DATA_WIDTH                  ),
-	.WEIGHT_NUM                  (WEIGHT_NUM                  ),
-	.POINTER_WIDTH_BUFFER_WEIGHTS(POINTER_WIDTH_BUFFER_WEIGHTS)
-) inst_buffer_weights (
+conv_1x1_buffer_weights_01 #(.DATA_WIDTH(DATA_WIDTH)) inst_buffer_weights (
 	//input
 	.clk              (clk                    ),
 	.reset            (reset                  ),

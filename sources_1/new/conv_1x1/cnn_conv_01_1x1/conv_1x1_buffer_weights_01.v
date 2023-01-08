@@ -34,12 +34,6 @@ module conv_1x1_buffer_weights_01 (
 // Parameter Declarations
 parameter DATA_WIDTH = 32;
 
-// Parameter of submodules
-parameter POINTER_WIDTH_BUFFER_WEIGHTS = 2; // $clog2(WEIGHT_NUM) + 1 // For Buffer Weights = log2(WEIGHT_NUM)
-
-// Localparam
-parameter WEIGHT_NUM  = 4; // 2x2x1x1
-
 /////////////////////////////////////////////////////////////////////////
 // Port Declarations
 input                  clk         ;
@@ -83,21 +77,17 @@ d_flip_flop #(.DATA_WIDTH(DATA_WIDTH)) dff88 (
 );
 
 // FIFO
-cnn_fifo_delay #(
-	.DATA_WIDTH   (DATA_WIDTH                  ),
-	.DATA_DEPTH   (WEIGHT_NUM                  ),
-	.POINTER_WIDTH(POINTER_WIDTH_BUFFER_WEIGHTS)
-) inst_fifo08 (
+fifo_generator_6_8192 inst_fifo08 (
 	//input
-	.clk     (clk                         ),
-	.reset   (reset                       ),
-	.write   (valid_out_buffer_weight_next),
-	.read    (load_weights                ),
-	.data_in (out_buffer_weight_next      ),
+	.clk  (clk                         ),
+	.srst (reset                       ),
+	.wr_en(valid_out_buffer_weight_next),
+	.rd_en(load_weights                ),
+	.din  (out_buffer_weight_next      ),
 	//output
-	.data_out(out_buffer_weight           ),
-	.full    (/*no use*/                  ),
-	.empty   (/*no use*/                  )
+	.dout (out_buffer_weight           ),
+	.full (/*no use*/                  ),
+	.empty(/*no use*/                  )
 );
 
 // DFF

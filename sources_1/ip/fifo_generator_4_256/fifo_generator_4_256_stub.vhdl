@@ -1,7 +1,7 @@
 -- Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2019.2 (win64) Build 2708876 Wed Nov  6 21:40:23 MST 2019
--- Date        : Sat Jan  7 23:21:23 2023
+-- Date        : Sun Jan  8 14:33:25 2023
 -- Host        : NGHIA running 64-bit major release  (build 9200)
 -- Command     : write_vhdl -force -mode synth_stub
 --               D:/GitHub/CNNs/CNN_DeepLabV3Plus/CNN_DeepLabV3Plus.srcs/sources_1/ip/fifo_generator_4_256/fifo_generator_4_256_stub.vhdl
@@ -21,6 +21,7 @@ entity fifo_generator_4_256 is
     rd_en : in STD_LOGIC;
     dout : out STD_LOGIC_VECTOR ( 31 downto 0 );
     full : out STD_LOGIC;
+    almost_full : out STD_LOGIC;
     empty : out STD_LOGIC
   );
 
@@ -30,7 +31,7 @@ architecture stub of fifo_generator_4_256 is
 attribute syn_black_box : boolean;
 attribute black_box_pad_pin : string;
 attribute syn_black_box of stub : architecture is true;
-attribute black_box_pad_pin of stub : architecture is "clk,srst,din[31:0],wr_en,rd_en,dout[31:0],full,empty";
+attribute black_box_pad_pin of stub : architecture is "clk,srst,din[31:0],wr_en,rd_en,dout[31:0],full,almost_full,empty";
 attribute x_core_info : string;
 attribute x_core_info of stub : architecture is "fifo_generator_v13_2_5,Vivado 2019.2";
 begin
