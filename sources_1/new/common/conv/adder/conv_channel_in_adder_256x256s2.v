@@ -64,10 +64,106 @@ wire [DATA_WIDTH-1:0] pxl_in  ;
 wire [DATA_WIDTH-1:0] pxl_out  ;
 wire                  valid_out;
 
-wire [DATA_WIDTH-1:0] out_fifo_in      ;
+reg  [DATA_WIDTH-1:0] out_fifo_in      ;
 reg                   valid_out_fifo_in;
 wire                  fifo_full_in     ;
 wire                  fifo_empty_in    ;
+
+wire [DATA_WIDTH-1:0] out_fifo_in1  ;
+wire                  fifo_full_in1 ;
+wire                  fifo_empty_in1;
+
+wire [DATA_WIDTH-1:0] out_fifo_in2  ;
+wire                  fifo_full_in2 ;
+wire                  fifo_empty_in2;
+
+wire [DATA_WIDTH-1:0] out_fifo_in3  ;
+wire                  fifo_full_in3 ;
+wire                  fifo_empty_in3;
+
+wire [DATA_WIDTH-1:0] out_fifo_in4  ;
+wire                  fifo_full_in4 ;
+wire                  fifo_empty_in4;
+
+wire [DATA_WIDTH-1:0] out_fifo_in5  ;
+wire                  fifo_full_in5 ;
+wire                  fifo_empty_in5;
+
+wire [DATA_WIDTH-1:0] out_fifo_in6  ;
+wire                  fifo_full_in6 ;
+wire                  fifo_empty_in6;
+
+wire [DATA_WIDTH-1:0] out_fifo_in7  ;
+wire                  fifo_full_in7 ;
+wire                  fifo_empty_in7;
+
+wire [DATA_WIDTH-1:0] out_fifo_in8  ;
+wire                  fifo_full_in8 ;
+wire                  fifo_empty_in8;
+
+wire [DATA_WIDTH-1:0] out_fifo_in9  ;
+wire                  fifo_full_in9 ;
+wire                  fifo_empty_in9;
+
+wire [DATA_WIDTH-1:0] out_fifo_in10  ;
+wire                  fifo_full_in10 ;
+wire                  fifo_empty_in10;
+
+wire [DATA_WIDTH-1:0] out_fifo_in11  ;
+wire                  fifo_full_in11 ;
+wire                  fifo_empty_in11;
+
+wire [DATA_WIDTH-1:0] out_fifo_in12  ;
+wire                  fifo_full_in12 ;
+wire                  fifo_empty_in12;
+
+wire [DATA_WIDTH-1:0] out_fifo_in13  ;
+wire                  fifo_full_in13 ;
+wire                  fifo_empty_in13;
+
+wire [DATA_WIDTH-1:0] out_fifo_in14  ;
+wire                  fifo_full_in14 ;
+wire                  fifo_empty_in14;
+
+wire [DATA_WIDTH-1:0] out_fifo_in15  ;
+wire                  fifo_full_in15 ;
+wire                  fifo_empty_in15;
+
+wire [DATA_WIDTH-1:0] out_fifo_in16  ;
+wire                  fifo_full_in16 ;
+wire                  fifo_empty_in16;
+
+wire [DATA_WIDTH-1:0] out_fifo_in17  ;
+wire                  fifo_full_in17 ;
+wire                  fifo_empty_in17;
+
+wire [DATA_WIDTH-1:0] out_fifo_in18  ;
+wire                  fifo_full_in18 ;
+wire                  fifo_empty_in18;
+
+wire [DATA_WIDTH-1:0] out_fifo_in19  ;
+wire                  fifo_full_in19 ;
+wire                  fifo_empty_in19;
+
+wire [DATA_WIDTH-1:0] out_fifo_in20  ;
+wire                  fifo_full_in20 ;
+wire                  fifo_empty_in20;
+
+wire [DATA_WIDTH-1:0] out_fifo_in21  ;
+wire                  fifo_full_in21 ;
+wire                  fifo_empty_in21;
+
+wire [DATA_WIDTH-1:0] out_fifo_in22  ;
+wire                  fifo_full_in22 ;
+wire                  fifo_empty_in22;
+
+wire [DATA_WIDTH-1:0] out_fifo_in23  ;
+wire                  fifo_full_in23 ;
+wire                  fifo_empty_in23;
+
+wire [DATA_WIDTH-1:0] out_fifo_in24  ;
+wire                  fifo_full_in24 ;
+wire                  fifo_empty_in24;
 
 reg                     read_en_in ;
 reg                     read_enable;
@@ -78,7 +174,7 @@ always @(posedge clk) begin
   if(reset) begin
     read_en_in <= 1'b0;
   end
-  else if (fifo_full_in && (!fifo_empty_in)) begin
+  else if (fifo_full_in24 && (!fifo_empty_in24)) begin
     read_en_in <= 1'b1;
   end
 end
@@ -104,6 +200,318 @@ always @(posedge clk) begin
     end
   end
 end
+
+fifo_generator_0 inst_fifo_in1 (
+  //input
+  .clk  (clk                         ),
+  .srst (reset                       ),
+  .wr_en(valid_in                    ),
+  .rd_en(read_enable & fifo_full_in24),
+  .din  (pxl_in                      ),
+  //output
+  .dout (out_fifo_in1                ),
+  .full (fifo_full_in1               ),
+  .empty(fifo_empty_in1              )
+);
+
+fifo_generator_0 inst_fifo_in2 (
+  //input
+  .clk  (clk                         ),
+  .srst (reset                       ),
+  .wr_en(valid_in & fifo_full_in1    ),
+  .rd_en(read_enable & fifo_empty_in1),
+  .din  (pxl_in                      ),
+  //output
+  .dout (out_fifo_in2                ),
+  .full (fifo_full_in2               ),
+  .empty(fifo_empty_in2              )
+);
+
+fifo_generator_0 inst_fifo_in3 (
+  //input
+  .clk  (clk                         ),
+  .srst (reset                       ),
+  .wr_en(valid_in & fifo_full_in2    ),
+  .rd_en(read_enable & fifo_empty_in2),
+  .din  (pxl_in                      ),
+  //output
+  .dout (out_fifo_in3                ),
+  .full (fifo_full_in3               ),
+  .empty(fifo_empty_in3              )
+);
+
+fifo_generator_0 inst_fifo_in4 (
+  //input
+  .clk  (clk                         ),
+  .srst (reset                       ),
+  .wr_en(valid_in & fifo_full_in3    ),
+  .rd_en(read_enable & fifo_empty_in3),
+  .din  (pxl_in                      ),
+  //output
+  .dout (out_fifo_in4                ),
+  .full (fifo_full_in4               ),
+  .empty(fifo_empty_in4              )
+);
+
+fifo_generator_0 inst_fifo_in5 (
+  //input
+  .clk  (clk                         ),
+  .srst (reset                       ),
+  .wr_en(valid_in & fifo_full_in4    ),
+  .rd_en(read_enable & fifo_empty_in4),
+  .din  (pxl_in                      ),
+  //output
+  .dout (out_fifo_in5                ),
+  .full (fifo_full_in5               ),
+  .empty(fifo_empty_in5              )
+);
+
+fifo_generator_0 inst_fifo_in6 (
+  //input
+  .clk  (clk                         ),
+  .srst (reset                       ),
+  .wr_en(valid_in & fifo_full_in5    ),
+  .rd_en(read_enable & fifo_empty_in5),
+  .din  (pxl_in                      ),
+  //output
+  .dout (out_fifo_in6                ),
+  .full (fifo_full_in6               ),
+  .empty(fifo_empty_in6              )
+);
+
+fifo_generator_0 inst_fifo_in7 (
+  //input
+  .clk  (clk                         ),
+  .srst (reset                       ),
+  .wr_en(valid_in & fifo_full_in6    ),
+  .rd_en(read_enable & fifo_empty_in6),
+  .din  (pxl_in                      ),
+  //output
+  .dout (out_fifo_in7                ),
+  .full (fifo_full_in7               ),
+  .empty(fifo_empty_in7              )
+);
+
+fifo_generator_0 inst_fifo_in8 (
+  //input
+  .clk  (clk                         ),
+  .srst (reset                       ),
+  .wr_en(valid_in & fifo_full_in7    ),
+  .rd_en(read_enable & fifo_empty_in7),
+  .din  (pxl_in                      ),
+  //output
+  .dout (out_fifo_in8                ),
+  .full (fifo_full_in8               ),
+  .empty(fifo_empty_in8              )
+);
+
+fifo_generator_0 inst_fifo_in9 (
+  //input
+  .clk  (clk                         ),
+  .srst (reset                       ),
+  .wr_en(valid_in & fifo_full_in8    ),
+  .rd_en(read_enable & fifo_empty_in8),
+  .din  (pxl_in                      ),
+  //output
+  .dout (out_fifo_in9                ),
+  .full (fifo_full_in9               ),
+  .empty(fifo_empty_in9              )
+);
+
+fifo_generator_0 inst_fifo_in10 (
+  //input
+  .clk  (clk                         ),
+  .srst (reset                       ),
+  .wr_en(valid_in & fifo_full_in9    ),
+  .rd_en(read_enable & fifo_empty_in9),
+  .din  (pxl_in                      ),
+  //output
+  .dout (out_fifo_in10               ),
+  .full (fifo_full_in10              ),
+  .empty(fifo_empty_in10             )
+);
+
+fifo_generator_0 inst_fifo_in11 (
+  //input
+  .clk  (clk                          ),
+  .srst (reset                        ),
+  .wr_en(valid_in & fifo_full_in10    ),
+  .rd_en(read_enable & fifo_empty_in10),
+  .din  (pxl_in                       ),
+  //output
+  .dout (out_fifo_in11                ),
+  .full (fifo_full_in11               ),
+  .empty(fifo_empty_in11              )
+);
+
+fifo_generator_0 inst_fifo_in12 (
+  //input
+  .clk  (clk                          ),
+  .srst (reset                        ),
+  .wr_en(valid_in & fifo_full_in11    ),
+  .rd_en(read_enable & fifo_empty_in11),
+  .din  (pxl_in                       ),
+  //output
+  .dout (out_fifo_in12                ),
+  .full (fifo_full_in12               ),
+  .empty(fifo_empty_in12              )
+);
+
+fifo_generator_0 inst_fifo_in13 (
+  //input
+  .clk  (clk                          ),
+  .srst (reset                        ),
+  .wr_en(valid_in & fifo_full_in12    ),
+  .rd_en(read_enable & fifo_empty_in12),
+  .din  (pxl_in                       ),
+  //output
+  .dout (out_fifo_in13                ),
+  .full (fifo_full_in13               ),
+  .empty(fifo_empty_in13              )
+);
+
+fifo_generator_0 inst_fifo_in14 (
+  //input
+  .clk  (clk                          ),
+  .srst (reset                        ),
+  .wr_en(valid_in & fifo_full_in13    ),
+  .rd_en(read_enable & fifo_empty_in13),
+  .din  (pxl_in                       ),
+  //output
+  .dout (out_fifo_in14                ),
+  .full (fifo_full_in14               ),
+  .empty(fifo_empty_in14              )
+);
+
+fifo_generator_0 inst_fifo_in15 (
+  //input
+  .clk  (clk                          ),
+  .srst (reset                        ),
+  .wr_en(valid_in & fifo_full_in14    ),
+  .rd_en(read_enable & fifo_empty_in14),
+  .din  (pxl_in                       ),
+  //output
+  .dout (out_fifo_in15                ),
+  .full (fifo_full_in15               ),
+  .empty(fifo_empty_in15              )
+);
+
+fifo_generator_0 inst_fifo_in16 (
+  //input
+  .clk  (clk                          ),
+  .srst (reset                        ),
+  .wr_en(valid_in & fifo_full_in15    ),
+  .rd_en(read_enable & fifo_empty_in15),
+  .din  (pxl_in                       ),
+  //output
+  .dout (out_fifo_in16                ),
+  .full (fifo_full_in16               ),
+  .empty(fifo_empty_in16              )
+);
+
+fifo_generator_0 inst_fifo_in17 (
+  //input
+  .clk  (clk                          ),
+  .srst (reset                        ),
+  .wr_en(valid_in & fifo_full_in16    ),
+  .rd_en(read_enable & fifo_empty_in16),
+  .din  (pxl_in                       ),
+  //output
+  .dout (out_fifo_in17                ),
+  .full (fifo_full_in17               ),
+  .empty(fifo_empty_in17              )
+);
+
+fifo_generator_0 inst_fifo_in18 (
+  //input
+  .clk  (clk                          ),
+  .srst (reset                        ),
+  .wr_en(valid_in & fifo_full_in17    ),
+  .rd_en(read_enable & fifo_empty_in17),
+  .din  (pxl_in                       ),
+  //output
+  .dout (out_fifo_in18                ),
+  .full (fifo_full_in18               ),
+  .empty(fifo_empty_in18              )
+);
+
+fifo_generator_0 inst_fifo_in19 (
+  //input
+  .clk  (clk                          ),
+  .srst (reset                        ),
+  .wr_en(valid_in & fifo_full_in18    ),
+  .rd_en(read_enable & fifo_empty_in18),
+  .din  (pxl_in                       ),
+  //output
+  .dout (out_fifo_in19                ),
+  .full (fifo_full_in19               ),
+  .empty(fifo_empty_in19              )
+);
+
+fifo_generator_0 inst_fifo_in20 (
+  //input
+  .clk  (clk                          ),
+  .srst (reset                        ),
+  .wr_en(valid_in & fifo_full_in19    ),
+  .rd_en(read_enable & fifo_empty_in19),
+  .din  (pxl_in                       ),
+  //output
+  .dout (out_fifo_in20                ),
+  .full (fifo_full_in20               ),
+  .empty(fifo_empty_in20              )
+);
+
+fifo_generator_0 inst_fifo_in21 (
+  //input
+  .clk  (clk                          ),
+  .srst (reset                        ),
+  .wr_en(valid_in & fifo_full_in20    ),
+  .rd_en(read_enable & fifo_empty_in20),
+  .din  (pxl_in                       ),
+  //output
+  .dout (out_fifo_in21                ),
+  .full (fifo_full_in21               ),
+  .empty(fifo_empty_in21              )
+);
+
+fifo_generator_0 inst_fifo_in22 (
+  //input
+  .clk  (clk                          ),
+  .srst (reset                        ),
+  .wr_en(valid_in & fifo_full_in21    ),
+  .rd_en(read_enable & fifo_empty_in21),
+  .din  (pxl_in                       ),
+  //output
+  .dout (out_fifo_in22                ),
+  .full (fifo_full_in22               ),
+  .empty(fifo_empty_in22              )
+);
+
+fifo_generator_0 inst_fifo_in23 (
+  //input
+  .clk  (clk                          ),
+  .srst (reset                        ),
+  .wr_en(valid_in & fifo_full_in22    ),
+  .rd_en(read_enable & fifo_empty_in22),
+  .din  (pxl_in                       ),
+  //output
+  .dout (out_fifo_in23                ),
+  .full (fifo_full_in23               ),
+  .empty(fifo_empty_in23              )
+);
+
+fifo_generator_0 inst_fifo_in24 (
+  //input
+  .clk  (clk                          ),
+  .srst (reset                        ),
+  .wr_en(valid_in & fifo_full_in23    ),
+  .rd_en(read_enable & fifo_empty_in23),
+  .din  (pxl_in                       ),
+  //output
+  .dout (out_fifo_in24                ),
+  .full (fifo_full_in24               ),
+  .empty(fifo_empty_in24              )
+);
 
 // fifo_generator_2 inst_fifo_in1 (
 //   //input
@@ -131,29 +539,78 @@ end
 //   .empty(fifo_empty_in2              )
 // );
 
-cnn_fifo_delay #(
-  .DATA_WIDTH   (DATA_WIDTH                      ),
-  .DATA_DEPTH   (IMAGE_SIZE * CHANNEL_NUM_IN * 64),
-  .POINTER_WIDTH(POINTER_WIDTH_FIFO              )
-) inst_fifo (
-  //input
-  .clk     (clk          ),
-  .reset   (reset        ),
-  .write   (valid_in     ),
-  .read    (read_enable  ),
-  .data_in (pxl_in       ),
-  //output
-  .data_out(out_fifo_in  ),
-  .full    (fifo_full_in ),
-  .empty   (fifo_empty_in)
-);
+//NghiaNg cnn_fifo_delay #(
+//NghiaNg   .DATA_WIDTH   (DATA_WIDTH                      ),
+//NghiaNg   .DATA_DEPTH   (IMAGE_SIZE * CHANNEL_NUM_IN * 64),
+//NghiaNg   .POINTER_WIDTH(POINTER_WIDTH_FIFO              )
+//NghiaNg ) inst_fifo (
+//NghiaNg   //input
+//NghiaNg   .clk     (clk          ),
+//NghiaNg   .reset   (reset        ),
+//NghiaNg   .write   (valid_in     ),
+//NghiaNg   .read    (read_enable  ),
+//NghiaNg   .data_in (pxl_in       ),
+//NghiaNg   //output
+//NghiaNg   .data_out(out_fifo_in  ),
+//NghiaNg   .full    (fifo_full_in ),
+//NghiaNg   .empty   (fifo_empty_in)
+//NghiaNg );
+
+always @(posedge clk) begin
+  if(reset) begin
+    out_fifo_in <= 32'd0;
+  end
+  else begin
+    case ({fifo_empty_in23,fifo_empty_in22,fifo_empty_in21,fifo_empty_in20,fifo_empty_in19,fifo_empty_in18
+          ,fifo_empty_in17,fifo_empty_in16,fifo_empty_in15,fifo_empty_in14,fifo_empty_in13,fifo_empty_in12
+          ,fifo_empty_in11,fifo_empty_in10,fifo_empty_in9,fifo_empty_in8,fifo_empty_in7,fifo_empty_in6
+          ,fifo_empty_in5,fifo_empty_in4,fifo_empty_in3,fifo_empty_in2,fifo_empty_in1,fifo_full_in24})
+      24'd1       : out_fifo_in <= out_fifo_in1;
+      24'd2       : out_fifo_in <= out_fifo_in2;
+      24'd4       : out_fifo_in <= out_fifo_in3;
+      24'd8       : out_fifo_in <= out_fifo_in4;
+      24'd16      : out_fifo_in <= out_fifo_in5;
+      24'd32      : out_fifo_in <= out_fifo_in6;
+      24'd64      : out_fifo_in <= out_fifo_in7;
+      24'd128     : out_fifo_in <= out_fifo_in8;
+      24'd256     : out_fifo_in <= out_fifo_in9;
+      24'd512     : out_fifo_in <= out_fifo_in10;
+      24'd1024    : out_fifo_in <= out_fifo_in11;
+      24'd2048    : out_fifo_in <= out_fifo_in12;
+      24'd4096    : out_fifo_in <= out_fifo_in13;
+      24'd8192    : out_fifo_in <= out_fifo_in14;
+      24'd16834   : out_fifo_in <= out_fifo_in15;
+      24'd32768   : out_fifo_in <= out_fifo_in16;
+      24'd65536   : out_fifo_in <= out_fifo_in17;
+      24'd131072  : out_fifo_in <= out_fifo_in18;
+      24'd262144  : out_fifo_in <= out_fifo_in19;
+      24'd524288  : out_fifo_in <= out_fifo_in20;
+      24'd1048576 : out_fifo_in <= out_fifo_in21;
+      24'd2097152 : out_fifo_in <= out_fifo_in22;
+      24'd4194304 : out_fifo_in <= out_fifo_in23;
+      24'd8388608 : out_fifo_in <= out_fifo_in24;
+      default     : out_fifo_in <= out_fifo_in;
+    endcase
+  end
+end
+
+reg valid_out_fifo_in_tmp;
+
+always @(posedge clk) begin
+  if(reset) begin
+    valid_out_fifo_in_tmp <= 1'b0;
+  end
+  else begin
+    valid_out_fifo_in_tmp <= read_enable & !fifo_empty_in24;
+  end
+end
 
 always @(posedge clk) begin
   if(reset) begin
     valid_out_fifo_in <= 1'b0;
   end
   else begin
-    valid_out_fifo_in <= read_enable & !fifo_empty_in;
+    valid_out_fifo_in <= valid_out_fifo_in_tmp;
   end
 end
 
