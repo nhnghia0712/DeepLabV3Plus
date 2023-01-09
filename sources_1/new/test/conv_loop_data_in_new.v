@@ -101,7 +101,7 @@ always @(posedge clk) begin
 			valid_out_tmp <= 1'b0;
 		end
 		else begin
-			if (cnt_wait < ((IMAGE_WIDTH * RATE) + RATE) - 3) begin
+			if (cnt_wait < ((IMAGE_WIDTH * RATE) + RATE)) begin
 				cnt_wait      <= cnt_wait + 1'b1;
 				valid_out_tmp <= 1'b0;
 			end
@@ -112,6 +112,10 @@ always @(posedge clk) begin
 		end
 	end
 end
+
+wire sel_signal;
+
+assign sel_signal = ((!(|addra[14:1]) && addra[0]) && (cnt_channel > 0)) ? 1'b0:1'b1;
 
 always @(posedge clk) begin
 	if(reset) begin
@@ -170,7 +174,7 @@ always @(posedge clk) begin
 		valid_out <= 1'b0;
 	end
 	else begin
-		valid_out <= valid_out_next;
+		valid_out <= valid_out_next & sel_signal;
 	end
 end
 
