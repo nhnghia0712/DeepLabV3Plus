@@ -72,26 +72,25 @@ reg                   valid_out;
 wire [DATA_WIDTH-1:0] loop_data_out      ;
 wire                  valid_loop_data_out;
 
-conv_loop_data_in #(
-	.DATA_WIDTH          (DATA_WIDTH          ),
-	.CHANNEL_NUM_IN      (CHANNEL_NUM_IN      ),
-	.CHANNEL_NUM_OUT     (CHANNEL_NUM_OUT     ),
-	.IMAGE_WIDTH         (IMAGE_WIDTH         ),
-	.CHANNEL_NUM_IN_PIXEL(CHANNEL_NUM_IN_PIXEL),
-	.IMAGE_SIZE          (IMAGE_SIZE          ),
-	.LOOP_CHANNEL_IN_CNT (LOOP_CHANNEL_IN_CNT ),
-	.LOOP_COL_CNT        (LOOP_COL_CNT        ),
-	.RATE                (1                   )
+conv_loop_data_in_16x16x1280 #(
+  .DATA_WIDTH          (DATA_WIDTH          ),
+  .IMAGE_WIDTH         (IMAGE_WIDTH         ),
+  .RATE                (1                   ),
+  .CHANNEL_NUM_IN      (CHANNEL_NUM_IN      ),
+  .CHANNEL_NUM_OUT     (CHANNEL_NUM_OUT     ),
+  .CHANNEL_NUM_IN_PIXEL(CHANNEL_NUM_IN_PIXEL),
+  .IMAGE_SIZE          (IMAGE_SIZE          )
 ) inst_loop (
-	//input
-	.clk      (clk                ),
-	.reset    (reset              ),
-	.valid_in (valid_in           ),
-	.pxl_in   (pxl_in             ),
-	//output
-	.pxl_out  (loop_data_out      ),
-	.valid_out(valid_loop_data_out)
+  //input
+  .clk      (clk                ),
+  .reset    (reset              ),
+  .valid_in (valid_in           ),
+  .pxl_in   (pxl_in             ),
+  //output
+  .pxl_out  (loop_data_out      ),
+  .valid_out(valid_loop_data_out)
 );
+
 // Conv
 wire [DATA_WIDTH-1:0] pxl_out_conv  ;
 wire                  valid_out_conv;

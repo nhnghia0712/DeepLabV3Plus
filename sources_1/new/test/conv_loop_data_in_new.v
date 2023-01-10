@@ -33,8 +33,8 @@ module conv_loop_data_in_new (
 // Parameter Declarations
 parameter DATA_WIDTH           = 32                         ;
 parameter IMAGE_WIDTH          = 32                         ;
-parameter CHANNEL_NUM_IN       = 3                          ;
-parameter CHANNEL_NUM_OUT      = 64                         ;
+parameter CHANNEL_NUM_IN       = 4                          ;
+parameter CHANNEL_NUM_OUT      = 4                          ;
 parameter RATE                 = 1                          ;
 parameter IMAGE_SIZE           = 32 * 32                    ;
 parameter CHANNEL_NUM_IN_PIXEL = CHANNEL_NUM_IN * IMAGE_SIZE;

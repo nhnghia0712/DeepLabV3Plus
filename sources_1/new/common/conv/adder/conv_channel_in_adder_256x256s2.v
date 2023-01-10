@@ -66,8 +66,8 @@ wire                  valid_out;
 
 reg  [DATA_WIDTH-1:0] out_fifo_in      ;
 reg                   valid_out_fifo_in;
-wire                  fifo_full_in     ;
-wire                  fifo_empty_in    ;
+// wire                  fifo_full_in     ;
+// wire                  fifo_empty_in    ;
 
 wire [DATA_WIDTH-1:0] out_fifo_in1  ;
 wire                  fifo_full_in1 ;
