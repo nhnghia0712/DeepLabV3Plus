@@ -136,7 +136,7 @@ cnn_conv_12_13_14_15_16_17_3x3 #(
 );
 
 // Add
-cnn_add_layer4 #(.DATA_WIDTH(DATA_WIDTH)) inst_add (
+cnn_add_layer14 #(.DATA_WIDTH(DATA_WIDTH)) inst_add (
     .clk         (clk            ),
     .reset       (reset          ),
     .valid_in_no1(valid_out_conv2),
