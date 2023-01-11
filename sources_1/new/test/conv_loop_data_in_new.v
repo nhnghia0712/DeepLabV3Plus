@@ -92,9 +92,18 @@ always @(posedge clk) begin
 	end
 	else if (enable || valid_in) begin
 		if (addra < CHANNEL_NUM_IN_PIXEL + 1) begin
-			addra         <= addra + 1'b1;
-			cnt_wait      <= {WAIT_WIDTH{1'b0}};
-			valid_out_tmp <= 1'b1;
+			if ( (addra / IMAGE_SIZE) !== cnt_channel) begin
+				addra         <= addra + 1'b1;
+				cnt_wait      <= {WAIT_WIDTH{1'b0}};
+				valid_out_tmp <= 1'b1;
+			else if (cnt_wait < ((IMAGE_WIDTH * RATE) + RATE)) begin
+				cnt_wait      <= cnt_wait + 1'b1;
+				valid_out_tmp <= 1'b0;
+			end
+			else begin
+				addra         <= addra + 1'b1;
+				valid_out_tmp <= 1'b1;	
+			end
 		end
 		else if (cnt_channel == CHANNEL_NUM_OUT) begin
 			addra         <= addra;
