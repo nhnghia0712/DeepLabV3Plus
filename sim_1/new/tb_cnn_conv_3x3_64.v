@@ -10,7 +10,7 @@ module tb_cnn_conv_3x3_64 ();
 	parameter IMAGE_WIDTH     = 32; //Width
 	parameter IMAGE_HEIGHT    = 32; //Height
 	parameter CHANNEL_NUM_IN  = 4 ; //The number of channel in
-	parameter CHANNEL_NUM_OUT = 4 ; //The number of channel out
+	parameter CHANNEL_NUM_OUT = 1 ; //The number of channel out
 	parameter KERNEL          = 3 ; //Kernel width
 	parameter RATE            = 1 ; //Rate of dialtion
 
