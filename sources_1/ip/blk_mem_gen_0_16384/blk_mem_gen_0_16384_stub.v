@@ -1,7 +1,7 @@
 // Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2019.2 (win64) Build 2708876 Wed Nov  6 21:40:23 MST 2019
-// Date        : Mon Jan  9 21:37:59 2023
+// Date        : Wed Jan 11 21:37:22 2023
 // Host        : NGHIA running 64-bit major release  (build 9200)
 // Command     : write_verilog -force -mode synth_stub
 //               D:/GitHub/CNNs/CNN_DeepLabV3Plus/CNN_DeepLabV3Plus.srcs/sources_1/ip/blk_mem_gen_0_16384/blk_mem_gen_0_16384_stub.v

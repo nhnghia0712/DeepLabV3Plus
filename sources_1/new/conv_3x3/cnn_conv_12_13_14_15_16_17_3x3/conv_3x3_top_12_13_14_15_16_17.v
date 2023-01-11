@@ -118,12 +118,10 @@ wire [DATA_WIDTH-1:0] weight_out_06; wire [DATA_WIDTH-1:0] weight_out_07; wire [
 
 wire valid_out_buffer_weight;
 
-conv_3x3_buffer_weights_12_13_14_15_16_17  #(
-	.DATA_WIDTH                  (DATA_WIDTH                  ),
-	.POINTER_WIDTH_BUFFER_WEIGHTS(POINTER_WIDTH_BUFFER_WEIGHTS),
-	.KERNEL_SIZE                 (KERNEL_SIZE                 ),
-	.WEIGHT_NUM                  (WEIGHT_NUM                  ),
-	.CNT_WIDTH_BUFFER_WEIGHTS    (CNT_WIDTH_BUFFER_WEIGHTS    )
+conv_3x3_buffer_weights_12_13_14_15_16_17 #(
+	.DATA_WIDTH              (DATA_WIDTH              ),
+	.KERNEL_SIZE             (KERNEL_SIZE             ),
+	.CNT_WIDTH_BUFFER_WEIGHTS(CNT_WIDTH_BUFFER_WEIGHTS)
 ) inst_buffer_weights (
 	//input
 	.clk          (clk                    ),
@@ -141,7 +139,7 @@ conv_3x3_buffer_weights_12_13_14_15_16_17  #(
 	.weight_out_06(weight_out_06          ),
 	.weight_out_07(weight_out_07          ),
 	.weight_out_08(weight_out_08          ),
-
+	
 	.valid_out    (valid_out_buffer_weight)
 );
 

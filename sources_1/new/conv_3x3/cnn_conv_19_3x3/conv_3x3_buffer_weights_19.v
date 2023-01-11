@@ -43,12 +43,10 @@ module conv_3x3_buffer_weights_19 (
 parameter DATA_WIDTH = 32;
 
 // Parameter for submodule
-parameter POINTER_WIDTH_BUFFER_WEIGHTS = 6; // $clog2(WEIGHT_NUM) + 1 // For Buffer Weights = log2(WEIGHT_NUM)
 parameter CNT_WIDTH_BUFFER_WEIGHTS     = 4; // $clog2(KERNEL_SIZE) // For Buffer Weights = log2(KERNEL_SIZE)
 
 // Localparam general
 parameter KERNEL_SIZE = 9 ; //3x3 Kernel
-parameter WEIGHT_NUM  = 36; // 2x2x3x3
 
 /////////////////////////////////////////////////////////////////////////
 // Port Declarations
@@ -193,158 +191,122 @@ d_flip_flop #(.DATA_WIDTH(DATA_WIDTH)) dff00 (
 // FIFO
 reg write_req;
 
-cnn_fifo_delay #(
-	.DATA_WIDTH   (DATA_WIDTH                  ),
-	.DATA_DEPTH   (WEIGHT_NUM                  ),
-	.POINTER_WIDTH(POINTER_WIDTH_BUFFER_WEIGHTS)
-) inst_fifo08 (
+fifo_generator_0 inst_fifo08 (
 	//input
-	.clk     (clk               ),
-	.reset   (reset             ),
-	.write   (write_req         ),
-	.read    (load_weights      ),
-	.data_in (weight_out_08_next),
+	.clk  (clk               ),
+	.srst (reset             ),
+	.wr_en(write_req         ),
+	.rd_en(load_weights      ),
+	.din  (weight_out_08_next),
 	//output
-	.data_out(weight_out_08     ),
-	.full    (/*no use*/        ),
-	.empty   (/*no use*/        )
+	.dout (weight_out_08     ),
+	.full (/*no use*/        ),
+	.empty(/*no use*/        )
 );
 
-cnn_fifo_delay #(
-	.DATA_WIDTH   (DATA_WIDTH                  ),
-	.DATA_DEPTH   (WEIGHT_NUM                  ),
-	.POINTER_WIDTH(POINTER_WIDTH_BUFFER_WEIGHTS)
-) inst_fifo07 (
+fifo_generator_0 inst_fifo07 (
 	//input
-	.clk     (clk               ),
-	.reset   (reset             ),
-	.write   (write_req         ),
-	.read    (load_weights      ),
-	.data_in (weight_out_07_next),
+	.clk  (clk               ),
+	.srst (reset             ),
+	.wr_en(write_req         ),
+	.rd_en(load_weights      ),
+	.din  (weight_out_07_next),
 	//output
-	.data_out(weight_out_07     ),
-	.full    (/*no use*/        ),
-	.empty   (/*no use*/        )
+	.dout (weight_out_07     ),
+	.full (/*no use*/        ),
+	.empty(/*no use*/        )
 );
 
-cnn_fifo_delay #(
-	.DATA_WIDTH   (DATA_WIDTH                  ),
-	.DATA_DEPTH   (WEIGHT_NUM                  ),
-	.POINTER_WIDTH(POINTER_WIDTH_BUFFER_WEIGHTS)
-) inst_fifo06 (
+fifo_generator_0 inst_fifo06 (
 	//input
-	.clk     (clk               ),
-	.reset   (reset             ),
-	.write   (write_req         ),
-	.read    (load_weights      ),
-	.data_in (weight_out_06_next),
+	.clk  (clk               ),
+	.srst (reset             ),
+	.wr_en(write_req         ),
+	.rd_en(load_weights      ),
+	.din  (weight_out_06_next),
 	//output
-	.data_out(weight_out_06     ),
-	.full    (/*no use*/        ),
-	.empty   (/*no use*/        )
+	.dout (weight_out_06     ),
+	.full (/*no use*/        ),
+	.empty(/*no use*/        )
 );
 
-cnn_fifo_delay #(
-	.DATA_WIDTH   (DATA_WIDTH                  ),
-	.DATA_DEPTH   (WEIGHT_NUM                  ),
-	.POINTER_WIDTH(POINTER_WIDTH_BUFFER_WEIGHTS)
-) inst_fifo05 (
+fifo_generator_0 inst_fifo05 (
 	//input
-	.clk     (clk               ),
-	.reset   (reset             ),
-	.write   (write_req         ),
-	.read    (load_weights      ),
-	.data_in (weight_out_05_next),
+	.clk  (clk               ),
+	.srst (reset             ),
+	.wr_en(write_req         ),
+	.rd_en(load_weights      ),
+	.din  (weight_out_05_next),
 	//output
-	.data_out(weight_out_05     ),
-	.full    (/*no use*/        ),
-	.empty   (/*no use*/        )
+	.dout (weight_out_05     ),
+	.full (/*no use*/        ),
+	.empty(/*no use*/        )
 );
 
 
-cnn_fifo_delay #(
-	.DATA_WIDTH   (DATA_WIDTH                  ),
-	.DATA_DEPTH   (WEIGHT_NUM                  ),
-	.POINTER_WIDTH(POINTER_WIDTH_BUFFER_WEIGHTS)
-) inst_fifo04 (
+fifo_generator_0 inst_fifo04 (
 	//input
-	.clk     (clk               ),
-	.reset   (reset             ),
-	.write   (write_req         ),
-	.read    (load_weights      ),
-	.data_in (weight_out_04_next),
+	.clk  (clk               ),
+	.srst (reset             ),
+	.wr_en(write_req         ),
+	.rd_en(load_weights      ),
+	.din  (weight_out_04_next),
 	//output
-	.data_out(weight_out_04     ),
-	.full    (/*no use*/        ),
-	.empty   (/*no use*/        )
+	.dout (weight_out_04     ),
+	.full (/*no use*/        ),
+	.empty(/*no use*/        )
 );
 
-cnn_fifo_delay #(
-	.DATA_WIDTH   (DATA_WIDTH                  ),
-	.DATA_DEPTH   (WEIGHT_NUM                  ),
-	.POINTER_WIDTH(POINTER_WIDTH_BUFFER_WEIGHTS)
-) inst_fifo03 (
+fifo_generator_0 inst_fifo03 (
 	//input
-	.clk     (clk               ),
-	.reset   (reset             ),
-	.write   (write_req         ),
-	.read    (load_weights      ),
-	.data_in (weight_out_03_next),
+	.clk  (clk               ),
+	.srst (reset             ),
+	.wr_en(write_req         ),
+	.rd_en(load_weights      ),
+	.din  (weight_out_03_next),
 	//output
-	.data_out(weight_out_03     ),
-	.full    (/*no use*/        ),
-	.empty   (/*no use*/        )
+	.dout (weight_out_03     ),
+	.full (/*no use*/        ),
+	.empty(/*no use*/        )
 );
 
-cnn_fifo_delay #(
-	.DATA_WIDTH   (DATA_WIDTH                  ),
-	.DATA_DEPTH   (WEIGHT_NUM                  ),
-	.POINTER_WIDTH(POINTER_WIDTH_BUFFER_WEIGHTS)
-) inst_fifo02 (
+fifo_generator_0 inst_fifo02 (
 	//input
-	.clk     (clk               ),
-	.reset   (reset             ),
-	.write   (write_req         ),
-	.read    (load_weights      ),
-	.data_in (weight_out_02_next),
+	.clk  (clk               ),
+	.srst (reset             ),
+	.wr_en(write_req         ),
+	.rd_en(load_weights      ),
+	.din  (weight_out_02_next),
 	//output
-	.data_out(weight_out_02     ),
-	.full    (/*no use*/        ),
-	.empty   (/*no use*/        )
+	.dout (weight_out_02     ),
+	.full (/*no use*/        ),
+	.empty(/*no use*/        )
 );
 
-cnn_fifo_delay #(
-	.DATA_WIDTH   (DATA_WIDTH                  ),
-	.DATA_DEPTH   (WEIGHT_NUM                  ),
-	.POINTER_WIDTH(POINTER_WIDTH_BUFFER_WEIGHTS)
-) inst_fifo01 (
+fifo_generator_0 inst_fifo01 (
 	//input
-	.clk     (clk               ),
-	.reset   (reset             ),
-	.write   (write_req         ),
-	.read    (load_weights      ),
-	.data_in (weight_out_01_next),
+	.clk  (clk               ),
+	.srst (reset             ),
+	.wr_en(write_req         ),
+	.rd_en(load_weights      ),
+	.din  (weight_out_01_next),
 	//output
-	.data_out(weight_out_01     ),
-	.full    (/*no use*/        ),
-	.empty   (/*no use*/        )
+	.dout (weight_out_01     ),
+	.full (/*no use*/        ),
+	.empty(/*no use*/        )
 );
 
-cnn_fifo_delay #(
-	.DATA_WIDTH   (DATA_WIDTH                  ),
-	.DATA_DEPTH   (WEIGHT_NUM                  ),
-	.POINTER_WIDTH(POINTER_WIDTH_BUFFER_WEIGHTS)
-) inst_fifo00 (
+fifo_generator_0 inst_fifo00 (
 	//input
-	.clk     (clk               ),
-	.reset   (reset             ),
-	.write   (write_req         ),
-	.read    (load_weights      ),
-	.data_in (weight_out_00_next),
+	.clk  (clk               ),
+	.srst (reset             ),
+	.wr_en(write_req         ),
+	.rd_en(load_weights      ),
+	.din  (weight_out_00_next),
 	//output
-	.data_out(weight_out_00     ),
-	.full    (/*no use*/        ),
-	.empty   (/*no use*/        )
+	.dout (weight_out_00     ),
+	.full (/*no use*/        ),
+	.empty(/*no use*/        )
 );
 
 //Shift

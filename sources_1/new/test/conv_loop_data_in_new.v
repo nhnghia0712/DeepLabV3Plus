@@ -39,7 +39,7 @@ parameter RATE                 = 1                          ;
 parameter IMAGE_SIZE           = 32 * 32                    ;
 parameter CHANNEL_NUM_IN_PIXEL = CHANNEL_NUM_IN * IMAGE_SIZE;
 
-parameter CNT_WIDTH  = $clog2(CHANNEL_NUM_OUT) + 1              ;
+parameter CNT_WIDTH  = $clog2(CHANNEL_NUM_OUT) + 2              ;
 parameter WAIT_WIDTH = $clog2(((IMAGE_WIDTH * RATE) + RATE)) + 1;
 
 /////////////////////////////////////////////////////////////////////////
@@ -69,7 +69,7 @@ reg                  rd_wr_sel_tmp;
 wire                 rd_wr_sel    ;
 reg  [CNT_WIDTH-1:0] cnt_channel  ;
 reg                  enable       ;
-reg                  valid_out_tmp;
+// reg                  valid_out_tmp;
 
 reg [WAIT_WIDTH-1:0] cnt_wait;
 
@@ -86,37 +86,44 @@ end
 
 always @(posedge clk) begin
 	if(reset) begin
-		addra         <= 15'd0;
-		valid_out_tmp <= 1'b0;
-		cnt_wait      <= {WAIT_WIDTH{1'b0}};
+		addra     <= 15'd0;
+		valid_out <= 1'b0;
+		cnt_wait  <= {WAIT_WIDTH{1'b0}};
 	end
 	else if (enable || valid_in) begin
 		if (addra < CHANNEL_NUM_IN_PIXEL + 1) begin
-			if ( (addra / IMAGE_SIZE) !== cnt_channel) begin
-				addra         <= addra + 1'b1;
-				cnt_wait      <= {WAIT_WIDTH{1'b0}};
-				valid_out_tmp <= 1'b1;
-			else if (cnt_wait < ((IMAGE_WIDTH * RATE) + RATE)) begin
-				cnt_wait      <= cnt_wait + 1'b1;
-				valid_out_tmp <= 1'b0;
+			if (cnt_channel > 1) begin
+				if ( (((addra) % IMAGE_SIZE) === 0) ) begin
+					addra     <= addra + 1'b1;
+					cnt_wait  <= {WAIT_WIDTH{1'b0}};
+					valid_out <= 1'b1;
+				end
+				else if ((cnt_wait < ((IMAGE_WIDTH * RATE) + RATE)) && (addra > (IMAGE_SIZE - 1))) begin
+					cnt_wait  <= cnt_wait + 1'b1;
+					valid_out <= 1'b0;
+				end
+				else begin
+					addra     <= addra + 1'b1;
+					valid_out <= 1'b1;
+				end
 			end
 			else begin
-				addra         <= addra + 1'b1;
-				valid_out_tmp <= 1'b1;	
+				addra     <= addra + 1'b1;
+				valid_out <= 1'b0;
 			end
 		end
-		else if (cnt_channel == CHANNEL_NUM_OUT) begin
-			addra         <= addra;
-			valid_out_tmp <= 1'b0;
+		else if (cnt_channel == CHANNEL_NUM_OUT + 1) begin
+			addra     <= addra;
+			valid_out <= 1'b0;
 		end
 		else begin
-			if (cnt_wait < ((IMAGE_WIDTH * RATE) + RATE)) begin
-				cnt_wait      <= cnt_wait + 1'b1;
-				valid_out_tmp <= 1'b0;
+			if ((cnt_wait < ((IMAGE_WIDTH * RATE) + RATE)) && (cnt_channel > 1)) begin
+				cnt_wait  <= cnt_wait + 1'b1;
+				valid_out <= 1'b0;
 			end
 			else begin
-				addra         <= 15'd0;
-				valid_out_tmp <= 1'b1;
+				addra     <= 15'd0;
+				valid_out <= 1'b0;
 			end
 		end
 	end
@@ -138,7 +145,7 @@ always @(posedge clk) begin
 	end
 end
 
-assign rd_wr_sel = rd_wr_sel_tmp | (!(|cnt_channel[CNT_WIDTH-1:1]) & cnt_channel[0]) & (addra > 1);
+assign rd_wr_sel = rd_wr_sel_tmp | ((!(|cnt_channel[CNT_WIDTH-1:1]) & cnt_channel[0]) & (addra > 1));
 
 always @(posedge clk) begin
 	if(reset) begin
@@ -153,7 +160,7 @@ always @(posedge clk) begin
 	if(reset) begin
 		cnt_channel <= {CNT_WIDTH{1'b0}};
 	end
-	else if ((!(|addra[14:1]) && addra[0]) && (cnt_channel < CHANNEL_NUM_OUT)) begin
+	else if ((!(|addra[14:1]) && addra[0]) && (cnt_channel < CHANNEL_NUM_OUT + 1)) begin
 		cnt_channel <= cnt_channel + 1'b1;
 	end
 end
@@ -167,24 +174,24 @@ blk_mem_gen_0_16384 inst_mem (
 	.douta(pxl_out    )
 );
 
-reg valid_out_next;
+// reg valid_out_next;
 
-always @(posedge clk) begin
-	if(reset) begin
-		valid_out_next <= 1'b0;
-	end
-	else begin
-		valid_out_next <= valid_out_tmp;
-	end
-end
+// always @(posedge clk) begin
+// 	if(reset) begin
+// 		valid_out_next <= 1'b0;
+// 	end
+// 	else begin
+// 		valid_out_next <= valid_out_tmp;
+// 	end
+// end
 
-always @(posedge clk) begin
-	if(reset) begin
-		valid_out <= 1'b0;
-	end
-	else begin
-		valid_out <= valid_out_next & sel_signal;
-	end
-end
+// always @(posedge clk) begin
+// 	if(reset) begin
+// 		valid_out <= 1'b0;
+// 	end
+// 	else begin
+// 		valid_out <= valid_out_next & sel_signal;
+// 	end
+// end
 
 endmodule
