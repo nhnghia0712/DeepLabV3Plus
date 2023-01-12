@@ -7,12 +7,12 @@ module tb_cnn_conv_3x3_64 ();
 	parameter DATA_WIDTH = 32;
 
 // General
-	parameter IMAGE_WIDTH     = 32; //Width
-	parameter IMAGE_HEIGHT    = 32; //Height
-	parameter CHANNEL_NUM_IN  = 4 ; //The number of channel in
-	parameter CHANNEL_NUM_OUT = 1 ; //The number of channel out
-	parameter KERNEL          = 3 ; //Kernel width
-	parameter RATE            = 1 ; //Rate of dialtion
+	parameter IMAGE_WIDTH     = 64 ; //Width
+	parameter IMAGE_HEIGHT    = 64 ; //Height
+	parameter CHANNEL_NUM_IN  = 304; //The number of channel in
+	parameter CHANNEL_NUM_OUT = 256; //The number of channel out
+	parameter KERNEL          = 3  ; //Kernel width
+	parameter RATE            = 1  ; //Rate of dialtion
 
 	localparam IMAGE_INPUT_FILE = "D:/GitHub/CNNs/Text_file/Input/R.txt";
 	localparam WEIGHTS_INPUT_FILE = "D:/GitHub/CNNs/Text_file/Input/weight_test.txt";
@@ -55,7 +55,7 @@ module tb_cnn_conv_3x3_64 ();
 		reset = 1'b1;
 		valid_weight_in = 1'b0;
 		stride2 = 1'b1;
-		#SIMULATION_CYCLE
+		#(SIMULATION_CYCLE*2)
 			reset = 1'b0;
 
 		$readmemb(IMAGE_INPUT_FILE, image_input);
@@ -78,10 +78,11 @@ module tb_cnn_conv_3x3_64 ();
 			if (i >= WEIGHT_NUM) begin
 				valid_weight_in <= 1'b0;
 			end
-			#(SIMULATION_CYCLE) i <= i + 1'b1;
-			if(valid_out == 1'b1)begin
-				$fdisplay(image_output,"%h",pxl_out);
-			end
+			i <= i + 1'b1;
+			#(SIMULATION_CYCLE)
+				if(valid_out == 1'b1)begin
+					$fdisplay(image_output,"%h",pxl_out);
+				end
 			if(i == ENDTIME) begin
 				$finish;
 			end
