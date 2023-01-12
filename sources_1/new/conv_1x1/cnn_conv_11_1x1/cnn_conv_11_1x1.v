@@ -300,7 +300,7 @@ always @(posedge clk) begin
     valid_out_tmp <= 1'b0;
   end
   else begin
-    valid_out_tmp <= (!fifo_empty_8 & fifo_empty_7) | fifo_empty_6 | fifo_empty_5 | fifo_empty_4 | fifo_empty_3 | fifo_empty_2 | fifo_empty_1 | fifo_full_8;
+	  valid_out_tmp <= !fifo_empty_8 & fifo_full_8;
   end
 end
 
