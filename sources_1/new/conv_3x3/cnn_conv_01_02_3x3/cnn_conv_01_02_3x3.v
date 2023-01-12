@@ -183,7 +183,7 @@ always @(posedge clk) begin
 		valid_out <= 1'b0;
 	end
 	else begin
-		valid_out <= fifo_full_2 | (fifo_empty_1 & !fifo_empty_2);
+		valid_out <= fifo_full_2 & !fifo_empty_2;
 	end
 end
 
