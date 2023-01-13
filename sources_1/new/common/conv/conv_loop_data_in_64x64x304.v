@@ -169,6 +169,10 @@ end
 
 wire [DATA_WIDTH-1:0] pxl_out1;
 
+// wire enable1;
+
+// assign enable1 = (addra > (IMAGE_SIZE*256) - 1 ) ? 1'b0:enable;
+
 blk_mem_gen_1_1048576 inst_mem1 (
 	.clka (clk        ),
 	.ena  (enable     ),
@@ -184,16 +188,20 @@ wire rd_wr_sel2;
 
 assign rd_wr_sel2 = (addra > (IMAGE_SIZE*256) - 1 ) ? rd_wr_sel:1'b0;
 
+wire enable2;
+
+assign enable2 = (addra > (IMAGE_SIZE*256) - 1 ) ? enable:1'b0;
+
 blk_mem_gen_6_196608 inst_mem2 (
-	.clka (clk                     ),
-	.ena  (enable                  ),
-	.wea  (rd_wr_sel2              ),
-	.addra((IMAGE_SIZE*256) - addra),
-	.dina (pxl_in_next             ),
-	.douta(pxl_out2                )
+	.clka (clk        ),
+	.ena  (enable2    ),
+	.wea  (rd_wr_sel2 ),
+	.addra(addra[17:0]),
+	.dina (pxl_in_next),
+	.douta(pxl_out2   )
 );
 
-assign pxl_out = (rd_wr_sel2) ? pxl_out2:pxl_out1;
+assign pxl_out = ((addra > (IMAGE_SIZE*256) + 1) && enable2 && !rd_wr_sel2) ? pxl_out2:pxl_out1;
 
 // reg valid_out_next;
 

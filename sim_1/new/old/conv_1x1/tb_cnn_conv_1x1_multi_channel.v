@@ -7,11 +7,11 @@ module tb_cnn_conv_1x1_multi_channel ();
 	parameter DATA_WIDTH = 32;
 
 // General
-	parameter IMAGE_WIDTH     = 16; //Width
-	parameter IMAGE_HEIGHT    = 16; //Height
-	parameter CHANNEL_NUM_IN  = 64; //The number of channel in
-	parameter CHANNEL_NUM_OUT = 4 ; //The number of channel out
-	parameter KERNEL          = 1 ; //Kernel width
+	parameter IMAGE_WIDTH     = 64 ; //Width
+	parameter IMAGE_HEIGHT    = 64 ; //Height
+	parameter CHANNEL_NUM_IN  = 304; //The number of channel in
+	parameter CHANNEL_NUM_OUT = 256; //The number of channel out
+	parameter KERNEL          = 1  ; //Kernel width
 
 // Localparam general
 	localparam KERNEL_SIZE          = KERNEL * KERNEL                 ;
@@ -37,7 +37,6 @@ module tb_cnn_conv_1x1_multi_channel ();
 	reg [DATA_WIDTH-1:0] pxl_in         ;
 	reg                  valid_weight_in;
 	reg [DATA_WIDTH-1:0] weight_in      ;
-	reg                  stride2        ;
 
 	wire [DATA_WIDTH-1:0] pxl_out  ;
 	wire                  valid_out;
@@ -55,7 +54,6 @@ module tb_cnn_conv_1x1_multi_channel ();
 		valid_in = 1'b0;
 		reset = 1'b1;
 		valid_weight_in = 1'b0;
-		stride2 = 1'b0;
 		#SIMULATION_CYCLE
 			reset = 1'b0;
 		valid_in = 1'b0;
@@ -81,16 +79,17 @@ module tb_cnn_conv_1x1_multi_channel ();
 			if (i >= WEIGHT_NUM) begin
 				valid_weight_in <= 1'b0;
 			end
-			#(SIMULATION_CYCLE) i <= i + 1'b1;
-			if(valid_out == 1'b1)begin
-				$fdisplay(image_output,"%h",pxl_out);
-			end
+			i <= i + 1'b1;
+			#(SIMULATION_CYCLE)
+				if(valid_out == 1'b1)begin
+					$fdisplay(image_output,"%h",pxl_out);
+				end
 			if(i == ENDTIME) begin
 				$finish;
 			end
 		end
 	end
-	cnn_conv_1x1_multi_channel_new #(
+	cnn_conv_12_1x1 #(
 		.DATA_WIDTH     (DATA_WIDTH     ),
 		.IMAGE_WIDTH    (IMAGE_WIDTH    ),
 		.IMAGE_HEIGHT   (IMAGE_HEIGHT   ),
@@ -104,7 +103,6 @@ module tb_cnn_conv_1x1_multi_channel ();
 		.pxl_in         (pxl_in         ),
 		.valid_weight_in(valid_weight_in),
 		.weight_in      (weight_in      ),
-		.stride2        (stride2        ),
 		//output
 		.pxl_out        (pxl_out        ),
 		.valid_out      (valid_out      )

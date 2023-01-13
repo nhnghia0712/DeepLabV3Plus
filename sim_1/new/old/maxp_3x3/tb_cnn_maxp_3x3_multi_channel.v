@@ -55,21 +55,24 @@ end
 always #(SIMULATION_CLOCK) clk = ~ clk;
 
 always @(posedge clk) begin
-	pxl_in   <= image_input[i];
-	valid_in <= 1'b1;
-	if (i >= CHANNEL_NUM_IN_PIXEL) begin
-		valid_in <= 1'b0;
-	end
-	#(SIMULATION_CYCLE) i <= i + 1'b1;
-	if(valid_out)begin
-		$fdisplay(image_output,"%h",pxl_out);
-	end
-	if(i == ENDTIME) begin
-		$finish;
+	if (!reset) begin
+		pxl_in   <= image_input[i];
+		valid_in <= 1'b1;
+		if (i >= CHANNEL_NUM_IN_PIXEL) begin
+			valid_in <= 1'b0;
+		end
+		i <= i + 1'b1;
+		#(SIMULATION_CYCLE)
+			if(valid_out)begin
+				$fdisplay(image_output,"%h",pxl_out);
+			end
+		if(i == ENDTIME) begin
+			$finish;
+		end
 	end
 end
 
-	cnn_maxp_3x3_top_new #(
+	cnn_maxp_01_3x3 #(
 		.DATA_WIDTH    (DATA_WIDTH    ),
 		.IMAGE_WIDTH   (IMAGE_WIDTH   ),
 		.IMAGE_HEIGHT  (IMAGE_HEIGHT  ),

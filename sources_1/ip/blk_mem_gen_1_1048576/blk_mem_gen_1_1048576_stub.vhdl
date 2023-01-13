@@ -1,10 +1,10 @@
 -- Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2019.2 (win64) Build 2708876 Wed Nov  6 21:40:23 MST 2019
--- Date        : Tue Jan 10 19:58:36 2023
+-- Date        : Fri Jan 13 21:10:18 2023
 -- Host        : NGHIA running 64-bit major release  (build 9200)
 -- Command     : write_vhdl -force -mode synth_stub
---               d:/GitHub/CNNs/CNN_DeepLabV3Plus/CNN_DeepLabV3Plus.srcs/sources_1/ip/blk_mem_gen_1_1048576/blk_mem_gen_1_1048576_stub.vhdl
+--               D:/GitHub/CNNs/CNN_DeepLabV3Plus/CNN_DeepLabV3Plus.srcs/sources_1/ip/blk_mem_gen_1_1048576/blk_mem_gen_1_1048576_stub.vhdl
 -- Design      : blk_mem_gen_1_1048576
 -- Purpose     : Stub declaration of top-level module interface
 -- Device      : xc7vx690tffg1761-2

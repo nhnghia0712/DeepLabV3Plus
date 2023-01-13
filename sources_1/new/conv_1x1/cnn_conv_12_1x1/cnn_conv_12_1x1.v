@@ -171,16 +171,16 @@ wire                  fifo_full_8   ;
 wire                  fifo_empty_8  ;
 
 fifo_generator_0 inst_fifo1 (
-  //input
-  .clk  (clk               ),
-  .srst (reset             ),
-  .wr_en(valid_pxl_out_conv),
-  .rd_en(fifo_full_8       ),
-  .din  (adder_out         ),
-  //output
-  .dout (pxl_out_fifo_1    ),
-  .full (fifo_full_1       ),
-  .empty(fifo_empty_1      )
+	//input
+	.clk  (clk            ),
+	.srst (reset          ),
+	.wr_en(valid_adder_out),
+	.rd_en(fifo_full_8    ),
+	.din  (adder_out      ),
+	//output
+	.dout (pxl_out_fifo_1 ),
+	.full (fifo_full_1    ),
+	.empty(fifo_empty_1   )
 );
 
 fifo_generator_0 inst_fifo2 (
@@ -300,7 +300,8 @@ always @(posedge clk) begin
     valid_out_tmp <= 1'b0;
   end
   else begin
-    valid_out_tmp <= !fifo_empty_8 & fifo_full_8;
+    valid_out_tmp <= (fifo_empty_7 & !fifo_empty_8) | (fifo_empty_6 & !fifo_empty_7) | (fifo_empty_5 & !fifo_empty_6) | (fifo_empty_4 & !fifo_empty_5) |
+      (fifo_empty_3 & !fifo_empty_4) | (fifo_empty_2 & !fifo_empty_3) | (fifo_empty_1 & !fifo_empty_2) | (fifo_full_8 & !fifo_empty_1);
   end
 end
 
