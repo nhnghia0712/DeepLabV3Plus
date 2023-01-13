@@ -397,7 +397,7 @@ always @(posedge clk) begin
     valid_out_tmp <= 1'b0;
   end
   else begin
-    valid_out_tmp <= (!fifo_empty_5 & fifo_empty_3_4) | fifo_empty_1_2 | fifo_full_3_4;
+    valid_out_tmp <= !fifo_empty_5 & fifo_full_3_4;
   end
 end
 
