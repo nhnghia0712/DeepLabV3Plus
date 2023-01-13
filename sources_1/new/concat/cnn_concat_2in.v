@@ -224,7 +224,7 @@ fifo_generator_1 inst_fifo10 (
   //input
   .clk  (clk            ),
   .srst (reset          ),
-  .wr_en(valid_in_no2   ),
+  .wr_en(valid_in_no2 & fifo_full_9),
   .rd_en(fifo_empty_9   ),
   .din  (in_no2         ),
   //output
@@ -261,7 +261,7 @@ always @(posedge clk) begin
     valid_out_tmp <= 1'b0;
   end
   else begin
-    valid_out_tmp <= (!fifo_empty_10 & fifo_empty_9) | fifo_empty_8 | fifo_empty_7 | fifo_empty_6 | fifo_empty_5 | fifo_empty_4 | fifo_empty_3 | fifo_empty_2 | fifo_empty_1 | fifo_full_10;
+    valid_out_tmp <= !fifo_empty_10 & fifo_full_10;
   end
 end
 
