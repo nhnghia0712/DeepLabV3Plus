@@ -103,7 +103,7 @@ fifo_generator_0 inst_fifo22 (
   .clk  (clk                        ),
   .srst (reset                      ),
   .wr_en(valid_in_no2 & fifo_full_21),
-  .rd_en(fifo_empty_21              ),
+  .rd_en(valid_in_no1 & fifo_empty_21),
   .din  (in_no2                     ),
   //output
   .dout (pxl_out_fifo_22            ),
