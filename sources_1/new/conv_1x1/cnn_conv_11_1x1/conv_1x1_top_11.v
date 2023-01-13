@@ -73,7 +73,7 @@ wire [DATA_WIDTH-1:0] out_buffer;
 
 wire valid_out_buffer;
 
-conv_1x1_buffer_weights_11 #(
+conv_1x1_buffer #(
 	.DATA_WIDTH      (DATA_WIDTH      ),
 	.IMAGE_SIZE      (IMAGE_SIZE      ),
 	.CNT_WIDTH_BUFFER(CNT_WIDTH_BUFFER),
@@ -95,7 +95,7 @@ wire [DATA_WIDTH-1:0] out_buffer_weight;
 
 wire valid_out_buffer_weight;
 
-conv_1x1_buffer_weights #(.DATA_WIDTH(DATA_WIDTH)) inst_buffer_weights (
+conv_1x1_buffer_weights_11 #(.DATA_WIDTH(DATA_WIDTH)) inst_buffer_weights (
 	//input
 	.clk              (clk                    ),
 	.reset            (reset                  ),
