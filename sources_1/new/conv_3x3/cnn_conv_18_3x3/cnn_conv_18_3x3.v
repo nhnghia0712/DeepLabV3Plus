@@ -176,15 +176,15 @@ wire                  fifo_empty_8  ;
 
 fifo_generator_0 inst_fifo1 (
 	//input
-	.clk  (clk               ),
-	.srst (reset             ),
-	.wr_en(valid_pxl_out_conv),
-	.rd_en(fifo_full_8       ),
-	.din  (adder_out         ),
+	.clk  (clk            ),
+	.srst (reset          ),
+	.wr_en(valid_adder_out),
+	.rd_en(fifo_full_8    ),
+	.din  (adder_out      ),
 	//output
-	.dout (pxl_out_fifo_1    ),
-	.full (fifo_full_1       ),
-	.empty(fifo_empty_1      )
+	.dout (pxl_out_fifo_1 ),
+	.full (fifo_full_1    ),
+	.empty(fifo_empty_1   )
 );
 
 fifo_generator_0 inst_fifo2 (
