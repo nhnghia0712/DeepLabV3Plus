@@ -7,11 +7,11 @@ module tb_cnn_conv_1x1_multi_channel ();
 	parameter DATA_WIDTH = 32;
 
 // General
-	parameter IMAGE_WIDTH     = 64 ; //Width
-	parameter IMAGE_HEIGHT    = 64 ; //Height
-	parameter CHANNEL_NUM_IN  = 304; //The number of channel in
-	parameter CHANNEL_NUM_OUT = 256; //The number of channel out
-	parameter KERNEL          = 1  ; //Kernel width
+	parameter IMAGE_WIDTH     = 16  ; //Width
+	parameter IMAGE_HEIGHT    = 16  ; //Height
+	parameter CHANNEL_NUM_IN  = 1280; //The number of channel in
+	parameter CHANNEL_NUM_OUT = 256 ; //The number of channel out
+	parameter KERNEL          = 1   ; //Kernel width
 
 // Localparam general
 	localparam KERNEL_SIZE          = KERNEL * KERNEL                 ;
@@ -89,7 +89,7 @@ module tb_cnn_conv_1x1_multi_channel ();
 			end
 		end
 	end
-	cnn_conv_12_1x1 #(
+	cnn_conv_09_1x1 #(
 		.DATA_WIDTH     (DATA_WIDTH     ),
 		.IMAGE_WIDTH    (IMAGE_WIDTH    ),
 		.IMAGE_HEIGHT   (IMAGE_HEIGHT   ),
