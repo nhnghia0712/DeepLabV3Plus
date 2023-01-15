@@ -4,8 +4,8 @@ module tb_cnn_concat_2in ();
 
 /////////////////////////////////////////////////////////////////////////
 // Parameter Declarations
-parameter DATA_WIDTH        = 32   ;
-parameter CHANNEL_NUM_PIXEL = 12*12;
+parameter DATA_WIDTH        = 32       ;
+parameter CHANNEL_NUM_PIXEL = 64*64*304;
 
 parameter T = (CHANNEL_NUM_PIXEL * 2) + 2;
 parameter C = 5                          ;
@@ -25,9 +25,9 @@ wire                  valid_out;
 
 integer i;
 
-reg [DATA_WIDTH-1:0] In_list_no1[CHANNEL_NUM_PIXEL-1:0];
-reg [DATA_WIDTH-1:0] In_list_no2[CHANNEL_NUM_PIXEL-1:0];
-reg [DATA_WIDTH-1:0] Out                               ;
+reg [DATA_WIDTH-1:0] In_list_no1[(64*64*256)-1:0];
+reg [DATA_WIDTH-1:0] In_list_no2[ (64*64*48)-1:0];
+reg [DATA_WIDTH-1:0] Out                         ;
 
 initial begin
 	clk = 1'b0;
@@ -48,29 +48,29 @@ end
 always #(C) clk = ~ clk;
 
 always @(posedge clk) begin
-	in_no1       <= In_list_no1[i];
-	valid_in_no1 <= 1'b1;
-	if (i >= CHANNEL_NUM_PIXEL) begin
-		valid_in_no1 <= 1'b0;
-	end
-	in_no2       <= In_list_no2[i];
-	valid_in_no2 <= 1'b1;
-	if (i >= CHANNEL_NUM_PIXEL) begin
-		valid_in_no2 <= 1'b0;
-	end
-	#(I) i <= i + 1'b1;
-	if(valid_out)begin
-		$fdisplay(Out,"%h",out);
-	end
-	if(i == T) begin
-		$finish;
+	if (!reset) begin
+		in_no1       <= In_list_no1[i[19:0]];
+		valid_in_no1 <= 1'b1;
+		if (i >= 64*64*256) begin
+			valid_in_no1 <= 1'b0;
+			in_no2       <= In_list_no2[i[15:0]];
+			valid_in_no2 <= 1'b1;
+			if (i >= CHANNEL_NUM_PIXEL) begin
+				valid_in_no2 <= 1'b0;
+			end
+		end
+		i <= i + 1'b1;
+		#(I)
+			if(valid_out)begin
+				$fdisplay(Out,"%h",out);
+			end
+		if(i == T) begin
+			$finish;
+		end
 	end
 end
 
-	cnn_concat_2in_new #(
-		.DATA_WIDTH       (DATA_WIDTH       ),
-		.CHANNEL_NUM_PIXEL(CHANNEL_NUM_PIXEL)
-	) DUT (
+	cnn_concat_2in #(.DATA_WIDTH(DATA_WIDTH)) DUT (
 		.clk         (clk         ),
 		.reset       (reset       ),
 		.valid_in_no1(valid_in_no1),

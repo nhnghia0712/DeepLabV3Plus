@@ -8,9 +8,9 @@ parameter DATA_WIDTH        = 32                         ;
 parameter IMAGE_WIDTH       = 16                         ;
 parameter CHANNEL_NUM_PIXEL = IMAGE_WIDTH*IMAGE_WIDTH*512;
 
-parameter T = (CHANNEL_NUM_PIXEL * 5) + 5;
-parameter C = 5                          ;
-parameter I = 10                         ;
+parameter T = (CHANNEL_NUM_PIXEL * 10) + 10;
+parameter C = 5                            ;
+parameter I = 10                           ;
 
 
 reg                  clk         ;
@@ -67,44 +67,44 @@ end
 always #(C) clk = ~ clk;
 
 always @(posedge clk) begin
-	in_no1       <= In_list_no1[i];
-	valid_in_no1 <= 1'b1;
-	if (i >= CHANNEL_NUM_PIXEL) begin
-		valid_in_no1 <= 1'b0;
-	end
-	in_no2       <= In_list_no2[i];
-	valid_in_no2 <= 1'b1;
-	if (i >= CHANNEL_NUM_PIXEL) begin
-		valid_in_no2 <= 1'b0;
-	end
-	in_no3       <= In_list_no3[i];
-	valid_in_no3 <= 1'b1;
-	if (i >= CHANNEL_NUM_PIXEL) begin
-		valid_in_no3 <= 1'b0;
-	end
-	in_no4       <= In_list_no4[i];
-	valid_in_no4 <= 1'b1;
-	if (i >= CHANNEL_NUM_PIXEL) begin
-		valid_in_no4 <= 1'b0;
-	end
-	in_no5       <= In_list_no5[i];
-	valid_in_no5 <= 1'b1;
-	if (i >= CHANNEL_NUM_PIXEL) begin
-		valid_in_no5 <= 1'b0;
-	end
-	#(I) i <= i + 1'b1;
-	if(valid_out == 1'b1)begin
-		$fdisplay(Out,"%h",out);
-	end
-	if(i == T) begin
-		$finish;
+	if (!reset) begin
+		in_no1       <= In_list_no1[i[16:0]];
+		valid_in_no1 <= 1'b1;
+		if (i >= CHANNEL_NUM_PIXEL) begin
+			valid_in_no1 <= 1'b0;
+			in_no2       <= In_list_no2[i[16:0]];
+			valid_in_no2 <= 1'b1;
+			if (i >= (CHANNEL_NUM_PIXEL * 2)) begin
+				valid_in_no2 <= 1'b0;
+				in_no3       <= In_list_no3[i[16:0]];
+				valid_in_no3 <= 1'b1;
+				if (i >= (CHANNEL_NUM_PIXEL * 3)) begin
+					valid_in_no3 <= 1'b0;
+					in_no4       <= In_list_no4[i[16:0]];
+					valid_in_no4 <= 1'b1;
+					if (i >= (CHANNEL_NUM_PIXEL * 4)) begin
+						valid_in_no4 <= 1'b0;
+					end
+				end
+			end
+		end
+		in_no5       <= In_list_no5[i[16:0]];
+		valid_in_no5 <= 1'b1;
+		if (i >= (CHANNEL_NUM_PIXEL)) begin
+			valid_in_no5 <= 1'b0;
+		end
+		i <= i + 1'b1;
+		#(I)
+			if(valid_out)begin
+				$fdisplay(Out,"%h",out);
+			end
+		if(i == T) begin
+			$finish;
+		end
 	end
 end
 
-	cnn_concat_5in_new #(
-		.DATA_WIDTH (DATA_WIDTH ),
-		.IMAGE_WIDTH(IMAGE_WIDTH)
-	) DUT (
+	cnn_concat_5in #(.DATA_WIDTH(DATA_WIDTH)) DUT (
 		.clk         (clk         ),
 		.reset       (reset       ),
 		.valid_in_no1(valid_in_no1),

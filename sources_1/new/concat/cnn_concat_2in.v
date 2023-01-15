@@ -233,25 +233,64 @@ fifo_generator_1 inst_fifo10 (
 	.empty(fifo_empty_10             )
 );
 
+reg fifo_full_10_next;
+reg fifo_empty_1_next;
+reg fifo_empty_2_next;
+reg fifo_empty_3_next;
+reg fifo_empty_4_next;
+reg fifo_empty_5_next;
+reg fifo_empty_6_next;
+reg fifo_empty_7_next;
+reg fifo_empty_8_next;
+reg fifo_empty_9_next;
+
 always @(posedge clk) begin
-  if(reset) begin
-    out <= 32'd0;
-  end
-  else begin
-    case ({fifo_empty_9,fifo_empty_8,fifo_empty_7,fifo_empty_6,fifo_empty_5,fifo_empty_4,fifo_empty_3,fifo_empty_2,fifo_empty_1,fifo_full_10})
-      10'd1   : out <= pxl_out_fifo_1;
-      10'd2   : out <= pxl_out_fifo_2;
-      10'd4   : out <= pxl_out_fifo_3;
-      10'd8   : out <= pxl_out_fifo_4;
-      10'd16  : out <= pxl_out_fifo_5;
-      10'd32  : out <= pxl_out_fifo_6;
-      10'd64  : out <= pxl_out_fifo_7;
-      10'd128 : out <= pxl_out_fifo_8;
-      10'd256 : out <= pxl_out_fifo_9;
-      10'd512 : out <= pxl_out_fifo_10;
-      default : out <= out;
-    endcase
-  end
+	if(reset) begin
+		fifo_full_10_next <= 1'b0;
+		fifo_empty_1_next <= 1'b0;
+		fifo_empty_2_next <= 1'b0;
+		fifo_empty_3_next <= 1'b0;
+		fifo_empty_4_next <= 1'b0;
+		fifo_empty_5_next <= 1'b0;
+		fifo_empty_6_next <= 1'b0;
+		fifo_empty_7_next <= 1'b0;
+		fifo_empty_8_next <= 1'b0;
+		fifo_empty_9_next <= 1'b0;
+	end
+	else begin
+		fifo_full_10_next <= fifo_full_10;
+		fifo_empty_1_next <= fifo_empty_1;
+		fifo_empty_2_next <= fifo_empty_2;
+		fifo_empty_3_next <= fifo_empty_3;
+		fifo_empty_4_next <= fifo_empty_4;
+		fifo_empty_5_next <= fifo_empty_5;
+		fifo_empty_6_next <= fifo_empty_6;
+		fifo_empty_7_next <= fifo_empty_7;
+		fifo_empty_8_next <= fifo_empty_8;
+		fifo_empty_9_next <= fifo_empty_9;
+	end
+end
+
+always @(posedge clk) begin
+	if(reset) begin
+		out <= 32'd0;
+	end
+	else begin
+		case ({fifo_empty_9_next,fifo_empty_8_next,fifo_empty_7_next,fifo_empty_6_next,fifo_empty_5_next,
+					fifo_empty_4_next,fifo_empty_3_next,fifo_empty_2_next,fifo_empty_1_next,fifo_full_10_next})
+			10'd1    : out <= pxl_out_fifo_1;
+			10'd3    : out <= pxl_out_fifo_2;
+			10'd7    : out <= pxl_out_fifo_3;
+			10'd15   : out <= pxl_out_fifo_4;
+			10'd31   : out <= pxl_out_fifo_5;
+			10'd63   : out <= pxl_out_fifo_6;
+			10'd127  : out <= pxl_out_fifo_7;
+			10'd255  : out <= pxl_out_fifo_8;
+			10'd511  : out <= pxl_out_fifo_9;
+			10'd1022 : out <= pxl_out_fifo_10;
+			default  : out <= out;
+		endcase
+	end
 end
 
 reg valid_out_tmp;

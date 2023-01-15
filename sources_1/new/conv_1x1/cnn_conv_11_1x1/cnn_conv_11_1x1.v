@@ -37,7 +37,7 @@ module cnn_conv_11_1x1 (
 parameter IMAGE_WIDTH     = 64 ; //Width
 parameter IMAGE_HEIGHT    = 64 ; //Height
 parameter CHANNEL_NUM_IN  = 256; //The number of channel in
-parameter CHANNEL_NUM_OUT = 256; //The number of channel out
+parameter CHANNEL_NUM_OUT = 256; //The number of channel pxl_out
 parameter KERNEL          = 1  ; //Kernel width
 
 `include "D:/GitHub/CNNs/CNN_DeepLabV3Plus/CNN_DeepLabV3Plus.srcs/sources_1/new/param/param_def_conv_1x1.vh"
@@ -274,20 +274,53 @@ fifo_generator_0 inst_fifo8 (
   .empty(fifo_empty_8                 )
 );
 
+reg fifo_full_8_next ;
+reg fifo_empty_1_next;
+reg fifo_empty_2_next;
+reg fifo_empty_3_next;
+reg fifo_empty_4_next;
+reg fifo_empty_5_next;
+reg fifo_empty_6_next;
+reg fifo_empty_7_next;
+
+always @(posedge clk) begin
+  if(reset) begin
+    fifo_full_8_next  <= 1'b0;
+    fifo_empty_1_next <= 1'b0;
+    fifo_empty_2_next <= 1'b0;
+    fifo_empty_3_next <= 1'b0;
+    fifo_empty_4_next <= 1'b0;
+    fifo_empty_5_next <= 1'b0;
+    fifo_empty_6_next <= 1'b0;
+    fifo_empty_7_next <= 1'b0;
+  end
+  else begin
+    fifo_full_8_next  <= fifo_full_8;
+    fifo_empty_1_next <= fifo_empty_1;
+    fifo_empty_2_next <= fifo_empty_2;
+    fifo_empty_3_next <= fifo_empty_3;
+    fifo_empty_4_next <= fifo_empty_4;
+    fifo_empty_5_next <= fifo_empty_5;
+    fifo_empty_6_next <= fifo_empty_6;
+    fifo_empty_7_next <= fifo_empty_7;
+  end
+end
+
 always @(posedge clk) begin
   if(reset) begin
     pxl_out <= 32'd0;
   end
   else begin
-    case ({fifo_empty_7,fifo_empty_6,fifo_empty_5,fifo_empty_4,fifo_empty_3,fifo_empty_2,fifo_empty_1,fifo_full_8})
+    case ({fifo_empty_7_next,fifo_empty_6_next,fifo_empty_5_next,fifo_empty_4_next,
+          fifo_empty_3_next,fifo_empty_2_next,fifo_empty_1_next,fifo_full_8_next})
       8'd1    : pxl_out <= pxl_out_fifo_1;
-      8'd2    : pxl_out <= pxl_out_fifo_2;
-      8'd4    : pxl_out <= pxl_out_fifo_3;
-      8'd8    : pxl_out <= pxl_out_fifo_4;
-      8'd16   : pxl_out <= pxl_out_fifo_5;
-      8'd32   : pxl_out <= pxl_out_fifo_6;
-      8'd64   : pxl_out <= pxl_out_fifo_7;
-      8'd128  : pxl_out <= pxl_out_fifo_8;
+      8'd3    : pxl_out <= pxl_out_fifo_2;
+      8'd7    : pxl_out <= pxl_out_fifo_3;
+      8'd15   : pxl_out <= pxl_out_fifo_4;
+      8'd31   : pxl_out <= pxl_out_fifo_5;
+      8'd63   : pxl_out <= pxl_out_fifo_6;
+      8'd127  : pxl_out <= pxl_out_fifo_7;
+      8'd254  : pxl_out <= pxl_out_fifo_8;
       default : pxl_out <= pxl_out;
     endcase
   end

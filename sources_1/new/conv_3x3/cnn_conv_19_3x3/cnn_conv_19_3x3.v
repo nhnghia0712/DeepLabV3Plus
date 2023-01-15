@@ -37,7 +37,7 @@ module cnn_conv_19_3x3 (
 parameter IMAGE_WIDTH     = 64 ; //Width
 parameter IMAGE_HEIGHT    = 64 ; //Height
 parameter CHANNEL_NUM_IN  = 304; //The number of channel in
-parameter CHANNEL_NUM_OUT = 304; //The number of channel out
+parameter CHANNEL_NUM_OUT = 304; //The number of channel pxl_out
 parameter KERNEL          = 3  ; //Kernel width
 parameter RATE            = 1  ; //Rate of dialtion
 
@@ -312,23 +312,62 @@ fifo_generator_1 inst_fifo10 (
   .empty(fifo_empty_10                )
 );
 
+reg fifo_full_10_next;
+reg fifo_empty_1_next;
+reg fifo_empty_2_next;
+reg fifo_empty_3_next;
+reg fifo_empty_4_next;
+reg fifo_empty_5_next;
+reg fifo_empty_6_next;
+reg fifo_empty_7_next;
+reg fifo_empty_8_next;
+reg fifo_empty_9_next;
+
+always @(posedge clk) begin
+  if(reset) begin
+    fifo_full_10_next <= 1'b0;
+    fifo_empty_1_next <= 1'b0;
+    fifo_empty_2_next <= 1'b0;
+    fifo_empty_3_next <= 1'b0;
+    fifo_empty_4_next <= 1'b0;
+    fifo_empty_5_next <= 1'b0;
+    fifo_empty_6_next <= 1'b0;
+    fifo_empty_7_next <= 1'b0;
+    fifo_empty_8_next <= 1'b0;
+    fifo_empty_9_next <= 1'b0;
+  end
+  else begin
+    fifo_full_10_next <= fifo_full_10;
+    fifo_empty_1_next <= fifo_empty_1;
+    fifo_empty_2_next <= fifo_empty_2;
+    fifo_empty_3_next <= fifo_empty_3;
+    fifo_empty_4_next <= fifo_empty_4;
+    fifo_empty_5_next <= fifo_empty_5;
+    fifo_empty_6_next <= fifo_empty_6;
+    fifo_empty_7_next <= fifo_empty_7;
+    fifo_empty_8_next <= fifo_empty_8;
+    fifo_empty_9_next <= fifo_empty_9;
+  end
+end
+
 always @(posedge clk) begin
   if(reset) begin
     pxl_out <= 32'd0;
   end
   else begin
-    case ({fifo_empty_9,fifo_empty_8,fifo_empty_7,fifo_empty_6,fifo_empty_5,fifo_empty_4,fifo_empty_3,fifo_empty_2,fifo_empty_1,fifo_full_10})
-      10'd1   : pxl_out <= pxl_out_fifo_1;
-      10'd2   : pxl_out <= pxl_out_fifo_2;
-      10'd4   : pxl_out <= pxl_out_fifo_3;
-      10'd8   : pxl_out <= pxl_out_fifo_4;
-      10'd16  : pxl_out <= pxl_out_fifo_5;
-      10'd32  : pxl_out <= pxl_out_fifo_6;
-      10'd64  : pxl_out <= pxl_out_fifo_7;
-      10'd128 : pxl_out <= pxl_out_fifo_8;
-      10'd256 : pxl_out <= pxl_out_fifo_9;
-      10'd512 : pxl_out <= pxl_out_fifo_10;
-      default : pxl_out <= pxl_out;
+    case ({fifo_empty_9_next,fifo_empty_8_next,fifo_empty_7_next,fifo_empty_6_next,fifo_empty_5_next,
+          fifo_empty_4_next,fifo_empty_3_next,fifo_empty_2_next,fifo_empty_1_next,fifo_full_10_next})
+      10'd1    : pxl_out <= pxl_out_fifo_1;
+      10'd3    : pxl_out <= pxl_out_fifo_2;
+      10'd7    : pxl_out <= pxl_out_fifo_3;
+      10'd15   : pxl_out <= pxl_out_fifo_4;
+      10'd31   : pxl_out <= pxl_out_fifo_5;
+      10'd63   : pxl_out <= pxl_out_fifo_6;
+      10'd127  : pxl_out <= pxl_out_fifo_7;
+      10'd255  : pxl_out <= pxl_out_fifo_8;
+      10'd511  : pxl_out <= pxl_out_fifo_9;
+      10'd1022 : pxl_out <= pxl_out_fifo_10;
+      default  : pxl_out <= pxl_out;
     endcase
   end
 end
