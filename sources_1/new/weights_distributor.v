@@ -134,7 +134,8 @@ module weights_distributor (
 
 /////////////////////////////////////////////////////////////////////////
 // Parameter Declarations
-parameter DATA_WIDTH  = 32      ;
+parameter DATA_WIDTH = 32;
+
 parameter WEIGHTS_NUM = 12246208;
 parameter CNT_WIDTH   = 24      ; // $clog2(WEIGHTS_NUM) + 1
 

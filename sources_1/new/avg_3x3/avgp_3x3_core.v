@@ -193,14 +193,27 @@ fp_add_sub #(.DATA_WIDTH(DATA_WIDTH)) inst_add_out_total (
 );
 
 /////////////////////////////////////////////////////////////////////////
-fp_div #(.DATA_WIDTH(DATA_WIDTH)) inst_div_out (
-  .reset    (reset              ),
-  .clk      (clk                ),
-  .valid_in (valid_out_add_total),
-  .in_a     (out_add_total      ),
-  .in_b     (32'h41100000       ),
-  .out      (pxl_out            ),
-  .valid_out(valid_out          )
+// fp_div #(.DATA_WIDTH(DATA_WIDTH)) inst_div_out (
+//   .reset    (reset              ),
+//   .clk      (clk                ),
+//   .valid_in (valid_out_add_total),
+//   .in_a     (out_add_total      ),
+//   .in_b     (32'h41100000       ),
+//   .out      (pxl_out            ),
+//   .valid_out(valid_out          )
+// );
+
+floating_point_0_div inst_div_out (
+  .aclk                (clk                ),
+  .aresetn             (~reset             ),
+  .s_axis_a_tvalid     (valid_out_add_total),
+  .s_axis_a_tready     (/* no use */       ),
+  .s_axis_a_tdata      (out_add_total      ),
+  .s_axis_b_tvalid     (1'b1               ),
+  .s_axis_b_tready     (/* no use */       ),
+  .s_axis_b_tdata      (32'h41100000       ),
+  .m_axis_result_tvalid(valid_out          ),
+  .m_axis_result_tdata (pxl_out            )
 );
 
 endmodule
