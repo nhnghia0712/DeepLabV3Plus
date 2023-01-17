@@ -41,6 +41,8 @@ parameter CHANNEL_NUM_OUT = 256; //The number of channel out
 parameter KERNEL          = 1  ; //Kernel width
 
 `include "D:/GitHub/CNNs/CNN_DeepLabV3Plus/CNN_DeepLabV3Plus.srcs/sources_1/new/param/param_def_conv_1x1.vh"
+// KhaiT
+// `include "/home/khait/zipfile/deep/new/param/param_def_conv_1x1.vh"
 
 /////////////////////////////////////////////////////////////////////////
 // Port Declarations

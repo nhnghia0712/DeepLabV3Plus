@@ -316,494 +316,543 @@ wire valid_out_mul_05; wire valid_out_mul_04; wire valid_out_mul_03;
 wire valid_out_mul_02; wire valid_out_mul_01; wire valid_out_mul_00;
 
 
-fp_mul #(.DATA_WIDTH(DATA_WIDTH)) inst_mul_48 (
-  .reset    (reset           ),
-  .clk      (clk             ),
-  .valid_in (valid_in        ),
-  .in_a     (pxl_in_48       ),
-  .in_b     (weight_in_48    ),
-  .out      (out_mul_48      ),
-  .valid_out(valid_out_mul_48)
+floating_point_2_mul inst_mul_48 (
+  .aresetn             (~reset          ),
+  .aclk                (clk             ),
+  .s_axis_a_tvalid     (valid_in        ),
+  .s_axis_a_tdata      (pxl_in_48       ),
+  .s_axis_b_tvalid     (valid_in        ),
+  .s_axis_b_tdata      (weight_in_48    ),
+  .m_axis_result_tdata (out_mul_48      ),
+  .m_axis_result_tvalid(valid_out_mul_48)
 );
 
-fp_mul #(.DATA_WIDTH(DATA_WIDTH)) inst_mul_47 (
-  .reset    (reset           ),
-  .clk      (clk             ),
-  .valid_in (valid_in        ),
-  .in_a     (pxl_in_47       ),
-  .in_b     (weight_in_47    ),
-  .out      (out_mul_47      ),
-  .valid_out(valid_out_mul_47)
+floating_point_2_mul inst_mul_47 (
+  .aresetn             (~reset          ),
+  .aclk                (clk             ),
+  .s_axis_a_tvalid     (valid_in        ),
+  .s_axis_a_tdata      (pxl_in_47       ),
+  .s_axis_b_tvalid     (valid_in        ),
+  .s_axis_b_tdata      (weight_in_47    ),
+  .m_axis_result_tdata (out_mul_47      ),
+  .m_axis_result_tvalid(valid_out_mul_47)
 );
 
-fp_mul #(.DATA_WIDTH(DATA_WIDTH)) inst_mul_46 (
-  .reset    (reset           ),
-  .clk      (clk             ),
-  .valid_in (valid_in        ),
-  .in_a     (pxl_in_46       ),
-  .in_b     (weight_in_46    ),
-  .out      (out_mul_46      ),
-  .valid_out(valid_out_mul_46)
+floating_point_2_mul inst_mul_46 (
+  .aresetn             (~reset          ),
+  .aclk                (clk             ),
+  .s_axis_a_tvalid     (valid_in        ),
+  .s_axis_a_tdata      (pxl_in_46       ),
+  .s_axis_b_tvalid     (valid_in        ),
+  .s_axis_b_tdata      (weight_in_46    ),
+  .m_axis_result_tdata (out_mul_46      ),
+  .m_axis_result_tvalid(valid_out_mul_46)
 );
 
-fp_mul #(.DATA_WIDTH(DATA_WIDTH)) inst_mul_45 (
-  .reset    (reset           ),
-  .clk      (clk             ),
-  .valid_in (valid_in        ),
-  .in_a     (pxl_in_45       ),
-  .in_b     (weight_in_45    ),
-  .out      (out_mul_45      ),
-  .valid_out(valid_out_mul_45)
+floating_point_2_mul inst_mul_45 (
+  .aresetn             (~reset          ),
+  .aclk                (clk             ),
+  .s_axis_a_tvalid     (valid_in        ),
+  .s_axis_a_tdata      (pxl_in_45       ),
+  .s_axis_b_tvalid     (valid_in        ),
+  .s_axis_b_tdata      (weight_in_45    ),
+  .m_axis_result_tdata (out_mul_45      ),
+  .m_axis_result_tvalid(valid_out_mul_45)
 );
 
-fp_mul #(.DATA_WIDTH(DATA_WIDTH)) inst_mul_44 (
-  .reset    (reset           ),
-  .clk      (clk             ),
-  .valid_in (valid_in        ),
-  .in_a     (pxl_in_44       ),
-  .in_b     (weight_in_44    ),
-  .out      (out_mul_44      ),
-  .valid_out(valid_out_mul_44)
+floating_point_2_mul inst_mul_44 (
+  .aresetn             (~reset          ),
+  .aclk                (clk             ),
+  .s_axis_a_tvalid     (valid_in        ),
+  .s_axis_a_tdata      (pxl_in_44       ),
+  .s_axis_b_tvalid     (valid_in        ),
+  .s_axis_b_tdata      (weight_in_44    ),
+  .m_axis_result_tdata (out_mul_44      ),
+  .m_axis_result_tvalid(valid_out_mul_44)
 );
 
-fp_mul #(.DATA_WIDTH(DATA_WIDTH)) inst_mul_43 (
-  .reset    (reset           ),
-  .clk      (clk             ),
-  .valid_in (valid_in        ),
-  .in_a     (pxl_in_43       ),
-  .in_b     (weight_in_43    ),
-  .out      (out_mul_43      ),
-  .valid_out(valid_out_mul_43)
+floating_point_2_mul inst_mul_43 (
+  .aresetn             (~reset          ),
+  .aclk                (clk             ),
+  .s_axis_a_tvalid     (valid_in        ),
+  .s_axis_a_tdata      (pxl_in_43       ),
+  .s_axis_b_tvalid     (valid_in        ),
+  .s_axis_b_tdata      (weight_in_43    ),
+  .m_axis_result_tdata (out_mul_43      ),
+  .m_axis_result_tvalid(valid_out_mul_43)
 );
 
-fp_mul #(.DATA_WIDTH(DATA_WIDTH)) inst_mul_42 (
-  .reset    (reset           ),
-  .clk      (clk             ),
-  .valid_in (valid_in        ),
-  .in_a     (pxl_in_42       ),
-  .in_b     (weight_in_42    ),
-  .out      (out_mul_42      ),
-  .valid_out(valid_out_mul_42)
+floating_point_2_mul inst_mul_42 (
+  .aresetn             (~reset          ),
+  .aclk                (clk             ),
+  .s_axis_a_tvalid     (valid_in        ),
+  .s_axis_a_tdata      (pxl_in_42       ),
+  .s_axis_b_tvalid     (valid_in        ),
+  .s_axis_b_tdata      (weight_in_42    ),
+  .m_axis_result_tdata (out_mul_42      ),
+  .m_axis_result_tvalid(valid_out_mul_42)
 );
 
-fp_mul #(.DATA_WIDTH(DATA_WIDTH)) inst_mul_41 (
-  .reset    (reset           ),
-  .clk      (clk             ),
-  .valid_in (valid_in        ),
-  .in_a     (pxl_in_41       ),
-  .in_b     (weight_in_41    ),
-  .out      (out_mul_41      ),
-  .valid_out(valid_out_mul_41)
+floating_point_2_mul inst_mul_41 (
+  .aresetn             (~reset          ),
+  .aclk                (clk             ),
+  .s_axis_a_tvalid     (valid_in        ),
+  .s_axis_a_tdata      (pxl_in_41       ),
+  .s_axis_b_tvalid     (valid_in        ),
+  .s_axis_b_tdata      (weight_in_41    ),
+  .m_axis_result_tdata (out_mul_41      ),
+  .m_axis_result_tvalid(valid_out_mul_41)
 );
 
-fp_mul #(.DATA_WIDTH(DATA_WIDTH)) inst_mul_40 (
-  .reset    (reset           ),
-  .clk      (clk             ),
-  .valid_in (valid_in        ),
-  .in_a     (pxl_in_40       ),
-  .in_b     (weight_in_40    ),
-  .out      (out_mul_40      ),
-  .valid_out(valid_out_mul_40)
+floating_point_2_mul inst_mul_40 (
+  .aresetn             (~reset          ),
+  .aclk                (clk             ),
+  .s_axis_a_tvalid     (valid_in        ),
+  .s_axis_a_tdata      (pxl_in_40       ),
+  .s_axis_b_tvalid     (valid_in        ),
+  .s_axis_b_tdata      (weight_in_40    ),
+  .m_axis_result_tdata (out_mul_40      ),
+  .m_axis_result_tvalid(valid_out_mul_40)
 );
 
-fp_mul #(.DATA_WIDTH(DATA_WIDTH)) inst_mul_39 (
-  .reset    (reset           ),
-  .clk      (clk             ),
-  .valid_in (valid_in        ),
-  .in_a     (pxl_in_39       ),
-  .in_b     (weight_in_39    ),
-  .out      (out_mul_39      ),
-  .valid_out(valid_out_mul_39)
+floating_point_2_mul inst_mul_39 (
+  .aresetn             (~reset          ),
+  .aclk                (clk             ),
+  .s_axis_a_tvalid     (valid_in        ),
+  .s_axis_a_tdata      (pxl_in_39       ),
+  .s_axis_b_tvalid     (valid_in        ),
+  .s_axis_b_tdata      (weight_in_39    ),
+  .m_axis_result_tdata (out_mul_39      ),
+  .m_axis_result_tvalid(valid_out_mul_39)
 );
 
-fp_mul #(.DATA_WIDTH(DATA_WIDTH)) inst_mul_38 (
-  .reset    (reset           ),
-  .clk      (clk             ),
-  .valid_in (valid_in        ),
-  .in_a     (pxl_in_38       ),
-  .in_b     (weight_in_38    ),
-  .out      (out_mul_38      ),
-  .valid_out(valid_out_mul_38)
+floating_point_2_mul inst_mul_38 (
+  .aresetn             (~reset          ),
+  .aclk                (clk             ),
+  .s_axis_a_tvalid     (valid_in        ),
+  .s_axis_a_tdata      (pxl_in_38       ),
+  .s_axis_b_tvalid     (valid_in        ),
+  .s_axis_b_tdata      (weight_in_38    ),
+  .m_axis_result_tdata (out_mul_38      ),
+  .m_axis_result_tvalid(valid_out_mul_38)
 );
 
-fp_mul #(.DATA_WIDTH(DATA_WIDTH)) inst_mul_37 (
-  .reset    (reset           ),
-  .clk      (clk             ),
-  .valid_in (valid_in        ),
-  .in_a     (pxl_in_37       ),
-  .in_b     (weight_in_37    ),
-  .out      (out_mul_37      ),
-  .valid_out(valid_out_mul_37)
+floating_point_2_mul inst_mul_37 (
+  .aresetn             (~reset          ),
+  .aclk                (clk             ),
+  .s_axis_a_tvalid     (valid_in        ),
+  .s_axis_a_tdata      (pxl_in_37       ),
+  .s_axis_b_tvalid     (valid_in        ),
+  .s_axis_b_tdata      (weight_in_37    ),
+  .m_axis_result_tdata (out_mul_37      ),
+  .m_axis_result_tvalid(valid_out_mul_37)
 );
 
-fp_mul #(.DATA_WIDTH(DATA_WIDTH)) inst_mul_36 (
-  .reset    (reset           ),
-  .clk      (clk             ),
-  .valid_in (valid_in        ),
-  .in_a     (pxl_in_36       ),
-  .in_b     (weight_in_36    ),
-  .out      (out_mul_36      ),
-  .valid_out(valid_out_mul_36)
+floating_point_2_mul inst_mul_36 (
+  .aresetn             (~reset          ),
+  .aclk                (clk             ),
+  .s_axis_a_tvalid     (valid_in        ),
+  .s_axis_a_tdata      (pxl_in_36       ),
+  .s_axis_b_tvalid     (valid_in        ),
+  .s_axis_b_tdata      (weight_in_36    ),
+  .m_axis_result_tdata (out_mul_36      ),
+  .m_axis_result_tvalid(valid_out_mul_36)
 );
 
-fp_mul #(.DATA_WIDTH(DATA_WIDTH)) inst_mul_35 (
-  .reset    (reset           ),
-  .clk      (clk             ),
-  .valid_in (valid_in        ),
-  .in_a     (pxl_in_35       ),
-  .in_b     (weight_in_35    ),
-  .out      (out_mul_35      ),
-  .valid_out(valid_out_mul_35)
+floating_point_2_mul inst_mul_35 (
+  .aresetn             (~reset          ),
+  .aclk                (clk             ),
+  .s_axis_a_tvalid     (valid_in        ),
+  .s_axis_a_tdata      (pxl_in_35       ),
+  .s_axis_b_tvalid     (valid_in        ),
+  .s_axis_b_tdata      (weight_in_35    ),
+  .m_axis_result_tdata (out_mul_35      ),
+  .m_axis_result_tvalid(valid_out_mul_35)
 );
 
-fp_mul #(.DATA_WIDTH(DATA_WIDTH)) inst_mul_34 (
-  .reset    (reset           ),
-  .clk      (clk             ),
-  .valid_in (valid_in        ),
-  .in_a     (pxl_in_34       ),
-  .in_b     (weight_in_34    ),
-  .out      (out_mul_34      ),
-  .valid_out(valid_out_mul_34)
+floating_point_2_mul inst_mul_34 (
+  .aresetn             (~reset          ),
+  .aclk                (clk             ),
+  .s_axis_a_tvalid     (valid_in        ),
+  .s_axis_a_tdata      (pxl_in_34       ),
+  .s_axis_b_tvalid     (valid_in        ),
+  .s_axis_b_tdata      (weight_in_34    ),
+  .m_axis_result_tdata (out_mul_34      ),
+  .m_axis_result_tvalid(valid_out_mul_34)
 );
 
-fp_mul #(.DATA_WIDTH(DATA_WIDTH)) inst_mul_33 (
-  .reset    (reset           ),
-  .clk      (clk             ),
-  .valid_in (valid_in        ),
-  .in_a     (pxl_in_33       ),
-  .in_b     (weight_in_33    ),
-  .out      (out_mul_33      ),
-  .valid_out(valid_out_mul_33)
+floating_point_2_mul inst_mul_33 (
+  .aresetn             (~reset          ),
+  .aclk                (clk             ),
+  .s_axis_a_tvalid     (valid_in        ),
+  .s_axis_a_tdata      (pxl_in_33       ),
+  .s_axis_b_tvalid     (valid_in        ),
+  .s_axis_b_tdata      (weight_in_33    ),
+  .m_axis_result_tdata (out_mul_33      ),
+  .m_axis_result_tvalid(valid_out_mul_33)
 );
 
-fp_mul #(.DATA_WIDTH(DATA_WIDTH)) inst_mul_32 (
-  .reset    (reset           ),
-  .clk      (clk             ),
-  .valid_in (valid_in        ),
-  .in_a     (pxl_in_32       ),
-  .in_b     (weight_in_32    ),
-  .out      (out_mul_32      ),
-  .valid_out(valid_out_mul_32)
+floating_point_2_mul inst_mul_32 (
+  .aresetn             (~reset          ),
+  .aclk                (clk             ),
+  .s_axis_a_tvalid     (valid_in        ),
+  .s_axis_a_tdata      (pxl_in_32       ),
+  .s_axis_b_tvalid     (valid_in        ),
+  .s_axis_b_tdata      (weight_in_32    ),
+  .m_axis_result_tdata (out_mul_32      ),
+  .m_axis_result_tvalid(valid_out_mul_32)
 );
 
-fp_mul #(.DATA_WIDTH(DATA_WIDTH)) inst_mul_31 (
-  .reset    (reset           ),
-  .clk      (clk             ),
-  .valid_in (valid_in        ),
-  .in_a     (pxl_in_31       ),
-  .in_b     (weight_in_31    ),
-  .out      (out_mul_31      ),
-  .valid_out(valid_out_mul_31)
+floating_point_2_mul inst_mul_31 (
+  .aresetn             (~reset          ),
+  .aclk                (clk             ),
+  .s_axis_a_tvalid     (valid_in        ),
+  .s_axis_a_tdata      (pxl_in_31       ),
+  .s_axis_b_tvalid     (valid_in        ),
+  .s_axis_b_tdata      (weight_in_31    ),
+  .m_axis_result_tdata (out_mul_31      ),
+  .m_axis_result_tvalid(valid_out_mul_31)
 );
 
-fp_mul #(.DATA_WIDTH(DATA_WIDTH)) inst_mul_30 (
-  .reset    (reset           ),
-  .clk      (clk             ),
-  .valid_in (valid_in        ),
-  .in_a     (pxl_in_30       ),
-  .in_b     (weight_in_30    ),
-  .out      (out_mul_30      ),
-  .valid_out(valid_out_mul_30)
+floating_point_2_mul inst_mul_30 (
+  .aresetn             (~reset          ),
+  .aclk                (clk             ),
+  .s_axis_a_tvalid     (valid_in        ),
+  .s_axis_a_tdata      (pxl_in_30       ),
+  .s_axis_b_tvalid     (valid_in        ),
+  .s_axis_b_tdata      (weight_in_30    ),
+  .m_axis_result_tdata (out_mul_30      ),
+  .m_axis_result_tvalid(valid_out_mul_30)
 );
 
-fp_mul #(.DATA_WIDTH(DATA_WIDTH)) inst_mul_29 (
-  .reset    (reset           ),
-  .clk      (clk             ),
-  .valid_in (valid_in        ),
-  .in_a     (pxl_in_29       ),
-  .in_b     (weight_in_29    ),
-  .out      (out_mul_29      ),
-  .valid_out(valid_out_mul_29)
+floating_point_2_mul inst_mul_29 (
+  .aresetn             (~reset          ),
+  .aclk                (clk             ),
+  .s_axis_a_tvalid     (valid_in        ),
+  .s_axis_a_tdata      (pxl_in_29       ),
+  .s_axis_b_tvalid     (valid_in        ),
+  .s_axis_b_tdata      (weight_in_29    ),
+  .m_axis_result_tdata (out_mul_29      ),
+  .m_axis_result_tvalid(valid_out_mul_29)
 );
 
-fp_mul #(.DATA_WIDTH(DATA_WIDTH)) inst_mul_28 (
-  .reset    (reset           ),
-  .clk      (clk             ),
-  .valid_in (valid_in        ),
-  .in_a     (pxl_in_28       ),
-  .in_b     (weight_in_28    ),
-  .out      (out_mul_28      ),
-  .valid_out(valid_out_mul_28)
+floating_point_2_mul inst_mul_28 (
+  .aresetn             (~reset          ),
+  .aclk                (clk             ),
+  .s_axis_a_tvalid     (valid_in        ),
+  .s_axis_a_tdata      (pxl_in_28       ),
+  .s_axis_b_tvalid     (valid_in        ),
+  .s_axis_b_tdata      (weight_in_28    ),
+  .m_axis_result_tdata (out_mul_28      ),
+  .m_axis_result_tvalid(valid_out_mul_28)
 );
 
-fp_mul #(.DATA_WIDTH(DATA_WIDTH)) inst_mul_27 (
-  .reset    (reset           ),
-  .clk      (clk             ),
-  .valid_in (valid_in        ),
-  .in_a     (pxl_in_27       ),
-  .in_b     (weight_in_27    ),
-  .out      (out_mul_27      ),
-  .valid_out(valid_out_mul_27)
+floating_point_2_mul inst_mul_27 (
+  .aresetn             (~reset          ),
+  .aclk                (clk             ),
+  .s_axis_a_tvalid     (valid_in        ),
+  .s_axis_a_tdata      (pxl_in_27       ),
+  .s_axis_b_tvalid     (valid_in        ),
+  .s_axis_b_tdata      (weight_in_27    ),
+  .m_axis_result_tdata (out_mul_27      ),
+  .m_axis_result_tvalid(valid_out_mul_27)
 );
 
-fp_mul #(.DATA_WIDTH(DATA_WIDTH)) inst_mul_26 (
-  .reset    (reset           ),
-  .clk      (clk             ),
-  .valid_in (valid_in        ),
-  .in_a     (pxl_in_26       ),
-  .in_b     (weight_in_26    ),
-  .out      (out_mul_26      ),
-  .valid_out(valid_out_mul_26)
+floating_point_2_mul inst_mul_26 (
+  .aresetn             (~reset          ),
+  .aclk                (clk             ),
+  .s_axis_a_tvalid     (valid_in        ),
+  .s_axis_a_tdata      (pxl_in_26       ),
+  .s_axis_b_tvalid     (valid_in        ),
+  .s_axis_b_tdata      (weight_in_26    ),
+  .m_axis_result_tdata (out_mul_26      ),
+  .m_axis_result_tvalid(valid_out_mul_26)
 );
 
-fp_mul #(.DATA_WIDTH(DATA_WIDTH)) inst_mul_25 (
-  .reset    (reset           ),
-  .clk      (clk             ),
-  .valid_in (valid_in        ),
-  .in_a     (pxl_in_25       ),
-  .in_b     (weight_in_25    ),
-  .out      (out_mul_25      ),
-  .valid_out(valid_out_mul_25)
+floating_point_2_mul inst_mul_25 (
+  .aresetn             (~reset          ),
+  .aclk                (clk             ),
+  .s_axis_a_tvalid     (valid_in        ),
+  .s_axis_a_tdata      (pxl_in_25       ),
+  .s_axis_b_tvalid     (valid_in        ),
+  .s_axis_b_tdata      (weight_in_25    ),
+  .m_axis_result_tdata (out_mul_25      ),
+  .m_axis_result_tvalid(valid_out_mul_25)
 );
 
-fp_mul #(.DATA_WIDTH(DATA_WIDTH)) inst_mul_24 (
-  .reset    (reset           ),
-  .clk      (clk             ),
-  .valid_in (valid_in        ),
-  .in_a     (pxl_in_24       ),
-  .in_b     (weight_in_24    ),
-  .out      (out_mul_24      ),
-  .valid_out(valid_out_mul_24)
+floating_point_2_mul inst_mul_24 (
+  .aresetn             (~reset          ),
+  .aclk                (clk             ),
+  .s_axis_a_tvalid     (valid_in        ),
+  .s_axis_a_tdata      (pxl_in_24       ),
+  .s_axis_b_tvalid     (valid_in        ),
+  .s_axis_b_tdata      (weight_in_24    ),
+  .m_axis_result_tdata (out_mul_24      ),
+  .m_axis_result_tvalid(valid_out_mul_24)
 );
 
-fp_mul #(.DATA_WIDTH(DATA_WIDTH)) inst_mul_23 (
-  .reset    (reset           ),
-  .clk      (clk             ),
-  .valid_in (valid_in        ),
-  .in_a     (pxl_in_23       ),
-  .in_b     (weight_in_23    ),
-  .out      (out_mul_23      ),
-  .valid_out(valid_out_mul_23)
+floating_point_2_mul inst_mul_23 (
+  .aresetn             (~reset          ),
+  .aclk                (clk             ),
+  .s_axis_a_tvalid     (valid_in        ),
+  .s_axis_a_tdata      (pxl_in_23       ),
+  .s_axis_b_tvalid     (valid_in        ),
+  .s_axis_b_tdata      (weight_in_23    ),
+  .m_axis_result_tdata (out_mul_23      ),
+  .m_axis_result_tvalid(valid_out_mul_23)
 );
 
-fp_mul #(.DATA_WIDTH(DATA_WIDTH)) inst_mul_22 (
-  .reset    (reset           ),
-  .clk      (clk             ),
-  .valid_in (valid_in        ),
-  .in_a     (pxl_in_22       ),
-  .in_b     (weight_in_22    ),
-  .out      (out_mul_22      ),
-  .valid_out(valid_out_mul_22)
+floating_point_2_mul inst_mul_22 (
+  .aresetn             (~reset          ),
+  .aclk                (clk             ),
+  .s_axis_a_tvalid     (valid_in        ),
+  .s_axis_a_tdata      (pxl_in_22       ),
+  .s_axis_b_tvalid     (valid_in        ),
+  .s_axis_b_tdata      (weight_in_22    ),
+  .m_axis_result_tdata (out_mul_22      ),
+  .m_axis_result_tvalid(valid_out_mul_22)
 );
 
-fp_mul #(.DATA_WIDTH(DATA_WIDTH)) inst_mul_21 (
-  .reset    (reset           ),
-  .clk      (clk             ),
-  .valid_in (valid_in        ),
-  .in_a     (pxl_in_21       ),
-  .in_b     (weight_in_21    ),
-  .out      (out_mul_21      ),
-  .valid_out(valid_out_mul_21)
+floating_point_2_mul inst_mul_21 (
+  .aresetn             (~reset          ),
+  .aclk                (clk             ),
+  .s_axis_a_tvalid     (valid_in        ),
+  .s_axis_a_tdata      (pxl_in_21       ),
+  .s_axis_b_tvalid     (valid_in        ),
+  .s_axis_b_tdata      (weight_in_21    ),
+  .m_axis_result_tdata (out_mul_21      ),
+  .m_axis_result_tvalid(valid_out_mul_21)
 );
 
-fp_mul #(.DATA_WIDTH(DATA_WIDTH)) inst_mul_20 (
-  .reset    (reset           ),
-  .clk      (clk             ),
-  .valid_in (valid_in        ),
-  .in_a     (pxl_in_20       ),
-  .in_b     (weight_in_20    ),
-  .out      (out_mul_20      ),
-  .valid_out(valid_out_mul_20)
+floating_point_2_mul inst_mul_20 (
+  .aresetn             (~reset          ),
+  .aclk                (clk             ),
+  .s_axis_a_tvalid     (valid_in        ),
+  .s_axis_a_tdata      (pxl_in_20       ),
+  .s_axis_b_tvalid     (valid_in        ),
+  .s_axis_b_tdata      (weight_in_20    ),
+  .m_axis_result_tdata (out_mul_20      ),
+  .m_axis_result_tvalid(valid_out_mul_20)
 );
 
-fp_mul #(.DATA_WIDTH(DATA_WIDTH)) inst_mul_19 (
-  .reset    (reset           ),
-  .clk      (clk             ),
-  .valid_in (valid_in        ),
-  .in_a     (pxl_in_19       ),
-  .in_b     (weight_in_19    ),
-  .out      (out_mul_19      ),
-  .valid_out(valid_out_mul_19)
+floating_point_2_mul inst_mul_19 (
+  .aresetn             (~reset          ),
+  .aclk                (clk             ),
+  .s_axis_a_tvalid     (valid_in        ),
+  .s_axis_a_tdata      (pxl_in_19       ),
+  .s_axis_b_tvalid     (valid_in        ),
+  .s_axis_b_tdata      (weight_in_19    ),
+  .m_axis_result_tdata (out_mul_19      ),
+  .m_axis_result_tvalid(valid_out_mul_19)
 );
 
-fp_mul #(.DATA_WIDTH(DATA_WIDTH)) inst_mul_18 (
-  .reset    (reset           ),
-  .clk      (clk             ),
-  .valid_in (valid_in        ),
-  .in_a     (pxl_in_18       ),
-  .in_b     (weight_in_18    ),
-  .out      (out_mul_18      ),
-  .valid_out(valid_out_mul_18)
+floating_point_2_mul inst_mul_18 (
+  .aresetn             (~reset          ),
+  .aclk                (clk             ),
+  .s_axis_a_tvalid     (valid_in        ),
+  .s_axis_a_tdata      (pxl_in_18       ),
+  .s_axis_b_tvalid     (valid_in        ),
+  .s_axis_b_tdata      (weight_in_18    ),
+  .m_axis_result_tdata (out_mul_18      ),
+  .m_axis_result_tvalid(valid_out_mul_18)
 );
 
-fp_mul #(.DATA_WIDTH(DATA_WIDTH)) inst_mul_17 (
-  .reset    (reset           ),
-  .clk      (clk             ),
-  .valid_in (valid_in        ),
-  .in_a     (pxl_in_17       ),
-  .in_b     (weight_in_17    ),
-  .out      (out_mul_17      ),
-  .valid_out(valid_out_mul_17)
+floating_point_2_mul inst_mul_17 (
+  .aresetn             (~reset          ),
+  .aclk                (clk             ),
+  .s_axis_a_tvalid     (valid_in        ),
+  .s_axis_a_tdata      (pxl_in_17       ),
+  .s_axis_b_tvalid     (valid_in        ),
+  .s_axis_b_tdata      (weight_in_17    ),
+  .m_axis_result_tdata (out_mul_17      ),
+  .m_axis_result_tvalid(valid_out_mul_17)
 );
 
-fp_mul #(.DATA_WIDTH(DATA_WIDTH)) inst_mul_16 (
-  .reset    (reset           ),
-  .clk      (clk             ),
-  .valid_in (valid_in        ),
-  .in_a     (pxl_in_16       ),
-  .in_b     (weight_in_16    ),
-  .out      (out_mul_16      ),
-  .valid_out(valid_out_mul_16)
+floating_point_2_mul inst_mul_16 (
+  .aresetn             (~reset          ),
+  .aclk                (clk             ),
+  .s_axis_a_tvalid     (valid_in        ),
+  .s_axis_a_tdata      (pxl_in_16       ),
+  .s_axis_b_tvalid     (valid_in        ),
+  .s_axis_b_tdata      (weight_in_16    ),
+  .m_axis_result_tdata (out_mul_16      ),
+  .m_axis_result_tvalid(valid_out_mul_16)
 );
 
-fp_mul #(.DATA_WIDTH(DATA_WIDTH)) inst_mul_15 (
-  .reset    (reset           ),
-  .clk      (clk             ),
-  .valid_in (valid_in        ),
-  .in_a     (pxl_in_15       ),
-  .in_b     (weight_in_15    ),
-  .out      (out_mul_15      ),
-  .valid_out(valid_out_mul_15)
+floating_point_2_mul inst_mul_15 (
+  .aresetn             (~reset          ),
+  .aclk                (clk             ),
+  .s_axis_a_tvalid     (valid_in        ),
+  .s_axis_a_tdata      (pxl_in_15       ),
+  .s_axis_b_tvalid     (valid_in        ),
+  .s_axis_b_tdata      (weight_in_15    ),
+  .m_axis_result_tdata (out_mul_15      ),
+  .m_axis_result_tvalid(valid_out_mul_15)
 );
 
-fp_mul #(.DATA_WIDTH(DATA_WIDTH)) inst_mul_14 (
-  .reset    (reset           ),
-  .clk      (clk             ),
-  .valid_in (valid_in        ),
-  .in_a     (pxl_in_14       ),
-  .in_b     (weight_in_14    ),
-  .out      (out_mul_14      ),
-  .valid_out(valid_out_mul_14)
+floating_point_2_mul inst_mul_14 (
+  .aresetn             (~reset          ),
+  .aclk                (clk             ),
+  .s_axis_a_tvalid     (valid_in        ),
+  .s_axis_a_tdata      (pxl_in_14       ),
+  .s_axis_b_tvalid     (valid_in        ),
+  .s_axis_b_tdata      (weight_in_14    ),
+  .m_axis_result_tdata (out_mul_14      ),
+  .m_axis_result_tvalid(valid_out_mul_14)
 );
 
-fp_mul #(.DATA_WIDTH(DATA_WIDTH)) inst_mul_13 (
-  .reset    (reset           ),
-  .clk      (clk             ),
-  .valid_in (valid_in        ),
-  .in_a     (pxl_in_13       ),
-  .in_b     (weight_in_13    ),
-  .out      (out_mul_13      ),
-  .valid_out(valid_out_mul_13)
+floating_point_2_mul inst_mul_13 (
+  .aresetn             (~reset          ),
+  .aclk                (clk             ),
+  .s_axis_a_tvalid     (valid_in        ),
+  .s_axis_a_tdata      (pxl_in_13       ),
+  .s_axis_b_tvalid     (valid_in        ),
+  .s_axis_b_tdata      (weight_in_13    ),
+  .m_axis_result_tdata (out_mul_13      ),
+  .m_axis_result_tvalid(valid_out_mul_13)
 );
 
-fp_mul #(.DATA_WIDTH(DATA_WIDTH)) inst_mul_12 (
-  .reset    (reset           ),
-  .clk      (clk             ),
-  .valid_in (valid_in        ),
-  .in_a     (pxl_in_12       ),
-  .in_b     (weight_in_12    ),
-  .out      (out_mul_12      ),
-  .valid_out(valid_out_mul_12)
+floating_point_2_mul inst_mul_12 (
+  .aresetn             (~reset          ),
+  .aclk                (clk             ),
+  .s_axis_a_tvalid     (valid_in        ),
+  .s_axis_a_tdata      (pxl_in_12       ),
+  .s_axis_b_tvalid     (valid_in        ),
+  .s_axis_b_tdata      (weight_in_12    ),
+  .m_axis_result_tdata (out_mul_12      ),
+  .m_axis_result_tvalid(valid_out_mul_12)
 );
 
-fp_mul #(.DATA_WIDTH(DATA_WIDTH)) inst_mul_11 (
-  .reset    (reset           ),
-  .clk      (clk             ),
-  .valid_in (valid_in        ),
-  .in_a     (pxl_in_11       ),
-  .in_b     (weight_in_11    ),
-  .out      (out_mul_11      ),
-  .valid_out(valid_out_mul_11)
+floating_point_2_mul inst_mul_11 (
+  .aresetn             (~reset          ),
+  .aclk                (clk             ),
+  .s_axis_a_tvalid     (valid_in        ),
+  .s_axis_a_tdata      (pxl_in_11       ),
+  .s_axis_b_tvalid     (valid_in        ),
+  .s_axis_b_tdata      (weight_in_11    ),
+  .m_axis_result_tdata (out_mul_11      ),
+  .m_axis_result_tvalid(valid_out_mul_11)
 );
 
-fp_mul #(.DATA_WIDTH(DATA_WIDTH)) inst_mul_10 (
-  .reset    (reset           ),
-  .clk      (clk             ),
-  .valid_in (valid_in        ),
-  .in_a     (pxl_in_10       ),
-  .in_b     (weight_in_10    ),
-  .out      (out_mul_10      ),
-  .valid_out(valid_out_mul_10)
+floating_point_2_mul inst_mul_10 (
+  .aresetn             (~reset          ),
+  .aclk                (clk             ),
+  .s_axis_a_tvalid     (valid_in        ),
+  .s_axis_a_tdata      (pxl_in_10       ),
+  .s_axis_b_tvalid     (valid_in        ),
+  .s_axis_b_tdata      (weight_in_10    ),
+  .m_axis_result_tdata (out_mul_10      ),
+  .m_axis_result_tvalid(valid_out_mul_10)
 );
 
-fp_mul #(.DATA_WIDTH(DATA_WIDTH)) inst_mul_09 (
-  .reset    (reset           ),
-  .clk      (clk             ),
-  .valid_in (valid_in        ),
-  .in_a     (pxl_in_09       ),
-  .in_b     (weight_in_09    ),
-  .out      (out_mul_09      ),
-  .valid_out(valid_out_mul_09)
+floating_point_2_mul inst_mul_09 (
+  .aresetn             (~reset          ),
+  .aclk                (clk             ),
+  .s_axis_a_tvalid     (valid_in        ),
+  .s_axis_a_tdata      (pxl_in_09       ),
+  .s_axis_b_tvalid     (valid_in        ),
+  .s_axis_b_tdata      (weight_in_09    ),
+  .m_axis_result_tdata (out_mul_09      ),
+  .m_axis_result_tvalid(valid_out_mul_09)
 );
 
-fp_mul #(.DATA_WIDTH(DATA_WIDTH)) inst_mul_08 (
-  .reset    (reset           ),
-  .clk      (clk             ),
-  .valid_in (valid_in        ),
-  .in_a     (pxl_in_08       ),
-  .in_b     (weight_in_08    ),
-  .out      (out_mul_08      ),
-  .valid_out(valid_out_mul_08)
+floating_point_2_mul inst_mul_08 (
+  .aresetn             (~reset          ),
+  .aclk                (clk             ),
+  .s_axis_a_tvalid     (valid_in        ),
+  .s_axis_a_tdata      (pxl_in_08       ),
+  .s_axis_b_tvalid     (valid_in        ),
+  .s_axis_b_tdata      (weight_in_08    ),
+  .m_axis_result_tdata (out_mul_08      ),
+  .m_axis_result_tvalid(valid_out_mul_08)
 );
 
-fp_mul #(.DATA_WIDTH(DATA_WIDTH)) inst_mul_07 (
-  .reset    (reset           ),
-  .clk      (clk             ),
-  .valid_in (valid_in        ),
-  .in_a     (pxl_in_07       ),
-  .in_b     (weight_in_07    ),
-  .out      (out_mul_07      ),
-  .valid_out(valid_out_mul_07)
+floating_point_2_mul inst_mul_07 (
+  .aresetn             (~reset          ),
+  .aclk                (clk             ),
+  .s_axis_a_tvalid     (valid_in        ),
+  .s_axis_a_tdata      (pxl_in_07       ),
+  .s_axis_b_tvalid     (valid_in        ),
+  .s_axis_b_tdata      (weight_in_07    ),
+  .m_axis_result_tdata (out_mul_07      ),
+  .m_axis_result_tvalid(valid_out_mul_07)
 );
 
-fp_mul #(.DATA_WIDTH(DATA_WIDTH)) inst_mul_06 (
-  .reset    (reset           ),
-  .clk      (clk             ),
-  .valid_in (valid_in        ),
-  .in_a     (pxl_in_06       ),
-  .in_b     (weight_in_06    ),
-  .out      (out_mul_06      ),
-  .valid_out(valid_out_mul_06)
+floating_point_2_mul inst_mul_06 (
+  .aresetn             (~reset          ),
+  .aclk                (clk             ),
+  .s_axis_a_tvalid     (valid_in        ),
+  .s_axis_a_tdata      (pxl_in_06       ),
+  .s_axis_b_tvalid     (valid_in        ),
+  .s_axis_b_tdata      (weight_in_06    ),
+  .m_axis_result_tdata (out_mul_06      ),
+  .m_axis_result_tvalid(valid_out_mul_06)
 );
 
-fp_mul #(.DATA_WIDTH(DATA_WIDTH)) inst_mul_05 (
-  .reset    (reset           ),
-  .clk      (clk             ),
-  .valid_in (valid_in        ),
-  .in_a     (pxl_in_05       ),
-  .in_b     (weight_in_05    ),
-  .out      (out_mul_05      ),
-  .valid_out(valid_out_mul_05)
+floating_point_2_mul inst_mul_05 (
+  .aresetn             (~reset          ),
+  .aclk                (clk             ),
+  .s_axis_a_tvalid     (valid_in        ),
+  .s_axis_a_tdata      (pxl_in_05       ),
+  .s_axis_b_tvalid     (valid_in        ),
+  .s_axis_b_tdata      (weight_in_05    ),
+  .m_axis_result_tdata (out_mul_05      ),
+  .m_axis_result_tvalid(valid_out_mul_05)
 );
 
-fp_mul #(.DATA_WIDTH(DATA_WIDTH)) inst_mul_04 (
-  .reset    (reset           ),
-  .clk      (clk             ),
-  .valid_in (valid_in        ),
-  .in_a     (pxl_in_04       ),
-  .in_b     (weight_in_04    ),
-  .out      (out_mul_04      ),
-  .valid_out(valid_out_mul_04)
+floating_point_2_mul inst_mul_04 (
+  .aresetn             (~reset          ),
+  .aclk                (clk             ),
+  .s_axis_a_tvalid     (valid_in        ),
+  .s_axis_a_tdata      (pxl_in_04       ),
+  .s_axis_b_tvalid     (valid_in        ),
+  .s_axis_b_tdata      (weight_in_04    ),
+  .m_axis_result_tdata (out_mul_04      ),
+  .m_axis_result_tvalid(valid_out_mul_04)
 );
 
-fp_mul #(.DATA_WIDTH(DATA_WIDTH)) inst_mul_03 (
-  .reset    (reset           ),
-  .clk      (clk             ),
-  .valid_in (valid_in        ),
-  .in_a     (pxl_in_03       ),
-  .in_b     (weight_in_03    ),
-  .out      (out_mul_03      ),
-  .valid_out(valid_out_mul_03)
+floating_point_2_mul inst_mul_03 (
+  .aresetn             (~reset          ),
+  .aclk                (clk             ),
+  .s_axis_a_tvalid     (valid_in        ),
+  .s_axis_a_tdata      (pxl_in_03       ),
+  .s_axis_b_tvalid     (valid_in        ),
+  .s_axis_b_tdata      (weight_in_03    ),
+  .m_axis_result_tdata (out_mul_03      ),
+  .m_axis_result_tvalid(valid_out_mul_03)
 );
 
-fp_mul #(.DATA_WIDTH(DATA_WIDTH)) inst_mul_02 (
-  .reset    (reset           ),
-  .clk      (clk             ),
-  .valid_in (valid_in        ),
-  .in_a     (pxl_in_02       ),
-  .in_b     (weight_in_02    ),
-  .out      (out_mul_02      ),
-  .valid_out(valid_out_mul_02)
+floating_point_2_mul inst_mul_02 (
+  .aresetn             (~reset          ),
+  .aclk                (clk             ),
+  .s_axis_a_tvalid     (valid_in        ),
+  .s_axis_a_tdata      (pxl_in_02       ),
+  .s_axis_b_tvalid     (valid_in        ),
+  .s_axis_b_tdata      (weight_in_02    ),
+  .m_axis_result_tdata (out_mul_02      ),
+  .m_axis_result_tvalid(valid_out_mul_02)
 );
 
-fp_mul #(.DATA_WIDTH(DATA_WIDTH)) inst_mul_01 (
-  .reset    (reset           ),
-  .clk      (clk             ),
-  .valid_in (valid_in        ),
-  .in_a     (pxl_in_01       ),
-  .in_b     (weight_in_01    ),
-  .out      (out_mul_01      ),
-  .valid_out(valid_out_mul_01)
+floating_point_2_mul inst_mul_01 (
+  .aresetn             (~reset          ),
+  .aclk                (clk             ),
+  .s_axis_a_tvalid     (valid_in        ),
+  .s_axis_a_tdata      (pxl_in_01       ),
+  .s_axis_b_tvalid     (valid_in        ),
+  .s_axis_b_tdata      (weight_in_01    ),
+  .m_axis_result_tdata (out_mul_01      ),
+  .m_axis_result_tvalid(valid_out_mul_01)
 );
 
-fp_mul #(.DATA_WIDTH(DATA_WIDTH)) inst_mul_00 (
-  .reset    (reset           ),
-  .clk      (clk             ),
-  .valid_in (valid_in        ),
-  .in_a     (pxl_in_00       ),
-  .in_b     (weight_in_00    ),
-  .out      (out_mul_00      ),
-  .valid_out(valid_out_mul_00)
+floating_point_2_mul inst_mul_00 (
+  .aresetn             (~reset          ),
+  .aclk                (clk             ),
+  .s_axis_a_tvalid     (valid_in        ),
+  .s_axis_a_tdata      (pxl_in_00       ),
+  .s_axis_b_tvalid     (valid_in        ),
+  .s_axis_b_tdata      (weight_in_00    ),
+  .m_axis_result_tdata (out_mul_00      ),
+  .m_axis_result_tvalid(valid_out_mul_00)
 );
 
 // Line buffer for Mul 00
@@ -811,13 +860,13 @@ wire [DATA_WIDTH-1:0] out_line_buffer_00      ;
 wire                  valid_out_line_buffer_00;
 
 line_buffer #(
-  .IMAGE_WIDTH(36        ),
+  .IMAGE_WIDTH(44        ),
   .KERNEL     (1         ),
   .DIN_WIDTH  (DATA_WIDTH)
 ) line_buffer7 (
   .clk      (clk                     ),
   .reset    (reset                   ),
-  .valid_in (1'b1                    ),
+  .valid_in (valid_out_mul_00        ),
   .data_in  (out_mul_00              ),
   .data_out (out_line_buffer_00      ),
   .valid_out(valid_out_line_buffer_00)
@@ -875,244 +924,268 @@ wire valid_out_add_06_05;
 wire valid_out_add_04_03;
 wire valid_out_add_02_01;
 
-fp_add_sub #(.DATA_WIDTH(DATA_WIDTH)) inst_add_48_47 (
-  .reset    (reset                              ),
-  .clk      (clk                                ),
-  .valid_in (valid_out_mul_48 & valid_out_mul_48),
-  .in_a     (out_mul_48                         ),
-  .in_b     (out_mul_47                         ),
-  .out      (out_add_48_47                      ),
-  .valid_out(valid_out_add_48_47                )
+floating_point_1_add inst_add_48_47 (
+  .aresetn             (~reset             ),
+  .aclk                (clk                ),
+  .s_axis_a_tvalid     (valid_out_mul_48   ),
+  .s_axis_a_tdata      (out_mul_48         ),
+  .s_axis_b_tvalid     (valid_out_mul_48   ),
+  .s_axis_b_tdata      (out_mul_47         ),
+  .m_axis_result_tdata (out_add_48_47      ),
+  .m_axis_result_tvalid(valid_out_add_48_47)
 );
 
-fp_add_sub #(.DATA_WIDTH(DATA_WIDTH)) inst_add_46_45 (
-  .reset    (reset                              ),
-  .clk      (clk                                ),
-  .valid_in (valid_out_mul_46 & valid_out_mul_45),
-  .in_a     (out_mul_46                         ),
-  .in_b     (out_mul_45                         ),
-  .out      (out_add_46_45                      ),
-  .valid_out(valid_out_add_46_45                )
+floating_point_1_add inst_add_46_45 (
+  .aresetn             (~reset             ),
+  .aclk                (clk                ),
+  .s_axis_a_tvalid     (valid_out_mul_46   ),
+  .s_axis_a_tdata      (out_mul_46         ),
+  .s_axis_b_tvalid     (valid_out_mul_45   ),
+  .s_axis_b_tdata      (out_mul_45         ),
+  .m_axis_result_tdata (out_add_46_45      ),
+  .m_axis_result_tvalid(valid_out_add_46_45)
 );
 
-fp_add_sub #(.DATA_WIDTH(DATA_WIDTH)) inst_add_44_43 (
-  .reset    (reset                              ),
-  .clk      (clk                                ),
-  .valid_in (valid_out_mul_44 & valid_out_mul_43),
-  .in_a     (out_mul_44                         ),
-  .in_b     (out_mul_43                         ),
-  .out      (out_add_44_43                      ),
-  .valid_out(valid_out_add_44_43                )
+floating_point_1_add inst_add_44_43 (
+  .aresetn             (~reset             ),
+  .aclk                (clk                ),
+  .s_axis_a_tvalid     (valid_out_mul_44   ),
+  .s_axis_a_tdata      (out_mul_44         ),
+  .s_axis_b_tvalid     (valid_out_mul_43   ),
+  .s_axis_b_tdata      (out_mul_43         ),
+  .m_axis_result_tdata (out_add_44_43      ),
+  .m_axis_result_tvalid(valid_out_add_44_43)
 );
 
-fp_add_sub #(.DATA_WIDTH(DATA_WIDTH)) inst_add_42_41 (
-  .reset    (reset                              ),
-  .clk      (clk                                ),
-  .valid_in (valid_out_mul_42 & valid_out_mul_41),
-  .in_a     (out_mul_42                         ),
-  .in_b     (out_mul_41                         ),
-  .out      (out_add_42_41                      ),
-  .valid_out(valid_out_add_42_41                )
+floating_point_1_add inst_add_42_41 (
+  .aresetn             (~reset             ),
+  .aclk                (clk                ),
+  .s_axis_a_tvalid     (valid_out_mul_42   ),
+  .s_axis_a_tdata      (out_mul_42         ),
+  .s_axis_b_tvalid     (valid_out_mul_41   ),
+  .s_axis_b_tdata      (out_mul_41         ),
+  .m_axis_result_tdata (out_add_42_41      ),
+  .m_axis_result_tvalid(valid_out_add_42_41)
 );
 
-fp_add_sub #(.DATA_WIDTH(DATA_WIDTH)) inst_add_40_39 (
-  .reset    (reset                              ),
-  .clk      (clk                                ),
-  .valid_in (valid_out_mul_40 & valid_out_mul_39),
-  .in_a     (out_mul_40                         ),
-  .in_b     (out_mul_39                         ),
-  .out      (out_add_40_39                      ),
-  .valid_out(valid_out_add_40_39                )
+floating_point_1_add inst_add_40_39 (
+  .aresetn             (~reset             ),
+  .aclk                (clk                ),
+  .s_axis_a_tvalid     (valid_out_mul_40   ),
+  .s_axis_a_tdata      (out_mul_40         ),
+  .s_axis_b_tvalid     (valid_out_mul_39   ),
+  .s_axis_b_tdata      (out_mul_39         ),
+  .m_axis_result_tdata (out_add_40_39      ),
+  .m_axis_result_tvalid(valid_out_add_40_39)
 );
 
-fp_add_sub #(.DATA_WIDTH(DATA_WIDTH)) inst_add_38_37 (
-  .reset    (reset                              ),
-  .clk      (clk                                ),
-  .valid_in (valid_out_mul_38 & valid_out_mul_38),
-  .in_a     (out_mul_38                         ),
-  .in_b     (out_mul_37                         ),
-  .out      (out_add_38_37                      ),
-  .valid_out(valid_out_add_38_37                )
+floating_point_1_add inst_add_38_37 (
+  .aresetn             (~reset             ),
+  .aclk                (clk                ),
+  .s_axis_a_tvalid     (valid_out_mul_38   ),
+  .s_axis_a_tdata      (out_mul_38         ),
+  .s_axis_b_tvalid     (valid_out_mul_38   ),
+  .s_axis_b_tdata      (out_mul_37         ),
+  .m_axis_result_tdata (out_add_38_37      ),
+  .m_axis_result_tvalid(valid_out_add_38_37)
 );
 
-fp_add_sub #(.DATA_WIDTH(DATA_WIDTH)) inst_add_36_35 (
-  .reset    (reset                              ),
-  .clk      (clk                                ),
-  .valid_in (valid_out_mul_36 & valid_out_mul_35),
-  .in_a     (out_mul_36                         ),
-  .in_b     (out_mul_35                         ),
-  .out      (out_add_36_35                      ),
-  .valid_out(valid_out_add_36_35                )
+floating_point_1_add inst_add_36_35 (
+  .aresetn             (~reset             ),
+  .aclk                (clk                ),
+  .s_axis_a_tvalid     (valid_out_mul_36   ),
+  .s_axis_a_tdata      (out_mul_36         ),
+  .s_axis_b_tvalid     (valid_out_mul_35   ),
+  .s_axis_b_tdata      (out_mul_35         ),
+  .m_axis_result_tdata (out_add_36_35      ),
+  .m_axis_result_tvalid(valid_out_add_36_35)
 );
 
-fp_add_sub #(.DATA_WIDTH(DATA_WIDTH)) inst_add_34_33 (
-  .reset    (reset                              ),
-  .clk      (clk                                ),
-  .valid_in (valid_out_mul_34 & valid_out_mul_33),
-  .in_a     (out_mul_34                         ),
-  .in_b     (out_mul_33                         ),
-  .out      (out_add_34_33                      ),
-  .valid_out(valid_out_add_34_33                )
+floating_point_1_add inst_add_34_33 (
+  .aresetn             (~reset             ),
+  .aclk                (clk                ),
+  .s_axis_a_tvalid     (valid_out_mul_34   ),
+  .s_axis_a_tdata      (out_mul_34         ),
+  .s_axis_b_tvalid     (valid_out_mul_33   ),
+  .s_axis_b_tdata      (out_mul_33         ),
+  .m_axis_result_tdata (out_add_34_33      ),
+  .m_axis_result_tvalid(valid_out_add_34_33)
 );
 
-fp_add_sub #(.DATA_WIDTH(DATA_WIDTH)) inst_add_32_31 (
-  .reset    (reset                              ),
-  .clk      (clk                                ),
-  .valid_in (valid_out_mul_32 & valid_out_mul_31),
-  .in_a     (out_mul_32                         ),
-  .in_b     (out_mul_31                         ),
-  .out      (out_add_32_31                      ),
-  .valid_out(valid_out_add_32_31                )
+floating_point_1_add inst_add_32_31 (
+  .aresetn             (~reset             ),
+  .aclk                (clk                ),
+  .s_axis_a_tvalid     (valid_out_mul_32   ),
+  .s_axis_a_tdata      (out_mul_32         ),
+  .s_axis_b_tvalid     (valid_out_mul_31   ),
+  .s_axis_b_tdata      (out_mul_31         ),
+  .m_axis_result_tdata (out_add_32_31      ),
+  .m_axis_result_tvalid(valid_out_add_32_31)
 );
 
-fp_add_sub #(.DATA_WIDTH(DATA_WIDTH)) inst_add_30_29 (
-  .reset    (reset                              ),
-  .clk      (clk                                ),
-  .valid_in (valid_out_mul_30 & valid_out_mul_29),
-  .in_a     (out_mul_30                         ),
-  .in_b     (out_mul_29                         ),
-  .out      (out_add_30_29                      ),
-  .valid_out(valid_out_add_30_29                )
+floating_point_1_add inst_add_30_29 (
+  .aresetn             (~reset             ),
+  .aclk                (clk                ),
+  .s_axis_a_tvalid     (valid_out_mul_30   ),
+  .s_axis_a_tdata      (out_mul_30         ),
+  .s_axis_b_tvalid     (valid_out_mul_29   ),
+  .s_axis_b_tdata      (out_mul_29         ),
+  .m_axis_result_tdata (out_add_30_29      ),
+  .m_axis_result_tvalid(valid_out_add_30_29)
 );
 
-fp_add_sub #(.DATA_WIDTH(DATA_WIDTH)) inst_add_28_27 (
-  .reset    (reset                              ),
-  .clk      (clk                                ),
-  .valid_in (valid_out_mul_28 & valid_out_mul_28),
-  .in_a     (out_mul_28                         ),
-  .in_b     (out_mul_27                         ),
-  .out      (out_add_28_27                      ),
-  .valid_out(valid_out_add_28_27                )
+floating_point_1_add inst_add_28_27 (
+  .aresetn             (~reset             ),
+  .aclk                (clk                ),
+  .s_axis_a_tvalid     (valid_out_mul_28   ),
+  .s_axis_a_tdata      (out_mul_28         ),
+  .s_axis_b_tvalid     (valid_out_mul_28   ),
+  .s_axis_b_tdata      (out_mul_27         ),
+  .m_axis_result_tdata (out_add_28_27      ),
+  .m_axis_result_tvalid(valid_out_add_28_27)
 );
 
-fp_add_sub #(.DATA_WIDTH(DATA_WIDTH)) inst_add_26_25 (
-  .reset    (reset                              ),
-  .clk      (clk                                ),
-  .valid_in (valid_out_mul_26 & valid_out_mul_25),
-  .in_a     (out_mul_26                         ),
-  .in_b     (out_mul_25                         ),
-  .out      (out_add_26_25                      ),
-  .valid_out(valid_out_add_26_25                )
+floating_point_1_add inst_add_26_25 (
+  .aresetn             (~reset             ),
+  .aclk                (clk                ),
+  .s_axis_a_tvalid     (valid_out_mul_26   ),
+  .s_axis_a_tdata      (out_mul_26         ),
+  .s_axis_b_tvalid     (valid_out_mul_25   ),
+  .s_axis_b_tdata      (out_mul_25         ),
+  .m_axis_result_tdata (out_add_26_25      ),
+  .m_axis_result_tvalid(valid_out_add_26_25)
 );
 
-fp_add_sub #(.DATA_WIDTH(DATA_WIDTH)) inst_add_24_23 (
-  .reset    (reset                              ),
-  .clk      (clk                                ),
-  .valid_in (valid_out_mul_24 & valid_out_mul_23),
-  .in_a     (out_mul_24                         ),
-  .in_b     (out_mul_23                         ),
-  .out      (out_add_24_23                      ),
-  .valid_out(valid_out_add_24_23                )
+floating_point_1_add inst_add_24_23 (
+  .aresetn             (~reset             ),
+  .aclk                (clk                ),
+  .s_axis_a_tvalid     (valid_out_mul_24   ),
+  .s_axis_a_tdata      (out_mul_24         ),
+  .s_axis_b_tvalid     (valid_out_mul_23   ),
+  .s_axis_b_tdata      (out_mul_23         ),
+  .m_axis_result_tdata (out_add_24_23      ),
+  .m_axis_result_tvalid(valid_out_add_24_23)
 );
 
-fp_add_sub #(.DATA_WIDTH(DATA_WIDTH)) inst_add_22_21 (
-  .reset    (reset                              ),
-  .clk      (clk                                ),
-  .valid_in (valid_out_mul_22 & valid_out_mul_21),
-  .in_a     (out_mul_22                         ),
-  .in_b     (out_mul_21                         ),
-  .out      (out_add_22_21                      ),
-  .valid_out(valid_out_add_22_21                )
+floating_point_1_add inst_add_22_21 (
+  .aresetn             (~reset             ),
+  .aclk                (clk                ),
+  .s_axis_a_tvalid     (valid_out_mul_22   ),
+  .s_axis_a_tdata      (out_mul_22         ),
+  .s_axis_b_tvalid     (valid_out_mul_21   ),
+  .s_axis_b_tdata      (out_mul_21         ),
+  .m_axis_result_tdata (out_add_22_21      ),
+  .m_axis_result_tvalid(valid_out_add_22_21)
 );
 
-fp_add_sub #(.DATA_WIDTH(DATA_WIDTH)) inst_add_20_19 (
-  .reset    (reset                              ),
-  .clk      (clk                                ),
-  .valid_in (valid_out_mul_20 & valid_out_mul_19),
-  .in_a     (out_mul_20                         ),
-  .in_b     (out_mul_19                         ),
-  .out      (out_add_20_19                      ),
-  .valid_out(valid_out_add_20_19                )
+floating_point_1_add inst_add_20_19 (
+  .aresetn             (~reset             ),
+  .aclk                (clk                ),
+  .s_axis_a_tvalid     (valid_out_mul_20   ),
+  .s_axis_a_tdata      (out_mul_20         ),
+  .s_axis_b_tvalid     (valid_out_mul_19   ),
+  .s_axis_b_tdata      (out_mul_19         ),
+  .m_axis_result_tdata (out_add_20_19      ),
+  .m_axis_result_tvalid(valid_out_add_20_19)
 );
 
-fp_add_sub #(.DATA_WIDTH(DATA_WIDTH)) inst_add_18_17 (
-  .reset    (reset                              ),
-  .clk      (clk                                ),
-  .valid_in (valid_out_mul_18 & valid_out_mul_18),
-  .in_a     (out_mul_18                         ),
-  .in_b     (out_mul_17                         ),
-  .out      (out_add_18_17                      ),
-  .valid_out(valid_out_add_18_17                )
+floating_point_1_add inst_add_18_17 (
+  .aresetn             (~reset             ),
+  .aclk                (clk                ),
+  .s_axis_a_tvalid     (valid_out_mul_18   ),
+  .s_axis_a_tdata      (out_mul_18         ),
+  .s_axis_b_tvalid     (valid_out_mul_18   ),
+  .s_axis_b_tdata      (out_mul_17         ),
+  .m_axis_result_tdata (out_add_18_17      ),
+  .m_axis_result_tvalid(valid_out_add_18_17)
 );
 
-fp_add_sub #(.DATA_WIDTH(DATA_WIDTH)) inst_add_16_15 (
-  .reset    (reset                              ),
-  .clk      (clk                                ),
-  .valid_in (valid_out_mul_16 & valid_out_mul_15),
-  .in_a     (out_mul_16                         ),
-  .in_b     (out_mul_15                         ),
-  .out      (out_add_16_15                      ),
-  .valid_out(valid_out_add_16_15                )
+floating_point_1_add inst_add_16_15 (
+  .aresetn             (~reset             ),
+  .aclk                (clk                ),
+  .s_axis_a_tvalid     (valid_out_mul_16   ),
+  .s_axis_a_tdata      (out_mul_16         ),
+  .s_axis_b_tvalid     (valid_out_mul_15   ),
+  .s_axis_b_tdata      (out_mul_15         ),
+  .m_axis_result_tdata (out_add_16_15      ),
+  .m_axis_result_tvalid(valid_out_add_16_15)
 );
 
-fp_add_sub #(.DATA_WIDTH(DATA_WIDTH)) inst_add_14_13 (
-  .reset    (reset                              ),
-  .clk      (clk                                ),
-  .valid_in (valid_out_mul_14 & valid_out_mul_13),
-  .in_a     (out_mul_14                         ),
-  .in_b     (out_mul_13                         ),
-  .out      (out_add_14_13                      ),
-  .valid_out(valid_out_add_14_13                )
+floating_point_1_add inst_add_14_13 (
+  .aresetn             (~reset             ),
+  .aclk                (clk                ),
+  .s_axis_a_tvalid     (valid_out_mul_14   ),
+  .s_axis_a_tdata      (out_mul_14         ),
+  .s_axis_b_tvalid     (valid_out_mul_13   ),
+  .s_axis_b_tdata      (out_mul_13         ),
+  .m_axis_result_tdata (out_add_14_13      ),
+  .m_axis_result_tvalid(valid_out_add_14_13)
 );
 
-fp_add_sub #(.DATA_WIDTH(DATA_WIDTH)) inst_add_12_11 (
-  .reset    (reset                              ),
-  .clk      (clk                                ),
-  .valid_in (valid_out_mul_12 & valid_out_mul_11),
-  .in_a     (out_mul_12                         ),
-  .in_b     (out_mul_11                         ),
-  .out      (out_add_12_11                      ),
-  .valid_out(valid_out_add_12_11                )
+floating_point_1_add inst_add_12_11 (
+  .aresetn             (~reset             ),
+  .aclk                (clk                ),
+  .s_axis_a_tvalid     (valid_out_mul_12   ),
+  .s_axis_a_tdata      (out_mul_12         ),
+  .s_axis_b_tvalid     (valid_out_mul_11   ),
+  .s_axis_b_tdata      (out_mul_11         ),
+  .m_axis_result_tdata (out_add_12_11      ),
+  .m_axis_result_tvalid(valid_out_add_12_11)
 );
 
-fp_add_sub #(.DATA_WIDTH(DATA_WIDTH)) inst_add_10_09 (
-  .reset    (reset                              ),
-  .clk      (clk                                ),
-  .valid_in (valid_out_mul_10 & valid_out_mul_09),
-  .in_a     (out_mul_10                         ),
-  .in_b     (out_mul_09                         ),
-  .out      (out_add_10_09                      ),
-  .valid_out(valid_out_add_10_09                )
+floating_point_1_add inst_add_10_09 (
+  .aresetn             (~reset             ),
+  .aclk                (clk                ),
+  .s_axis_a_tvalid     (valid_out_mul_10   ),
+  .s_axis_a_tdata      (out_mul_10         ),
+  .s_axis_b_tvalid     (valid_out_mul_09   ),
+  .s_axis_b_tdata      (out_mul_09         ),
+  .m_axis_result_tdata (out_add_10_09      ),
+  .m_axis_result_tvalid(valid_out_add_10_09)
 );
 
-fp_add_sub #(.DATA_WIDTH(DATA_WIDTH)) inst_add_08_07 (
-  .reset    (reset                              ),
-  .clk      (clk                                ),
-  .valid_in (valid_out_mul_08 & valid_out_mul_07),
-  .in_a     (out_mul_08                         ),
-  .in_b     (out_mul_07                         ),
-  .out      (out_add_08_07                      ),
-  .valid_out(valid_out_add_08_07                )
+floating_point_1_add inst_add_08_07 (
+  .aresetn             (~reset             ),
+  .aclk                (clk                ),
+  .s_axis_a_tvalid     (valid_out_mul_08   ),
+  .s_axis_a_tdata      (out_mul_08         ),
+  .s_axis_b_tvalid     (valid_out_mul_07   ),
+  .s_axis_b_tdata      (out_mul_07         ),
+  .m_axis_result_tdata (out_add_08_07      ),
+  .m_axis_result_tvalid(valid_out_add_08_07)
 );
 
-fp_add_sub #(.DATA_WIDTH(DATA_WIDTH)) inst_add_06_05 (
-  .reset    (reset                              ),
-  .clk      (clk                                ),
-  .valid_in (valid_out_mul_06 & valid_out_mul_05),
-  .in_a     (out_mul_06                         ),
-  .in_b     (out_mul_05                         ),
-  .out      (out_add_06_05                      ),
-  .valid_out(valid_out_add_06_05                )
+floating_point_1_add inst_add_06_05 (
+  .aresetn             (~reset             ),
+  .aclk                (clk                ),
+  .s_axis_a_tvalid     (valid_out_mul_06   ),
+  .s_axis_a_tdata      (out_mul_06         ),
+  .s_axis_b_tvalid     (valid_out_mul_05   ),
+  .s_axis_b_tdata      (out_mul_05         ),
+  .m_axis_result_tdata (out_add_06_05      ),
+  .m_axis_result_tvalid(valid_out_add_06_05)
 );
 
-fp_add_sub #(.DATA_WIDTH(DATA_WIDTH)) inst_add_04_03 (
-  .reset    (reset                              ),
-  .clk      (clk                                ),
-  .valid_in (valid_out_mul_04 & valid_out_mul_03),
-  .in_a     (out_mul_04                         ),
-  .in_b     (out_mul_03                         ),
-  .out      (out_add_04_03                      ),
-  .valid_out(valid_out_add_04_03                )
+floating_point_1_add inst_add_04_03 (
+  .aresetn             (~reset             ),
+  .aclk                (clk                ),
+  .s_axis_a_tvalid     (valid_out_mul_04   ),
+  .s_axis_a_tdata      (out_mul_04         ),
+  .s_axis_b_tvalid     (valid_out_mul_03   ),
+  .s_axis_b_tdata      (out_mul_03         ),
+  .m_axis_result_tdata (out_add_04_03      ),
+  .m_axis_result_tvalid(valid_out_add_04_03)
 );
 
-fp_add_sub #(.DATA_WIDTH(DATA_WIDTH)) inst_add_02_01 (
-  .reset    (reset                              ),
-  .clk      (clk                                ),
-  .valid_in (valid_out_mul_02 & valid_out_mul_01),
-  .in_a     (out_mul_02                         ),
-  .in_b     (out_mul_01                         ),
-  .out      (out_add_02_01                      ),
-  .valid_out(valid_out_add_02_01                )
+floating_point_1_add inst_add_02_01 (
+  .aresetn             (~reset             ),
+  .aclk                (clk                ),
+  .s_axis_a_tvalid     (valid_out_mul_02   ),
+  .s_axis_a_tdata      (out_mul_02         ),
+  .s_axis_b_tvalid     (valid_out_mul_01   ),
+  .s_axis_b_tdata      (out_mul_01         ),
+  .m_axis_result_tdata (out_add_02_01      ),
+  .m_axis_result_tvalid(valid_out_add_02_01)
 );
 
 /////////////////////////////////////////////////////////////////////////
@@ -1145,124 +1218,136 @@ wire valid_out_add_04_03_02_01;
 wire valid_out_add_20_19_10_09;
 wire valid_out_add_40_39_30_29;
 
-fp_add_sub #(.DATA_WIDTH(DATA_WIDTH)) inst_add_40_39_30_29 (
-  .reset    (reset                                    ),
-  .clk      (clk                                      ),
-  .valid_in (valid_out_add_40_39 & valid_out_add_30_29),
-  .in_a     (out_add_40_39                            ),
-  .in_b     (out_add_30_29                           ),
-  .out      (out_add_40_39_30_29                      ),
-  .valid_out(valid_out_add_40_39_30_29                )
+floating_point_1_add inst_add_40_39_30_29 (
+  .aresetn             (~reset                   ),
+  .aclk                (clk                      ),
+  .s_axis_a_tvalid     (valid_out_add_40_39      ),
+  .s_axis_a_tdata      (out_add_40_39            ),
+  .s_axis_b_tvalid     (valid_out_add_30_29      ),
+  .s_axis_b_tdata      (out_add_30_29            ),
+  .m_axis_result_tdata (out_add_40_39_30_29      ),
+  .m_axis_result_tvalid(valid_out_add_40_39_30_29)
 );
 
-fp_add_sub #(.DATA_WIDTH(DATA_WIDTH)) inst_add_20_19_10_09 (
-  .reset    (reset                                    ),
-  .clk      (clk                                      ),
-  .valid_in (valid_out_add_20_19 & valid_out_add_10_09),
-  .in_a     (out_add_20_19                            ),
-  .in_b     (out_add_10_09                           ),
-  .out      (out_add_20_19_10_09                      ),
-  .valid_out(valid_out_add_20_19_10_09                )
+floating_point_1_add inst_add_20_19_10_09 (
+  .aresetn             (~reset                   ),
+  .aclk                (clk                      ),
+  .s_axis_a_tvalid     (valid_out_add_20_19      ),
+  .s_axis_a_tdata      (out_add_20_19            ),
+  .s_axis_b_tvalid     (valid_out_add_10_09      ),
+  .s_axis_b_tdata      (out_add_10_09            ),
+  .m_axis_result_tdata (out_add_20_19_10_09      ),
+  .m_axis_result_tvalid(valid_out_add_20_19_10_09)
 );
 
-fp_add_sub #(.DATA_WIDTH(DATA_WIDTH)) inst_add_48_47_46_45 (
-  .reset    (reset                                    ),
-  .clk      (clk                                      ),
-  .valid_in (valid_out_add_48_47 & valid_out_add_46_45),
-  .in_a     (out_add_48_47                            ),
-  .in_b     (out_add_46_45                            ),
-  .out      (out_add_48_47_46_45                      ),
-  .valid_out(valid_out_add_48_47_46_45                )
+floating_point_1_add inst_add_48_47_46_45 (
+  .aresetn             (~reset                   ),
+  .aclk                (clk                      ),
+  .s_axis_a_tvalid     (valid_out_add_48_47      ),
+  .s_axis_a_tdata      (out_add_48_47            ),
+  .s_axis_b_tvalid     (valid_out_add_46_45      ),
+  .s_axis_b_tdata      (out_add_46_45            ),
+  .m_axis_result_tdata (out_add_48_47_46_45      ),
+  .m_axis_result_tvalid(valid_out_add_48_47_46_45)
 );
 
-fp_add_sub #(.DATA_WIDTH(DATA_WIDTH)) inst_add_44_43_42_41 (
-  .reset    (reset                                    ),
-  .clk      (clk                                      ),
-  .valid_in (valid_out_add_44_43 & valid_out_add_42_41),
-  .in_a     (out_add_44_43                            ),
-  .in_b     (out_add_42_41                            ),
-  .out      (out_add_44_43_42_41                      ),
-  .valid_out(valid_out_add_44_43_42_41                )
+floating_point_1_add inst_add_44_43_42_41 (
+  .aresetn             (~reset                   ),
+  .aclk                (clk                      ),
+  .s_axis_a_tvalid     (valid_out_add_44_43      ),
+  .s_axis_a_tdata      (out_add_44_43            ),
+  .s_axis_b_tvalid     (valid_out_add_42_41      ),
+  .s_axis_b_tdata      (out_add_42_41            ),
+  .m_axis_result_tdata (out_add_44_43_42_41      ),
+  .m_axis_result_tvalid(valid_out_add_44_43_42_41)
 );
 
-fp_add_sub #(.DATA_WIDTH(DATA_WIDTH)) inst_add_38_37_36_35 (
-  .reset    (reset                                    ),
-  .clk      (clk                                      ),
-  .valid_in (valid_out_add_38_37 & valid_out_add_36_35),
-  .in_a     (out_add_38_37                            ),
-  .in_b     (out_add_36_35                            ),
-  .out      (out_add_38_37_36_35                      ),
-  .valid_out(valid_out_add_38_37_36_35                )
+floating_point_1_add inst_add_38_37_36_35 (
+  .aresetn             (~reset                   ),
+  .aclk                (clk                      ),
+  .s_axis_a_tvalid     (valid_out_add_38_37      ),
+  .s_axis_a_tdata      (out_add_38_37            ),
+  .s_axis_b_tvalid     (valid_out_add_36_35      ),
+  .s_axis_b_tdata      (out_add_36_35            ),
+  .m_axis_result_tdata (out_add_38_37_36_35      ),
+  .m_axis_result_tvalid(valid_out_add_38_37_36_35)
 );
 
-fp_add_sub #(.DATA_WIDTH(DATA_WIDTH)) inst_add_34_33_32_31 (
-  .reset    (reset                                    ),
-  .clk      (clk                                      ),
-  .valid_in (valid_out_add_34_33 & valid_out_add_32_31),
-  .in_a     (out_add_34_33                            ),
-  .in_b     (out_add_32_31                            ),
-  .out      (out_add_34_33_32_31                      ),
-  .valid_out(valid_out_add_34_33_32_31                )
+floating_point_1_add inst_add_34_33_32_31 (
+  .aresetn             (~reset                   ),
+  .aclk                (clk                      ),
+  .s_axis_a_tvalid     (valid_out_add_34_33      ),
+  .s_axis_a_tdata      (out_add_34_33            ),
+  .s_axis_b_tvalid     (valid_out_add_32_31      ),
+  .s_axis_b_tdata      (out_add_32_31            ),
+  .m_axis_result_tdata (out_add_34_33_32_31      ),
+  .m_axis_result_tvalid(valid_out_add_34_33_32_31)
 );
 
-fp_add_sub #(.DATA_WIDTH(DATA_WIDTH)) inst_add_28_27_26_25 (
-  .reset    (reset                                    ),
-  .clk      (clk                                      ),
-  .valid_in (valid_out_add_28_27 & valid_out_add_26_25),
-  .in_a     (out_add_28_27                            ),
-  .in_b     (out_add_26_25                            ),
-  .out      (out_add_28_27_26_25                      ),
-  .valid_out(valid_out_add_28_27_26_25                )
+floating_point_1_add inst_add_28_27_26_25 (
+  .aresetn             (~reset                   ),
+  .aclk                (clk                      ),
+  .s_axis_a_tvalid     (valid_out_add_28_27      ),
+  .s_axis_a_tdata      (out_add_28_27            ),
+  .s_axis_b_tvalid     (valid_out_add_26_25      ),
+  .s_axis_b_tdata      (out_add_26_25            ),
+  .m_axis_result_tdata (out_add_28_27_26_25      ),
+  .m_axis_result_tvalid(valid_out_add_28_27_26_25)
 );
 
-fp_add_sub #(.DATA_WIDTH(DATA_WIDTH)) inst_add_24_23_22_21 (
-  .reset    (reset                                    ),
-  .clk      (clk                                      ),
-  .valid_in (valid_out_add_24_23 & valid_out_add_22_21),
-  .in_a     (out_add_24_23                            ),
-  .in_b     (out_add_22_21                            ),
-  .out      (out_add_24_23_22_21                      ),
-  .valid_out(valid_out_add_24_23_22_21                )
+floating_point_1_add inst_add_24_23_22_21 (
+  .aresetn             (~reset                   ),
+  .aclk                (clk                      ),
+  .s_axis_a_tvalid     (valid_out_add_24_23      ),
+  .s_axis_a_tdata      (out_add_24_23            ),
+  .s_axis_b_tvalid     (valid_out_add_22_21      ),
+  .s_axis_b_tdata      (out_add_22_21            ),
+  .m_axis_result_tdata (out_add_24_23_22_21      ),
+  .m_axis_result_tvalid(valid_out_add_24_23_22_21)
 );
 
-fp_add_sub #(.DATA_WIDTH(DATA_WIDTH)) inst_add_18_17_16_15 (
-  .reset    (reset                                    ),
-  .clk      (clk                                      ),
-  .valid_in (valid_out_add_18_17 & valid_out_add_16_15),
-  .in_a     (out_add_18_17                            ),
-  .in_b     (out_add_16_15                            ),
-  .out      (out_add_18_17_16_15                      ),
-  .valid_out(valid_out_add_18_17_16_15                )
+floating_point_1_add inst_add_18_17_16_15 (
+  .aresetn             (~reset                   ),
+  .aclk                (clk                      ),
+  .s_axis_a_tvalid     (valid_out_add_18_17      ),
+  .s_axis_a_tdata      (out_add_18_17            ),
+  .s_axis_b_tvalid     (valid_out_add_16_15      ),
+  .s_axis_b_tdata      (out_add_16_15            ),
+  .m_axis_result_tdata (out_add_18_17_16_15      ),
+  .m_axis_result_tvalid(valid_out_add_18_17_16_15)
 );
 
-fp_add_sub #(.DATA_WIDTH(DATA_WIDTH)) inst_add_14_13_12_11 (
-  .reset    (reset                                    ),
-  .clk      (clk                                      ),
-  .valid_in (valid_out_add_14_13 & valid_out_add_12_11),
-  .in_a     (out_add_14_13                            ),
-  .in_b     (out_add_12_11                            ),
-  .out      (out_add_14_13_12_11                      ),
-  .valid_out(valid_out_add_14_13_12_11                )
+floating_point_1_add inst_add_14_13_12_11 (
+  .aresetn             (~reset                   ),
+  .aclk                (clk                      ),
+  .s_axis_a_tvalid     (valid_out_add_14_13      ),
+  .s_axis_a_tdata      (out_add_14_13            ),
+  .s_axis_b_tvalid     (valid_out_add_12_11      ),
+  .s_axis_b_tdata      (out_add_12_11            ),
+  .m_axis_result_tdata (out_add_14_13_12_11      ),
+  .m_axis_result_tvalid(valid_out_add_14_13_12_11)
 );
 
-fp_add_sub #(.DATA_WIDTH(DATA_WIDTH)) inst_add_08_07_06_05 (
-  .reset    (reset                                    ),
-  .clk      (clk                                      ),
-  .valid_in (valid_out_add_08_07 & valid_out_add_06_05),
-  .in_a     (out_add_08_07                            ),
-  .in_b     (out_add_06_05                            ),
-  .out      (out_add_08_07_06_05                      ),
-  .valid_out(valid_out_add_08_07_06_05                )
+floating_point_1_add inst_add_08_07_06_05 (
+  .aresetn             (~reset                   ),
+  .aclk                (clk                      ),
+  .s_axis_a_tvalid     (valid_out_add_08_07      ),
+  .s_axis_a_tdata      (out_add_08_07            ),
+  .s_axis_b_tvalid     (valid_out_add_06_05      ),
+  .s_axis_b_tdata      (out_add_06_05            ),
+  .m_axis_result_tdata (out_add_08_07_06_05      ),
+  .m_axis_result_tvalid(valid_out_add_08_07_06_05)
 );
 
-fp_add_sub #(.DATA_WIDTH(DATA_WIDTH)) inst_add_04_03_02_01 (
-  .reset    (reset                                    ),
-  .clk      (clk                                      ),
-  .valid_in (valid_out_add_04_03 & valid_out_add_02_01),
-  .in_a     (out_add_04_03                            ),
-  .in_b     (out_add_02_01                            ),
-  .out      (out_add_04_03_02_01                      ),
-  .valid_out(valid_out_add_04_03_02_01                )
+floating_point_1_add inst_add_04_03_02_01 (
+  .aresetn             (~reset                   ),
+  .aclk                (clk                      ),
+  .s_axis_a_tvalid     (valid_out_add_04_03      ),
+  .s_axis_a_tdata      (out_add_04_03            ),
+  .s_axis_b_tvalid     (valid_out_add_02_01      ),
+  .s_axis_b_tdata      (out_add_02_01            ),
+  .m_axis_result_tdata (out_add_04_03_02_01      ),
+  .m_axis_result_tvalid(valid_out_add_04_03_02_01)
 );
 
 /////////////////////////////////////////////////////////////////////////
@@ -1282,64 +1367,70 @@ wire valid_out_add_48_47_46_45_44_43_42_41;
 
 wire valid_out_add_40_39_30_29_20_19_10_09;
 
-fp_add_sub #(.DATA_WIDTH(DATA_WIDTH)) inst_add_40_39_30_29_20_19_10_09 (
-  .reset    (reset                                                ),
-  .clk      (clk                                                  ),
-  .valid_in (valid_out_add_40_39_30_29 & valid_out_add_20_19_10_09),
-  .in_a     (out_add_40_39_30_29                                  ),
-  .in_b     (out_add_20_19_10_09                                  ),
-  .out      (out_add_40_39_30_29_20_19_10_09                      ),
-  .valid_out(valid_out_add_40_39_30_29_20_19_10_09                )
+floating_point_1_add inst_add_40_39_30_29_20_19_10_09 (
+  .aresetn             (~reset                               ),
+  .aclk                (clk                                  ),
+  .s_axis_a_tvalid     (valid_out_add_40_39_30_29            ),
+  .s_axis_a_tdata      (out_add_40_39_30_29                  ),
+  .s_axis_b_tvalid     (valid_out_add_20_19_10_09            ),
+  .s_axis_b_tdata      (out_add_20_19_10_09                  ),
+  .m_axis_result_tdata (out_add_40_39_30_29_20_19_10_09      ),
+  .m_axis_result_tvalid(valid_out_add_40_39_30_29_20_19_10_09)
 );
 
-fp_add_sub #(.DATA_WIDTH(DATA_WIDTH)) inst_add_48_47_46_45_44_43_42_41 (
-  .reset    (reset                                                ),
-  .clk      (clk                                                  ),
-  .valid_in (valid_out_add_48_47_46_45 & valid_out_add_44_43_42_41),
-  .in_a     (out_add_48_47_46_45                                  ),
-  .in_b     (out_add_44_43_42_41                                  ),
-  .out      (out_add_48_47_46_45_44_43_42_41                      ),
-  .valid_out(valid_out_add_48_47_46_45_44_43_42_41                )
+floating_point_1_add inst_add_48_47_46_45_44_43_42_41 (
+  .aresetn             (~reset                               ),
+  .aclk                (clk                                  ),
+  .s_axis_a_tvalid     (valid_out_add_48_47_46_45            ),
+  .s_axis_a_tdata      (out_add_48_47_46_45                  ),
+  .s_axis_b_tvalid     (valid_out_add_44_43_42_41            ),
+  .s_axis_b_tdata      (out_add_44_43_42_41                  ),
+  .m_axis_result_tdata (out_add_48_47_46_45_44_43_42_41      ),
+  .m_axis_result_tvalid(valid_out_add_48_47_46_45_44_43_42_41)
 );
 
-fp_add_sub #(.DATA_WIDTH(DATA_WIDTH)) inst_add_38_37_36_35_34_33_32_31 (
-  .reset    (reset                                                ),
-  .clk      (clk                                                  ),
-  .valid_in (valid_out_add_38_37_36_35 & valid_out_add_34_33_32_31),
-  .in_a     (out_add_38_37_36_35                                  ),
-  .in_b     (out_add_34_33_32_31                                  ),
-  .out      (out_add_38_37_36_35_34_33_32_31                      ),
-  .valid_out(valid_out_add_38_37_36_35_34_33_32_31                )
+floating_point_1_add inst_add_38_37_36_35_34_33_32_31 (
+  .aresetn             (~reset                               ),
+  .aclk                (clk                                  ),
+  .s_axis_a_tvalid     (valid_out_add_38_37_36_35            ),
+  .s_axis_a_tdata      (out_add_38_37_36_35                  ),
+  .s_axis_b_tvalid     (valid_out_add_34_33_32_31            ),
+  .s_axis_b_tdata      (out_add_34_33_32_31                  ),
+  .m_axis_result_tdata (out_add_38_37_36_35_34_33_32_31      ),
+  .m_axis_result_tvalid(valid_out_add_38_37_36_35_34_33_32_31)
 );
 
-fp_add_sub #(.DATA_WIDTH(DATA_WIDTH)) inst_add_28_27_26_25_24_23_22_21 (
-  .reset    (reset                                                ),
-  .clk      (clk                                                  ),
-  .valid_in (valid_out_add_28_27_26_25 & valid_out_add_24_23_22_21),
-  .in_a     (out_add_28_27_26_25                                  ),
-  .in_b     (out_add_24_23_22_21                                  ),
-  .out      (out_add_28_27_26_25_24_23_22_21                      ),
-  .valid_out(valid_out_add_28_27_26_25_24_23_22_21                )
+floating_point_1_add inst_add_28_27_26_25_24_23_22_21 (
+  .aresetn             (~reset                               ),
+  .aclk                (clk                                  ),
+  .s_axis_a_tvalid     (valid_out_add_28_27_26_25            ),
+  .s_axis_a_tdata      (out_add_28_27_26_25                  ),
+  .s_axis_b_tvalid     (valid_out_add_24_23_22_21            ),
+  .s_axis_b_tdata      (out_add_24_23_22_21                  ),
+  .m_axis_result_tdata (out_add_28_27_26_25_24_23_22_21      ),
+  .m_axis_result_tvalid(valid_out_add_28_27_26_25_24_23_22_21)
 );
 
-fp_add_sub #(.DATA_WIDTH(DATA_WIDTH)) inst_add_18_17_16_15_14_13_12_11 (
-  .reset    (reset                                                ),
-  .clk      (clk                                                  ),
-  .valid_in (valid_out_add_18_17_16_15 & valid_out_add_14_13_12_11),
-  .in_a     (out_add_18_17_16_15                                  ),
-  .in_b     (out_add_14_13_12_11                                  ),
-  .out      (out_add_18_17_16_15_14_13_12_11                      ),
-  .valid_out(valid_out_add_18_17_16_15_14_13_12_11                )
+floating_point_1_add inst_add_18_17_16_15_14_13_12_11 (
+  .aresetn             (~reset                               ),
+  .aclk                (clk                                  ),
+  .s_axis_a_tvalid     (valid_out_add_18_17_16_15            ),
+  .s_axis_a_tdata      (out_add_18_17_16_15                  ),
+  .s_axis_b_tvalid     (valid_out_add_14_13_12_11            ),
+  .s_axis_b_tdata      (out_add_14_13_12_11                  ),
+  .m_axis_result_tdata (out_add_18_17_16_15_14_13_12_11      ),
+  .m_axis_result_tvalid(valid_out_add_18_17_16_15_14_13_12_11)
 );
 
-fp_add_sub #(.DATA_WIDTH(DATA_WIDTH)) inst_add_08_07_06_05_04_03_02_01 (
-  .reset    (reset                                                ),
-  .clk      (clk                                                  ),
-  .valid_in (valid_out_add_08_07_06_05 & valid_out_add_04_03_02_01),
-  .in_a     (out_add_08_07_06_05                                  ),
-  .in_b     (out_add_04_03_02_01                                  ),
-  .out      (out_add_08_07_06_05_04_03_02_01                      ),
-  .valid_out(valid_out_add_08_07_06_05_04_03_02_01                )
+floating_point_1_add inst_add_08_07_06_05_04_03_02_01 (
+  .aresetn             (~reset                               ),
+  .aclk                (clk                                  ),
+  .s_axis_a_tvalid     (valid_out_add_08_07_06_05            ),
+  .s_axis_a_tdata      (out_add_08_07_06_05                  ),
+  .s_axis_b_tvalid     (valid_out_add_04_03_02_01            ),
+  .s_axis_b_tdata      (out_add_04_03_02_01                  ),
+  .m_axis_result_tdata (out_add_08_07_06_05_04_03_02_01      ),
+  .m_axis_result_tvalid(valid_out_add_08_07_06_05_04_03_02_01)
 );
 
 /////////////////////////////////////////////////////////////////////////
@@ -1351,34 +1442,37 @@ wire valid_out_add_18_17_16_15_14_13_12_11_08_07_06_05_04_03_02_01;
 wire valid_out_add_38_37_36_35_34_33_32_31_28_27_26_25_24_23_22_21;
 wire valid_out_add_48_47_46_45_44_43_42_41_40_39_30_29_20_19_10_09;
 
-fp_add_sub #(.DATA_WIDTH(DATA_WIDTH)) inst_add_48_47_46_45_44_43_42_41_40_39_30_29_20_19_10_09 (
-  .reset    (reset                                                                        ),
-  .clk      (clk                                                                          ),
-  .valid_in (valid_out_add_48_47_46_45_44_43_42_41 & valid_out_add_40_39_30_29_20_19_10_09),
-  .in_a     (out_add_48_47_46_45_44_43_42_41                                              ),
-  .in_b     (out_add_40_39_30_29_20_19_10_09                                              ),
-  .out      (out_add_48_47_46_45_44_43_42_41_40_39_30_29_20_19_10_09                      ),
-  .valid_out(valid_out_add_48_47_46_45_44_43_42_41_40_39_30_29_20_19_10_09                )
+floating_point_1_add inst_add_48_47_46_45_44_43_42_41_40_39_30_29_20_19_10_09 (
+  .aresetn             (~reset                                                       ),
+  .aclk                (clk                                                          ),
+  .s_axis_a_tvalid     (valid_out_add_48_47_46_45_44_43_42_41                        ),
+  .s_axis_a_tdata      (out_add_48_47_46_45_44_43_42_41                              ),
+  .s_axis_b_tvalid     (valid_out_add_40_39_30_29_20_19_10_09                        ),
+  .s_axis_b_tdata      (out_add_40_39_30_29_20_19_10_09                              ),
+  .m_axis_result_tdata (out_add_48_47_46_45_44_43_42_41_40_39_30_29_20_19_10_09      ),
+  .m_axis_result_tvalid(valid_out_add_48_47_46_45_44_43_42_41_40_39_30_29_20_19_10_09)
 );
 
-fp_add_sub #(.DATA_WIDTH(DATA_WIDTH)) inst_add_38_37_36_35_34_33_32_31_28_27_26_25_24_23_22_21 (
-  .reset    (reset                                                                        ),
-  .clk      (clk                                                                          ),
-  .valid_in (valid_out_add_38_37_36_35_34_33_32_31 & valid_out_add_28_27_26_25_24_23_22_21),
-  .in_a     (out_add_38_37_36_35_34_33_32_31                                              ),
-  .in_b     (out_add_28_27_26_25_24_23_22_21                                              ),
-  .out      (out_add_38_37_36_35_34_33_32_31_28_27_26_25_24_23_22_21                      ),
-  .valid_out(valid_out_add_38_37_36_35_34_33_32_31_28_27_26_25_24_23_22_21                )
+floating_point_1_add inst_add_38_37_36_35_34_33_32_31_28_27_26_25_24_23_22_21 (
+  .aresetn             (~reset                                                       ),
+  .aclk                (clk                                                          ),
+  .s_axis_a_tvalid     (valid_out_add_38_37_36_35_34_33_32_31                        ),
+  .s_axis_a_tdata      (out_add_38_37_36_35_34_33_32_31                              ),
+  .s_axis_b_tvalid     (valid_out_add_28_27_26_25_24_23_22_21                        ),
+  .s_axis_b_tdata      (out_add_28_27_26_25_24_23_22_21                              ),
+  .m_axis_result_tdata (out_add_38_37_36_35_34_33_32_31_28_27_26_25_24_23_22_21      ),
+  .m_axis_result_tvalid(valid_out_add_38_37_36_35_34_33_32_31_28_27_26_25_24_23_22_21)
 );
 
-fp_add_sub #(.DATA_WIDTH(DATA_WIDTH)) inst_add_18_17_16_15_14_13_12_11_08_07_06_05_04_03_02_01 (
-  .reset    (reset                                                                        ),
-  .clk      (clk                                                                          ),
-  .valid_in (valid_out_add_18_17_16_15_14_13_12_11 & valid_out_add_08_07_06_05_04_03_02_01),
-  .in_a     (out_add_18_17_16_15_14_13_12_11                                              ),
-  .in_b     (out_add_08_07_06_05_04_03_02_01                                              ),
-  .out      (out_add_18_17_16_15_14_13_12_11_08_07_06_05_04_03_02_01                      ),
-  .valid_out(valid_out_add_18_17_16_15_14_13_12_11_08_07_06_05_04_03_02_01                )
+floating_point_1_add inst_add_18_17_16_15_14_13_12_11_08_07_06_05_04_03_02_01 (
+  .aresetn             (~reset                                                       ),
+  .aclk                (clk                                                          ),
+  .s_axis_a_tvalid     (valid_out_add_18_17_16_15_14_13_12_11                        ),
+  .s_axis_a_tdata      (out_add_18_17_16_15_14_13_12_11                              ),
+  .s_axis_b_tvalid     (valid_out_add_08_07_06_05_04_03_02_01                        ),
+  .s_axis_b_tdata      (out_add_08_07_06_05_04_03_02_01                              ),
+  .m_axis_result_tdata (out_add_18_17_16_15_14_13_12_11_08_07_06_05_04_03_02_01      ),
+  .m_axis_result_tvalid(valid_out_add_18_17_16_15_14_13_12_11_08_07_06_05_04_03_02_01)
 );
 
 /////////////////////////////////////////////////////////////////////////
@@ -1388,35 +1482,38 @@ wire [DATA_WIDTH-1:0] out_add_48_47_46_45_44_43_42_41_40_39_30_29_20_19_10_09_00
 wire valid_out_add_38_37_36_35_34_33_32_31_28_27_26_25_24_23_22_21_18_17_16_15_14_13_12_11_08_07_06_05_04_03_02_01;
 wire valid_out_add_48_47_46_45_44_43_42_41_40_39_30_29_20_19_10_09_00;
 
-fp_add_sub #(.DATA_WIDTH(DATA_WIDTH)) inst_add_38_37_36_35_34_33_32_31_28_27_26_25_24_23_22_21_18_17_16_15_14_13_12_11_08_07_06_05_04_03_02_01 (
-  .reset    (reset                                                                                                                        ),
-  .clk      (clk                                                                                                                          ),
-  .valid_in (valid_out_add_38_37_36_35_34_33_32_31_28_27_26_25_24_23_22_21 & valid_out_add_18_17_16_15_14_13_12_11_08_07_06_05_04_03_02_01),
-  .in_a     (out_add_38_37_36_35_34_33_32_31_28_27_26_25_24_23_22_21                                                                      ),
-  .in_b     (out_add_18_17_16_15_14_13_12_11_08_07_06_05_04_03_02_01                                                                      ),
-  .out      (out_add_38_37_36_35_34_33_32_31_28_27_26_25_24_23_22_21_18_17_16_15_14_13_12_11_08_07_06_05_04_03_02_01                      ),
-  .valid_out(valid_out_add_38_37_36_35_34_33_32_31_28_27_26_25_24_23_22_21_18_17_16_15_14_13_12_11_08_07_06_05_04_03_02_01                )
+floating_point_1_add inst_add_38_37_36_35_34_33_32_31_28_27_26_25_24_23_22_21_18_17_16_15_14_13_12_11_08_07_06_05_04_03_02_01 (
+  .aresetn             (~reset                                                                                                       ),
+  .aclk                (clk                                                                                                          ),
+  .s_axis_a_tvalid     (valid_out_add_38_37_36_35_34_33_32_31_28_27_26_25_24_23_22_21                                                ),
+  .s_axis_a_tdata      (out_add_38_37_36_35_34_33_32_31_28_27_26_25_24_23_22_21                                                      ),
+  .s_axis_b_tvalid     (valid_out_add_18_17_16_15_14_13_12_11_08_07_06_05_04_03_02_01                                                ),
+  .s_axis_b_tdata      (out_add_18_17_16_15_14_13_12_11_08_07_06_05_04_03_02_01                                                      ),
+  .m_axis_result_tdata (out_add_38_37_36_35_34_33_32_31_28_27_26_25_24_23_22_21_18_17_16_15_14_13_12_11_08_07_06_05_04_03_02_01      ),
+  .m_axis_result_tvalid(valid_out_add_38_37_36_35_34_33_32_31_28_27_26_25_24_23_22_21_18_17_16_15_14_13_12_11_08_07_06_05_04_03_02_01)
 );
 
-fp_add_sub #(.DATA_WIDTH(DATA_WIDTH)) inst_add_48_47_46_45_44_43_42_41_40_39_30_29_20_19_10_09_00 (
-  .reset    (reset                                                                                       ),
-  .clk      (clk                                                                                         ),
-  .valid_in (valid_out_add_48_47_46_45_44_43_42_41_40_39_30_29_20_19_10_09 & valid_out_line_buffer_00),
-  .in_a     (out_add_48_47_46_45_44_43_42_41_40_39_30_29_20_19_10_09                                     ),
-  .in_b     (out_line_buffer_00                                                                          ),
-  .out      (out_add_48_47_46_45_44_43_42_41_40_39_30_29_20_19_10_09_00                                  ),
-  .valid_out(valid_out_add_48_47_46_45_44_43_42_41_40_39_30_29_20_19_10_09_00                            )
+floating_point_1_add inst_add_48_47_46_45_44_43_42_41_40_39_30_29_20_19_10_09_00 (
+  .aresetn             (~reset                                                          ),
+  .aclk                (clk                                                             ),
+  .s_axis_a_tvalid     (valid_out_add_48_47_46_45_44_43_42_41_40_39_30_29_20_19_10_09   ),
+  .s_axis_a_tdata      (out_add_48_47_46_45_44_43_42_41_40_39_30_29_20_19_10_09         ),
+  .s_axis_b_tvalid     (valid_out_line_buffer_00                                        ),
+  .s_axis_b_tdata      (out_line_buffer_00                                              ),
+  .m_axis_result_tdata (out_add_48_47_46_45_44_43_42_41_40_39_30_29_20_19_10_09_00      ),
+  .m_axis_result_tvalid(valid_out_add_48_47_46_45_44_43_42_41_40_39_30_29_20_19_10_09_00)
 );
 
 /////////////////////////////////////////////////////////////////////////
-fp_add_sub #(.DATA_WIDTH(DATA_WIDTH)) inst_add_out (
-  .reset    (reset                                                                                                                                                                           ),
-  .clk      (clk                                                                                                                                                                             ),
-  .valid_in (valid_out_add_48_47_46_45_44_43_42_41_40_39_30_29_20_19_10_09_00 & valid_out_add_38_37_36_35_34_33_32_31_28_27_26_25_24_23_22_21_18_17_16_15_14_13_12_11_08_07_06_05_04_03_02_01),
-  .in_a     (out_add_48_47_46_45_44_43_42_41_40_39_30_29_20_19_10_09_00                                                                                                                      ),
-  .in_b     (out_add_38_37_36_35_34_33_32_31_28_27_26_25_24_23_22_21_18_17_16_15_14_13_12_11_08_07_06_05_04_03_02_01                                                                         ),
-  .out      (pxl_out                                                                                                                                                                         ),
-  .valid_out(valid_out                                                                                                                                                                       )
+floating_point_1_add inst_add_out (
+  .aresetn             (~reset                                                                                                       ),
+  .aclk                (clk                                                                                                          ),
+  .s_axis_a_tvalid     (valid_out_add_48_47_46_45_44_43_42_41_40_39_30_29_20_19_10_09_00                                             ),
+  .s_axis_a_tdata      (out_add_48_47_46_45_44_43_42_41_40_39_30_29_20_19_10_09_00                                                   ),
+  .s_axis_b_tvalid     (valid_out_add_38_37_36_35_34_33_32_31_28_27_26_25_24_23_22_21_18_17_16_15_14_13_12_11_08_07_06_05_04_03_02_01),
+  .s_axis_b_tdata      (out_add_38_37_36_35_34_33_32_31_28_27_26_25_24_23_22_21_18_17_16_15_14_13_12_11_08_07_06_05_04_03_02_01      ),
+  .m_axis_result_tdata (pxl_out                                                                                                      ),
+  .m_axis_result_tvalid(valid_out                                                                                                    )
 );
 
 endmodule

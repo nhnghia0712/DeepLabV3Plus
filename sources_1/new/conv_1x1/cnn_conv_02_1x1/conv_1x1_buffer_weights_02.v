@@ -79,15 +79,16 @@ d_flip_flop #(.DATA_WIDTH(DATA_WIDTH)) dff88 (
 // FIFO
 fifo_generator_2 inst_fifo08 (
 	//input
-	.clk  (clk                         ),
-	.srst (reset                       ),
-	.wr_en(valid_out_buffer_weight_next),
-	.rd_en(load_weights                ),
-	.din  (out_buffer_weight_next      ),
+	.clk       (clk                         ),
+	.srst      (reset                       ),
+	.wr_en     (valid_out_buffer_weight_next),
+	.rd_en     (load_weights                ),
+	.din       (out_buffer_weight_next      ),
 	//output
-	.dout (out_buffer_weight           ),
-	.full (/*no use*/                  ),
-	.empty(/*no use*/                  )
+	.dout      (out_buffer_weight           ),
+	.full      (/*no use*/                  ),
+	.empty     (/*no use*/                  ),
+	.data_count(/*no use*/                  )
 );
 
 // DFF

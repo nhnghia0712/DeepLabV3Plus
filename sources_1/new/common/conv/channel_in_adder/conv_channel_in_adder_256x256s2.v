@@ -677,6 +677,12 @@ always @(posedge clk) begin
 	end
 end
 
+wire [DATA_WIDTH-1:0] out_add      ;
+wire                  valid_out_add;
+
+wire [DATA_WIDTH-1:0] out_fifo      ;
+wire                  valid_out_fifo;
+
 wire [DATA_WIDTH-1:0] out_sel      ;
 wire                  valid_out_sel;
 
@@ -687,21 +693,27 @@ assign valid_out_sel = (cnt_channel < {{CNT_CHANNEL_IN_WIDTH-2{1'b0}},1'b1,1'b0}
 assign pxl_out   = ((cnt_channel == CHANNEL_NUM_IN) && valid_out_add) ? out_add:32'd0;
 assign valid_out = ((cnt_channel == CHANNEL_NUM_IN) && valid_out_add) ? valid_out_add:1'b0;
 
-wire [DATA_WIDTH-1:0] out_add      ;
-wire                  valid_out_add;
+wire fifo_full;
 
-wire [DATA_WIDTH-1:0] out_fifo      ;
-wire                  valid_out_fifo;
-wire                  fifo_full     ;
+// fp_add_sub inst_add1 (
+// 	.reset    (reset                       ),
+// 	.clk      (clk                         ),
+// 	.valid_in (valid_in_dff & valid_out_sel),
+// 	.in_a     (pxl_in_dff                  ),
+// 	.in_b     (out_sel                     ),
+// 	.out      (out_add                     ),
+// 	.valid_out(valid_out_add               )
+// );
 
-fp_add_sub inst_add1 (
-	.reset    (reset                       ),
-	.clk      (clk                         ),
-	.valid_in (valid_in_dff & valid_out_sel),
-	.in_a     (pxl_in_dff                  ),
-	.in_b     (out_sel                     ),
-	.out      (out_add                     ),
-	.valid_out(valid_out_add               )
+floating_point_1_add inst_add1 (
+  .aresetn             (~reset       ),
+  .aclk                (clk          ),
+  .s_axis_a_tvalid     (valid_in_dff ),
+  .s_axis_a_tdata      (pxl_in_dff   ),
+  .s_axis_b_tvalid     (valid_out_sel),
+  .s_axis_b_tdata      (out_sel      ),
+  .m_axis_result_tdata (out_add      ),
+  .m_axis_result_tvalid(valid_out_add)
 );
 
 reg read_en;

@@ -39,6 +39,8 @@ parameter RATE           = 1  ;
 parameter CHANNEL_NUM_IN = 512;
 
 `include "D:/GitHub/CNNs/CNN_DeepLabV3Plus/CNN_DeepLabV3Plus.srcs/sources_1/new/param/param_def_avgp_3x3.vh"
+// KhaiT
+// `include "/home/khait/zipfile/deep/new/param/param_def_avgp_3x3.vh"
 
 /////////////////////////////////////////////////////////////////////////
 // Port Declarations
@@ -60,7 +62,7 @@ wire                  valid_in;
 wire [DATA_WIDTH-1:0] pxl_in  ;
 
 wire [DATA_WIDTH-1:0] pxl_out  ;
-wire                  valid_out;
+reg                   valid_out;
 
 // Read loop data
 wire [DATA_WIDTH-1:0] loop_data_out      ;
@@ -126,6 +128,9 @@ conv_3x3_buffer #(
 );
 
 //Core
+wire [DATA_WIDTH-1:0] pxl_out_core  ;
+wire                  valid_out_core;
+
 avgp_3x3_core #(.DATA_WIDTH(DATA_WIDTH)) inst_core (
 	.clk      (clk             ),
 	.reset    (reset           ),
@@ -140,8 +145,46 @@ avgp_3x3_core #(.DATA_WIDTH(DATA_WIDTH)) inst_core (
 	.pxl_in_07(pxl_out_07      ),
 	.pxl_in_08(pxl_out_08      ),
 	
-	.pxl_out  (pxl_out         ),
-	.valid_out(valid_out       )
+	.pxl_out  (pxl_out_core    ),
+	.valid_out(valid_out_core  )
 );
+
+// Align output
+// FIFO
+wire fifo_full_1 ;
+wire fifo_empty_1;
+
+reg read_en;
+
+always @(posedge clk) begin : proc_
+  if(reset) begin
+    read_en <= 1'b0;
+  end
+  else if (fifo_full_1) begin
+    read_en <= 1'b1;
+  end
+end
+
+fifo_generator_0 inst_fifo1 (
+	//input
+	.clk  (clk           ),
+	.srst (reset         ),
+	.wr_en(valid_out_core),
+	.rd_en(read_en       ),
+	.din  (pxl_out_core  ),
+	//output
+	.dout (pxl_out       ),
+	.full (fifo_full_1   ),
+	.empty(fifo_empty_1  )
+);
+
+always @(posedge clk) begin
+  if(reset) begin
+    valid_out <= 1'b0;
+  end
+  else begin
+    valid_out <= read_en & !fifo_empty_1;
+  end
+end
 
 endmodule

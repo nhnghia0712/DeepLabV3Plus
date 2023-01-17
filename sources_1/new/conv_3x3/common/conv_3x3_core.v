@@ -152,14 +152,15 @@ genvar i;
 
 generate
   for (i = 0; i < 9; i = i + 1) begin: initial_mult
-    fp_mul inst_mul (
-      .reset    (reset            ),
-      .clk      (clk              ),
-      .valid_in (fp_valid_in      ),
-      .in_a     (fp_in[i]         ),
-      .in_b     (weight[i]        ),
-      .out      (out_mult[i]      ),
-      .valid_out(valid_out_mult[i])
+    floating_point_2_mul inst_mul (
+      .aresetn             (~reset           ),
+      .aclk                (clk              ),
+      .s_axis_a_tvalid     (fp_valid_in      ),
+      .s_axis_a_tdata      (fp_in[i]         ),
+      .s_axis_b_tvalid     (fp_valid_in      ),
+      .s_axis_b_tdata      (weight[i]        ),
+      .m_axis_result_tdata (out_mult[i]      ),
+      .m_axis_result_tvalid(valid_out_mult[i])
     );
   end
 endgenerate
@@ -180,7 +181,7 @@ wire                  valid_out_line_buffer_08;
 // end
 
 line_buffer #(
-  .IMAGE_WIDTH(27        ),
+  .IMAGE_WIDTH(33        ),
   .KERNEL     (1         ),
   .DIN_WIDTH  (DATA_WIDTH)
 ) line_buffer7 (
@@ -211,14 +212,15 @@ wire [           3:0] valid_out_add1     ;
 
 generate
   for (i = 0; i < 4; i = i + 1) begin: initial_add1
-    fp_add_sub inst_add1 (
-      .reset    (reset                                    ),
-      .clk      (clk                                      ),
-      .valid_in (valid_out_mult[i] & valid_out_mult[i + 4]),
-      .in_a     (out_mult[i]                              ),
-      .in_b     (out_mult[i + 4]                          ),
-      .out      (out_add1[i]                              ),
-      .valid_out(valid_out_add1[i]                        )
+    floating_point_1_add inst_add1 (
+      .aresetn             (~reset               ),
+      .aclk                (clk                  ),
+      .s_axis_a_tvalid     (valid_out_mult[i]    ),
+      .s_axis_a_tdata      (out_mult[i]          ),
+      .s_axis_b_tvalid     (valid_out_mult[i + 4]),
+      .s_axis_b_tdata      (out_mult[i + 4]      ),
+      .m_axis_result_tdata (out_add1[i]          ),
+      .m_axis_result_tvalid(valid_out_add1[i]    )
     );
   end
 endgenerate
@@ -228,14 +230,15 @@ wire [           1:0] valid_out_add2     ;
 
 generate
   for (i = 0; i < 2; i = i + 1) begin: initial_add2
-    fp_add_sub inst_add2 (
-      .reset    (reset                                    ),
-      .clk      (clk                                      ),
-      .valid_in (valid_out_add1[i] & valid_out_add1[i + 2]),
-      .in_a     (out_add1[i]                              ),
-      .in_b     (out_add1[i + 2]                          ),
-      .out      (out_add2[i]                              ),
-      .valid_out(valid_out_add2[i]                        )
+    floating_point_1_add inst_add2 (
+      .aresetn             (~reset               ),
+      .aclk                (clk                  ),
+      .s_axis_a_tvalid     (valid_out_add1[i]    ),
+      .s_axis_a_tdata      (out_add1[i]          ),
+      .s_axis_b_tvalid     (valid_out_add1[i + 2]),
+      .s_axis_b_tdata      (out_add1[i + 2]      ),
+      .m_axis_result_tdata (out_add2[i]          ),
+      .m_axis_result_tvalid(valid_out_add2[i]    )
     );
   end
 endgenerate
@@ -243,24 +246,26 @@ endgenerate
 wire [DATA_WIDTH-1:0] out_add3      ;
 wire                  valid_out_add3;
 
-fp_add_sub inst_add3 (
-  .reset    (reset                                ),
-  .clk      (clk                                  ),
-  .valid_in (valid_out_add2[0] & valid_out_add2[1]),
-  .in_a     (out_add2[0]                          ),
-  .in_b     (out_add2[1]                          ),
-  .out      (out_add3                             ),
-  .valid_out(valid_out_add3                       )
+floating_point_1_add inst_add3 (
+  .aresetn             (~reset           ),
+  .aclk                (clk              ),
+  .s_axis_a_tvalid     (valid_out_add2[0]),
+  .s_axis_a_tdata      (out_add2[0]      ),
+  .s_axis_b_tvalid     (valid_out_add2[1]),
+  .s_axis_b_tdata      (out_add2[1]      ),
+  .m_axis_result_tdata (out_add3         ),
+  .m_axis_result_tvalid(valid_out_add3   )
 );
 
-fp_add_sub inst_add4 (
-  .reset    (reset                                    ),
-  .clk      (clk                                      ),
-  .valid_in (valid_out_add3 & valid_out_line_buffer_08),
-  .in_a     (out_add3                                 ),
-  .in_b     (out_line_buffer_08                       ),
-  .out      (pxl_out                                  ),
-  .valid_out(valid_out                                )
+floating_point_1_add inst_add4 (
+  .aresetn             (~reset                  ),
+  .aclk                (clk                     ),
+  .s_axis_a_tvalid     (valid_out_add3          ),
+  .s_axis_a_tdata      (out_add3                ),
+  .s_axis_b_tvalid     (valid_out_line_buffer_08),
+  .s_axis_b_tdata      (out_line_buffer_08      ),
+  .m_axis_result_tdata (pxl_out                 ),
+  .m_axis_result_tvalid(valid_out               )
 );
 
 endmodule

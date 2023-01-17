@@ -126,14 +126,25 @@ always @(posedge clk) begin
 end
 
 /////////////////////////////////////////////////////////////////////////
-fp_add_sub #(.DATA_WIDTH(DATA_WIDTH)) inst_add (
-  .reset    (reset                             ),
-  .clk      (clk                               ),
-  .valid_in (valid_in_no1_tmp & valid_out_fifo2),
-  .in_a     (in_no1_tmp                        ),
-  .in_b     (out_fifo_2                        ),
-  .out      (out                               ),
-  .valid_out(valid_out                         )
+// fp_add_sub #(.DATA_WIDTH(DATA_WIDTH)) inst_add (
+//   .reset    (reset                             ),
+//   .clk      (clk                               ),
+//   .valid_in (valid_in_no1_tmp & valid_out_fifo2),
+//   .in_a     (in_no1_tmp                        ),
+//   .in_b     (out_fifo_2                        ),
+//   .out      (out                               ),
+//   .valid_out(valid_out                         )
+// );
+
+floating_point_1_add inst_add (
+  .aresetn             (~reset          ),
+  .aclk                (clk             ),
+  .s_axis_a_tvalid     (valid_in_no1_tmp),
+  .s_axis_a_tdata      (in_no1_tmp      ),
+  .s_axis_b_tvalid     (valid_out_fifo2 ),
+  .s_axis_b_tdata      (out_fifo_2      ),
+  .m_axis_result_tdata (out             ),
+  .m_axis_result_tvalid(valid_out       )
 );
 
 /////////////////////////////////////////////////////////////////////////

@@ -39,6 +39,8 @@ parameter RATE           = 1  ;
 parameter CHANNEL_NUM_IN = 64 ;
 
 `include "D:/GitHub/CNNs/CNN_DeepLabV3Plus/CNN_DeepLabV3Plus.srcs/sources_1/new/param/param_def_maxp_3x3.vh"
+// KhaiT
+// `include "/home/khait/zipfile/deep/new/param/param_def_maxp_3x3.vh"
 
 /////////////////////////////////////////////////////////////////////////
 // Port Declarations

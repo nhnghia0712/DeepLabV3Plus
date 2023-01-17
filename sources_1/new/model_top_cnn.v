@@ -68,13 +68,13 @@ module model_top_cnn (
     ,valid_weight_in32
     ,weight_in32
 
-    // ,sigmoid_in
+    ,sigmoid_in
 
     ,pxl_out
-    ,valid_out
+    // ,valid_out
     ,done
-    // ,sigmoid_addr
-    // ,sigmoid_read_en
+    ,sigmoid_addr
+    ,sigmoid_read_en
 );
 
 /////////////////////////////////////////////////////////////////////////
@@ -131,16 +131,16 @@ input [DATA_WIDTH-1:0] weight_in31      ;
 input                  valid_weight_in32;
 input [DATA_WIDTH-1:0] weight_in32      ;
 
-// input [DATA_WIDTH-1:0] sigmoid_in;
+input [DATA_WIDTH-1:0] sigmoid_in;
 
 /////////////////////////////////////////////////////////////////////////
 // Output Declarations
 output [DATA_WIDTH-1:0] pxl_out  ;
-output                  valid_out;
+// output                  valid_out;
 
 output       done           ;
-// output [4:0] sigmoid_addr   ;
-// output       sigmoid_read_en;
+output [4:0] sigmoid_addr   ;
+output       sigmoid_read_en;
 
 /////////////////////////////////////////////////////////////////////////
 // Local Logic and Instantiation
@@ -256,14 +256,14 @@ wire [DATA_WIDTH-1:0] weight_in34      ;
 wire                  valid_weight_in35;
 wire [DATA_WIDTH-1:0] weight_in35      ;
 
-// wire [DATA_WIDTH-1:0] sigmoid_in;
+wire [DATA_WIDTH-1:0] sigmoid_in;
 
 wire [DATA_WIDTH-1:0] pxl_out  ;
-wire                  valid_out;
+// wire                  valid_out;
 
 wire       done           ;
-// wire [4:0] sigmoid_addr   ;
-// wire       sigmoid_read_en;
+wire [4:0] sigmoid_addr   ;
+wire       sigmoid_read_en;
 
 weights_distributor #(.DATA_WIDTH(DATA_WIDTH)) inst_weights_distributor (
     .clk              (clk              ),
@@ -398,13 +398,13 @@ top_cnn #(
     .valid_weight_in35(valid_weight_in35),
     .weight_in35      (weight_in35      ),
     
-    // .sigmoid_in       (sigmoid_in       ),
+    .sigmoid_in       (sigmoid_in       ),
     
     .pxl_out          (pxl_out          ),
-    .valid_out        (valid_out        ),
+    // .valid_out        (valid_out        ),
     .done             (done             )
-    // ,.sigmoid_addr     (sigmoid_addr     )
-    // ,.sigmoid_read_en  (sigmoid_read_en  )
+    ,.sigmoid_addr     (sigmoid_addr     )
+    ,.sigmoid_read_en  (sigmoid_read_en  )
 );
 
 

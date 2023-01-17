@@ -134,6 +134,10 @@ wire sel_signal;
 
 assign sel_signal = ( (!(|addra[ADDR_WIDTH-1:2]) && addra[1] && !addra[0]) && (cnt_channel > 1) ) ? 1'b1:1'b0;
 
+wire sel_signal_more;
+
+assign sel_signal_more = ( (!(|addra[ADDR_WIDTH-1:2]) && (&addra[1:0])) && (cnt_channel > 1) ) ? 1'b1:1'b0;
+
 always @(posedge clk) begin
 	if(reset) begin
 		rd_wr_sel_tmp <= 1'b0;
@@ -167,31 +171,31 @@ always @(posedge clk) begin
 end
 
 blk_mem_gen_6_196608 inst_mem (
-	.clka (clk        ),
-	.ena  (enable     ),
-	.wea  (rd_wr_sel  ),
-	.addra(addra      ),
-	.dina (pxl_in_next),
-	.douta(pxl_out    )
+	.clka (clk                  ),
+	.ena  (enable               ),
+	.wea  (rd_wr_sel            ),
+	.addra(addra[ADDR_WIDTH-2:1]),
+	.dina (pxl_in_next          ),
+	.douta(pxl_out              )
 );
 
-// reg valid_out_next;
+reg valid_out_next;
 
-// always @(posedge clk) begin
-// 	if(reset) begin
-// 		valid_out_next <= 1'b0;
-// 	end
-// 	else begin
-// 		valid_out_next <= valid_out_tmp;
-// 	end
-// end
+always @(posedge clk) begin
+	if(reset) begin
+		valid_out_next <= 1'b0;
+	end
+	else begin
+		valid_out_next <= valid_out_tmp;
+	end
+end
 
 always @(posedge clk) begin
 	if(reset) begin
 		valid_out <= 1'b0;
 	end
 	else begin
-		valid_out <= valid_out_tmp | sel_signal;
+		valid_out <= valid_out_next | sel_signal | sel_signal_more;
 	end
 end
 

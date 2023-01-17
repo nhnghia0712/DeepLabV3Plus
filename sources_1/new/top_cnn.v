@@ -131,13 +131,13 @@ module top_cnn (
     ,valid_weight_in35
     ,weight_in35
 
-    // ,sigmoid_in
+    ,sigmoid_in
 
     ,pxl_out
-    ,valid_out
+    // ,valid_out
     ,done
-    // ,sigmoid_addr
-    // ,sigmoid_read_en
+    ,sigmoid_addr
+    ,sigmoid_read_en
 );
 
 /////////////////////////////////////////////////////////////////////////
@@ -257,16 +257,16 @@ input [DATA_WIDTH-1:0] weight_in34      ;
 input                  valid_weight_in35;
 input [DATA_WIDTH-1:0] weight_in35      ;
 
-// input [DATA_WIDTH-1:0] sigmoid_in;
+input [DATA_WIDTH-1:0] sigmoid_in;
 
 /////////////////////////////////////////////////////////////////////////
 // Output Declarations
 output [DATA_WIDTH-1:0] pxl_out  ;
-output                  valid_out;
+// output                  valid_out;
 
 output       done           ;
-// output [4:0] sigmoid_addr   ;
-// output       sigmoid_read_en;
+output [4:0] sigmoid_addr   ;
+output       sigmoid_read_en;
 
 /////////////////////////////////////////////////////////////////////////
 // Local Logic and Instantiation
@@ -380,14 +380,14 @@ wire [DATA_WIDTH-1:0] weight_in34      ;
 wire                  valid_weight_in35;
 wire [DATA_WIDTH-1:0] weight_in35      ;
 
-// wire [DATA_WIDTH-1:0] sigmoid_in;
+wire [DATA_WIDTH-1:0] sigmoid_in;
 
 wire [DATA_WIDTH-1:0] pxl_out  ;
-wire                  valid_out;
+// wire                  valid_out;
 
 wire       done           ;
-// wire [4:0] sigmoid_addr   ;
-// wire       sigmoid_read_en;
+wire [4:0] sigmoid_addr   ;
+wire       sigmoid_read_en;
 
 // Conv 7x7
 wire [DATA_WIDTH-1:0] out_conv7x7      ;
@@ -844,29 +844,29 @@ cnn_upsampling_nn #(
 );
 
 // Sigmoid
-cnn_sigmoid #(.DATA_WIDTH(DATA_WIDTH)) sigmoid (
-    .clk      (clk                   ),
-    .reset    (reset                 ),
-    .valid_in (valid_out_upsampling_2),
-    .in       (out_upsampling_2      ),
-    //output
-    .out      (pxl_out               ),
-    .valid_out(valid_out             ),
-    .done     (done                  )
-);
-
-// cnn_sigmoid_synth sigmoid (
-//     .in_fp        (out_upsampling_2       ),
-//     .out_fp       (pxl_out                ),
-//     .clk          (clk                    ),
-//     .rst_n        (!reset                 ),
-//     .start        (valid_out_upsampling_2 ),
-//     .done         (done                   ),
-//     .rom_val      (sigmoid_in             ),
-//     .addr         (sigmoid_addr           ),
-//     .read_en      (sigmoid_read_en        ),
-//     .top_overflow (/*no use top_overflow*/),
-//     .top_underflow(/*top_underflow*/      )
+// cnn_sigmoid #(.DATA_WIDTH(DATA_WIDTH)) sigmoid (
+//     .clk      (clk                   ),
+//     .reset    (reset                 ),
+//     .valid_in (valid_out_upsampling_2),
+//     .in       (out_upsampling_2      ),
+//     //output
+//     .out      (pxl_out               ),
+//     .valid_out(valid_out             ),
+//     .done     (done                  )
 // );
+
+cnn_sigmoid_synth sigmoid (
+    .in_fp        (out_upsampling_2       ),
+    .out_fp       (pxl_out                ),
+    .clk          (clk                    ),
+    .rst_n        (!reset                 ),
+    .start        (valid_out_upsampling_2 ),
+    .done         (done                   ),
+    .rom_val      (sigmoid_in             ),
+    .addr         (sigmoid_addr           ),
+    .read_en      (sigmoid_read_en        ),
+    .top_overflow (/*no use top_overflow*/),
+    .top_underflow(/*top_underflow*/      )
+);
 
 endmodule

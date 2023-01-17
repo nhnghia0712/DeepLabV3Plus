@@ -33,6 +33,26 @@ parameter DATA_WIDTH = 32;
 	localparam WEIGHTS_INPUT_FILE_31 = "D:/GitHub/CNNs/Text_file/Input/weight_test.txt";
 	localparam WEIGHTS_INPUT_FILE_32 = "D:/GitHub/CNNs/Text_file/Input/weight_test.txt";
 
+	// KhaiT
+	// localparam IMAGE_INPUT_FILE = "D:/GitHub/CNNs/Text_file/Input/R.txt"; // Input Image
+	// localparam IMAGE_OUTPUT_FILE = "D:/GitHub/CNNs/Text_file/Output/Output_model_top_cnn.txt"; // Output Image
+
+	// localparam WEIGHTS_INPUT_FILE = "D:/GitHub/CNNs/Text_file/Input/weight_test.txt"; // General
+
+	// localparam WEIGHTS_INPUT_FILE_08 = "D:/GitHub/CNNs/Text_file/Input/weight_test.txt";
+	// localparam WEIGHTS_INPUT_FILE_13 = "D:/GitHub/CNNs/Text_file/Input/weight_test.txt";
+	// localparam WEIGHTS_INPUT_FILE_18 = "D:/GitHub/CNNs/Text_file/Input/weight_test.txt";
+	// localparam WEIGHTS_INPUT_FILE_21 = "D:/GitHub/CNNs/Text_file/Input/weight_test.txt";
+	// localparam WEIGHTS_INPUT_FILE_22 = "D:/GitHub/CNNs/Text_file/Input/weight_test.txt";
+	// localparam WEIGHTS_INPUT_FILE_23 = "D:/GitHub/CNNs/Text_file/Input/weight_test.txt";
+	// localparam WEIGHTS_INPUT_FILE_24 = "D:/GitHub/CNNs/Text_file/Input/weight_test.txt";
+	// localparam WEIGHTS_INPUT_FILE_25 = "D:/GitHub/CNNs/Text_file/Input/weight_test.txt";
+	// localparam WEIGHTS_INPUT_FILE_26 = "D:/GitHub/CNNs/Text_file/Input/weight_test.txt";
+	// localparam WEIGHTS_INPUT_FILE_27 = "D:/GitHub/CNNs/Text_file/Input/weight_test.txt";
+	// localparam WEIGHTS_INPUT_FILE_28 = "D:/GitHub/CNNs/Text_file/Input/weight_test.txt";
+	// localparam WEIGHTS_INPUT_FILE_31 = "D:/GitHub/CNNs/Text_file/Input/weight_test.txt";
+	// localparam WEIGHTS_INPUT_FILE_32 = "D:/GitHub/CNNs/Text_file/Input/weight_test.txt";
+
 	localparam SIMULATION_CLOCK = 5 ;
 	localparam SIMULATION_CYCLE = 10;
 

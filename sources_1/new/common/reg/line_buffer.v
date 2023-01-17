@@ -124,6 +124,9 @@ always @ (*) begin
     else if (valid_in) begin
         enable <= 1'b1;
     end
+    else begin
+        enable <= enable;
+    end
 end
 
 always @ (posedge clk) begin

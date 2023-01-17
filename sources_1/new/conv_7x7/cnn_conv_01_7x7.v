@@ -41,6 +41,8 @@ parameter CHANNEL_NUM_OUT = 64 ; //The number of channel pxl_out
 parameter KERNEL          = 7  ; //Kernel width
 
 `include "D:/GitHub/CNNs/CNN_DeepLabV3Plus/CNN_DeepLabV3Plus.srcs/sources_1/new/param/param_def_conv_7x7.vh"
+// KhaiT
+// `include "/home/khait/zipfile/deep/new/param/param_def_conv_7x7.vh"
 
 /////////////////////////////////////////////////////////////////////////
 // Port Declarations

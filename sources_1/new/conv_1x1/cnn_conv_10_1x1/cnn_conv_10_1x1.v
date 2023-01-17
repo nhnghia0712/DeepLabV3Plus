@@ -41,6 +41,8 @@ parameter CHANNEL_NUM_OUT = 48 ; //The number of channel out
 parameter KERNEL          = 1  ; //Kernel width
 
 `include "D:/GitHub/CNNs/CNN_DeepLabV3Plus/CNN_DeepLabV3Plus.srcs/sources_1/new/param/param_def_conv_1x1.vh"
+// KhaiT
+// `include "/home/khait/zipfile/deep/new/param/param_def_conv_1x1.vh"
 
 /////////////////////////////////////////////////////////////////////////
 // Port Declarations
@@ -148,28 +150,28 @@ wire                  fifo_empty_2  ;
 
 fifo_generator_0 inst_fifo1 (
 	//input
-	.clk  (clk           ),
-	.srst (reset         ),
-	.wr_en(valid_out_core),
-	.rd_en(fifo_full_2   ),
-	.din  (out_core      ),
+	.clk  (clk            ),
+	.srst (reset          ),
+	.wr_en(valid_adder_out),
+	.rd_en(fifo_full_2    ),
+	.din  (adder_out      ),
 	//output
-	.dout (pxl_out_fifo_1),
-	.full (fifo_full_1   ),
-	.empty(fifo_empty_1  )
+	.dout (pxl_out_fifo_1 ),
+	.full (fifo_full_1    ),
+	.empty(fifo_empty_1   )
 );
 
 fifo_generator_1 inst_fifo2 (
 	//input
-	.clk  (clk                         ),
-	.srst (reset                       ),
-	.wr_en(valid_out_core & fifo_full_1),
-	.rd_en(fifo_empty_1                ),
-	.din  (out_core                    ),
+	.clk  (clk                          ),
+	.srst (reset                        ),
+	.wr_en(valid_adder_out & fifo_full_1),
+	.rd_en(fifo_empty_1                 ),
+	.din  (adder_out                    ),
 	//output
-	.dout (pxl_out_fifo_2              ),
-	.full (fifo_full_2                 ),
-	.empty(fifo_empty_2                )
+	.dout (pxl_out_fifo_2               ),
+	.full (fifo_full_2                  ),
+	.empty(fifo_empty_2                 )
 );
 
 assign pxl_out = (fifo_full_2) ? pxl_out_fifo_1:pxl_out_fifo_2;

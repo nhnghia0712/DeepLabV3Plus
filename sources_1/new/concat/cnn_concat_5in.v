@@ -84,17 +84,19 @@ reg                  valid_out;
 wire [DATA_WIDTH-1:0] pxl_out_fifo_1;
 wire                  fifo_empty_1  ;
 
+wire fifo_full_4;
+
 fifo_generator_0 inst_fifo1 (
-  //input
-  .clk  (clk            ),
-  .srst (reset          ),
-  .wr_en(valid_in_no1   ),
-  .rd_en(fifo_full_4    ),
-  .din  (in_no1         ),
-  //output
-  .dout (pxl_out_fifo_1 ),
-  .full (/*fifo_full_1*/),
-  .empty(fifo_empty_1   )
+	//input
+	.clk  (clk            ),
+	.srst (reset          ),
+	.wr_en(valid_in_no1   ),
+	.rd_en(fifo_full_4    ),
+	.din  (in_no1         ),
+	//output
+	.dout (pxl_out_fifo_1 ),
+	.full (/*fifo_full_1*/),
+	.empty(fifo_empty_1   )
 );
 
 // FIFO
@@ -133,7 +135,6 @@ fifo_generator_0 inst_fifo3 (
 
 // FIFO
 wire [DATA_WIDTH-1:0] pxl_out_fifo_4;
-wire                  fifo_full_4   ;
 wire                  fifo_empty_4  ;
 
 fifo_generator_0 inst_fifo4 (
