@@ -59,12 +59,9 @@ always @(posedge clk) begin
     out       <= {DATA_WIDTH{1'b0}};
     valid_out <= 1'b0;
   end
-  else if (valid_in) begin
+  else begin
     out       <= in;
     valid_out <= 1'b1;
-  end
-  else begin
-    valid_out <= 1'b0;
   end
 end
 
