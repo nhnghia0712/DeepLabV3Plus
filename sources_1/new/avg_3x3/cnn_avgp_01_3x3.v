@@ -149,6 +149,19 @@ avgp_3x3_core #(.DATA_WIDTH(DATA_WIDTH)) inst_core (
 	.valid_out(valid_out_core  )
 );
 
+// DFF
+wire [DATA_WIDTH-1:0] pxl_out_core_dff  ;
+wire                  valid_out_core_dff;
+
+d_flip_flop #(.DATA_WIDTH(DATA_WIDTH)) dff8 (
+	.clk      (clk               ),
+	.reset    (reset             ),
+	.valid_in (valid_out_core    ),
+	.in       (pxl_out_core      ),
+	.out      (pxl_out_core_dff  ),
+	.valid_out(valid_out_core_dff)
+);
+
 // Align output
 // FIFO
 wire fifo_full_1 ;
@@ -167,15 +180,15 @@ end
 
 fifo_generator_0 inst_fifo1 (
 	//input
-	.clk  (clk           ),
-	.srst (reset         ),
-	.wr_en(valid_out_core),
-	.rd_en(read_en       ),
-	.din  (pxl_out_core  ),
+	.clk  (clk               ),
+	.srst (reset             ),
+	.wr_en(valid_out_core_dff),
+	.rd_en(read_en           ),
+	.din  (pxl_out_core_dff  ),
 	//output
-	.dout (pxl_out       ),
-	.full (fifo_full_1   ),
-	.empty(fifo_empty_1  )
+	.dout (pxl_out           ),
+	.full (fifo_full_1       ),
+	.empty(fifo_empty_1      )
 );
 
 always @(posedge clk) begin
