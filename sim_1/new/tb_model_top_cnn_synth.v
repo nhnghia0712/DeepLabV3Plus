@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 
-module tb_model_top_cnn ();
+module tb_model_top_cnn_synth ();
 
 /////////////////////////////////////////////////////////////////////////
 // Parameter Declarations
@@ -57,8 +57,6 @@ parameter DATA_WIDTH = 32;
 	localparam SIMULATION_CYCLE = 10;
 
 // Localparam general
-
-
 localparam ENDTIME = 6724230;
 
 reg                  clk            ;
@@ -107,163 +105,178 @@ reg [DATA_WIDTH-1:0] weight_in31      ;
 reg                  valid_weight_in32;
 reg [DATA_WIDTH-1:0] weight_in32      ;
 
-wire [DATA_WIDTH-1:0] pxl_out  ;
-wire                  valid_out;
-wire                  done     ;
+reg [DATA_WIDTH-1:0] sigmoid_in;
 
-integer i;
+wire [DATA_WIDTH-1:0] pxl_out        ;
+wire                  done           ;
+wire [           4:0] sigmoid_addr   ;
+wire                  sigmoid_read_en;
 
-reg [DATA_WIDTH-1:0] image_input [CHANNEL_NUM_IN_PIXEL-1:0];
-reg [DATA_WIDTH-1:0] image_output                          ;
 
-reg [DATA_WIDTH-1:0] weight_input[(12246208)-1:0];
+	integer i      ;
+	integer counter;
 
-reg [DATA_WIDTH-1:0] weight_input_08[ (1*1*64*128)-1:0];
-reg [DATA_WIDTH-1:0] weight_input_13[(1*1*128*256)-1:0];
-reg [DATA_WIDTH-1:0] weight_input_18[(1*1*256*512)-1:0];
-reg [DATA_WIDTH-1:0] weight_input_21[(1*1*512*256)-1:0];
-reg [DATA_WIDTH-1:0] weight_input_22[(3*3*512*512)-1:0];
-reg [DATA_WIDTH-1:0] weight_input_23[(1*1*512*256)-1:0];
-reg [DATA_WIDTH-1:0] weight_input_24[(3*3*512*512)-1:0];
-reg [DATA_WIDTH-1:0] weight_input_25[(1*1*512*256)-1:0];
-reg [DATA_WIDTH-1:0] weight_input_26[(3*3*512*512)-1:0];
-reg [DATA_WIDTH-1:0] weight_input_27[(1*1*512*256)-1:0];
-reg [DATA_WIDTH-1:0] weight_input_28[(1*1*512*256)-1:0];
-reg [DATA_WIDTH-1:0] weight_input_31[ (3*3*64*256)-1:0];
-reg [DATA_WIDTH-1:0] weight_input_32[(1*1*256*256)-1:0];
+	reg [DATA_WIDTH-1:0] image_input [CHANNEL_NUM_IN_PIXEL-1:0];
+	reg [DATA_WIDTH-1:0] image_output                          ;
 
-initial begin
-	clk = 1'b0;
-	i=0;
-	valid_in = 1'b0;
-	reset = 1'b1;
-	valid_weight_in = 1'b0;
-	valid_weight_in8 = 1'b0;
-	valid_weight_in13 = 1'b0;
-	valid_weight_in18 = 1'b0;
-	valid_weight_in21 = 1'b0;
-	valid_weight_in22 = 1'b0;
-	valid_weight_in23 = 1'b0;
-	valid_weight_in24 = 1'b0;
-	valid_weight_in25 = 1'b0;
-	valid_weight_in26 = 1'b0;
-	valid_weight_in27 = 1'b0;
-	valid_weight_in28 = 1'b0;
-	valid_weight_in31 = 1'b0;
-	valid_weight_in32 = 1'b0;
-	#SIMULATION_CYCLE
-		reset = 1'b0;
+	reg [DATA_WIDTH-1:0] weight_input[(12246208)-1:0];
 
-	$readmemb(IMAGE_INPUT_FILE, image_input);
+	reg [DATA_WIDTH-1:0] weight_input_08[ (1*1*64*128)-1:0];
+	reg [DATA_WIDTH-1:0] weight_input_13[(1*1*128*256)-1:0];
+	reg [DATA_WIDTH-1:0] weight_input_18[(1*1*256*512)-1:0];
+	reg [DATA_WIDTH-1:0] weight_input_21[(1*1*512*256)-1:0];
+	reg [DATA_WIDTH-1:0] weight_input_22[(3*3*512*512)-1:0];
+	reg [DATA_WIDTH-1:0] weight_input_23[(1*1*512*256)-1:0];
+	reg [DATA_WIDTH-1:0] weight_input_24[(3*3*512*512)-1:0];
+	reg [DATA_WIDTH-1:0] weight_input_25[(1*1*512*256)-1:0];
+	reg [DATA_WIDTH-1:0] weight_input_26[(3*3*512*512)-1:0];
+	reg [DATA_WIDTH-1:0] weight_input_27[(1*1*512*256)-1:0];
+	reg [DATA_WIDTH-1:0] weight_input_28[(1*1*512*256)-1:0];
+	reg [DATA_WIDTH-1:0] weight_input_31[ (3*3*64*256)-1:0];
+	reg [DATA_WIDTH-1:0] weight_input_32[(1*1*256*256)-1:0];
 
-	$readmemh(WEIGHTS_INPUT_FILE, weight_input);
-	$readmemh(WEIGHTS_INPUT_FILE_08, weight_input_08);
-	$readmemh(WEIGHTS_INPUT_FILE_13, weight_input_13);
-	$readmemh(WEIGHTS_INPUT_FILE_18, weight_input_18);
-	$readmemh(WEIGHTS_INPUT_FILE_21, weight_input_21);
-	$readmemh(WEIGHTS_INPUT_FILE_22, weight_input_22);
-	$readmemh(WEIGHTS_INPUT_FILE_23, weight_input_23);
-	$readmemh(WEIGHTS_INPUT_FILE_24, weight_input_24);
-	$readmemh(WEIGHTS_INPUT_FILE_25, weight_input_25);
-	$readmemh(WEIGHTS_INPUT_FILE_26, weight_input_26);
-	$readmemh(WEIGHTS_INPUT_FILE_27, weight_input_27);
-	$readmemh(WEIGHTS_INPUT_FILE_28, weight_input_28);
-	$readmemh(WEIGHTS_INPUT_FILE_31, weight_input_31);
-	$readmemh(WEIGHTS_INPUT_FILE_32, weight_input_32);
+	initial begin
+		clk = 1'b0;
+		i=0;
+		counter=0;
+		valid_in = 1'b0;
+		reset = 1'b1;
+		valid_weight_in = 1'b0;
+		valid_weight_in8 = 1'b0;
+		valid_weight_in13 = 1'b0;
+		valid_weight_in18 = 1'b0;
+		valid_weight_in21 = 1'b0;
+		valid_weight_in22 = 1'b0;
+		valid_weight_in23 = 1'b0;
+		valid_weight_in24 = 1'b0;
+		valid_weight_in25 = 1'b0;
+		valid_weight_in26 = 1'b0;
+		valid_weight_in27 = 1'b0;
+		valid_weight_in28 = 1'b0;
+		valid_weight_in31 = 1'b0;
+		valid_weight_in32 = 1'b0;
+		#SIMULATION_CYCLE
+			reset = 1'b0;
 
-	image_output = $fopen(IMAGE_OUTPUT_FILE);
-end
+		$readmemb(IMAGE_INPUT_FILE, image_input);
 
-always #(SIMULATION_CLOCK) clk = ~ clk;
+		$readmemh(WEIGHTS_INPUT_FILE, weight_input);
+		$readmemh(WEIGHTS_INPUT_FILE_08, weight_input_08);
+		$readmemh(WEIGHTS_INPUT_FILE_13, weight_input_13);
+		$readmemh(WEIGHTS_INPUT_FILE_18, weight_input_18);
+		$readmemh(WEIGHTS_INPUT_FILE_21, weight_input_21);
+		$readmemh(WEIGHTS_INPUT_FILE_22, weight_input_22);
+		$readmemh(WEIGHTS_INPUT_FILE_23, weight_input_23);
+		$readmemh(WEIGHTS_INPUT_FILE_24, weight_input_24);
+		$readmemh(WEIGHTS_INPUT_FILE_25, weight_input_25);
+		$readmemh(WEIGHTS_INPUT_FILE_26, weight_input_26);
+		$readmemh(WEIGHTS_INPUT_FILE_27, weight_input_27);
+		$readmemh(WEIGHTS_INPUT_FILE_28, weight_input_28);
+		$readmemh(WEIGHTS_INPUT_FILE_31, weight_input_31);
+		$readmemh(WEIGHTS_INPUT_FILE_32, weight_input_32);
 
-always @(posedge clk) begin
-	if (~reset) begin
-		pxl_in   <= image_input[i];
-		valid_in <= 1'b1;
-		if (i >= CHANNEL_NUM_IN_PIXEL) begin
-			valid_in <= 1'b0;
-		end
-		weight_in       <= weight_input[i];
-		valid_weight_in <= 1'b1;
-		if (i >= 12246208) begin
-			valid_weight_in <= 1'b0;
-		end
-		weight_in8       <= weight_input_08[i];
-		valid_weight_in8 <= 1'b1;
-		if (i >= (1*1*64*128)) begin
-			valid_weight_in8 <= 1'b0;
-		end
-		weight_in13       <= weight_input_13[i];
-		valid_weight_in13 <= 1'b1;
-		if (i >= (1*1*128*256)) begin
-			valid_weight_in13 <= 1'b0;
-		end
-		weight_in18       <= weight_input_18[i];
-		valid_weight_in18 <= 1'b1;
-		if (i >= (1*1*256*512)) begin
-			valid_weight_in18 <= 1'b0;
-		end
-		weight_in21       <= weight_input_21[i];
-		valid_weight_in21 <= 1'b1;
-		if (i >= (1*1*512*256)) begin
-			valid_weight_in21 <= 1'b0;
-		end
-		weight_in22       <= weight_input_22[i];
-		valid_weight_in22 <= 1'b1;
-		if (i >= (3*3*512*512)) begin
-			valid_weight_in22 <= 1'b0;
-		end
-		weight_in23       <= weight_input_23[i];
-		valid_weight_in23 <= 1'b1;
-		if (i >= (1*1*512*256)) begin
-			valid_weight_in23 <= 1'b0;
-		end
-		weight_in24       <= weight_input_24[i];
-		valid_weight_in24 <= 1'b1;
-		if (i >= (3*3*512*512)) begin
-			valid_weight_in24 <= 1'b0;
-		end
-		weight_in25       <= weight_input_25[i];
-		valid_weight_in25 <= 1'b1;
-		if (i >= (1*1*512*256)) begin
-			valid_weight_in25 <= 1'b0;
-		end
-		weight_in26       <= weight_input_26[i];
-		valid_weight_in26 <= 1'b1;
-		if (i >= (3*3*512*512)) begin
-			valid_weight_in26 <= 1'b0;
-		end
-		weight_in27       <= weight_input_27[i];
-		valid_weight_in27 <= 1'b1;
-		if (i >= (1*1*512*256)) begin
-			valid_weight_in27 <= 1'b0;
-		end
-		weight_in28       <= weight_input_28[i];
-		valid_weight_in28 <= 1'b1;
-		if (i >= (1*1*512*256)) begin
-			valid_weight_in28 <= 1'b0;
-		end
-		weight_in31       <= weight_input_31[i];
-		valid_weight_in31 <= 1'b1;
-		if (i >= (3*3*64*256)) begin
-			valid_weight_in31 <= 1'b0;
-		end
-		weight_in32       <= weight_input_32[i];
-		valid_weight_in32 <= 1'b1;
-		if (i >= (1*1*256*256)) begin
-			valid_weight_in32 <= 1'b0;
-		end
-		i <= i + 1'b1; #(SIMULATION_CYCLE)
-			if(valid_out)begin
-				$fdisplay(image_output,"%h",pxl_out);
+		image_output = $fopen(IMAGE_OUTPUT_FILE);
+	end
+
+	always #(SIMULATION_CLOCK) clk = ~ clk;
+
+	always @(posedge clk) begin
+		if (~reset) begin
+			pxl_in   <= image_input[i];
+			valid_in <= 1'b1;
+			if (i >= CHANNEL_NUM_IN_PIXEL) begin
+				valid_in <= 1'b0;
 			end
-		if(done) begin
-			#(SIMULATION_CYCLE*10) $finish;
+			weight_in       <= weight_input[i];
+			valid_weight_in <= 1'b1;
+			if (i >= 12246208) begin
+				valid_weight_in <= 1'b0;
+			end
+			weight_in8       <= weight_input_08[i];
+			valid_weight_in8 <= 1'b1;
+			if (i >= (1*1*64*128)) begin
+				valid_weight_in8 <= 1'b0;
+			end
+			weight_in13       <= weight_input_13[i];
+			valid_weight_in13 <= 1'b1;
+			if (i >= (1*1*128*256)) begin
+				valid_weight_in13 <= 1'b0;
+			end
+			weight_in18       <= weight_input_18[i];
+			valid_weight_in18 <= 1'b1;
+			if (i >= (1*1*256*512)) begin
+				valid_weight_in18 <= 1'b0;
+			end
+			weight_in21       <= weight_input_21[i];
+			valid_weight_in21 <= 1'b1;
+			if (i >= (1*1*512*256)) begin
+				valid_weight_in21 <= 1'b0;
+			end
+			weight_in22       <= weight_input_22[i];
+			valid_weight_in22 <= 1'b1;
+			if (i >= (3*3*512*512)) begin
+				valid_weight_in22 <= 1'b0;
+			end
+			weight_in23       <= weight_input_23[i];
+			valid_weight_in23 <= 1'b1;
+			if (i >= (1*1*512*256)) begin
+				valid_weight_in23 <= 1'b0;
+			end
+			weight_in24       <= weight_input_24[i];
+			valid_weight_in24 <= 1'b1;
+			if (i >= (3*3*512*512)) begin
+				valid_weight_in24 <= 1'b0;
+			end
+			weight_in25       <= weight_input_25[i];
+			valid_weight_in25 <= 1'b1;
+			if (i >= (1*1*512*256)) begin
+				valid_weight_in25 <= 1'b0;
+			end
+			weight_in26       <= weight_input_26[i];
+			valid_weight_in26 <= 1'b1;
+			if (i >= (3*3*512*512)) begin
+				valid_weight_in26 <= 1'b0;
+			end
+			weight_in27       <= weight_input_27[i];
+			valid_weight_in27 <= 1'b1;
+			if (i >= (1*1*512*256)) begin
+				valid_weight_in27 <= 1'b0;
+			end
+			weight_in28       <= weight_input_28[i];
+			valid_weight_in28 <= 1'b1;
+			if (i >= (1*1*512*256)) begin
+				valid_weight_in28 <= 1'b0;
+			end
+			weight_in31       <= weight_input_31[i];
+			valid_weight_in31 <= 1'b1;
+			if (i >= (3*3*64*256)) begin
+				valid_weight_in31 <= 1'b0;
+			end
+			weight_in32       <= weight_input_32[i];
+			valid_weight_in32 <= 1'b1;
+			if (i >= (1*1*256*256)) begin
+				valid_weight_in32 <= 1'b0;
+			end
+			i <= i + 1'b1; #(SIMULATION_CYCLE)
+				if(done)begin
+					$fdisplay(image_output,"%h",pxl_out);
+					counter <= counter + 1'b1;
+				end
+			if(counter > (IMAGE_SIZE*7)) begin
+				#(SIMULATION_CYCLE*10) $finish;
+			end
 		end
 	end
-end
 
-model_top_cnn #(
+rom_cnn_sigmoid_synth sigmoid_rom (
+	.clk    (clk            ),
+	.rst_n  (~reset         ),
+	.addr   (sigmoid_addr   ),
+	.read_en(sigmoid_read_en),
+	.data   (sigmoid_in     )
+);
+
+model_top_cnn_synth #(
 	.DATA_WIDTH  (DATA_WIDTH  ),
 	.IMAGE_WIDTH (IMAGE_WIDTH ),
 	.IMAGE_HEIGHT(IMAGE_HEIGHT)
@@ -315,9 +328,12 @@ model_top_cnn #(
 	.valid_weight_in32(valid_weight_in32),
 	.weight_in32      (weight_in32      ),
 	
+	.sigmoid_in       (sigmoid_in       ),
+	
 	.pxl_out          (pxl_out          ),
-	.valid_out        (valid_out        ),
-	.done             (done             )
+	.done             (done             ),
+	.sigmoid_addr     (sigmoid_addr     ),
+	.sigmoid_read_en  (sigmoid_read_en  )
 );
 
 endmodule

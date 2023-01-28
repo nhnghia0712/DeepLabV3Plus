@@ -19,72 +19,15 @@
 
 ///////////////////////////////////////////////////////////////////////
 
-module top_cnn (
+module cnn_decoder (
     clk
     ,reset
     
     ,valid_in
     ,pxl_in
 
-    ,valid_weight_in1
-    ,weight_in1
-
-    ,valid_weight_in2
-    ,weight_in2
-
-    ,valid_weight_in3
-    ,weight_in3
-
-    ,valid_weight_in4
-    ,weight_in4
-
-    ,valid_weight_in5
-    ,weight_in5
-
-    ,valid_weight_in6
-    ,weight_in6
-
-    ,valid_weight_in7
-    ,weight_in7
-
-    ,valid_weight_in8
-    ,weight_in8
-
-    ,valid_weight_in9
-    ,weight_in9
-
-    ,valid_weight_in10
-    ,weight_in10
-
-    ,valid_weight_in11
-    ,weight_in11
-
-    ,valid_weight_in12
-    ,weight_in12
-
-    ,valid_weight_in13
-    ,weight_in13
-
-    ,valid_weight_in14
-    ,weight_in14
-
-    ,valid_weight_in15
-    ,weight_in15
-
-    ,valid_weight_in16
-    ,weight_in16
-
-    ,valid_weight_in17
-    ,weight_in17
-
-    ,valid_weight_in18
-    ,weight_in18
-
-    ,valid_weight_in19
-    ,weight_in19
-
-    ,valid_weight_in20
-    ,weight_in20
+    ,valid_in_resnet18_layer1
+    ,pxl_in_resnet18_layer1
 
     ,valid_weight_in21
     ,weight_in21
@@ -131,13 +74,13 @@ module top_cnn (
     ,valid_weight_in35
     ,weight_in35
 
-    // ,sigmoid_in
+    ,sigmoid_in
 
     ,pxl_out
-    ,valid_out
+    // ,valid_out
     ,done
-    // ,sigmoid_addr
-    // ,sigmoid_read_en
+    ,sigmoid_addr
+    ,sigmoid_read_en
 );
 
 /////////////////////////////////////////////////////////////////////////
@@ -152,65 +95,9 @@ input                  clk             ;
 input                  reset           ;
 input                  valid_in        ;
 input [DATA_WIDTH-1:0] pxl_in          ;
-input                  valid_weight_in1;
-input [DATA_WIDTH-1:0] weight_in1      ;
 
-input                  valid_weight_in2;
-input [DATA_WIDTH-1:0] weight_in2      ;
-
-input                  valid_weight_in3;
-input [DATA_WIDTH-1:0] weight_in3      ;
-
-input                  valid_weight_in4;
-input [DATA_WIDTH-1:0] weight_in4      ;
-
-input                  valid_weight_in5;
-input [DATA_WIDTH-1:0] weight_in5      ;
-
-input                  valid_weight_in6;
-input [DATA_WIDTH-1:0] weight_in6      ;
-
-input                  valid_weight_in7;
-input [DATA_WIDTH-1:0] weight_in7      ;
-
-input                  valid_weight_in8;
-input [DATA_WIDTH-1:0] weight_in8      ;
-
-input                  valid_weight_in9;
-input [DATA_WIDTH-1:0] weight_in9      ;
-
-input                  valid_weight_in10;
-input [DATA_WIDTH-1:0] weight_in10      ;
-
-input                  valid_weight_in11;
-input [DATA_WIDTH-1:0] weight_in11      ;
-
-input                  valid_weight_in12;
-input [DATA_WIDTH-1:0] weight_in12      ;
-
-input                  valid_weight_in13;
-input [DATA_WIDTH-1:0] weight_in13      ;
-
-input                  valid_weight_in14;
-input [DATA_WIDTH-1:0] weight_in14      ;
-
-input                  valid_weight_in15;
-input [DATA_WIDTH-1:0] weight_in15      ;
-
-input                  valid_weight_in16;
-input [DATA_WIDTH-1:0] weight_in16      ;
-
-input                  valid_weight_in17;
-input [DATA_WIDTH-1:0] weight_in17      ;
-
-input                  valid_weight_in18;
-input [DATA_WIDTH-1:0] weight_in18      ;
-
-input                  valid_weight_in19;
-input [DATA_WIDTH-1:0] weight_in19      ;
-
-input                  valid_weight_in20;
-input [DATA_WIDTH-1:0] weight_in20      ;
+input                  valid_in_resnet18_layer1;
+input [DATA_WIDTH-1:0] pxl_in_resnet18_layer1  ;
 
 input                  valid_weight_in21;
 input [DATA_WIDTH-1:0] weight_in21      ;
@@ -257,16 +144,16 @@ input [DATA_WIDTH-1:0] weight_in34      ;
 input                  valid_weight_in35;
 input [DATA_WIDTH-1:0] weight_in35      ;
 
-// input [DATA_WIDTH-1:0] sigmoid_in;
+input [DATA_WIDTH-1:0] sigmoid_in;
 
 /////////////////////////////////////////////////////////////////////////
 // Output Declarations
 output [DATA_WIDTH-1:0] pxl_out  ;
-output                  valid_out;
+// output                  valid_out;
 
-output done;
-// output [4:0] sigmoid_addr   ;
-// output       sigmoid_read_en;
+output       done           ;
+output [4:0] sigmoid_addr   ;
+output       sigmoid_read_en;
 
 /////////////////////////////////////////////////////////////////////////
 // Local Logic and Instantiation
@@ -275,65 +162,8 @@ wire                  reset   ;
 wire                  valid_in;
 wire [DATA_WIDTH-1:0] pxl_in  ;
 
-wire                  valid_weight_in1;
-wire [DATA_WIDTH-1:0] weight_in1      ;
-
-wire                  valid_weight_in2;
-wire [DATA_WIDTH-1:0] weight_in2      ;
-
-wire                  valid_weight_in3;
-wire [DATA_WIDTH-1:0] weight_in3      ;
-
-wire                  valid_weight_in4;
-wire [DATA_WIDTH-1:0] weight_in4      ;
-
-wire                  valid_weight_in5;
-wire [DATA_WIDTH-1:0] weight_in5      ;
-
-wire                  valid_weight_in6;
-wire [DATA_WIDTH-1:0] weight_in6      ;
-
-wire                  valid_weight_in7;
-wire [DATA_WIDTH-1:0] weight_in7      ;
-
-wire                  valid_weight_in8;
-wire [DATA_WIDTH-1:0] weight_in8      ;
-
-wire                  valid_weight_in9;
-wire [DATA_WIDTH-1:0] weight_in9      ;
-
-wire                  valid_weight_in10;
-wire [DATA_WIDTH-1:0] weight_in10      ;
-
-wire                  valid_weight_in11;
-wire [DATA_WIDTH-1:0] weight_in11      ;
-
-wire                  valid_weight_in12;
-wire [DATA_WIDTH-1:0] weight_in12      ;
-
-wire                  valid_weight_in13;
-wire [DATA_WIDTH-1:0] weight_in13      ;
-
-wire                  valid_weight_in14;
-wire [DATA_WIDTH-1:0] weight_in14      ;
-
-wire                  valid_weight_in15;
-wire [DATA_WIDTH-1:0] weight_in15      ;
-
-wire                  valid_weight_in16;
-wire [DATA_WIDTH-1:0] weight_in16      ;
-
-wire                  valid_weight_in17;
-wire [DATA_WIDTH-1:0] weight_in17      ;
-
-wire                  valid_weight_in18;
-wire [DATA_WIDTH-1:0] weight_in18      ;
-
-wire                  valid_weight_in19;
-wire [DATA_WIDTH-1:0] weight_in19      ;
-
-wire                  valid_weight_in20;
-wire [DATA_WIDTH-1:0] weight_in20      ;
+wire                  valid_in_resnet18_layer1;
+wire [DATA_WIDTH-1:0] pxl_in_resnet18_layer1  ;
 
 wire                  valid_weight_in21;
 wire [DATA_WIDTH-1:0] weight_in21      ;
@@ -380,152 +210,14 @@ wire [DATA_WIDTH-1:0] weight_in34      ;
 wire                  valid_weight_in35;
 wire [DATA_WIDTH-1:0] weight_in35      ;
 
-// wire [DATA_WIDTH-1:0] sigmoid_in;
+wire [DATA_WIDTH-1:0] sigmoid_in;
 
 wire [DATA_WIDTH-1:0] pxl_out  ;
-wire                  valid_out;
+// wire                  valid_out;
 
-wire done;
-// wire [4:0] sigmoid_addr   ;
-// wire       sigmoid_read_en;
-
-// Conv 7x7
-wire [DATA_WIDTH-1:0] out_conv7x7      ;
-wire                  valid_out_conv7x7;
-
-cnn_conv_01_7x7 #(
-    .DATA_WIDTH     (DATA_WIDTH  ),
-    .IMAGE_WIDTH    (IMAGE_WIDTH ),
-    .IMAGE_HEIGHT   (IMAGE_HEIGHT),
-    .CHANNEL_NUM_IN (3           ),
-    .CHANNEL_NUM_OUT(64          ),
-    .KERNEL         (7           )
-) conv7x7 (
-    .clk            (clk              ),
-    .reset          (reset            ),
-    .valid_in       (valid_in         ),
-    .pxl_in         (pxl_in           ),
-    .valid_weight_in(valid_weight_in1 ),
-    .weight_in      (weight_in1       ),
-    //output
-    .pxl_out        (out_conv7x7      ),
-    .valid_out      (valid_out_conv7x7)
-);
-
-// ReLU
-wire [DATA_WIDTH-1:0] out_relu_5      ;
-wire                  valid_out_relu_5;
-
-cnn_conv_relu #(.DATA_WIDTH(DATA_WIDTH)) relu5 (
-    .clk      (clk                ),
-    .reset    (reset              ),
-    .valid_in (valid_out_conv7x7),
-    .in       (out_conv7x7      ),
-    //output
-    .out      (out_relu_5         ),
-    .valid_out(valid_out_relu_5   )
-);
-// Maxp 3x3
-wire [DATA_WIDTH-1:0] out_maxp3x3      ;
-wire                  valid_out_maxp3x3;
-
-cnn_maxp_01_3x3 #(
-    .DATA_WIDTH    (DATA_WIDTH    ),
-    .IMAGE_WIDTH   (IMAGE_WIDTH/2 ),
-    .IMAGE_HEIGHT  (IMAGE_HEIGHT/2),
-    .CHANNEL_NUM_IN(64            ),
-    .KERNEL        (3             ),
-    .RATE          (1             )
-) maxp3x3 (
-    .clk      (clk              ),
-    .reset    (reset            ),
-    .valid_in (valid_out_relu_5),
-    .pxl_in   (out_relu_5      ),
-    //output
-    .pxl_out  (out_maxp3x3      ),
-    .valid_out(valid_out_maxp3x3)
-);
-
-// Resnet 50
-wire [DATA_WIDTH-1:0] out_resnet18      ;
-wire                  valid_out_resnet18;
-
-wire [DATA_WIDTH-1:0] out_resnet18_layer1      ;
-wire                  valid_out_resnet18_layer1;
-
-cnn_resnet18 #(
-    .DATA_WIDTH  (DATA_WIDTH    ),
-    .IMAGE_WIDTH (IMAGE_WIDTH/4 ),
-    .IMAGE_HEIGHT(IMAGE_HEIGHT/4)
-) resnet18 (
-    .clk              (clk                      ),
-    .reset            (reset                    ),
-    .valid_in         (valid_out_maxp3x3        ),
-    .pxl_in           (out_maxp3x3              ),
-    
-    .valid_weight_in1 (valid_weight_in2         ),
-    .weight_in1       (weight_in2               ),
-    
-    .valid_weight_in2 (valid_weight_in3         ),
-    .weight_in2       (weight_in3               ),
-    
-    .valid_weight_in3 (valid_weight_in4         ),
-    .weight_in3       (weight_in4               ),
-    
-    .valid_weight_in4 (valid_weight_in5         ),
-    .weight_in4       (weight_in5               ),
-    
-    .valid_weight_in5 (valid_weight_in6         ),
-    .weight_in5       (weight_in6               ),
-    
-    .valid_weight_in6 (valid_weight_in7         ),
-    .weight_in6       (weight_in7               ),
-    
-    .valid_weight_in7 (valid_weight_in8         ),
-    .weight_in7       (weight_in8               ),
-    
-    .valid_weight_in8 (valid_weight_in9         ),
-    .weight_in8       (weight_in9               ),
-    
-    .valid_weight_in9 (valid_weight_in10        ),
-    .weight_in9       (weight_in10              ),
-    
-    .valid_weight_in10(valid_weight_in11        ),
-    .weight_in10      (weight_in11              ),
-    
-    .valid_weight_in11(valid_weight_in12        ),
-    .weight_in11      (weight_in12              ),
-    
-    .valid_weight_in12(valid_weight_in13        ),
-    .weight_in12      (weight_in13              ),
-    
-    .valid_weight_in13(valid_weight_in14        ),
-    .weight_in13      (weight_in14              ),
-    
-    .valid_weight_in14(valid_weight_in15        ),
-    .weight_in14      (weight_in15              ),
-    
-    .valid_weight_in15(valid_weight_in16        ),
-    .weight_in15      (weight_in16              ),
-    
-    .valid_weight_in16(valid_weight_in17        ),
-    .weight_in16      (weight_in17              ),
-    
-    .valid_weight_in17(valid_weight_in18        ),
-    .weight_in17      (weight_in18              ),
-    
-    .valid_weight_in18(valid_weight_in19        ),
-    .weight_in18      (weight_in19              ),
-    
-    .valid_weight_in19(valid_weight_in20        ),
-    .weight_in19      (weight_in20              ),
-
-    //output
-    .out_layer1       (out_resnet18_layer1      ),
-    .valid_out_layer1 (valid_out_resnet18_layer1),
-    .pxl_out          (out_resnet18             ),
-    .valid_out        (valid_out_resnet18       )
-);
+wire       done           ;
+wire [4:0] sigmoid_addr   ;
+wire       sigmoid_read_en;
 
 // ASPP
 wire [DATA_WIDTH-1:0] out_aspp      ;
@@ -536,38 +228,38 @@ cnn_aspp #(
     .IMAGE_WIDTH (IMAGE_WIDTH/16 ),
     .IMAGE_HEIGHT(IMAGE_HEIGHT/16)
 ) aspp (
-    .clk             (clk               ),
-    .reset           (reset             ),
-    .valid_in        (valid_out_resnet18),
-    .pxl_in          (out_resnet18      ),
+    .clk             (clk              ),
+    .reset           (reset            ),
+    .valid_in        (valid_in         ),
+    .pxl_in          (pxl_in           ),
     
-    .valid_weight_in1(valid_weight_in21 ),
-    .weight_in1      (weight_in21       ),
+    .valid_weight_in1(valid_weight_in21),
+    .weight_in1      (weight_in21      ),
     
-    .valid_weight_in2(valid_weight_in22 ),
-    .weight_in2      (weight_in22       ),
+    .valid_weight_in2(valid_weight_in22),
+    .weight_in2      (weight_in22      ),
     
-    .valid_weight_in3(valid_weight_in23 ),
-    .weight_in3      (weight_in23       ),
+    .valid_weight_in3(valid_weight_in23),
+    .weight_in3      (weight_in23      ),
     
-    .valid_weight_in4(valid_weight_in24 ),
-    .weight_in4      (weight_in24       ),
+    .valid_weight_in4(valid_weight_in24),
+    .weight_in4      (weight_in24      ),
     
-    .valid_weight_in5(valid_weight_in25 ),
-    .weight_in5      (weight_in25       ),
+    .valid_weight_in5(valid_weight_in25),
+    .weight_in5      (weight_in25      ),
     
-    .valid_weight_in6(valid_weight_in26 ),
-    .weight_in6      (weight_in26       ),
+    .valid_weight_in6(valid_weight_in26),
+    .weight_in6      (weight_in26      ),
     
-    .valid_weight_in7(valid_weight_in27 ),
-    .weight_in7      (weight_in27       ),
+    .valid_weight_in7(valid_weight_in27),
+    .weight_in7      (weight_in27      ),
     
-    .valid_weight_in8(valid_weight_in28 ),
-    .weight_in8      (weight_in28       ),
+    .valid_weight_in8(valid_weight_in28),
+    .weight_in8      (weight_in28      ),
     
     //output
-    .pxl_out         (out_aspp          ),
-    .valid_out       (valid_out_aspp    )
+    .pxl_out         (out_aspp         ),
+    .valid_out       (valid_out_aspp   )
 );
 
 // Conv 1x1 256
@@ -676,15 +368,15 @@ cnn_conv_18_3x3 #(
     .KERNEL         (3             ),
     .RATE           (1             )
 ) conv3x3_1 (
-    .clk            (clk                      ),
-    .reset          (reset                    ),
-    .valid_in       (valid_out_resnet18_layer1),
-    .pxl_in         (out_resnet18_layer1      ),
-    .valid_weight_in(valid_weight_in31        ),
-    .weight_in      (weight_in31              ),
+    .clk            (clk                     ),
+    .reset          (reset                   ),
+    .valid_in       (valid_in_resnet18_layer1),
+    .pxl_in         (pxl_in_resnet18_layer1  ),
+    .valid_weight_in(valid_weight_in31       ),
+    .weight_in      (weight_in31             ),
     //output
-    .pxl_out        (out_conv3x3_1            ),
-    .valid_out      (valid_out_conv3x3_1      )
+    .pxl_out        (out_conv3x3_1           ),
+    .valid_out      (valid_out_conv3x3_1     )
 );
 
 // Conv 1x1 256
@@ -844,29 +536,18 @@ cnn_upsampling_nn #(
 );
 
 // Sigmoid
-cnn_sigmoid #(.DATA_WIDTH(DATA_WIDTH)) sigmoid (
-    .clk      (clk                   ),
-    .reset    (reset                 ),
-    .valid_in (valid_out_upsampling_2),
-    .in       (out_upsampling_2      ),
-    //output
-    .out      (pxl_out               ),
-    .valid_out(valid_out             ),
-    .done     (done                  )
+cnn_sigmoid_synth sigmoid (
+    .in_fp        (out_upsampling_2       ),
+    .out_fp       (pxl_out                ),
+    .clk          (clk                    ),
+    .rst_n        (!reset                 ),
+    .start        (valid_out_upsampling_2 ),
+    .done         (done                   ),
+    .rom_val      (sigmoid_in             ),
+    .addr         (sigmoid_addr           ),
+    .read_en      (sigmoid_read_en        ),
+    .top_overflow (/*no use top_overflow*/),
+    .top_underflow(/*top_underflow*/      )
 );
-
-// cnn_sigmoid_synth sigmoid (
-//     .in_fp        (out_upsampling_2       ),
-//     .out_fp       (pxl_out                ),
-//     .clk          (clk                    ),
-//     .rst_n        (!reset                 ),
-//     .start        (valid_out_upsampling_2 ),
-//     .done         (done                   ),
-//     .rom_val      (sigmoid_in             ),
-//     .addr         (sigmoid_addr           ),
-//     .read_en      (sigmoid_read_en        ),
-//     .top_overflow (/*no use top_overflow*/),
-//     .top_underflow(/*top_underflow*/      )
-// );
 
 endmodule

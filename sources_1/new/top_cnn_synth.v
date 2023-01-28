@@ -19,24 +19,72 @@
 
 ///////////////////////////////////////////////////////////////////////
 
-module model_top_cnn (
+module top_cnn_synth (
     clk
     ,reset
     
     ,valid_in
     ,pxl_in
 
-    ,valid_weight_in
-    ,weight_in
+    ,valid_weight_in1
+    ,weight_in1
+
+    ,valid_weight_in2
+    ,weight_in2
+
+    ,valid_weight_in3
+    ,weight_in3
+
+    ,valid_weight_in4
+    ,weight_in4
+
+    ,valid_weight_in5
+    ,weight_in5
+
+    ,valid_weight_in6
+    ,weight_in6
+
+    ,valid_weight_in7
+    ,weight_in7
 
     ,valid_weight_in8
     ,weight_in8
 
+    ,valid_weight_in9
+    ,weight_in9
+
+    ,valid_weight_in10
+    ,weight_in10
+
+    ,valid_weight_in11
+    ,weight_in11
+
+    ,valid_weight_in12
+    ,weight_in12
+
     ,valid_weight_in13
     ,weight_in13
 
+    ,valid_weight_in14
+    ,weight_in14
+
+    ,valid_weight_in15
+    ,weight_in15
+
+    ,valid_weight_in16
+    ,weight_in16
+
+    ,valid_weight_in17
+    ,weight_in17
+
     ,valid_weight_in18
     ,weight_in18
+
+    ,valid_weight_in19
+    ,weight_in19
+
+    ,valid_weight_in20
+    ,weight_in20
 
     ,valid_weight_in21
     ,weight_in21
@@ -62,19 +110,33 @@ module model_top_cnn (
     ,valid_weight_in28
     ,weight_in28
 
+    ,valid_weight_in29
+    ,weight_in29
+
+    ,valid_weight_in30
+    ,weight_in30
+
     ,valid_weight_in31
     ,weight_in31
 
     ,valid_weight_in32
     ,weight_in32
 
-    // ,sigmoid_in
+    ,valid_weight_in33
+    ,weight_in33
+
+    ,valid_weight_in34
+    ,weight_in34
+
+    ,valid_weight_in35
+    ,weight_in35
+
+    ,sigmoid_in
 
     ,pxl_out
-    ,valid_out
     ,done
-    // ,sigmoid_addr
-    // ,sigmoid_read_en
+    ,sigmoid_addr
+    ,sigmoid_read_en
 );
 
 /////////////////////////////////////////////////////////////////////////
@@ -85,21 +147,69 @@ parameter IMAGE_HEIGHT = 256;
 
 /////////////////////////////////////////////////////////////////////////
 // Port Declarations
-input                  clk            ;
-input                  reset          ;
-input                  valid_in       ;
-input [DATA_WIDTH-1:0] pxl_in         ;
-input                  valid_weight_in;
-input [DATA_WIDTH-1:0] weight_in      ;
+input                  clk             ;
+input                  reset           ;
+input                  valid_in        ;
+input [DATA_WIDTH-1:0] pxl_in          ;
+input                  valid_weight_in1;
+input [DATA_WIDTH-1:0] weight_in1      ;
+
+input                  valid_weight_in2;
+input [DATA_WIDTH-1:0] weight_in2      ;
+
+input                  valid_weight_in3;
+input [DATA_WIDTH-1:0] weight_in3      ;
+
+input                  valid_weight_in4;
+input [DATA_WIDTH-1:0] weight_in4      ;
+
+input                  valid_weight_in5;
+input [DATA_WIDTH-1:0] weight_in5      ;
+
+input                  valid_weight_in6;
+input [DATA_WIDTH-1:0] weight_in6      ;
+
+input                  valid_weight_in7;
+input [DATA_WIDTH-1:0] weight_in7      ;
 
 input                  valid_weight_in8;
 input [DATA_WIDTH-1:0] weight_in8      ;
 
+input                  valid_weight_in9;
+input [DATA_WIDTH-1:0] weight_in9      ;
+
+input                  valid_weight_in10;
+input [DATA_WIDTH-1:0] weight_in10      ;
+
+input                  valid_weight_in11;
+input [DATA_WIDTH-1:0] weight_in11      ;
+
+input                  valid_weight_in12;
+input [DATA_WIDTH-1:0] weight_in12      ;
+
 input                  valid_weight_in13;
 input [DATA_WIDTH-1:0] weight_in13      ;
 
+input                  valid_weight_in14;
+input [DATA_WIDTH-1:0] weight_in14      ;
+
+input                  valid_weight_in15;
+input [DATA_WIDTH-1:0] weight_in15      ;
+
+input                  valid_weight_in16;
+input [DATA_WIDTH-1:0] weight_in16      ;
+
+input                  valid_weight_in17;
+input [DATA_WIDTH-1:0] weight_in17      ;
+
 input                  valid_weight_in18;
 input [DATA_WIDTH-1:0] weight_in18      ;
+
+input                  valid_weight_in19;
+input [DATA_WIDTH-1:0] weight_in19      ;
+
+input                  valid_weight_in20;
+input [DATA_WIDTH-1:0] weight_in20      ;
 
 input                  valid_weight_in21;
 input [DATA_WIDTH-1:0] weight_in21      ;
@@ -125,31 +235,43 @@ input [DATA_WIDTH-1:0] weight_in27      ;
 input                  valid_weight_in28;
 input [DATA_WIDTH-1:0] weight_in28      ;
 
+input                  valid_weight_in29;
+input [DATA_WIDTH-1:0] weight_in29      ;
+
+input                  valid_weight_in30;
+input [DATA_WIDTH-1:0] weight_in30      ;
+
 input                  valid_weight_in31;
 input [DATA_WIDTH-1:0] weight_in31      ;
 
 input                  valid_weight_in32;
 input [DATA_WIDTH-1:0] weight_in32      ;
 
-// input [DATA_WIDTH-1:0] sigmoid_in;
+input                  valid_weight_in33;
+input [DATA_WIDTH-1:0] weight_in33      ;
+
+input                  valid_weight_in34;
+input [DATA_WIDTH-1:0] weight_in34      ;
+
+input                  valid_weight_in35;
+input [DATA_WIDTH-1:0] weight_in35      ;
+
+input [DATA_WIDTH-1:0] sigmoid_in;
 
 /////////////////////////////////////////////////////////////////////////
 // Output Declarations
-output [DATA_WIDTH-1:0] pxl_out  ;
-output                  valid_out;
+output [DATA_WIDTH-1:0] pxl_out;
 
-output done;
-// output [4:0] sigmoid_addr   ;
-// output       sigmoid_read_en;
+output       done           ;
+output [4:0] sigmoid_addr   ;
+output       sigmoid_read_en;
 
 /////////////////////////////////////////////////////////////////////////
 // Local Logic and Instantiation
-wire                  clk            ;
-wire                  reset          ;
-wire                  valid_in       ;
-wire [DATA_WIDTH-1:0] pxl_in         ;
-wire                  valid_weight_in;
-wire [DATA_WIDTH-1:0] weight_in      ;
+wire                  clk     ;
+wire                  reset   ;
+wire                  valid_in;
+wire [DATA_WIDTH-1:0] pxl_in  ;
 
 wire                  valid_weight_in1;
 wire [DATA_WIDTH-1:0] weight_in1      ;
@@ -256,72 +378,23 @@ wire [DATA_WIDTH-1:0] weight_in34      ;
 wire                  valid_weight_in35;
 wire [DATA_WIDTH-1:0] weight_in35      ;
 
-// wire [DATA_WIDTH-1:0] sigmoid_in;
+wire [DATA_WIDTH-1:0] sigmoid_in;
 
-wire [DATA_WIDTH-1:0] pxl_out  ;
-wire                  valid_out;
+wire [DATA_WIDTH-1:0] pxl_out;
 
-wire done;
-// wire [4:0] sigmoid_addr   ;
-// wire       sigmoid_read_en;
+wire       done           ;
+wire [4:0] sigmoid_addr   ;
+wire       sigmoid_read_en;
 
-weights_distributor #(.DATA_WIDTH(DATA_WIDTH)) inst_weights_distributor (
-    .clk              (clk              ),
-    .reset            (reset            ),
-    .valid_weight_in  (valid_weight_in  ),
-    .weight_in        (weight_in        ),
-    
-    .valid_weight_in1 (valid_weight_in1 ),
-    .weight_in1       (weight_in1       ),
-    .valid_weight_in2 (valid_weight_in2 ),
-    .weight_in2       (weight_in2       ),
-    .valid_weight_in3 (valid_weight_in3 ),
-    .weight_in3       (weight_in3       ),
-    .valid_weight_in4 (valid_weight_in4 ),
-    .weight_in4       (weight_in4       ),
-    .valid_weight_in5 (valid_weight_in5 ),
-    .weight_in5       (weight_in5       ),
-    .valid_weight_in6 (valid_weight_in6 ),
-    .weight_in6       (weight_in6       ),
-    .valid_weight_in7 (valid_weight_in7 ),
-    .weight_in7       (weight_in7       ),
-    .valid_weight_in9 (valid_weight_in9 ),
-    .weight_in9       (weight_in9       ),
-    .valid_weight_in10(valid_weight_in10),
-    .weight_in10      (weight_in10      ),
-    .valid_weight_in11(valid_weight_in11),
-    .weight_in11      (weight_in11      ),
-    .valid_weight_in12(valid_weight_in12),
-    .weight_in12      (weight_in12      ),
-    .valid_weight_in14(valid_weight_in14),
-    .weight_in14      (weight_in14      ),
-    .valid_weight_in15(valid_weight_in15),
-    .weight_in15      (weight_in15      ),
-    .valid_weight_in16(valid_weight_in16),
-    .weight_in16      (weight_in16      ),
-    .valid_weight_in17(valid_weight_in17),
-    .weight_in17      (weight_in17      ),
-    .valid_weight_in19(valid_weight_in19),
-    .weight_in19      (weight_in19      ),
-    .valid_weight_in20(valid_weight_in20),
-    .weight_in20      (weight_in20      ),
-    .valid_weight_in29(valid_weight_in29),
-    .weight_in29      (weight_in29      ),
-    .valid_weight_in30(valid_weight_in30),
-    .weight_in30      (weight_in30      ),
-    .valid_weight_in33(valid_weight_in33),
-    .weight_in33      (weight_in33      ),
-    .valid_weight_in34(valid_weight_in34),
-    .weight_in34      (weight_in34      ),
-    .valid_weight_in35(valid_weight_in35),
-    .weight_in35      (weight_in35      )
-);
+// Encoder
+wire                  valid_out_encoder;
+wire [DATA_WIDTH-1:0] out_encoder      ;
 
-top_cnn #(
+cnn_encoder #(
     .DATA_WIDTH  (DATA_WIDTH  ),
     .IMAGE_WIDTH (IMAGE_WIDTH ),
     .IMAGE_HEIGHT(IMAGE_HEIGHT)
-) inst_top_cnn (
+) inst_encoder (
     .clk              (clk              ),
     .reset            (reset            ),
     .valid_in         (valid_in         ),
@@ -367,6 +440,22 @@ top_cnn #(
     .weight_in19      (weight_in19      ),
     .valid_weight_in20(valid_weight_in20),
     .weight_in20      (weight_in20      ),
+    
+    .pxl_out          (out_encoder      ),
+    .valid_out        (valid_out_encoder)
+);
+
+// Decoder
+cnn_decoder #(
+    .DATA_WIDTH  (DATA_WIDTH  ),
+    .IMAGE_WIDTH (IMAGE_WIDTH ),
+    .IMAGE_HEIGHT(IMAGE_HEIGHT)
+) inst_decoder (
+    .clk              (clk              ),
+    .reset            (reset            ),
+    .valid_in         (valid_out_encoder),
+    .pxl_in           (out_encoder      ),
+    
     .valid_weight_in21(valid_weight_in21),
     .weight_in21      (weight_in21      ),
     .valid_weight_in22(valid_weight_in22),
@@ -398,13 +487,12 @@ top_cnn #(
     .valid_weight_in35(valid_weight_in35),
     .weight_in35      (weight_in35      ),
     
-    // .sigmoid_in       (sigmoid_in       ),
+    .sigmoid_in       (sigmoid_in       ),
     
     .pxl_out          (pxl_out          ),
-    .valid_out        (valid_out        ),
-    .done             (done             )
-    // ,.sigmoid_addr     (sigmoid_addr     )
-    // ,.sigmoid_read_en  (sigmoid_read_en  )
+    .done             (done             ),
+    .sigmoid_addr     (sigmoid_addr     ),
+    .sigmoid_read_en  (sigmoid_read_en  )
 );
 
 endmodule
