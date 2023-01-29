@@ -62,9 +62,6 @@ module model_top_cnn (
     ,valid_weight_in28
     ,weight_in28
 
-    ,valid_weight_in31
-    ,weight_in31
-
     ,valid_weight_in32
     ,weight_in32
 
@@ -124,9 +121,6 @@ input [DATA_WIDTH-1:0] weight_in27      ;
 
 input                  valid_weight_in28;
 input [DATA_WIDTH-1:0] weight_in28      ;
-
-input                  valid_weight_in31;
-input [DATA_WIDTH-1:0] weight_in31      ;
 
 input                  valid_weight_in32;
 input [DATA_WIDTH-1:0] weight_in32      ;
@@ -309,6 +303,8 @@ weights_distributor #(.DATA_WIDTH(DATA_WIDTH)) inst_weights_distributor (
     .weight_in29      (weight_in29      ),
     .valid_weight_in30(valid_weight_in30),
     .weight_in30      (weight_in30      ),
+    .valid_weight_in31(valid_weight_in31),
+    .weight_in31      (weight_in31      ),
     .valid_weight_in33(valid_weight_in33),
     .weight_in33      (weight_in33      ),
     .valid_weight_in34(valid_weight_in34),

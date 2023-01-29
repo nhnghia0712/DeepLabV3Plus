@@ -158,12 +158,12 @@ wire                  valid_out_conv21;
 wire [DATA_WIDTH-1:0] out_conv22      ;
 wire                  valid_out_conv22;
 
-cnn_conv_12_13_14_15_16_17_3x3 #(
+cnn_conv_15_16_17_3x3 #(
     .DATA_WIDTH     (DATA_WIDTH  ),
     .IMAGE_WIDTH    (IMAGE_WIDTH ),
     .IMAGE_HEIGHT   (IMAGE_HEIGHT),
     .CHANNEL_NUM_IN (512         ),
-    .CHANNEL_NUM_OUT(512         ),
+    .CHANNEL_NUM_OUT(1           ),
     .KERNEL         (3           ),
     .RATE           (12          )
 ) conv21 (
@@ -218,12 +218,12 @@ wire                  valid_out_conv31;
 wire [DATA_WIDTH-1:0] out_conv32      ;
 wire                  valid_out_conv32;
 
-cnn_conv_12_13_14_15_16_17_3x3 #(
+cnn_conv_15_16_17_3x3 #(
     .DATA_WIDTH     (DATA_WIDTH  ),
     .IMAGE_WIDTH    (IMAGE_WIDTH ),
     .IMAGE_HEIGHT   (IMAGE_HEIGHT),
     .CHANNEL_NUM_IN (512         ),
-    .CHANNEL_NUM_OUT(512         ),
+    .CHANNEL_NUM_OUT(1           ),
     .KERNEL         (3           ),
     .RATE           (24          )
 ) conv31 (
@@ -278,12 +278,12 @@ wire                  valid_out_conv41;
 wire [DATA_WIDTH-1:0] out_conv42      ;
 wire                  valid_out_conv42;
 
-cnn_conv_12_13_14_15_16_17_3x3 #(
+cnn_conv_15_16_17_3x3 #(
     .DATA_WIDTH     (DATA_WIDTH  ),
     .IMAGE_WIDTH    (IMAGE_WIDTH ),
     .IMAGE_HEIGHT   (IMAGE_HEIGHT),
     .CHANNEL_NUM_IN (512         ),
-    .CHANNEL_NUM_OUT(512         ),
+    .CHANNEL_NUM_OUT(1           ),
     .KERNEL         (3           ),
     .RATE           (36          )
 ) conv41 (

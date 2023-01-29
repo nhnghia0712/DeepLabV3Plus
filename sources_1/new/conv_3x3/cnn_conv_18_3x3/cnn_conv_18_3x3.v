@@ -36,8 +36,8 @@ module cnn_conv_18_3x3 (
 // General
 parameter IMAGE_WIDTH     = 64 ; //Width
 parameter IMAGE_HEIGHT    = 64 ; //Height
-parameter CHANNEL_NUM_IN  = 64 ; //The number of channel in
-parameter CHANNEL_NUM_OUT = 256; //The number of channel pxl_out
+parameter CHANNEL_NUM_IN  = 256; //The number of channel in
+parameter CHANNEL_NUM_OUT = 1  ; //The number of channel pxl_out
 parameter KERNEL          = 3  ; //Kernel width
 parameter RATE            = 1  ; //Rate of dialtion
 
@@ -75,7 +75,7 @@ reg                  valid_out;
 wire [DATA_WIDTH-1:0] loop_data_out      ;
 wire                  valid_loop_data_out;
 
-conv_loop_data_in_64x64x64 #(
+conv_loop_data_in_64x64x256 #(
   .DATA_WIDTH          (DATA_WIDTH          ),
   .IMAGE_WIDTH         (IMAGE_WIDTH         ),
   .RATE                (RATE                ),
@@ -124,23 +124,23 @@ conv_3x3_top_18 #(
 );
 
 // Add
-wire [DATA_WIDTH-1:0] adder_out      ;
-wire                  valid_adder_out;
+// wire [DATA_WIDTH-1:0] adder_out      ;
+// wire                  valid_adder_out;
 
-conv_channel_in_adder_64x64 #(
-  .DATA_WIDTH    (DATA_WIDTH    ),
-  .CHANNEL_NUM_IN(CHANNEL_NUM_IN),
-  .IMAGE_SIZE    (IMAGE_SIZE    )
-) inst_add (
-	//input
-	.clk      (clk            ),
-	.reset    (reset          ),
-	.valid_in (valid_out_conv ),
-	.pxl_in   (pxl_out_conv   ),
-	//output
-	.pxl_out  (adder_out      ),
-	.valid_out(valid_adder_out)
-);
+// conv_channel_in_adder_64x64 #(
+//   .DATA_WIDTH    (DATA_WIDTH    ),
+//   .CHANNEL_NUM_IN(CHANNEL_NUM_IN),
+//   .IMAGE_SIZE    (IMAGE_SIZE    )
+// ) inst_add (
+// 	//input
+// 	.clk      (clk            ),
+// 	.reset    (reset          ),
+// 	.valid_in (valid_out_conv ),
+// 	.pxl_in   (pxl_out_conv   ),
+// 	//output
+// 	.pxl_out  (adder_out      ),
+// 	.valid_out(valid_adder_out)
+// );
 
 // Align output
 // FIFO
@@ -178,106 +178,106 @@ wire                  fifo_empty_8  ;
 
 fifo_generator_0 inst_fifo1 (
 	//input
-	.clk  (clk            ),
-	.srst (reset          ),
-	.wr_en(valid_adder_out),
-	.rd_en(fifo_full_8    ),
-	.din  (adder_out      ),
+	.clk  (clk           ),
+	.srst (reset         ),
+	.wr_en(valid_out_conv),
+	.rd_en(fifo_full_8   ),
+	.din  (pxl_out_conv  ),
 	//output
-	.dout (pxl_out_fifo_1 ),
-	.full (fifo_full_1    ),
-	.empty(fifo_empty_1   )
+	.dout (pxl_out_fifo_1),
+	.full (fifo_full_1   ),
+	.empty(fifo_empty_1  )
 );
 
 fifo_generator_0 inst_fifo2 (
 	//input
-	.clk  (clk                          ),
-	.srst (reset                        ),
-	.wr_en(valid_adder_out & fifo_full_1),
-	.rd_en(fifo_empty_1                 ),
-	.din  (adder_out                    ),
+	.clk  (clk                         ),
+	.srst (reset                       ),
+	.wr_en(valid_out_conv & fifo_full_1),
+	.rd_en(fifo_empty_1                ),
+	.din  (pxl_out_conv                ),
 	//output
-	.dout (pxl_out_fifo_2               ),
-	.full (fifo_full_2                  ),
-	.empty(fifo_empty_2                 )
+	.dout (pxl_out_fifo_2              ),
+	.full (fifo_full_2                 ),
+	.empty(fifo_empty_2                )
 );
 
 fifo_generator_0 inst_fifo3 (
 	//input
-	.clk  (clk                          ),
-	.srst (reset                        ),
-	.wr_en(valid_adder_out & fifo_full_2),
-	.rd_en(fifo_empty_2                 ),
-	.din  (adder_out                    ),
+	.clk  (clk                         ),
+	.srst (reset                       ),
+	.wr_en(valid_out_conv & fifo_full_2),
+	.rd_en(fifo_empty_2                ),
+	.din  (pxl_out_conv                ),
 	//output
-	.dout (pxl_out_fifo_3               ),
-	.full (fifo_full_3                  ),
-	.empty(fifo_empty_3                 )
+	.dout (pxl_out_fifo_3              ),
+	.full (fifo_full_3                 ),
+	.empty(fifo_empty_3                )
 );
 
 fifo_generator_0 inst_fifo4 (
 	//input
-	.clk  (clk                          ),
-	.srst (reset                        ),
-	.wr_en(valid_adder_out & fifo_full_3),
-	.rd_en(fifo_empty_3                 ),
-	.din  (adder_out                    ),
+	.clk  (clk                         ),
+	.srst (reset                       ),
+	.wr_en(valid_out_conv & fifo_full_3),
+	.rd_en(fifo_empty_3                ),
+	.din  (pxl_out_conv                ),
 	//output
-	.dout (pxl_out_fifo_4               ),
-	.full (fifo_full_4                  ),
-	.empty(fifo_empty_4                 )
+	.dout (pxl_out_fifo_4              ),
+	.full (fifo_full_4                 ),
+	.empty(fifo_empty_4                )
 );
 
 fifo_generator_0 inst_fifo5 (
 	//input
-	.clk  (clk                          ),
-	.srst (reset                        ),
-	.wr_en(valid_adder_out & fifo_full_4),
-	.rd_en(fifo_empty_4                 ),
-	.din  (adder_out                    ),
+	.clk  (clk                         ),
+	.srst (reset                       ),
+	.wr_en(valid_out_conv & fifo_full_4),
+	.rd_en(fifo_empty_4                ),
+	.din  (pxl_out_conv                ),
 	//output
-	.dout (pxl_out_fifo_5               ),
-	.full (fifo_full_5                  ),
-	.empty(fifo_empty_5                 )
+	.dout (pxl_out_fifo_5              ),
+	.full (fifo_full_5                 ),
+	.empty(fifo_empty_5                )
 );
 
 fifo_generator_0 inst_fifo6 (
 	//input
-	.clk  (clk                          ),
-	.srst (reset                        ),
-	.wr_en(valid_adder_out & fifo_full_5),
-	.rd_en(fifo_empty_5                 ),
-	.din  (adder_out                    ),
+	.clk  (clk                         ),
+	.srst (reset                       ),
+	.wr_en(valid_out_conv & fifo_full_5),
+	.rd_en(fifo_empty_5                ),
+	.din  (pxl_out_conv                ),
 	//output
-	.dout (pxl_out_fifo_6               ),
-	.full (fifo_full_6                  ),
-	.empty(fifo_empty_6                 )
+	.dout (pxl_out_fifo_6              ),
+	.full (fifo_full_6                 ),
+	.empty(fifo_empty_6                )
 );
 
 fifo_generator_0 inst_fifo7 (
 	//input
-	.clk  (clk                          ),
-	.srst (reset                        ),
-	.wr_en(valid_adder_out & fifo_full_6),
-	.rd_en(fifo_empty_6                 ),
-	.din  (adder_out                    ),
+	.clk  (clk                         ),
+	.srst (reset                       ),
+	.wr_en(valid_out_conv & fifo_full_6),
+	.rd_en(fifo_empty_6                ),
+	.din  (pxl_out_conv                ),
 	//output
-	.dout (pxl_out_fifo_7               ),
-	.full (fifo_full_7                  ),
-	.empty(fifo_empty_7                 )
+	.dout (pxl_out_fifo_7              ),
+	.full (fifo_full_7                 ),
+	.empty(fifo_empty_7                )
 );
 
 fifo_generator_0 inst_fifo8 (
 	//input
-	.clk  (clk                          ),
-	.srst (reset                        ),
-	.wr_en(valid_adder_out & fifo_full_7),
-	.rd_en(fifo_empty_7                 ),
-	.din  (adder_out                    ),
+	.clk  (clk                         ),
+	.srst (reset                       ),
+	.wr_en(valid_out_conv & fifo_full_7),
+	.rd_en(fifo_empty_7                ),
+	.din  (pxl_out_conv                ),
 	//output
-	.dout (pxl_out_fifo_8               ),
-	.full (fifo_full_8                  ),
-	.empty(fifo_empty_8                 )
+	.dout (pxl_out_fifo_8              ),
+	.full (fifo_full_8                 ),
+	.empty(fifo_empty_8                )
 );
 
 reg fifo_full_8_next;

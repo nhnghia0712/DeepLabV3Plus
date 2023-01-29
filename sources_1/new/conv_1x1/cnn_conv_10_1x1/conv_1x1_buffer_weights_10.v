@@ -77,7 +77,7 @@ d_flip_flop #(.DATA_WIDTH(DATA_WIDTH)) dff88 (
 );
 
 // FIFO
-fifo_generator_3_16384 inst_fifo08 (
+fifo_generator_5_4096 inst_fifo08 (
 	//input
 	.clk  (clk                         ),
 	.srst (reset                       ),

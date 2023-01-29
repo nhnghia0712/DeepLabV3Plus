@@ -34,11 +34,11 @@ module cnn_conv_10_1x1 (
 /////////////////////////////////////////////////////////////////////////
 // Parameter Declarations
 // General
-parameter IMAGE_WIDTH     = 64 ; //Width
-parameter IMAGE_HEIGHT    = 64 ; //Height
-parameter CHANNEL_NUM_IN  = 256; //The number of channel in
-parameter CHANNEL_NUM_OUT = 48 ; //The number of channel out
-parameter KERNEL          = 1  ; //Kernel width
+parameter IMAGE_WIDTH     = 64; //Width
+parameter IMAGE_HEIGHT    = 64; //Height
+parameter CHANNEL_NUM_IN  = 64; //The number of channel in
+parameter CHANNEL_NUM_OUT = 48; //The number of channel out
+parameter KERNEL          = 1 ; //Kernel width
 
 `include "D:/GitHub/CNNs/CNN_DeepLabV3Plus/CNN_DeepLabV3Plus.srcs/sources_1/new/param/param_def_conv_1x1.vh"
 // KhaiT
@@ -74,7 +74,7 @@ reg                   valid_out;
 wire [DATA_WIDTH-1:0] loop_data_out      ;
 wire                  valid_loop_data_out;
 
-conv_loop_data_in_64x64x256 #(
+conv_loop_data_in_64x64x64 #(
 	.DATA_WIDTH          (DATA_WIDTH          ),
 	.IMAGE_WIDTH         (IMAGE_WIDTH         ),
 	.RATE                (1                   ),

@@ -191,7 +191,7 @@ d_flip_flop #(.DATA_WIDTH(DATA_WIDTH)) dff00 (
 // FIFO
 reg write_req;
 
-fifo_generator_3_16384 inst_fifo08 (
+fifo_generator_4_256 inst_fifo08 (
 	//input
 	.clk  (clk               ),
 	.srst (reset             ),
@@ -204,7 +204,7 @@ fifo_generator_3_16384 inst_fifo08 (
 	.empty(/*no use*/        )
 );
 
-fifo_generator_3_16384 inst_fifo07 (
+fifo_generator_4_256 inst_fifo07 (
 	//input
 	.clk  (clk               ),
 	.srst (reset             ),
@@ -217,7 +217,7 @@ fifo_generator_3_16384 inst_fifo07 (
 	.empty(/*no use*/        )
 );
 
-fifo_generator_3_16384 inst_fifo06 (
+fifo_generator_4_256 inst_fifo06 (
 	//input
 	.clk  (clk               ),
 	.srst (reset             ),
@@ -230,7 +230,7 @@ fifo_generator_3_16384 inst_fifo06 (
 	.empty(/*no use*/        )
 );
 
-fifo_generator_3_16384 inst_fifo05 (
+fifo_generator_4_256 inst_fifo05 (
 	//input
 	.clk  (clk               ),
 	.srst (reset             ),
@@ -244,7 +244,7 @@ fifo_generator_3_16384 inst_fifo05 (
 );
 
 
-fifo_generator_3_16384 inst_fifo04 (
+fifo_generator_4_256 inst_fifo04 (
 	//input
 	.clk  (clk               ),
 	.srst (reset             ),
@@ -257,7 +257,7 @@ fifo_generator_3_16384 inst_fifo04 (
 	.empty(/*no use*/        )
 );
 
-fifo_generator_3_16384 inst_fifo03 (
+fifo_generator_4_256 inst_fifo03 (
 	//input
 	.clk  (clk               ),
 	.srst (reset             ),
@@ -270,7 +270,7 @@ fifo_generator_3_16384 inst_fifo03 (
 	.empty(/*no use*/        )
 );
 
-fifo_generator_3_16384 inst_fifo02 (
+fifo_generator_4_256 inst_fifo02 (
 	//input
 	.clk  (clk               ),
 	.srst (reset             ),
@@ -283,7 +283,7 @@ fifo_generator_3_16384 inst_fifo02 (
 	.empty(/*no use*/        )
 );
 
-fifo_generator_3_16384 inst_fifo01 (
+fifo_generator_4_256 inst_fifo01 (
 	//input
 	.clk  (clk               ),
 	.srst (reset             ),
@@ -296,7 +296,7 @@ fifo_generator_3_16384 inst_fifo01 (
 	.empty(/*no use*/        )
 );
 
-fifo_generator_3_16384 inst_fifo00 (
+fifo_generator_4_256 inst_fifo00 (
 	//input
 	.clk  (clk               ),
 	.srst (reset             ),

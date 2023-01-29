@@ -626,43 +626,6 @@ cnn_upsampling_nn #(
     .valid_out(valid_out_upsampling_1)
 );
 
-// Conv 1x1 48
-wire [DATA_WIDTH-1:0] out_conv1x1_2      ;
-wire                  valid_out_conv1x1_2;
-
-cnn_conv_10_1x1 #(
-    .DATA_WIDTH     (DATA_WIDTH    ),
-    .IMAGE_WIDTH    (IMAGE_WIDTH/4 ),
-    .IMAGE_HEIGHT   (IMAGE_HEIGHT/4),
-    .CHANNEL_NUM_IN (256           ),
-    .CHANNEL_NUM_OUT(48            ),
-    .KERNEL         (1             )
-) conv1x1_2 (
-    .clk            (clk                   ),
-    .reset          (reset                 ),
-    .valid_in       (valid_out_upsampling_1),
-    .pxl_in         (out_upsampling_1      ),
-    .valid_weight_in(valid_weight_in30     ),
-    .weight_in      (weight_in30           ),
-    //output
-    .pxl_out        (out_conv1x1_2         ),
-    .valid_out      (valid_out_conv1x1_2   )
-);
-
-// ReLU
-wire [DATA_WIDTH-1:0] out_relu_2      ;
-wire                  valid_out_relu_2;
-
-cnn_conv_relu #(.DATA_WIDTH(DATA_WIDTH)) relu2 (
-    .clk      (clk                ),
-    .reset    (reset              ),
-    .valid_in (valid_out_conv1x1_2),
-    .in       (out_conv1x1_2      ),
-    //output
-    .out      (out_relu_2         ),
-    .valid_out(valid_out_relu_2   )
-);
-
 // Conv 3x3 256
 wire [DATA_WIDTH-1:0] out_conv3x3_1      ;
 wire                  valid_out_conv3x3_1;
@@ -671,20 +634,20 @@ cnn_conv_18_3x3 #(
     .DATA_WIDTH     (DATA_WIDTH    ),
     .IMAGE_WIDTH    (IMAGE_WIDTH/4 ),
     .IMAGE_HEIGHT   (IMAGE_HEIGHT/4),
-    .CHANNEL_NUM_IN (64            ),
-    .CHANNEL_NUM_OUT(256           ),
+    .CHANNEL_NUM_IN (256           ),
+    .CHANNEL_NUM_OUT(1             ),
     .KERNEL         (3             ),
     .RATE           (1             )
 ) conv3x3_1 (
-    .clk            (clk                      ),
-    .reset          (reset                    ),
-    .valid_in       (valid_out_resnet18_layer1),
-    .pxl_in         (out_resnet18_layer1      ),
-    .valid_weight_in(valid_weight_in31        ),
-    .weight_in      (weight_in31              ),
+    .clk            (clk                   ),
+    .reset          (reset                 ),
+    .valid_in       (valid_out_upsampling_1),
+    .pxl_in         (out_upsampling_1      ),
+    .valid_weight_in(valid_weight_in30     ),
+    .weight_in      (weight_in30           ),
     //output
-    .pxl_out        (out_conv3x3_1            ),
-    .valid_out      (valid_out_conv3x3_1      )
+    .pxl_out        (out_conv3x3_1         ),
+    .valid_out      (valid_out_conv3x3_1   )
 );
 
 // Conv 1x1 256
@@ -703,8 +666,8 @@ cnn_conv_11_1x1 #(
     .reset          (reset              ),
     .valid_in       (valid_out_conv3x3_1),
     .pxl_in         (out_conv3x3_1      ),
-    .valid_weight_in(valid_weight_in32  ),
-    .weight_in      (weight_in32        ),
+    .valid_weight_in(valid_weight_in31  ),
+    .weight_in      (weight_in31        ),
     //output
     .pxl_out        (out_conv1x1_3      ),
     .valid_out      (valid_out_conv1x1_3)
@@ -724,6 +687,43 @@ cnn_conv_relu #(.DATA_WIDTH(DATA_WIDTH)) relu3 (
     .valid_out(valid_out_relu_3   )
 );
 
+// Conv 1x1 48
+wire [DATA_WIDTH-1:0] out_conv1x1_2      ;
+wire                  valid_out_conv1x1_2;
+
+cnn_conv_10_1x1 #(
+    .DATA_WIDTH     (DATA_WIDTH    ),
+    .IMAGE_WIDTH    (IMAGE_WIDTH/4 ),
+    .IMAGE_HEIGHT   (IMAGE_HEIGHT/4),
+    .CHANNEL_NUM_IN (64            ),
+    .CHANNEL_NUM_OUT(48            ),
+    .KERNEL         (1             )
+) conv1x1_2 (
+    .clk            (clk                      ),
+    .reset          (reset                    ),
+    .valid_in       (valid_out_resnet18_layer1),
+    .pxl_in         (out_resnet18_layer1      ),
+    .valid_weight_in(valid_weight_in32        ),
+    .weight_in      (weight_in32              ),
+    //output
+    .pxl_out        (out_conv1x1_2            ),
+    .valid_out      (valid_out_conv1x1_2      )
+);
+
+// ReLU
+wire [DATA_WIDTH-1:0] out_relu_2      ;
+wire                  valid_out_relu_2;
+
+cnn_conv_relu #(.DATA_WIDTH(DATA_WIDTH)) relu2 (
+    .clk      (clk                ),
+    .reset    (reset              ),
+    .valid_in (valid_out_conv1x1_2),
+    .in       (out_conv1x1_2      ),
+    //output
+    .out      (out_relu_2         ),
+    .valid_out(valid_out_relu_2   )
+);
+
 // Concat
 wire [DATA_WIDTH-1:0] out_concat      ;
 wire                  valid_out_concat;
@@ -731,10 +731,10 @@ wire                  valid_out_concat;
 cnn_concat_2in #(.DATA_WIDTH(DATA_WIDTH)) concat1 (
     .clk         (clk             ),
     .reset       (reset           ),
-    .valid_in_no1(valid_out_relu_3),
-    .in_no1      (out_relu_3      ),
-    .valid_in_no2(valid_out_relu_2),
-    .in_no2      (out_relu_2      ),
+    .valid_in_no1(valid_out_relu_2),
+    .in_no1      (out_relu_2      ),
+    .valid_in_no2(valid_out_relu_3),
+    .in_no2      (out_relu_3      ),
     //output
     .out         (out_concat      ),
     .valid_out   (valid_out_concat)
@@ -749,7 +749,7 @@ cnn_conv_19_3x3 #(
     .IMAGE_WIDTH    (IMAGE_WIDTH/4 ),
     .IMAGE_HEIGHT   (IMAGE_HEIGHT/4),
     .CHANNEL_NUM_IN (304           ),
-    .CHANNEL_NUM_OUT(304           ),
+    .CHANNEL_NUM_OUT(1             ),
     .KERNEL         (3             ),
     .RATE           (1             )
 ) conv3x3_2 (

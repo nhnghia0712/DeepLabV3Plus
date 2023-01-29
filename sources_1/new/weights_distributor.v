@@ -113,13 +113,13 @@ module weights_distributor (
     ,valid_weight_in29 // 1x1_1280
     ,weight_in29
 
-    ,valid_weight_in30 // 1x1_48
+    ,valid_weight_in30 // 3x3_256
     ,weight_in30
 
-    // ,valid_weight_in31 // Out_layer1_1
-    // ,weight_in31
+    ,valid_weight_in31 // 1x1_256
+    ,weight_in31
 
-    // ,valid_weight_in32 // Out_layer1_2
+    // ,valid_weight_in32 // Out_layer1_1x1_48
     // ,weight_in32
 
     ,valid_weight_in33 // 3x3_304
@@ -136,7 +136,7 @@ module weights_distributor (
 // Parameter Declarations
 parameter DATA_WIDTH = 32;
 
-parameter WEIGHTS_NUM = 12246208;
+parameter WEIGHTS_NUM = 11472752;
 parameter CNT_WIDTH   = 24      ; // $clog2(WEIGHTS_NUM) + 1
 
 /////////////////////////////////////////////////////////////////////////
@@ -238,8 +238,8 @@ output [DATA_WIDTH-1:0] weight_in29      ;
 output                  valid_weight_in30;
 output [DATA_WIDTH-1:0] weight_in30      ;
 
-// output                  valid_weight_in31;
-// output [DATA_WIDTH-1:0] weight_in31      ;
+output                  valid_weight_in31;
+output [DATA_WIDTH-1:0] weight_in31      ;
 
 // output                  valid_weight_in32;
 // output [DATA_WIDTH-1:0] weight_in32      ;
@@ -350,8 +350,8 @@ reg [DATA_WIDTH-1:0] weight_in29      ;
 reg                  valid_weight_in30;
 reg [DATA_WIDTH-1:0] weight_in30      ;
 
-// reg                  valid_weight_in31;
-// reg [DATA_WIDTH-1:0] weight_in31      ;
+reg                  valid_weight_in31;
+reg [DATA_WIDTH-1:0] weight_in31      ;
 
 // reg                  valid_weight_in32;
 // reg [DATA_WIDTH-1:0] weight_in32      ;
@@ -637,7 +637,7 @@ always @(posedge clk) begin
 		weight_in30       <= {DATA_WIDTH{1'b0}};
 		valid_weight_in30 <= 1'b0;
 	end
-	else if ((counter >= 'd11322560) && (counter < 'd11334848))begin
+	else if ((counter >= 'd11322560) && (counter < 'd11324864))begin
 		weight_in30       <= weight_in;
 		valid_weight_in30 <= valid_weight_in;
 	end
@@ -648,10 +648,24 @@ end
 
 always @(posedge clk) begin
 	if(reset) begin
+		weight_in31       <= {DATA_WIDTH{1'b0}};
+		valid_weight_in31 <= 1'b0;
+	end
+	else if ((counter >= 'd11324864) && (counter < 'd11380992))begin
+		weight_in31       <= weight_in;
+		valid_weight_in31 <= valid_weight_in;
+	end
+	else begin
+		valid_weight_in31 <= 1'b0;
+	end
+end
+
+always @(posedge clk) begin
+	if(reset) begin
 		weight_in33       <= {DATA_WIDTH{1'b0}};
 		valid_weight_in33 <= 1'b0;
 	end
-	else if ((counter >= 'd11334848) && (counter < 'd12166592))begin
+	else if ((counter >= 'd11380992) && (counter < 'd11383728))begin
 		weight_in33       <= weight_in;
 		valid_weight_in33 <= valid_weight_in;
 	end
@@ -665,7 +679,7 @@ always @(posedge clk) begin
 		weight_in34       <= {DATA_WIDTH{1'b0}};
 		valid_weight_in34 <= 1'b0;
 	end
-	else if ((counter >= 'd12166592) && (counter < 'd12244416))begin
+	else if ((counter >= 'd11383728) && (counter < 'd11470960))begin
 		weight_in34       <= weight_in;
 		valid_weight_in34 <= valid_weight_in;
 	end
@@ -679,7 +693,7 @@ always @(posedge clk) begin
 		weight_in35       <= {DATA_WIDTH{1'b0}};
 		valid_weight_in35 <= 1'b0;
 	end
-	else if ((counter >= 'd12244416) && (counter < 'd12246208))begin
+	else if ((counter >= 'd11470960) && (counter < 'd11472752))begin
 		weight_in35       <= weight_in;
 		valid_weight_in35 <= valid_weight_in;
 	end

@@ -17,7 +17,7 @@ parameter DATA_WIDTH = 32;
 	localparam IMAGE_INPUT_FILE = "D:/GitHub/CNNs/Text_file/Input/R.txt"; // Input Image
 	localparam IMAGE_OUTPUT_FILE = "D:/GitHub/CNNs/Text_file/Output/Output_model_top_cnn.txt"; // Output Image
 
-	localparam WEIGHTS_INPUT_FILE = "D:/GitHub/CNNs/Text_file/Input/Weight_hex/NghiaNg/top.general.weight.txt"; // General
+	localparam WEIGHTS_INPUT_FILE = "D:/GitHub/CNNs/Text_file/Input/Weight_hex/NghiaNg/cnn.general.weight.txt"; // General
 
 	localparam WEIGHTS_INPUT_FILE_08 = "D:/GitHub/CNNs/Text_file/Input/Weight_hex/NghiaNg/encoder.layer2.0.downsample.0.weight.txt";
 	localparam WEIGHTS_INPUT_FILE_13 = "D:/GitHub/CNNs/Text_file/Input/Weight_hex/NghiaNg/encoder.layer3.0.downsample.0.weight.txt";
@@ -30,8 +30,7 @@ parameter DATA_WIDTH = 32;
 	localparam WEIGHTS_INPUT_FILE_26 = "D:/GitHub/CNNs/Text_file/Input/Weight_hex/NghiaNg/decoder.aspp.0.convs.3.0.0.weight.txt";
 	localparam WEIGHTS_INPUT_FILE_27 = "D:/GitHub/CNNs/Text_file/Input/Weight_hex/NghiaNg/decoder.aspp.0.convs.3.0.1.weight.txt";
 	localparam WEIGHTS_INPUT_FILE_28 = "D:/GitHub/CNNs/Text_file/Input/Weight_hex/NghiaNg/decoder.aspp.0.convs.4.1.weight.txt";
-	localparam WEIGHTS_INPUT_FILE_31 = "D:/GitHub/CNNs/Text_file/Input/Weight_hex/NghiaNg/decoder.aspp.1.0.weight.txt";
-	localparam WEIGHTS_INPUT_FILE_32 = "D:/GitHub/CNNs/Text_file/Input/Weight_hex/NghiaNg/decoder.aspp.1.1.weight.txt";
+	localparam WEIGHTS_INPUT_FILE_32 = "D:/GitHub/CNNs/Text_file/Input/Weight_hex/NghiaNg/decoder.block1.0.weight.txt";
 
 	// KhaiT
 	// localparam IMAGE_INPUT_FILE = "D:/GitHub/CNNs/Text_file/Input/R.txt"; // Input Image
@@ -50,16 +49,10 @@ parameter DATA_WIDTH = 32;
 	// localparam WEIGHTS_INPUT_FILE_26 = "D:/GitHub/CNNs/Text_file/Input/Weight_hex/NghiaNg/decoder.aspp.0.convs.3.0.0.weight.txt";
 	// localparam WEIGHTS_INPUT_FILE_27 = "D:/GitHub/CNNs/Text_file/Input/Weight_hex/NghiaNg/decoder.aspp.0.convs.3.0.1.weight.txt";
 	// localparam WEIGHTS_INPUT_FILE_28 = "D:/GitHub/CNNs/Text_file/Input/Weight_hex/NghiaNg/decoder.aspp.0.convs.4.1.weight.txt";
-	// localparam WEIGHTS_INPUT_FILE_31 = "D:/GitHub/CNNs/Text_file/Input/Weight_hex/NghiaNg/decoder.aspp.1.0.weight.txt";
-	// localparam WEIGHTS_INPUT_FILE_32 = "D:/GitHub/CNNs/Text_file/Input/Weight_hex/NghiaNg/decoder.aspp.1.1.weight.txt";
+	// localparam WEIGHTS_INPUT_FILE_32 = "D:/GitHub/CNNs/Text_file/Input/Weight_hex/NghiaNg/decoder.block1.0.weight.txt";
 
 	localparam SIMULATION_CLOCK = 5 ;
 	localparam SIMULATION_CYCLE = 10;
-
-// Localparam general
-
-
-localparam ENDTIME = 6724230;
 
 reg                  clk            ;
 reg                  reset          ;
@@ -101,9 +94,6 @@ reg [DATA_WIDTH-1:0] weight_in27      ;
 reg                  valid_weight_in28;
 reg [DATA_WIDTH-1:0] weight_in28      ;
 
-reg                  valid_weight_in31;
-reg [DATA_WIDTH-1:0] weight_in31      ;
-
 reg                  valid_weight_in32;
 reg [DATA_WIDTH-1:0] weight_in32      ;
 
@@ -129,7 +119,6 @@ reg [DATA_WIDTH-1:0] weight_input_25[(1*1*512*256)-1:0];
 reg [DATA_WIDTH-1:0] weight_input_26[(3*3*512*512)-1:0];
 reg [DATA_WIDTH-1:0] weight_input_27[(1*1*512*256)-1:0];
 reg [DATA_WIDTH-1:0] weight_input_28[(1*1*512*256)-1:0];
-reg [DATA_WIDTH-1:0] weight_input_31[ (3*3*64*256)-1:0];
 reg [DATA_WIDTH-1:0] weight_input_32[(1*1*256*256)-1:0];
 
 initial begin
@@ -149,7 +138,6 @@ initial begin
 	valid_weight_in26 = 1'b0;
 	valid_weight_in27 = 1'b0;
 	valid_weight_in28 = 1'b0;
-	valid_weight_in31 = 1'b0;
 	valid_weight_in32 = 1'b0;
 	#SIMULATION_CYCLE
 		reset = 1'b0;
@@ -168,7 +156,6 @@ initial begin
 	$readmemh(WEIGHTS_INPUT_FILE_26, weight_input_26);
 	$readmemh(WEIGHTS_INPUT_FILE_27, weight_input_27);
 	$readmemh(WEIGHTS_INPUT_FILE_28, weight_input_28);
-	$readmemh(WEIGHTS_INPUT_FILE_31, weight_input_31);
 	$readmemh(WEIGHTS_INPUT_FILE_32, weight_input_32);
 
 	image_output = $fopen(IMAGE_OUTPUT_FILE);
@@ -185,7 +172,7 @@ always @(posedge clk) begin
 		end
 		weight_in       <= weight_input[i];
 		valid_weight_in <= 1'b1;
-		if (i >= 12246208) begin
+		if (i >= 11472752) begin
 			valid_weight_in <= 1'b0;
 		end
 		weight_in8       <= weight_input_08[i];
@@ -210,7 +197,7 @@ always @(posedge clk) begin
 		end
 		weight_in22       <= weight_input_22[i];
 		valid_weight_in22 <= 1'b1;
-		if (i >= (3*3*512*512)) begin
+		if (i >= (3*3*512)) begin
 			valid_weight_in22 <= 1'b0;
 		end
 		weight_in23       <= weight_input_23[i];
@@ -220,7 +207,7 @@ always @(posedge clk) begin
 		end
 		weight_in24       <= weight_input_24[i];
 		valid_weight_in24 <= 1'b1;
-		if (i >= (3*3*512*512)) begin
+		if (i >= (3*3*512)) begin
 			valid_weight_in24 <= 1'b0;
 		end
 		weight_in25       <= weight_input_25[i];
@@ -230,7 +217,7 @@ always @(posedge clk) begin
 		end
 		weight_in26       <= weight_input_26[i];
 		valid_weight_in26 <= 1'b1;
-		if (i >= (3*3*512*512)) begin
+		if (i >= (3*3*512)) begin
 			valid_weight_in26 <= 1'b0;
 		end
 		weight_in27       <= weight_input_27[i];
@@ -243,14 +230,9 @@ always @(posedge clk) begin
 		if (i >= (1*1*512*256)) begin
 			valid_weight_in28 <= 1'b0;
 		end
-		weight_in31       <= weight_input_31[i];
-		valid_weight_in31 <= 1'b1;
-		if (i >= (3*3*64*256)) begin
-			valid_weight_in31 <= 1'b0;
-		end
 		weight_in32       <= weight_input_32[i];
 		valid_weight_in32 <= 1'b1;
-		if (i >= (1*1*256*256)) begin
+		if (i >= (1*1*64*48)) begin
 			valid_weight_in32 <= 1'b0;
 		end
 		i <= i + 1'b1; #(SIMULATION_CYCLE)
@@ -308,9 +290,6 @@ model_top_cnn #(
 	
 	.valid_weight_in28(valid_weight_in28),
 	.weight_in28      (weight_in28      ),
-	
-	.valid_weight_in31(valid_weight_in31),
-	.weight_in31      (weight_in31      ),
 	
 	.valid_weight_in32(valid_weight_in32),
 	.weight_in32      (weight_in32      ),

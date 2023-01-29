@@ -78,7 +78,7 @@ wire                  valid_out       ;
 wire [DATA_WIDTH-1:0] out_conv1      ;
 wire                  valid_out_conv1;
 
-cnn_conv_12_13_14_15_16_17_3x3 #(
+cnn_conv_12_13_14_3x3 #(
     .DATA_WIDTH     (DATA_WIDTH  ),
     .IMAGE_WIDTH    (IMAGE_WIDTH ),
     .IMAGE_HEIGHT   (IMAGE_HEIGHT),
@@ -115,7 +115,7 @@ cnn_conv_relu #(.DATA_WIDTH(DATA_WIDTH)) relu1 (
 wire [DATA_WIDTH-1:0] out_conv2      ;
 wire                  valid_out_conv2;
 
-cnn_conv_12_13_14_15_16_17_3x3 #(
+cnn_conv_12_13_14_3x3 #(
     .DATA_WIDTH     (DATA_WIDTH  ),
     .IMAGE_WIDTH    (IMAGE_WIDTH ),
     .IMAGE_HEIGHT   (IMAGE_HEIGHT),
