@@ -391,15 +391,15 @@ cnn_conv_10_1x1 #(
     .CHANNEL_NUM_OUT(48            ),
     .KERNEL         (1             )
 ) conv1x1_2 (
-    .clk            (clk                      ),
-    .reset          (reset                    ),
-    .valid_in       (valid_out_resnet18_layer1),
-    .pxl_in         (out_resnet18_layer1      ),
-    .valid_weight_in(valid_weight_in32        ),
-    .weight_in      (weight_in32              ),
+    .clk            (clk                     ),
+    .reset          (reset                   ),
+    .valid_in       (valid_in_resnet18_layer1),
+    .pxl_in         (pxl_in_resnet18_layer1  ),
+    .valid_weight_in(valid_weight_in32       ),
+    .weight_in      (weight_in32             ),
     //output
-    .pxl_out        (out_conv1x1_2            ),
-    .valid_out      (valid_out_conv1x1_2      )
+    .pxl_out        (out_conv1x1_2           ),
+    .valid_out      (valid_out_conv1x1_2     )
 );
 
 // ReLU

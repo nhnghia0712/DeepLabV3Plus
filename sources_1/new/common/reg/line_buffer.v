@@ -118,14 +118,12 @@ reg [DATA_WIDTH-1:0] valid_out_next;
 reg enable;
 
 always @ (*) begin
+    enable <= enable;
     if (reset) begin
         enable <= 1'b0;
     end
     else if (valid_in) begin
         enable <= 1'b1;
-    end
-    else begin
-        enable <= enable;
     end
 end
 
