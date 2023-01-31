@@ -193,120 +193,129 @@ reg write_req;
 
 fifo_generator_4_256 inst_fifo08 (
 	//input
-	.clk  (clk               ),
-	.srst (reset             ),
-	.wr_en(write_req         ),
-	.rd_en(load_weights      ),
-	.din  (weight_out_08_next),
+	.clk        (clk               ),
+	.srst       (reset             ),
+	.wr_en      (write_req         ),
+	.rd_en      (load_weights      ),
+	.din        (weight_out_08_next),
 	//output
-	.dout (weight_out_08     ),
-	.full (/*no use*/        ),
-	.empty(/*no use*/        )
+	.dout       (weight_out_08     ),
+	.full       (/*no use*/        ),
+	.empty      (/*no use*/        ),
+	.almost_full(/*no use*/        )
 );
 
 fifo_generator_4_256 inst_fifo07 (
 	//input
-	.clk  (clk               ),
-	.srst (reset             ),
-	.wr_en(write_req         ),
-	.rd_en(load_weights      ),
-	.din  (weight_out_07_next),
+	.clk        (clk               ),
+	.srst       (reset             ),
+	.wr_en      (write_req         ),
+	.rd_en      (load_weights      ),
+	.din        (weight_out_07_next),
 	//output
-	.dout (weight_out_07     ),
-	.full (/*no use*/        ),
-	.empty(/*no use*/        )
+	.dout       (weight_out_07     ),
+	.full       (/*no use*/        ),
+	.empty      (/*no use*/        ),
+	.almost_full(/*no use*/        )
 );
 
 fifo_generator_4_256 inst_fifo06 (
 	//input
-	.clk  (clk               ),
-	.srst (reset             ),
-	.wr_en(write_req         ),
-	.rd_en(load_weights      ),
-	.din  (weight_out_06_next),
+	.clk        (clk               ),
+	.srst       (reset             ),
+	.wr_en      (write_req         ),
+	.rd_en      (load_weights      ),
+	.din        (weight_out_06_next),
 	//output
-	.dout (weight_out_06     ),
-	.full (/*no use*/        ),
-	.empty(/*no use*/        )
+	.dout       (weight_out_06     ),
+	.full       (/*no use*/        ),
+	.empty      (/*no use*/        ),
+	.almost_full(/*no use*/        )
 );
 
 fifo_generator_4_256 inst_fifo05 (
 	//input
-	.clk  (clk               ),
-	.srst (reset             ),
-	.wr_en(write_req         ),
-	.rd_en(load_weights      ),
-	.din  (weight_out_05_next),
+	.clk        (clk               ),
+	.srst       (reset             ),
+	.wr_en      (write_req         ),
+	.rd_en      (load_weights      ),
+	.din        (weight_out_05_next),
 	//output
-	.dout (weight_out_05     ),
-	.full (/*no use*/        ),
-	.empty(/*no use*/        )
+	.dout       (weight_out_05     ),
+	.full       (/*no use*/        ),
+	.empty      (/*no use*/        ),
+	.almost_full(/*no use*/        )
 );
 
 
 fifo_generator_4_256 inst_fifo04 (
 	//input
-	.clk  (clk               ),
-	.srst (reset             ),
-	.wr_en(write_req         ),
-	.rd_en(load_weights      ),
-	.din  (weight_out_04_next),
+	.clk        (clk               ),
+	.srst       (reset             ),
+	.wr_en      (write_req         ),
+	.rd_en      (load_weights      ),
+	.din        (weight_out_04_next),
 	//output
-	.dout (weight_out_04     ),
-	.full (/*no use*/        ),
-	.empty(/*no use*/        )
+	.dout       (weight_out_04     ),
+	.full       (/*no use*/        ),
+	.empty      (/*no use*/        ),
+	.almost_full(/*no use*/        )
 );
 
 fifo_generator_4_256 inst_fifo03 (
 	//input
-	.clk  (clk               ),
-	.srst (reset             ),
-	.wr_en(write_req         ),
-	.rd_en(load_weights      ),
-	.din  (weight_out_03_next),
+	.clk        (clk               ),
+	.srst       (reset             ),
+	.wr_en      (write_req         ),
+	.rd_en      (load_weights      ),
+	.din        (weight_out_03_next),
 	//output
-	.dout (weight_out_03     ),
-	.full (/*no use*/        ),
-	.empty(/*no use*/        )
+	.dout       (weight_out_03     ),
+	.full       (/*no use*/        ),
+	.empty      (/*no use*/        ),
+	.almost_full(/*no use*/        )
 );
 
 fifo_generator_4_256 inst_fifo02 (
 	//input
-	.clk  (clk               ),
-	.srst (reset             ),
-	.wr_en(write_req         ),
-	.rd_en(load_weights      ),
-	.din  (weight_out_02_next),
+	.clk        (clk               ),
+	.srst       (reset             ),
+	.wr_en      (write_req         ),
+	.rd_en      (load_weights      ),
+	.din        (weight_out_02_next),
 	//output
-	.dout (weight_out_02     ),
-	.full (/*no use*/        ),
-	.empty(/*no use*/        )
+	.dout       (weight_out_02     ),
+	.full       (/*no use*/        ),
+	.empty      (/*no use*/        ),
+	.almost_full(/*no use*/        )
 );
 
 fifo_generator_4_256 inst_fifo01 (
 	//input
-	.clk  (clk               ),
-	.srst (reset             ),
-	.wr_en(write_req         ),
-	.rd_en(load_weights      ),
-	.din  (weight_out_01_next),
+	.clk        (clk               ),
+	.srst       (reset             ),
+	.wr_en      (write_req         ),
+	.rd_en      (load_weights      ),
+	.din        (weight_out_01_next),
 	//output
-	.dout (weight_out_01     ),
-	.full (/*no use*/        ),
-	.empty(/*no use*/        )
+	.dout       (weight_out_01     ),
+	.full       (/*no use*/        ),
+	.empty      (/*no use*/        ),
+	.almost_full(/*no use*/        )
 );
 
 fifo_generator_4_256 inst_fifo00 (
 	//input
-	.clk  (clk               ),
-	.srst (reset             ),
-	.wr_en(write_req         ),
-	.rd_en(load_weights      ),
-	.din  (weight_out_00_next),
+	.clk        (clk               ),
+	.srst       (reset             ),
+	.wr_en      (write_req         ),
+	.rd_en      (load_weights      ),
+	.din        (weight_out_00_next),
 	//output
-	.dout (weight_out_00     ),
-	.full (/*no use*/        ),
-	.empty(/*no use*/        )
+	.dout       (weight_out_00     ),
+	.full       (/*no use*/        ),
+	.empty      (/*no use*/        ),
+	.almost_full(/*no use*/        )
 );
 
 //Shift

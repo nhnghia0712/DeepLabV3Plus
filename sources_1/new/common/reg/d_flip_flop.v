@@ -61,7 +61,7 @@ always @(posedge clk) begin
   end
   else begin
     out       <= in;
-    valid_out <= 1'b1;
+    valid_out <= valid_in;
   end
 end
 

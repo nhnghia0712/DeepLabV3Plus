@@ -20,9 +20,9 @@ localparam KERNEL_SIZE          = KERNEL * KERNEL                 ; // 3x3
 localparam CHANNEL_NUM_IN_PIXEL = CHANNEL_NUM_IN * IMAGE_SIZE     ;
 localparam WEIGHT_NUM           = CHANNEL_NUM * KERNEL_SIZE       ; // 2x2x3x3
 
-localparam IMAGE_INPUT_FILE = "D:/GitHub/CNNs/Text_file/Input/R.txt";
-localparam WEIGHTS_INPUT_FILE = "D:/GitHub/CNNs/Text_file/Input/weight_test.txt";
-localparam IMAGE_OUTPUT_FILE = "D:/GitHub/CNNs/Text_file/Output/Output_cnn_conv_7x7_64.txt";
+localparam IMAGE_INPUT_FILE = "D:/GitHub/CNNs/Text_file/Input/Input_image/1499_satRGB_h.txt";
+localparam WEIGHTS_INPUT_FILE = "D:/GitHub/CNNs/Text_file/Input/Weight_hex/Encoder/encoder.conv1.weight.txt";
+localparam IMAGE_OUTPUT_FILE = "D:/GitHub/CNNs/Text_file/Output/Output_cnn_conv_01_7x7.txt";
 
 localparam ENDTIME          = ((IMAGE_WIDTH * 3) + 63 + ((IMAGE_SIZE + (3 * (IMAGE_WIDTH + 1))) * 2) + 19 + (((((IMAGE_WIDTH * 3 ) + 3 + IMAGE_SIZE) * CHANNEL_NUM_IN) - IMAGE_SIZE)) * (CHANNEL_NUM_OUT - 1) + (IMAGE_SIZE/4) * CHANNEL_NUM_OUT)*2;
 localparam SIMULATION_CYCLE = SIMULATION_CLOCK * 2                                                                                                                                                                                                 ;
@@ -56,7 +56,7 @@ initial begin
 	valid_in <= 1'b0;
 	valid_weight_in = 1'b0;
 
-	$readmemb(IMAGE_INPUT_FILE, image_input);
+	$readmemh(IMAGE_INPUT_FILE, image_input);
 	$readmemh(WEIGHTS_INPUT_FILE, weight_input);
 
 	image_output = $fopen(IMAGE_OUTPUT_FILE);
@@ -65,22 +65,24 @@ end
 always #(SIMULATION_CLOCK) clk = ~ clk;
 
 always @(posedge clk) begin
-	pxl_in   <= image_input[i];
-	valid_in <= 1'b1;
-	if (i >= CHANNEL_NUM_IN_PIXEL) begin
-		valid_in <= 1'b0;
-	end
-	weight_in       <= weight_input[i];
-	valid_weight_in <= 1'b1;
-	if (i >= WEIGHT_NUM) begin
-		valid_weight_in <= 1'b0;
-	end
-	#(SIMULATION_CYCLE) i <= i + 1'b1;
-	if(valid_out == 1'b1)begin
-		$fdisplay(image_output,"%h",pxl_out);
-	end
-	if(i == ENDTIME) begin
-		$finish;
+	if (~reset) begin
+		pxl_in   <= image_input[i];
+		valid_in <= 1'b1;
+		if (i >= CHANNEL_NUM_IN_PIXEL) begin
+			valid_in <= 1'b0;
+		end
+		weight_in       <= weight_input[i];
+		valid_weight_in <= 1'b1;
+		if (i >= WEIGHT_NUM) begin
+			valid_weight_in <= 1'b0;
+		end
+		i <= i + 1'b1; #(SIMULATION_CYCLE)
+			if(valid_out)begin
+				$fdisplay(image_output,"%h",pxl_out);
+			end
+		if(i == ENDTIME) begin
+			$finish;
+		end
 	end
 end
 

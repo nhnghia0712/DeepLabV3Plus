@@ -14,7 +14,7 @@ parameter DATA_WIDTH = 32;
 	localparam IMAGE_SIZE           = IMAGE_WIDTH * IMAGE_HEIGHT ;
 	localparam CHANNEL_NUM_IN_PIXEL = IMAGE_SIZE * CHANNEL_NUM_IN;
 
-	localparam IMAGE_INPUT_FILE = "D:/GitHub/CNNs/Text_file/Input/R.txt"; // Input Image
+	localparam IMAGE_INPUT_FILE = "D:/GitHub/CNNs/Text_file/Input/Input_image/1499_satRGB_h.txt"; // Input Image
 	localparam IMAGE_OUTPUT_FILE = "D:/GitHub/CNNs/Text_file/Output/Output_model_top_cnn.txt"; // Output Image
 
 	localparam WEIGHTS_INPUT_FILE = "D:/GitHub/CNNs/Text_file/Input/Weight_hex/NghiaNg/top.general.weight.txt"; // General

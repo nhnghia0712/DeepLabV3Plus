@@ -174,7 +174,7 @@ blk_mem_gen_6_196608 inst_mem (
 	.clka (clk                  ),
 	.ena  (enable               ),
 	.wea  (rd_wr_sel            ),
-	.addra(addra[ADDR_WIDTH-2:1]),
+	.addra(addra[ADDR_WIDTH-2:0]),
 	.dina (pxl_in_next          ),
 	.douta(pxl_out              )
 );
