@@ -62,7 +62,7 @@ wire                  valid_in;
 wire [DATA_WIDTH-1:0] pxl_in  ;
 
 wire [DATA_WIDTH-1:0] pxl_out  ;
-reg                   valid_out;
+wire                  valid_out;
 
 // Read loop data
 wire [DATA_WIDTH-1:0] loop_data_out      ;
@@ -164,12 +164,15 @@ d_flip_flop #(.DATA_WIDTH(DATA_WIDTH)) dff8 (
 
 // Align output
 // FIFO
+wire [DATA_WIDTH-1:0] pxl_out_temp  ;
+reg                   valid_out_temp;
+
 wire fifo_full_1 ;
 wire fifo_empty_1;
 
 reg read_en;
 
-always @(posedge clk) begin : proc_
+always @(posedge clk) begin
   if(reset) begin
     read_en <= 1'b0;
   end
@@ -186,18 +189,28 @@ fifo_generator_0 inst_fifo1 (
 	.rd_en(read_en           ),
 	.din  (pxl_out_core_dff  ),
 	//output
-	.dout (pxl_out           ),
+	.dout (pxl_out_temp      ),
 	.full (fifo_full_1       ),
 	.empty(fifo_empty_1      )
 );
 
 always @(posedge clk) begin
   if(reset) begin
-    valid_out <= 1'b0;
+    valid_out_temp <= 1'b0;
   end
   else begin
-    valid_out <= read_en & !fifo_empty_1;
+    valid_out_temp <= read_en & !fifo_empty_1;
   end
 end
+
+// DFF
+d_flip_flop #(.DATA_WIDTH(DATA_WIDTH)) dff_out (
+	.clk      (clk           ),
+	.reset    (reset         ),
+	.valid_in (valid_out_temp),
+	.in       (pxl_out_temp  ),
+	.out      (pxl_out       ),
+	.valid_out(valid_out     )
+);
 
 endmodule

@@ -425,6 +425,7 @@ cnn_conv_relu #(.DATA_WIDTH(DATA_WIDTH)) relu5 (
     .out      (out_relu_5      ),
     .valid_out(valid_out_relu_5)
 );
+
 // Maxp 3x3
 wire [DATA_WIDTH-1:0] out_maxp3x3      ;
 wire                  valid_out_maxp3x3;
