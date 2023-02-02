@@ -12,12 +12,12 @@ parameter IMAGE_HEIGHT = 16; //Height
 parameter KERNEL       = 3  ; //3*3 Kernel
 parameter RATE         = 1  ; //3*3 Kernel
 
-localparam CHANNEL_NUM_IN       = 4                          ; //The number of channel
+localparam CHANNEL_NUM_IN       = 512                        ; //The number of channel
 localparam IMAGE_SIZE           = IMAGE_WIDTH * IMAGE_HEIGHT ;
 localparam CHANNEL_NUM_IN_PIXEL = CHANNEL_NUM_IN * IMAGE_SIZE;
 
 localparam IMAGE_INPUT_FILE = "D:/GitHub/CNNs/Text_file/Input/Input_image/1499_satRGB_h.txt";
-localparam IMAGE_OUTPUT_FILE = "D:/GitHub/CNNs/Text_file/Output/Output_cnn_maxp_3x3_test.txt";
+localparam IMAGE_OUTPUT_FILE = "D:/GitHub/CNNs/Text_file/Output/Output_cnn_avgp_3x3_test_fifo.txt";
 
 
 parameter ENDTIME          = IMAGE_WIDTH + 9 + (CHANNEL_NUM_IN * (IMAGE_SIZE + IMAGE_WIDTH + 1)) + ((IMAGE_SIZE/4) * CHANNEL_NUM_IN);
@@ -86,7 +86,7 @@ end
 //     .valid_out(valid_out_relu_5)
 // );
 
-cnn_maxp_3x3_test DUT (
+cnn_avgp_01_3x3 DUT (
 	.clk      (clk      ),
 	.reset    (reset    ),
 	.valid_in (valid_in ),

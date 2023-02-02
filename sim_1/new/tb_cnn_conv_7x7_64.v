@@ -86,13 +86,7 @@ always @(posedge clk) begin
 	end
 end
 
-cnn_conv_7x7_test #(
-	.IMAGE_WIDTH    (IMAGE_WIDTH    ),
-	.IMAGE_HEIGHT   (IMAGE_HEIGHT   ),
-	.CHANNEL_NUM_IN (CHANNEL_NUM_IN ),
-	.CHANNEL_NUM_OUT(CHANNEL_NUM_OUT),
-	.KERNEL         (KERNEL         )
-) DUT (
+cnn_conv_7x7_test DUT (
 	.clk            (clk            ),
 	.reset          (reset          ),
 	.valid_in       (valid_in       ),
