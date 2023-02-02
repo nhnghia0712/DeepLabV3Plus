@@ -181,17 +181,34 @@ always @(posedge clk) begin
   end
 end
 
-fifo_generator_0 inst_fifo1 (
+// fifo_generator_0 inst_fifo1 (
+// 	//input
+// 	.clk  (clk               ),
+// 	.srst (reset             ),
+// 	.wr_en(valid_out_core_dff),
+// 	.rd_en(read_en           ),
+// 	.din  (pxl_out_core_dff  ),
+// 	//output
+// 	.dout (pxl_out_temp      ),
+// 	.full (fifo_full_1       ),
+// 	.empty(fifo_empty_1      )
+// );
+
+cnn_fifo #(
+	.DATA_WIDTH   (DATA_WIDTH    ),
+	.DATA_DEPTH   (131072        ),
+	.POINTER_WIDTH($clog2(131072))
+) inst_fifo1 (
 	//input
-	.clk  (clk               ),
-	.srst (reset             ),
-	.wr_en(valid_out_core_dff),
-	.rd_en(read_en           ),
-	.din  (pxl_out_core_dff  ),
+	.clk     (clk               ),
+	.reset   (reset             ),
+	.write   (valid_out_core_dff),
+	.read    (read_en           ),
+	.data_in (pxl_out_core_dff  ),
 	//output
-	.dout (pxl_out_temp      ),
-	.full (fifo_full_1       ),
-	.empty(fifo_empty_1      )
+	.data_out(pxl_out_temp      ),
+	.full    (fifo_full_1       ),
+	.empty   (fifo_empty_1      )
 );
 
 always @(posedge clk) begin
