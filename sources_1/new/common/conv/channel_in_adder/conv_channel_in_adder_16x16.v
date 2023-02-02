@@ -155,6 +155,9 @@ always @(posedge clk) begin
   end
 end
 
+wire [DATA_WIDTH-1:0] out_add_next      ;
+wire                  valid_out_add_next;
+
 assign pxl_out   = ((cnt_channel_add == CHANNEL_NUM_IN) && valid_out_add_next && (|cnt_size_add[POINTER_WIDTH-1:0])) ? out_add_next:32'd0;
 assign valid_out = ((cnt_channel_add == CHANNEL_NUM_IN) && valid_out_add_next && (|cnt_size_add[POINTER_WIDTH-1:0])) ? valid_out_add_next:1'b0;
 
@@ -182,9 +185,6 @@ floating_point_1_add inst_add1 (
 );
 
 // DFF
-wire [DATA_WIDTH-1:0] out_add_next      ;
-wire                  valid_out_add_next;
-
 d_flip_flop #(.DATA_WIDTH(DATA_WIDTH)) dff03 (
   .clk      (clk               ),
   .reset    (reset             ),

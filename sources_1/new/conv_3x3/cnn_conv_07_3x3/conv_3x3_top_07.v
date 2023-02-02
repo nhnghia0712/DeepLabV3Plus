@@ -43,7 +43,7 @@ parameter RATE            = 1  ; //Rate of dialtion
 
 `include "D:/GitHub/CNNs/CNN_DeepLabV3Plus/CNN_DeepLabV3Plus.srcs/sources_1/new/param/param_def_conv_3x3.vh"
 // KhaiT
-// `include "/home/khait/zipfile/deep/new/param/param_def_conv_3x3.vh"
+// `include "/home/khait/Desktop/zipfile/deep/sources_1/new/param/param_def_conv_3x3.vh"
 
 /////////////////////////////////////////////////////////////////////////
 // Port Declarations
