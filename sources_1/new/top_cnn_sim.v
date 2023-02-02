@@ -612,7 +612,7 @@ cnn_conv_relu #(.DATA_WIDTH(DATA_WIDTH)) relu1 (
 wire [DATA_WIDTH-1:0] out_upsampling_1      ;
 wire                  valid_out_upsampling_1;
 
-cnn_upsampling_nn #(
+cnn_upsampling_nn_01 #(
     .DATA_WIDTH  (DATA_WIDTH     ),
     .IMAGE_WIDTH (IMAGE_WIDTH/16 ),
     .IMAGE_HEIGHT(IMAGE_HEIGHT/16),
@@ -829,7 +829,7 @@ cnn_conv_13_1x1 #(
 wire [DATA_WIDTH-1:0] out_upsampling_2      ;
 wire                  valid_out_upsampling_2;
 
-cnn_upsampling_nn #(
+cnn_upsampling_nn_02 #(
     .DATA_WIDTH  (DATA_WIDTH    ),
     .IMAGE_WIDTH (IMAGE_WIDTH/4 ),
     .IMAGE_HEIGHT(IMAGE_HEIGHT/4),

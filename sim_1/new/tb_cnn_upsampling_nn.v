@@ -7,20 +7,20 @@ module tb_cnn_upsampling_nn ();
 parameter DATA_WIDTH  = 32;
 
 // General
-parameter IMAGE_WIDTH  = 612; //Width
-parameter IMAGE_HEIGHT = 612; //Height
-parameter CHANNEL_NUM  = 1  ; //The number of channel
+parameter IMAGE_WIDTH  = 16; //Width
+parameter IMAGE_HEIGHT = 16; //Height
+parameter CHANNEL_NUM  = 256 ; //The number of channel
 
 localparam IMAGE_SIZE        = IMAGE_WIDTH * IMAGE_HEIGHT;
 localparam CHANNEL_NUM_PIXEL = CHANNEL_NUM * IMAGE_SIZE  ;
 
-localparam IMAGE_INPUT_FILE = "D:/GitHub/CNNs/Text_file/Input/R.txt";
-localparam IMAGE_OUTPUT_FILE = "D:/GitHub/CNNs/Text_file/Output/Output_cnn_upsampling_nn_612x612_2448x2448.txt";
+localparam IMAGE_INPUT_FILE = "D:/GitHub/CNNs/Text_file/Input/Input_image/1499_satRGB_h.txt";
+localparam IMAGE_OUTPUT_FILE = "D:/GitHub/CNNs/Text_file/Output/Output_cnn_upsampling_nn_01.txt";
 
 
-parameter ENDTIME          = 12000000;
-parameter SIMULATION_CLOCK = 5       ;
-parameter SIMULATION_CYCLE = 10      ;
+parameter ENDTIME          = 21000;
+parameter SIMULATION_CLOCK = 5    ;
+parameter SIMULATION_CYCLE = 10   ;
 
 
 reg                  clk     ;
@@ -46,33 +46,30 @@ initial begin
 		reset = 0;
 	valid_in <= 1'b0;
 
-	$readmemb(IMAGE_INPUT_FILE, image_input);
+	$readmemh(IMAGE_INPUT_FILE, image_input);
 	image_output = $fopen(IMAGE_OUTPUT_FILE);
 end
 
 always #(SIMULATION_CLOCK) clk = ~ clk;
 
 always @(posedge clk) begin
-	pxl_in   <= image_input[i];
-	valid_in <= 1'b1;
-	if (i >= CHANNEL_NUM_PIXEL) begin
-		valid_in <= 1'b0;
-	end
-	#(SIMULATION_CYCLE) i <= i + 1'b1;
-	if(valid_out == 1'b1)begin
-		$fdisplay(image_output,"%h",pxl_out);
-	end
-	if(i == ENDTIME) begin
-		$finish;
+	if (!reset) begin
+		pxl_in   <= image_input[i];
+		valid_in <= 1'b1;
+		if (i >= CHANNEL_NUM_PIXEL) begin
+			valid_in <= 1'b0;
+		end
+		i <= i + 1'b1; #(SIMULATION_CYCLE)
+			if(valid_out)begin
+				$fdisplay(image_output,"%h",pxl_out);
+			end
+		if(i == ENDTIME) begin
+			$finish;
+		end
 	end
 end
 
-	cnn_upsampling_nn #(
-		.DATA_WIDTH  (DATA_WIDTH  ),
-		.IMAGE_WIDTH (IMAGE_WIDTH ),
-		.IMAGE_HEIGHT(IMAGE_HEIGHT),
-		.CHANNEL_NUM (CHANNEL_NUM )
-	) DUT (
+	cnn_upsampling_nn_01 DUT (
 		.clk      (clk      ),
 		.reset    (reset    ),
 		.valid_in (valid_in ),

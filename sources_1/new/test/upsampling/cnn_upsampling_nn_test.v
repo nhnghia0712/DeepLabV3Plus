@@ -19,7 +19,7 @@
 
 ///////////////////////////////////////////////////////////////////////
 
-module cnn_upsampling_nn (
+module cnn_upsampling_nn_test (
   clk, 
   reset,
   valid_in,
@@ -32,9 +32,9 @@ module cnn_upsampling_nn (
 /////////////////////////////////////////////////////////////////////////
 // Parameter Declarations
 // General
-parameter IMAGE_WIDTH  = 64; //Width
-parameter IMAGE_HEIGHT = 64; //Height
-parameter CHANNEL_NUM  = 7 ; //The number of channel
+parameter IMAGE_WIDTH  = 16; //Width
+parameter IMAGE_HEIGHT = 16; //Height
+parameter CHANNEL_NUM  = 4 ; //The number of channel
 
 `include "D:/GitHub/CNNs/CNN_DeepLabV3Plus/CNN_DeepLabV3Plus.srcs/sources_1/new/param/param_def_upsampling_nn.vh"
 // KhaiT
@@ -59,8 +59,11 @@ wire                  reset   ;
 wire                  valid_in;
 wire [DATA_WIDTH-1:0] pxl_in  ;
 
-reg [DATA_WIDTH-1:0] pxl_out  ;
-reg                  valid_out;
+wire [DATA_WIDTH-1:0] pxl_out  ;
+reg                   valid_out;
+
+reg [DATA_WIDTH-1:0] pxl_out_up  ;
+reg                  valid_out_up;
 
 // Mem
 reg [DATA_WIDTH-1:0] mem [CHANNEL_NUM_PIXEL-1:0];
@@ -87,8 +90,8 @@ reg [CNT_CHANNEL_WIDTH-1:0] cnt_channel;
 
 always @(posedge clk) begin
 	if(reset) begin
-		pxl_out   <= {DATA_WIDTH{1'b0}};
-		valid_out <= 1'b0;
+		pxl_out_up   <= {DATA_WIDTH{1'b0}};
+		valid_out_up <= 1'b0;
 
 		cnt_height  <= {CNT_HEIGHT_WIDTH{1'b0}};
 		cnt_up_row  <= 3'd0;
@@ -99,16 +102,16 @@ always @(posedge clk) begin
 	else if ((cnt_channel < CHANNEL_NUM) && (waddr > {ADDR_WIDTH{1'b0}})) begin
 		if (cnt_height < IMAGE_HEIGHT) begin
 			if (cnt_up_row < 3'd4) begin
-				if (raddr < IMAGE_WIDTH * (1 + cnt_height) + (cnt_channel * IMAGE_SIZE)) begin
+				if (raddr < (IMAGE_WIDTH * (1 + cnt_height) + (cnt_channel * IMAGE_SIZE))) begin
 					if (cnt_up_col < 3'd4) begin
-						pxl_out    <= mem[raddr];
-						valid_out  <= 1'b1;
-						cnt_up_col <= cnt_up_col + 1'b1;
+						pxl_out_up   <= mem[raddr];
+						valid_out_up <= 1'b1;
+						cnt_up_col   <= cnt_up_col + 1'b1;
 					end
 					else begin
-						valid_out  <= 1'b0;
-						raddr      <= raddr + 1'b1;
-						cnt_up_col <= 3'd0;
+						valid_out_up <= 1'b0;
+						raddr        <= raddr + 1'b1;
+						cnt_up_col   <= 3'd0;
 					end
 				end
 				else begin
@@ -130,6 +133,44 @@ always @(posedge clk) begin
 			cnt_up_col  <= 3'd0;
 		end
 	end
+end
+
+// Align output
+// FIFO
+wire fifo_full_1 ;
+wire fifo_empty_1;
+
+reg read_en;
+
+always @(posedge clk) begin
+  if(reset) begin
+    read_en <= 1'b0;
+  end
+  else if (fifo_full_1) begin
+    read_en <= 1'b1;
+  end
+end
+
+fifo_generator_3_16384 inst_fifo1 (
+	//input
+	.clk  (clk         ),
+	.srst (reset       ),
+	.wr_en(valid_out_up),
+	.rd_en(read_en     ),
+	.din  (pxl_out_up  ),
+	//output
+	.dout (pxl_out     ),
+	.full (fifo_full_1 ),
+	.empty(fifo_empty_1)
+);
+
+always @(posedge clk) begin
+  if(reset) begin
+    valid_out <= 1'b0;
+  end
+  else begin
+    valid_out <= read_en & !fifo_empty_1;
+  end
 end
 
 endmodule
