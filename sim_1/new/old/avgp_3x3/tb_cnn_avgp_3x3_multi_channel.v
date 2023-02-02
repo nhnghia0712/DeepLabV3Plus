@@ -7,16 +7,16 @@ module tb_cnn_avgp_3x3_multi_channel ();
 parameter DATA_WIDTH  = 32;
 
 // General
-parameter IMAGE_WIDTH  = 153 ; //Width
-parameter IMAGE_HEIGHT = 153 ; //Height
-parameter KERNEL       = 3   ; //3*3 Kernel
-parameter RATE         = 1   ; //3*3 Kernel
+parameter IMAGE_WIDTH  = 16; //Width
+parameter IMAGE_HEIGHT = 16; //Height
+parameter KERNEL       = 3 ; //3*3 Kernel
+parameter RATE         = 1 ; //3*3 Kernel
 
-localparam CHANNEL_NUM_IN       = 2048                       ; //The number of channel
+localparam CHANNEL_NUM_IN       = 4                          ; //The number of channel
 localparam IMAGE_SIZE           = IMAGE_WIDTH * IMAGE_HEIGHT ;
 localparam CHANNEL_NUM_IN_PIXEL = CHANNEL_NUM_IN * IMAGE_SIZE;
 
-localparam IMAGE_INPUT_FILE = "D:/GitHub/CNNs/Text_file/Input/R.txt";
+localparam IMAGE_INPUT_FILE = "D:/GitHub/CNNs/Text_file/Input/Input_image/1499_satRGB_h.txt";
 localparam IMAGE_OUTPUT_FILE = "D:/GitHub/CNNs/Text_file/Output/Output_cnn_avgp_3x3_test.txt";
 
 

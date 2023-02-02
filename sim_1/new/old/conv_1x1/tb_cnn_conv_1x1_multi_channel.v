@@ -7,11 +7,11 @@ module tb_cnn_conv_1x1_multi_channel ();
 	parameter DATA_WIDTH = 32;
 
 // General
-	parameter IMAGE_WIDTH     = 16  ; //Width
-	parameter IMAGE_HEIGHT    = 16  ; //Height
-	parameter CHANNEL_NUM_IN  = 1280; //The number of channel in
-	parameter CHANNEL_NUM_OUT = 256 ; //The number of channel out
-	parameter KERNEL          = 1   ; //Kernel width
+	parameter IMAGE_WIDTH     = 16; //Width
+	parameter IMAGE_HEIGHT    = 16; //Height
+	parameter CHANNEL_NUM_IN  = 4 ; //The number of channel in
+	parameter CHANNEL_NUM_OUT = 4 ; //The number of channel out
+	parameter KERNEL          = 1 ; //Kernel width
 
 // Localparam general
 	localparam KERNEL_SIZE          = KERNEL * KERNEL                 ;
@@ -21,9 +21,9 @@ module tb_cnn_conv_1x1_multi_channel ();
 	localparam WEIGHT_NUM           = CHANNEL_NUM * KERNEL_SIZE       ; // 2x2x3x3
 
 
-	localparam IMAGE_INPUT_FILE = "D:/GitHub/CNNs/Text_file/Input/R.txt";
-	localparam WEIGHTS_INPUT_FILE = "D:/GitHub/CNNs/Text_file/Input/weight_test.txt";
-	localparam IMAGE_OUTPUT_FILE = "D:/GitHub/CNNs/Text_file/Output/Output_cnn_conv_1x1_stride1_test.txt";
+	localparam IMAGE_INPUT_FILE = "D:/GitHub/CNNs/Text_file/Input/Input_image/1499_satRGB_h.txt";
+	localparam WEIGHTS_INPUT_FILE = "D:/GitHub/CNNs/Text_file/Input/Weight_hex/Encoder/encoder.conv1.weight.txt";
+	localparam IMAGE_OUTPUT_FILE = "D:/GitHub/CNNs/Text_file/Output/Output_cnn_conv_1x1_test.txt";
 
 
 	localparam ENDTIME          = 8 + ((IMAGE_SIZE + IMAGE_WIDTH + 1) * (CHANNEL_NUM_IN - 1)) + 1 + (9 * $clog2(CHANNEL_NUM_IN)) + ((((IMAGE_WIDTH + 1 + IMAGE_SIZE) * CHANNEL_NUM_IN) - IMAGE_SIZE)) * (CHANNEL_NUM_OUT - 1);
@@ -59,7 +59,7 @@ module tb_cnn_conv_1x1_multi_channel ();
 		valid_in = 1'b0;
 		valid_weight_in = 1'b0;
 
-		$readmemb(IMAGE_INPUT_FILE, image_input);
+		$readmemh(IMAGE_INPUT_FILE, image_input);
 		$readmemh(WEIGHTS_INPUT_FILE, weight_input);
 
 		image_output = $fopen(IMAGE_OUTPUT_FILE);
@@ -89,7 +89,7 @@ module tb_cnn_conv_1x1_multi_channel ();
 			end
 		end
 	end
-	cnn_conv_09_1x1 #(
+	cnn_conv_1x1_test #(
 		.DATA_WIDTH     (DATA_WIDTH     ),
 		.IMAGE_WIDTH    (IMAGE_WIDTH    ),
 		.IMAGE_HEIGHT   (IMAGE_HEIGHT   ),

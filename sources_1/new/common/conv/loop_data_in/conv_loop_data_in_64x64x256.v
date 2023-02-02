@@ -63,7 +63,7 @@ wire                  valid_in;
 wire [DATA_WIDTH-1:0] pxl_in  ;
 
 wire [DATA_WIDTH-1:0] pxl_out  ;
-reg                   valid_out;
+wire                  valid_out;
 
 reg  [ADDR_WIDTH-1:0] addra        ;
 reg                   rd_wr_sel_tmp;
@@ -113,12 +113,22 @@ always @(posedge clk) begin
 				valid_out_tmp <= 1'b0;
 			end
 		end
-		else if (cnt_channel == CHANNEL_NUM_OUT + 1) begin
-			addra         <= addra;
-			valid_out_tmp <= 1'b0;
+		else if (cnt_channel == (CHANNEL_NUM_OUT + 1)) begin
+			if (addra < (CHANNEL_NUM_IN_PIXEL + 1)) begin
+				addra         <= addra + 1'b1;
+				valid_out_tmp <= 1'b1;
+			end
+			else begin
+				addra         <= addra;
+				valid_out_tmp <= 1'b0;
+			end
 		end
 		else begin
-			if ((cnt_wait < ((IMAGE_WIDTH * RATE) + RATE)) && (cnt_channel > 1)) begin
+			if ((addra == CHANNEL_NUM_IN_PIXEL) && (cnt_channel > 1)) begin
+				addra         <= addra + 1'b1;
+				valid_out_tmp <= 1'b1;
+			end
+			else if ((cnt_wait < (((IMAGE_WIDTH * RATE) + RATE) * 2)) && (cnt_channel > 1)) begin
 				cnt_wait      <= cnt_wait + 1'b1;
 				valid_out_tmp <= 1'b0;
 			end
@@ -190,13 +200,16 @@ always @(posedge clk) begin
 	end
 end
 
-always @(posedge clk) begin
-	if(reset) begin
-		valid_out <= 1'b0;
-	end
-	else begin
-		valid_out <= valid_out_next | sel_signal | sel_signal_more;
-	end
-end
+// always @(posedge clk) begin
+// 	if(reset) begin
+// 		valid_out <= 1'b0;
+// 	end
+// 	else begin
+// 		valid_out <= valid_out_next | sel_signal | sel_signal_more;
+// 	end
+// end
+
+assign valid_out = (valid_out_next | sel_signal_more) & !sel_signal ;
+
 
 endmodule

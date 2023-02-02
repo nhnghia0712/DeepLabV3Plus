@@ -192,9 +192,38 @@ wire                  valid_out_sel;
 assign out_sel       = (cnt_channel < {{CNT_CHANNEL_IN_WIDTH-2{1'b0}},1'b1,1'b0}) ? 32'd0:out_fifo;
 assign valid_out_sel = (cnt_channel < {{CNT_CHANNEL_IN_WIDTH-2{1'b0}},1'b1,1'b0}) ? 1'b1:valid_out_fifo;
 
+reg [POINTER_WIDTH-1:0] cnt_size_add;
 
-assign pxl_out   = ((cnt_channel == CHANNEL_NUM_IN) && valid_out_add) ? out_add:32'd0;
-assign valid_out = ((cnt_channel == CHANNEL_NUM_IN) && valid_out_add) ? valid_out_add:1'b0;
+always @(posedge clk) begin
+  if(reset) begin
+    cnt_size_add <= {POINTER_WIDTH{1'b0}};
+  end
+  else if (valid_out_add && cnt_size_add < IMAGE_SIZE) begin
+    cnt_size_add <= cnt_size_add + 1'b1;
+  end
+  else begin
+    cnt_size_add <= {POINTER_WIDTH{1'b0}};
+  end
+end
+
+reg [CNT_CHANNEL_IN_WIDTH-1:0] cnt_channel_add;
+
+always @(posedge clk) begin
+  if(reset) begin
+    cnt_channel_add <= {CNT_CHANNEL_IN_WIDTH{1'b0}};
+  end
+  else if (!(|cnt_size_add[POINTER_WIDTH-1:0]) && valid_out_add) begin
+    if (cnt_channel_add < CHANNEL_NUM_IN) begin
+      cnt_channel_add <= cnt_channel_add + 1'b1;
+    end
+    else begin
+      cnt_channel_add <= {{CNT_CHANNEL_IN_WIDTH-1{1'b0}},1'b1};
+    end
+  end
+end
+
+assign pxl_out   = ((cnt_channel_add == CHANNEL_NUM_IN) && valid_out_add_next && (|cnt_size_add[POINTER_WIDTH-1:0])) ? out_add_next:32'd0;
+assign valid_out = ((cnt_channel_add == CHANNEL_NUM_IN) && valid_out_add_next && (|cnt_size_add[POINTER_WIDTH-1:0])) ? valid_out_add_next:1'b0;
 
 wire fifo_full;
 
@@ -217,6 +246,19 @@ floating_point_1_add inst_add1 (
   .s_axis_b_tdata      (out_sel      ),
   .m_axis_result_tdata (out_add      ),
   .m_axis_result_tvalid(valid_out_add)
+);
+
+// DFF
+wire [DATA_WIDTH-1:0] out_add_next      ;
+wire                  valid_out_add_next;
+
+d_flip_flop #(.DATA_WIDTH(DATA_WIDTH)) dff03 (
+  .clk      (clk               ),
+  .reset    (reset             ),
+  .valid_in (valid_out_add     ),
+  .in       (out_add           ),
+  .out      (out_add_next      ),
+  .valid_out(valid_out_add_next)
 );
 
 reg read_en;

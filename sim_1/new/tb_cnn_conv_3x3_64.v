@@ -7,16 +7,16 @@ module tb_cnn_conv_3x3_64 ();
 	parameter DATA_WIDTH = 32;
 
 // General
-	parameter IMAGE_WIDTH     = 64 ; //Width
-	parameter IMAGE_HEIGHT    = 64 ; //Height
-	parameter CHANNEL_NUM_IN  = 304; //The number of channel in
-	parameter CHANNEL_NUM_OUT = 256; //The number of channel out
-	parameter KERNEL          = 3  ; //Kernel width
-	parameter RATE            = 1  ; //Rate of dialtion
+	parameter IMAGE_WIDTH     = 16; //Width
+	parameter IMAGE_HEIGHT    = 16; //Height
+	parameter CHANNEL_NUM_IN  = 4 ; //The number of channel in
+	parameter CHANNEL_NUM_OUT = 4 ; //The number of channel out
+	parameter KERNEL          = 3 ; //Kernel width
+	parameter RATE            = 1 ; //Rate of dialtion
 
-	localparam IMAGE_INPUT_FILE = "D:/GitHub/CNNs/Text_file/Input/R.txt";
-	localparam WEIGHTS_INPUT_FILE = "D:/GitHub/CNNs/Text_file/Input/weight_test.txt";
-	localparam IMAGE_OUTPUT_FILE = "D:/GitHub/CNNs/Text_file/Output/Output_cnn_conv_3x3_64.txt";
+	localparam IMAGE_INPUT_FILE = "D:/GitHub/CNNs/Text_file/Input/Input_image/1499_satRGB_h.txt";
+	localparam WEIGHTS_INPUT_FILE = "D:/GitHub/CNNs/Text_file/Input/Weight_hex/Encoder/encoder.conv1.weight.txt";
+	localparam IMAGE_OUTPUT_FILE = "D:/GitHub/CNNs/Text_file/Output/Output_cnn_conv_3x3_test.txt";
 
 	localparam SIMULATION_CLOCK = 5 ;
 	localparam SIMULATION_CYCLE = 10;
@@ -33,7 +33,6 @@ module tb_cnn_conv_3x3_64 ();
 	reg                  clk            ;
 	reg                  reset          ;
 	reg                  valid_in       ;
-	reg                  stride2        ;
 	reg [DATA_WIDTH-1:0] pxl_in         ;
 	reg                  valid_weight_in;
 	reg [DATA_WIDTH-1:0] weight_in      ;
@@ -54,11 +53,10 @@ module tb_cnn_conv_3x3_64 ();
 		valid_in = 1'b0;
 		reset = 1'b1;
 		valid_weight_in = 1'b0;
-		stride2 = 1'b1;
 		#(SIMULATION_CYCLE*2)
 			reset = 1'b0;
 
-		$readmemb(IMAGE_INPUT_FILE, image_input);
+		$readmemh(IMAGE_INPUT_FILE, image_input);
 		$readmemh(WEIGHTS_INPUT_FILE, weight_input);
 
 		image_output = $fopen(IMAGE_OUTPUT_FILE);
@@ -80,7 +78,7 @@ module tb_cnn_conv_3x3_64 ();
 			end
 			i <= i + 1'b1;
 			#(SIMULATION_CYCLE)
-				if(valid_out == 1'b1)begin
+				if(valid_out)begin
 					$fdisplay(image_output,"%h",pxl_out);
 				end
 			if(i == ENDTIME) begin
@@ -89,17 +87,9 @@ module tb_cnn_conv_3x3_64 ();
 		end
 	end
 
-	cnn_conv_3x3_dilation_multi_channel_new #(
-		.IMAGE_WIDTH    (IMAGE_WIDTH    ),
-		.IMAGE_HEIGHT   (IMAGE_HEIGHT   ),
-		.CHANNEL_NUM_IN (CHANNEL_NUM_IN ),
-		.CHANNEL_NUM_OUT(CHANNEL_NUM_OUT),
-		.KERNEL         (KERNEL         ),
-		.RATE           (RATE           )
-	) DUT (
+	cnn_conv_3x3_test DUT (
 		.clk            (clk            ),
 		.reset          (reset          ),
-		.stride2        (stride2        ),
 		.valid_in       (valid_in       ),
 		.pxl_in         (pxl_in         ),
 		.valid_weight_in(valid_weight_in),
@@ -108,17 +98,7 @@ module tb_cnn_conv_3x3_64 ();
 		.pxl_out        (pxl_out        ),
 		.valid_out      (valid_out      )
 	);
-	// cnn_conv_01_02_3x3 DUT (
-	// 	.clk            (clk            ),
-	// 	.reset          (reset          ),
-	// 	.valid_in       (valid_in       ),
-	// 	.pxl_in         (pxl_in         ),
-	// 	.valid_weight_in(valid_weight_in),
-	// 	.weight_in      (weight_in      ),
-	// 	//output
-	// 	.pxl_out        (pxl_out        ),
-	// 	.valid_out      (valid_out      )
-	// );
+	
 endmodule
 
 

@@ -7,12 +7,12 @@ module tb_cnn_conv_7x7_64 ();
 parameter DATA_WIDTH  = 32;
 
 // General
-parameter  IMAGE_WIDTH      = 256; //Width
-parameter  IMAGE_HEIGHT     = 256; //Height
-parameter  CHANNEL_NUM_IN   = 3  ; //The number of channel in
-parameter  CHANNEL_NUM_OUT  = 64 ; //The number of channel out
-parameter  KERNEL           = 7  ; //Kernel width
-localparam SIMULATION_CLOCK = 5  ;
+parameter  IMAGE_WIDTH      = 16; //Width
+parameter  IMAGE_HEIGHT     = 16; //Height
+parameter  CHANNEL_NUM_IN   = 4 ; //The number of channel in
+parameter  CHANNEL_NUM_OUT  = 4 ; //The number of channel out
+parameter  KERNEL           = 7 ; //Kernel width
+localparam SIMULATION_CLOCK = 5 ;
 
 localparam IMAGE_SIZE           = IMAGE_WIDTH * IMAGE_HEIGHT      ;
 localparam CHANNEL_NUM          = CHANNEL_NUM_IN * CHANNEL_NUM_OUT;
@@ -22,7 +22,7 @@ localparam WEIGHT_NUM           = CHANNEL_NUM * KERNEL_SIZE       ; // 2x2x3x3
 
 localparam IMAGE_INPUT_FILE = "D:/GitHub/CNNs/Text_file/Input/Input_image/1499_satRGB_h.txt";
 localparam WEIGHTS_INPUT_FILE = "D:/GitHub/CNNs/Text_file/Input/Weight_hex/Encoder/encoder.conv1.weight.txt";
-localparam IMAGE_OUTPUT_FILE = "D:/GitHub/CNNs/Text_file/Output/Output_cnn_conv_01_7x7.txt";
+localparam IMAGE_OUTPUT_FILE = "D:/GitHub/CNNs/Text_file/Output/Output_cnn_conv_7x7_test.txt";
 
 localparam ENDTIME          = ((IMAGE_WIDTH * 3) + 63 + ((IMAGE_SIZE + (3 * (IMAGE_WIDTH + 1))) * 2) + 19 + (((((IMAGE_WIDTH * 3 ) + 3 + IMAGE_SIZE) * CHANNEL_NUM_IN) - IMAGE_SIZE)) * (CHANNEL_NUM_OUT - 1) + (IMAGE_SIZE/4) * CHANNEL_NUM_OUT)*2;
 localparam SIMULATION_CYCLE = SIMULATION_CLOCK * 2                                                                                                                                                                                                 ;
@@ -86,7 +86,7 @@ always @(posedge clk) begin
 	end
 end
 
-cnn_conv_01_7x7 #(
+cnn_conv_7x7_test #(
 	.IMAGE_WIDTH    (IMAGE_WIDTH    ),
 	.IMAGE_HEIGHT   (IMAGE_HEIGHT   ),
 	.CHANNEL_NUM_IN (CHANNEL_NUM_IN ),
