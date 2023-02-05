@@ -31,15 +31,11 @@ module conv_channel_in_adder_64x64s2 (
 
 /////////////////////////////////////////////////////////////////////////
 // Parameter Declarations
-parameter DATA_WIDTH     = 32     ;
-parameter IMAGE_SIZE     = 32 * 32;
-parameter CHANNEL_NUM_IN = 64     ;
-parameter IMAGE_WIDTH    = 32     ;
-parameter RATE           = 1      ;
-
-parameter WAIT_WIDTH           = $clog2(((IMAGE_WIDTH * RATE) + RATE)) + 1;
-parameter POINTER_WIDTH        = $clog2(IMAGE_SIZE) + 1                   ;
-parameter CNT_CHANNEL_IN_WIDTH = $clog2(CHANNEL_NUM_IN) + 1               ;
+parameter DATA_WIDTH           = 32                        ;
+parameter IMAGE_SIZE           = 32 * 32                   ;
+parameter CHANNEL_NUM_IN       = 64                        ;
+parameter POINTER_WIDTH        = $clog2(IMAGE_SIZE) + 1    ;
+parameter CNT_CHANNEL_IN_WIDTH = $clog2(CHANNEL_NUM_IN) + 1;
 
 /////////////////////////////////////////////////////////////////////////
 // Port Declarations
@@ -63,79 +59,16 @@ wire [DATA_WIDTH-1:0] pxl_in  ;
 wire [DATA_WIDTH-1:0] pxl_out  ;
 wire                  valid_out;
 
-wire [DATA_WIDTH-1:0] out_fifo_in      ;
-reg                   valid_out_fifo_in;
-wire                  fifo_full_in     ;
-wire                  fifo_empty_in    ;
-
-reg                     read_en_in ;
-reg                     read_enable;
-reg [POINTER_WIDTH-1:0] cnt_size_in;
-reg [   WAIT_WIDTH-1:0] cnt_wait   ;
-
-always @(posedge clk) begin
-  if(reset) begin
-    read_en_in <= 1'b0;
-  end
-  else if (fifo_full_in && (!fifo_empty_in)) begin
-    read_en_in <= 1'b1;
-  end
-end
-
-always @(posedge clk) begin
-  if(reset) begin
-    cnt_size_in <= {POINTER_WIDTH{1'b0}};
-    cnt_wait    <= {WAIT_WIDTH{1'b0}};
-    read_enable <= 1'b0;
-  end
-  else if (read_en_in && (cnt_size_in < IMAGE_SIZE)) begin
-    cnt_size_in <= cnt_size_in + 1'b1;
-    cnt_wait    <= {WAIT_WIDTH{1'b0}};
-    read_enable <= 1'b1;
-  end
-  else begin
-    read_enable <= 1'b0;
-    if (cnt_wait < ((IMAGE_WIDTH * RATE) + RATE)) begin
-      cnt_wait <= cnt_wait + 1'b1;
-    end
-    else begin
-      cnt_size_in <= {POINTER_WIDTH{1'b0}};
-    end
-  end
-end
-
-fifo_generator_0 inst_fifo_in (
-  //input
-  .clk  (clk          ),
-  .srst (reset        ),
-  .wr_en(valid_in     ),
-  .rd_en(read_enable  ),
-  .din  (pxl_in       ),
-  //output
-  .dout (out_fifo_in  ),
-  .full (fifo_full_in ),
-  .empty(fifo_empty_in)
-);
-
-always @(posedge clk) begin
-  if(reset) begin
-    valid_out_fifo_in <= 1'b0;
-  end
-  else begin
-    valid_out_fifo_in <= read_enable & !fifo_empty_in;
-  end
-end
-
 wire [DATA_WIDTH-1:0] pxl_in_next  ;
 wire                  valid_in_next;
 
 d_flip_flop #(.DATA_WIDTH(DATA_WIDTH)) dff00 (
-  .clk      (clk              ),
-  .reset    (reset            ),
-  .valid_in (valid_out_fifo_in),
-  .in       (out_fifo_in      ),
-  .out      (pxl_in_next      ),
-  .valid_out(valid_in_next    )
+  .clk      (clk          ),
+  .reset    (reset        ),
+  .valid_in (valid_in     ),
+  .in       (pxl_in       ),
+  .out      (pxl_in_next  ),
+  .valid_out(valid_in_next)
 );
 
 wire [DATA_WIDTH-1:0] pxl_in_dff  ;
@@ -156,17 +89,18 @@ always @(posedge clk) begin
   if(reset) begin
     cnt_size <= {POINTER_WIDTH{1'b0}};
   end
-  else if (valid_out_fifo_in && cnt_size < IMAGE_SIZE) begin
+  else if (valid_in && (cnt_size < IMAGE_SIZE)) begin
     cnt_size <= cnt_size + 1'b1;
   end
-  else begin
+
+  if (cnt_size > (IMAGE_SIZE - 1)) begin
     cnt_size <= {POINTER_WIDTH{1'b0}};
   end
 end
 
 reg [CNT_CHANNEL_IN_WIDTH-1:0] cnt_channel;
 
-always @(posedge clk) begin
+always @(posedge valid_in_dff) begin
   if(reset) begin
     cnt_channel <= {CNT_CHANNEL_IN_WIDTH{1'b0}};
   end
@@ -198,10 +132,11 @@ always @(posedge clk) begin
   if(reset) begin
     cnt_size_add <= {POINTER_WIDTH{1'b0}};
   end
-  else if (valid_out_add && cnt_size_add < IMAGE_SIZE) begin
+  else if (valid_out_add && (cnt_size_add < IMAGE_SIZE)) begin
     cnt_size_add <= cnt_size_add + 1'b1;
   end
-  else begin
+  
+  if (cnt_size_add > (IMAGE_SIZE - 1)) begin
     cnt_size_add <= {POINTER_WIDTH{1'b0}};
   end
 end
@@ -277,15 +212,15 @@ reg                   valid_out_fifo_next;
 
 fifo_generator_7_1024 inst_fifo07 (
   //input
-  .clk  (clk                        ),
-  .srst (reset                      ),
-  .wr_en(valid_out_add              ),
-  .rd_en(valid_out_fifo_in & read_en),
-  .din  (out_add                    ),
+  .clk        (clk               ),
+  .srst       (reset             ),
+  .wr_en      (valid_out_add     ),
+  .rd_en      (valid_in & read_en),
+  .din        (out_add           ),
   //output
-  .dout (out_fifo_next              ),
-  .full (fifo_full                  ),
-  .empty(/*no use*/                 )
+  .dout       (out_fifo_next     ),
+  .full       (fifo_full         ),
+  .empty      (/*no use*/        )
 );
 
 always @(posedge clk) begin
@@ -293,7 +228,7 @@ always @(posedge clk) begin
     valid_out_fifo_next <= 1'b0;
   end
   else begin
-    valid_out_fifo_next <= valid_out_fifo_in & read_en;
+    valid_out_fifo_next <= valid_in & read_en;
   end
 end
 

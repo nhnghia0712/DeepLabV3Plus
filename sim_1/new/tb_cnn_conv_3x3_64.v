@@ -14,9 +14,9 @@ module tb_cnn_conv_3x3_64 ();
 	parameter KERNEL          = 3 ; //Kernel width
 	parameter RATE            = 1 ; //Rate of dialtion
 
-	localparam IMAGE_INPUT_FILE = "D:/GitHub/CNNs/Text_file/Input/Input_image/1499_satRGB_h.txt";
-	localparam WEIGHTS_INPUT_FILE = "D:/GitHub/CNNs/Text_file/Input/Weight_hex/Encoder/encoder.conv1.weight.txt";
-	localparam IMAGE_OUTPUT_FILE = "D:/GitHub/CNNs/Text_file/Output/Output_cnn_conv_3x3_test.txt";
+	localparam IMAGE_INPUT_FILE = "D:/GitHub/CNNs/Text_file/Input/Input_image/1499_satB_h.txt";
+	localparam WEIGHTS_INPUT_FILE = "D:/GitHub/CNNs/Text_file/Input/Weight_hex/Encoder/encoder.layer1.0.conv2.weight.txt";
+	localparam IMAGE_OUTPUT_FILE = "D:/GitHub/CNNs/Text_file/Output/Output_cnn_conv_3x3_testB.txt";
 
 	localparam SIMULATION_CLOCK = 5 ;
 	localparam SIMULATION_CYCLE = 10;
@@ -100,11 +100,3 @@ module tb_cnn_conv_3x3_64 ();
 	);
 	
 endmodule
-
-
-
-
-
-
-
-

@@ -126,9 +126,7 @@ wire                  valid_adder_out;
 conv_channel_in_adder_64x64s2 #(
   .DATA_WIDTH    (DATA_WIDTH    ),
   .CHANNEL_NUM_IN(CHANNEL_NUM_IN),
-  .IMAGE_SIZE    (IMAGE_SIZE/4  ),
-  .IMAGE_WIDTH   (IMAGE_WIDTH/2 ),
-  .RATE          (1             )
+  .IMAGE_SIZE    (IMAGE_SIZE/4  )
 ) inst_add (
   //input
   .clk      (clk            ),

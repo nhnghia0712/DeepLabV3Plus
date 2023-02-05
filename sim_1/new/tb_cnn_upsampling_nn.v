@@ -9,13 +9,13 @@ parameter DATA_WIDTH  = 32;
 // General
 parameter IMAGE_WIDTH  = 16; //Width
 parameter IMAGE_HEIGHT = 16; //Height
-parameter CHANNEL_NUM  = 256 ; //The number of channel
+parameter CHANNEL_NUM  = 4 ; //The number of channel
 
 localparam IMAGE_SIZE        = IMAGE_WIDTH * IMAGE_HEIGHT;
 localparam CHANNEL_NUM_PIXEL = CHANNEL_NUM * IMAGE_SIZE  ;
 
-localparam IMAGE_INPUT_FILE = "D:/GitHub/CNNs/Text_file/Input/Input_image/1499_satRGB_h.txt";
-localparam IMAGE_OUTPUT_FILE = "D:/GitHub/CNNs/Text_file/Output/Output_cnn_upsampling_nn_01.txt";
+localparam IMAGE_INPUT_FILE = "D:/GitHub/CNNs/Text_file/Input/Input_image/1499_satB_h.txt";
+localparam IMAGE_OUTPUT_FILE = "D:/GitHub/CNNs/Text_file/Output/Output_cnn_upsampling_nn_testB.txt";
 
 
 parameter ENDTIME          = 21000;
@@ -69,7 +69,7 @@ always @(posedge clk) begin
 	end
 end
 
-	cnn_upsampling_nn_01 DUT (
+	cnn_upsampling_nn_test DUT (
 		.clk      (clk      ),
 		.reset    (reset    ),
 		.valid_in (valid_in ),

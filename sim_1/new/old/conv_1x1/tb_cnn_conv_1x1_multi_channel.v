@@ -7,11 +7,11 @@ module tb_cnn_conv_1x1_multi_channel ();
 	parameter DATA_WIDTH = 32;
 
 // General
-	parameter IMAGE_WIDTH     = 16; //Width
-	parameter IMAGE_HEIGHT    = 16; //Height
-	parameter CHANNEL_NUM_IN  = 4 ; //The number of channel in
-	parameter CHANNEL_NUM_OUT = 4 ; //The number of channel out
-	parameter KERNEL          = 1 ; //Kernel width
+	parameter IMAGE_WIDTH     = 16  ; //Width
+	parameter IMAGE_HEIGHT    = 16  ; //Height
+	parameter CHANNEL_NUM_IN  = 1280; //The number of channel in
+	parameter CHANNEL_NUM_OUT = 256 ; //The number of channel out
+	parameter KERNEL          = 1   ; //Kernel width
 
 // Localparam general
 	localparam KERNEL_SIZE          = KERNEL * KERNEL                 ;
@@ -21,9 +21,9 @@ module tb_cnn_conv_1x1_multi_channel ();
 	localparam WEIGHT_NUM           = CHANNEL_NUM * KERNEL_SIZE       ; // 2x2x3x3
 
 
-	localparam IMAGE_INPUT_FILE = "D:/GitHub/CNNs/Text_file/Input/Input_image/1499_satRGB_h.txt";
-	localparam WEIGHTS_INPUT_FILE = "D:/GitHub/CNNs/Text_file/Input/Weight_hex/Encoder/encoder.conv1.weight.txt";
-	localparam IMAGE_OUTPUT_FILE = "D:/GitHub/CNNs/Text_file/Output/Output_cnn_conv_1x1_test.txt";
+	localparam IMAGE_INPUT_FILE = "D:/GitHub/CNNs/Text_file/Input/Input_image/input_test.txt";
+	localparam WEIGHTS_INPUT_FILE = "D:/GitHub/CNNs/Text_file/Input/Weight_hex/Decoder/decoder.block2.0.1.weight.txt";
+	localparam IMAGE_OUTPUT_FILE = "D:/GitHub/CNNs/Text_file/Output/Output_cnn_conv_1x1_trial.txt";
 
 
 	localparam ENDTIME          = 8 + ((IMAGE_SIZE + IMAGE_WIDTH + 1) * (CHANNEL_NUM_IN - 1)) + 1 + (9 * $clog2(CHANNEL_NUM_IN)) + ((((IMAGE_WIDTH + 1 + IMAGE_SIZE) * CHANNEL_NUM_IN) - IMAGE_SIZE)) * (CHANNEL_NUM_OUT - 1);
@@ -81,7 +81,7 @@ module tb_cnn_conv_1x1_multi_channel ();
 			end
 			i <= i + 1'b1;
 			#(SIMULATION_CYCLE)
-				if(valid_out == 1'b1)begin
+				if(valid_out)begin
 					$fdisplay(image_output,"%h",pxl_out);
 				end
 			if(i == ENDTIME) begin
@@ -89,14 +89,7 @@ module tb_cnn_conv_1x1_multi_channel ();
 			end
 		end
 	end
-	cnn_conv_1x1_test #(
-		.DATA_WIDTH     (DATA_WIDTH     ),
-		.IMAGE_WIDTH    (IMAGE_WIDTH    ),
-		.IMAGE_HEIGHT   (IMAGE_HEIGHT   ),
-		.CHANNEL_NUM_IN (CHANNEL_NUM_IN ),
-		.CHANNEL_NUM_OUT(CHANNEL_NUM_OUT),
-		.KERNEL         (KERNEL         )
-	) DUT (
+	cnn_conv_09_1x1 DUT (
 		.clk            (clk            ),
 		.reset          (reset          ),
 		.valid_in       (valid_in       ),

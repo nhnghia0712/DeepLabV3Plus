@@ -20,9 +20,9 @@ localparam KERNEL_SIZE          = KERNEL * KERNEL                 ; // 3x3
 localparam CHANNEL_NUM_IN_PIXEL = CHANNEL_NUM_IN * IMAGE_SIZE     ;
 localparam WEIGHT_NUM           = CHANNEL_NUM * KERNEL_SIZE       ; // 2x2x3x3
 
-localparam IMAGE_INPUT_FILE = "D:/GitHub/CNNs/Text_file/Input/Input_image/1499_satRGB_h.txt";
-localparam WEIGHTS_INPUT_FILE = "D:/GitHub/CNNs/Text_file/Input/Weight_hex/Encoder/encoder.conv1.weight.txt";
-localparam IMAGE_OUTPUT_FILE = "D:/GitHub/CNNs/Text_file/Output/Output_cnn_conv_7x7_test.txt";
+localparam IMAGE_INPUT_FILE = "D:/GitHub/CNNs/Text_file/Input/Input_image/1499_satB_h.txt";
+	localparam WEIGHTS_INPUT_FILE = "D:/GitHub/CNNs/Text_file/Input/Weight_hex/Encoder/encoder.layer1.0.conv2.weight.txt";
+localparam IMAGE_OUTPUT_FILE = "D:/GitHub/CNNs/Text_file/Output/Output_cnn_conv_7x7_testB.txt";
 
 localparam ENDTIME          = ((IMAGE_WIDTH * 3) + 63 + ((IMAGE_SIZE + (3 * (IMAGE_WIDTH + 1))) * 2) + 19 + (((((IMAGE_WIDTH * 3 ) + 3 + IMAGE_SIZE) * CHANNEL_NUM_IN) - IMAGE_SIZE)) * (CHANNEL_NUM_OUT - 1) + (IMAGE_SIZE/4) * CHANNEL_NUM_OUT)*2;
 localparam SIMULATION_CYCLE = SIMULATION_CLOCK * 2                                                                                                                                                                                                 ;
