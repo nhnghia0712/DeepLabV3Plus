@@ -31,8 +31,8 @@ module conv_loop_data_in_16x16x4 (
 
 /////////////////////////////////////////////////////////////////////////
 // Parameter Declarations
-parameter DATA_WIDTH           = 16                         ;
-parameter IMAGE_WIDTH          = 16                         ;
+parameter DATA_WIDTH           = 64                         ;
+parameter IMAGE_WIDTH          = 64                         ;
 parameter CHANNEL_NUM_IN       = 4                          ;
 parameter CHANNEL_NUM_OUT      = 4                          ;
 parameter RATE                 = 1                          ;
@@ -180,7 +180,7 @@ always @(posedge clk) begin
 	end
 end
 
-blk_mem_gen_7_1024 inst_mem (
+blk_mem_gen_8_16384 inst_mem (
 	.clka (clk                  ),
 	.ena  (enable               ),
 	.wea  (rd_wr_sel            ),

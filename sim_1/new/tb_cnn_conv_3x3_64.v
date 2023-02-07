@@ -1,4 +1,4 @@
-`timescale 1ns / 1ps
+`timescale 1ns / 100ps
 
 module tb_cnn_conv_3x3_64 ();
 
@@ -7,16 +7,16 @@ module tb_cnn_conv_3x3_64 ();
 	parameter DATA_WIDTH = 32;
 
 // General
-	parameter IMAGE_WIDTH     = 16; //Width
-	parameter IMAGE_HEIGHT    = 16; //Height
-	parameter CHANNEL_NUM_IN  = 4 ; //The number of channel in
-	parameter CHANNEL_NUM_OUT = 4 ; //The number of channel out
-	parameter KERNEL          = 3 ; //Kernel width
-	parameter RATE            = 1 ; //Rate of dialtion
+	parameter IMAGE_WIDTH     = 16 ; //Width
+	parameter IMAGE_HEIGHT    = 16 ; //Height
+	parameter CHANNEL_NUM_IN  = 512; //The number of channel in
+	parameter CHANNEL_NUM_OUT = 1  ; //The number of channel out
+	parameter KERNEL          = 3  ; //Kernel width
+	parameter RATE            = 12 ; //Rate of dialtion
 
-	localparam IMAGE_INPUT_FILE = "D:/GitHub/CNNs/Text_file/Input/Input_image/1499_satB_h.txt";
+	localparam IMAGE_INPUT_FILE = "D:/GitHub/CNNs/Text_file/Input/Input_image/input_test.txt";
 	localparam WEIGHTS_INPUT_FILE = "D:/GitHub/CNNs/Text_file/Input/Weight_hex/Encoder/encoder.layer1.0.conv2.weight.txt";
-	localparam IMAGE_OUTPUT_FILE = "D:/GitHub/CNNs/Text_file/Output/Output_cnn_conv_3x3_testB.txt";
+	localparam IMAGE_OUTPUT_FILE = "D:/GitHub/CNNs/Text_file/Output/Output_cnn_conv_3x3_trial.txt";
 
 	localparam SIMULATION_CLOCK = 5 ;
 	localparam SIMULATION_CYCLE = 10;
@@ -87,7 +87,14 @@ module tb_cnn_conv_3x3_64 ();
 		end
 	end
 
-	cnn_conv_3x3_test DUT (
+	cnn_conv_15_16_17_3x3 #(
+		.IMAGE_WIDTH    (IMAGE_WIDTH    ),
+		.IMAGE_HEIGHT   (IMAGE_HEIGHT   ),
+		.CHANNEL_NUM_IN (CHANNEL_NUM_IN ),
+		.CHANNEL_NUM_OUT(CHANNEL_NUM_OUT),
+		.KERNEL         (KERNEL         ),
+		.RATE           (RATE           )
+	) DUT (
 		.clk            (clk            ),
 		.reset          (reset          ),
 		.valid_in       (valid_in       ),

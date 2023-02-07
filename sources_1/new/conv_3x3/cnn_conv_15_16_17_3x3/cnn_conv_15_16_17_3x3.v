@@ -39,7 +39,7 @@ parameter IMAGE_HEIGHT    = 16 ; //Height
 parameter CHANNEL_NUM_IN  = 512; //The number of channel in
 parameter CHANNEL_NUM_OUT = 1  ; //The number of channel out
 parameter KERNEL          = 3  ; //Kernel width
-parameter RATE            = 2  ; //Rate of dialtion (12, 13, 14: 2)(15: 12)(16: 24)(17: 36)
+parameter RATE            = 12 ; //Rate of dialtion (12, 13, 14: 2)(15: 12)(16: 24)(17: 36)
 
 `include "D:/GitHub/CNNs/CNN_DeepLabV3Plus/CNN_DeepLabV3Plus.srcs/sources_1/new/param/param_def_conv_3x3.vh"
 // KhaiT
