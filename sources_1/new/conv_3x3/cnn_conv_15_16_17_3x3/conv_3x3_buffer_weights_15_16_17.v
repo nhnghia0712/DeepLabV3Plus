@@ -224,7 +224,7 @@ fifo_generator_4_256 inst_fifo18 (
 	.almost_full(/*no use*/                  )
 );
 
-assign weight_out_08 = (fifo_empty_08) ? weight_out_08_01:weight_out_08_00;
+assign weight_out_08 = (load_weights && fifo_empty_08) ? weight_out_08_01:weight_out_08_00;
 
 wire                  fifo_full_07    ;
 wire                  fifo_empty_07   ;
@@ -259,7 +259,7 @@ fifo_generator_4_256 inst_fifo17 (
 	.almost_full(/*no use*/                  )
 );
 
-assign weight_out_07 = (fifo_empty_07) ? weight_out_07_01:weight_out_07_00;
+assign weight_out_07 = (load_weights && fifo_empty_07) ? weight_out_07_01:weight_out_07_00;
 
 wire                  fifo_full_06    ;
 wire                  fifo_empty_06   ;
@@ -294,7 +294,7 @@ fifo_generator_4_256 inst_fifo16 (
 	.almost_full(/*no use*/                  )
 );
 
-assign weight_out_06 = (fifo_empty_06) ? weight_out_06_01:weight_out_06_00;
+assign weight_out_06 = (load_weights && fifo_empty_06) ? weight_out_06_01:weight_out_06_00;
 
 wire                  fifo_full_05    ;
 wire                  fifo_empty_05   ;
@@ -329,7 +329,7 @@ fifo_generator_4_256 inst_fifo15 (
 	.almost_full(/*no use*/                  )
 );
 
-assign weight_out_05 = (fifo_empty_05) ? weight_out_05_01:weight_out_05_00;
+assign weight_out_05 = (load_weights && fifo_empty_05) ? weight_out_05_01:weight_out_05_00;
 
 wire                  fifo_full_04    ;
 wire                  fifo_empty_04   ;
@@ -364,7 +364,7 @@ fifo_generator_4_256 inst_fifo14 (
 	.almost_full(/*no use*/                  )
 );
 
-assign weight_out_04 = (fifo_empty_04) ? weight_out_04_01:weight_out_04_00;
+assign weight_out_04 = (load_weights && fifo_empty_04) ? weight_out_04_01:weight_out_04_00;
 
 wire                  fifo_full_03    ;
 wire                  fifo_empty_03   ;
@@ -399,7 +399,7 @@ fifo_generator_4_256 inst_fifo13 (
 	.almost_full(/*no use*/                  )
 );
 
-assign weight_out_03 = (fifo_empty_03) ? weight_out_03_01:weight_out_03_00;
+assign weight_out_03 = (load_weights && fifo_empty_03) ? weight_out_03_01:weight_out_03_00;
 
 wire                  fifo_full_02    ;
 wire                  fifo_empty_02   ;
@@ -434,7 +434,7 @@ fifo_generator_4_256 inst_fifo12 (
 	.almost_full(/*no use*/                  )
 );
 
-assign weight_out_02 = (fifo_empty_02) ? weight_out_02_01:weight_out_02_00;
+assign weight_out_02 = (load_weights && fifo_empty_02) ? weight_out_02_01:weight_out_02_00;
 
 wire                  fifo_full_01    ;
 wire                  fifo_empty_01   ;
@@ -469,7 +469,7 @@ fifo_generator_4_256 inst_fifo11 (
 	.almost_full(/*no use*/                  )
 );
 
-assign weight_out_01 = (fifo_empty_01) ? weight_out_01_01:weight_out_01_00;
+assign weight_out_01 = (load_weights && fifo_empty_01) ? weight_out_01_01:weight_out_01_00;
 
 wire                  fifo_full_00    ;
 wire                  fifo_empty_00   ;
@@ -504,7 +504,7 @@ fifo_generator_4_256 inst_fifo10 (
 	.almost_full(/*no use*/                  )
 );
 
-assign weight_out_00 = (fifo_empty_00) ? weight_out_00_01:weight_out_00_00;
+assign weight_out_00 = (load_weights && fifo_empty_00) ? weight_out_00_01:weight_out_00_00;
 
 //Shift
 reg [CNT_WIDTH_BUFFER_WEIGHTS-1:0] counter_weights;
