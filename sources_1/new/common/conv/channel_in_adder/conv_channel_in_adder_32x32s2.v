@@ -220,7 +220,8 @@ fifo_generator_4_256 inst_fifo07 (
   //output
   .dout       (out_fifo_next     ),
   .full       (fifo_full         ),
-  .empty      (/*no use*/        )
+  .empty      (/*no use*/        ),
+  .almost_full(/*no use*/        )
 );
 
 always @(posedge clk) begin

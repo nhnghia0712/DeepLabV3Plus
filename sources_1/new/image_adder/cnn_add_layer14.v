@@ -114,7 +114,7 @@ fifo_generator_0 inst_fifo22 (
 wire [DATA_WIDTH-1:0] out_fifo_2     ;
 reg                   valid_out_fifo2;
 
-assign out_fifo_2 = (!fifo_empty_21) ? pxl_out_fifo_21:pxl_out_fifo_22;
+assign out_fifo_2 = (valid_in_no1 && fifo_empty_21) ? pxl_out_fifo_22:pxl_out_fifo_21;
 
 always @(posedge clk) begin
   if(reset) begin

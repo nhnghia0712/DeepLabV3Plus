@@ -142,7 +142,7 @@ fifo_generator_0 inst_fifo03 (
 	.empty(/*no use*/                                )
 );
 
-assign out_buffer_weight = (!fifo_empty_1) ? out_buffer_weight_1:((!fifo_empty_2) ? out_buffer_weight_2:out_buffer_weight_3);
+assign out_buffer_weight = (load_weights && !fifo_empty_1) ? out_buffer_weight_1:((load_weights && !fifo_empty_2) ? out_buffer_weight_2:out_buffer_weight_3);
 // DFF
 always @(posedge clk) begin
 	if(reset) begin
