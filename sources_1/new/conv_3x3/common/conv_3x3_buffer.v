@@ -516,22 +516,22 @@ always @(posedge clk) begin
 	end
 end
 
-assign pxl_out_08 = ((cnt_pad == IMAGE_WIDTH) || !valid_pxl_out_dff_08) 						? {DATA_WIDTH{1'b0}} : pxl_out_dff_08;
+assign pxl_out_08 = (((cnt_pad <= IMAGE_WIDTH) && (cnt_pad > (IMAGE_WIDTH - RATE))) || !valid_pxl_out_dff_08) 	? {DATA_WIDTH{1'b0}} : pxl_out_dff_08;
 
-assign pxl_out_07 = (!valid_pxl_out_dff_07) 													? {DATA_WIDTH{1'b0}} : pxl_out_dff_07;
+assign pxl_out_07 = (!valid_pxl_out_dff_07) 																	? {DATA_WIDTH{1'b0}} : pxl_out_dff_07;
 
-assign pxl_out_06 = (!(|cnt_pad[CNT_WIDTH_BUFFER-1:1]) && cnt_pad[0] || !valid_pxl_out_dff_06) 	? {DATA_WIDTH{1'b0}} : pxl_out_dff_06;
+assign pxl_out_06 = (((cnt_pad <= RATE) && (cnt_pad > 0)) || !valid_pxl_out_dff_06) 							? {DATA_WIDTH{1'b0}} : pxl_out_dff_06;
 
-assign pxl_out_05 = ((cnt_pad == IMAGE_WIDTH) || !valid_pxl_out_dff_05) 						? {DATA_WIDTH{1'b0}} : pxl_out_dff_05;
+assign pxl_out_05 = (((cnt_pad <= IMAGE_WIDTH) && (cnt_pad > (IMAGE_WIDTH - RATE))) || !valid_pxl_out_dff_05) 	? {DATA_WIDTH{1'b0}} : pxl_out_dff_05;
 
-assign pxl_out_04 = (!valid_pxl_out_dff_04) 													? {DATA_WIDTH{1'b0}} : pxl_out_dff_04;
+assign pxl_out_04 = (!valid_pxl_out_dff_04) 																	? {DATA_WIDTH{1'b0}} : pxl_out_dff_04;
 
-assign pxl_out_03 = (!(|cnt_pad[CNT_WIDTH_BUFFER-1:1]) && cnt_pad[0] || !valid_pxl_out_dff_03) 	? {DATA_WIDTH{1'b0}} : pxl_out_dff_03;
+assign pxl_out_03 = (((cnt_pad <= RATE) && (cnt_pad > 0)) || !valid_pxl_out_dff_03) 							? {DATA_WIDTH{1'b0}} : pxl_out_dff_03;
 
-assign pxl_out_02 = ((cnt_pad == IMAGE_WIDTH) || !valid_pxl_out_dff_02) 						? {DATA_WIDTH{1'b0}} : pxl_out_dff_02;
+assign pxl_out_02 = (((cnt_pad <= IMAGE_WIDTH) && (cnt_pad > (IMAGE_WIDTH - RATE))) || !valid_pxl_out_dff_02) 	? {DATA_WIDTH{1'b0}} : pxl_out_dff_02;
 
-assign pxl_out_01 = (!valid_pxl_out_dff_01) 													? {DATA_WIDTH{1'b0}} : pxl_out_dff_01;
+assign pxl_out_01 = (!valid_pxl_out_dff_01) 																	? {DATA_WIDTH{1'b0}} : pxl_out_dff_01;
 
-assign pxl_out_00 = (!(|cnt_pad[CNT_WIDTH_BUFFER-1:1]) && cnt_pad[0] || !valid_pxl_out_dff_00) 	? {DATA_WIDTH{1'b0}} : pxl_out_dff_00;
+assign pxl_out_00 = (((cnt_pad <= RATE) && (cnt_pad > 0)) || !valid_pxl_out_dff_00) 							? {DATA_WIDTH{1'b0}} : pxl_out_dff_00;
 
 endmodule
