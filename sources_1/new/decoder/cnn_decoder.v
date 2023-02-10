@@ -536,11 +536,11 @@ cnn_upsampling_nn_02 #(
 );
 
 // Sigmoid
-cnn_sigmoid_synth sigmoid (
+cnn_sigmoid_top_synth sigmoid (
     .in_fp        (out_upsampling_2       ),
     .out_fp       (pxl_out                ),
     .clk          (clk                    ),
-    .rst_n        (!reset                 ),
+    .rst_n        (~reset                 ),
     .start        (valid_out_upsampling_2 ),
     .done         (done                   ),
     .rom_val      (sigmoid_in             ),

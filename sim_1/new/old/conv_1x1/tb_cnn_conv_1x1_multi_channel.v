@@ -7,11 +7,11 @@ module tb_cnn_conv_1x1_multi_channel ();
 	parameter DATA_WIDTH = 32;
 
 // General
-	parameter IMAGE_WIDTH     = 16  ; //Width
-	parameter IMAGE_HEIGHT    = 16  ; //Height
-	parameter CHANNEL_NUM_IN  = 1280; //The number of channel in
-	parameter CHANNEL_NUM_OUT = 256 ; //The number of channel out
-	parameter KERNEL          = 1   ; //Kernel width
+	parameter IMAGE_WIDTH     = 32 ; //Width
+	parameter IMAGE_HEIGHT    = 32 ; //Height
+	parameter CHANNEL_NUM_IN  = 128; //The number of channel in
+	parameter CHANNEL_NUM_OUT = 256; //The number of channel out
+	parameter KERNEL          = 1  ; //Kernel width
 
 // Localparam general
 	localparam KERNEL_SIZE          = KERNEL * KERNEL                 ;
@@ -21,14 +21,14 @@ module tb_cnn_conv_1x1_multi_channel ();
 	localparam WEIGHT_NUM           = CHANNEL_NUM * KERNEL_SIZE       ; // 2x2x3x3
 
 
-	localparam IMAGE_INPUT_FILE = "D:/GitHub/CNNs/Text_file/Input/Input_image/input_test.txt";
-	localparam WEIGHTS_INPUT_FILE = "D:/GitHub/CNNs/Text_file/Input/Weight_hex/Decoder/decoder.block2.0.1.weight.txt";
-	localparam IMAGE_OUTPUT_FILE = "D:/GitHub/CNNs/Text_file/Output/Output_cnn_conv_1x1_trial.txt";
+	localparam IMAGE_INPUT_FILE = "D:/GitHub/CNNs/Text_file/Output/Output_cnn_layer2_02.txt";
+	localparam WEIGHTS_INPUT_FILE = "D:/GitHub/CNNs/Text_file/Input/Weight_hex/Encoder/encoder.layer3.0.downsample.0.weight.txt";
+	localparam IMAGE_OUTPUT_FILE = "D:/GitHub/CNNs/Text_file/Output/Output_cnn_conv_1x1_02.txt";
 
 
-	localparam ENDTIME          = 8 + ((IMAGE_SIZE + IMAGE_WIDTH + 1) * (CHANNEL_NUM_IN - 1)) + 1 + (9 * $clog2(CHANNEL_NUM_IN)) + ((((IMAGE_WIDTH + 1 + IMAGE_SIZE) * CHANNEL_NUM_IN) - IMAGE_SIZE)) * (CHANNEL_NUM_OUT - 1);
-	localparam SIMULATION_CLOCK = 5                                                                                                                                                                                          ;
-	localparam SIMULATION_CYCLE = 10                                                                                                                                                                                         ;
+	localparam ENDTIME          = 1000000 + 8 + ((IMAGE_SIZE + IMAGE_WIDTH + 1) * (CHANNEL_NUM_IN - 1)) + 1 + (9 * $clog2(CHANNEL_NUM_IN)) + ((((IMAGE_WIDTH + 1 + IMAGE_SIZE) * CHANNEL_NUM_IN) - IMAGE_SIZE)) * (CHANNEL_NUM_OUT - 1);
+	localparam SIMULATION_CLOCK = 5                                                                                                                                                                                                    ;
+	localparam SIMULATION_CYCLE = 10                                                                                                                                                                                                   ;
 
 
 	reg                  clk            ;
@@ -56,8 +56,6 @@ module tb_cnn_conv_1x1_multi_channel ();
 		valid_weight_in = 1'b0;
 		#SIMULATION_CYCLE
 			reset = 1'b0;
-		valid_in = 1'b0;
-		valid_weight_in = 1'b0;
 
 		$readmemh(IMAGE_INPUT_FILE, image_input);
 		$readmemh(WEIGHTS_INPUT_FILE, weight_input);
@@ -89,7 +87,11 @@ module tb_cnn_conv_1x1_multi_channel ();
 			end
 		end
 	end
-	cnn_conv_09_1x1 DUT (
+
+	// wire [DATA_WIDTH-1:0] pxl_out_conv  ;
+	// wire                  valid_out_conv;
+
+	cnn_conv_02_1x1 DUT (
 		.clk            (clk            ),
 		.reset          (reset          ),
 		.valid_in       (valid_in       ),
@@ -100,6 +102,17 @@ module tb_cnn_conv_1x1_multi_channel ();
 		.pxl_out        (pxl_out        ),
 		.valid_out      (valid_out      )
 	);
+
+	// cnn_conv_relu #(.DATA_WIDTH(DATA_WIDTH)) relu5 (
+	// 	.clk      (clk           ),
+	// 	.reset    (reset         ),
+	// 	.valid_in (valid_out_conv),
+	// 	.in       (pxl_out_conv  ),
+	// 	//output
+	// 	.out      (pxl_out       ),
+	// 	.valid_out(valid_out     )
+	// );
+
 endmodule
 
 

@@ -180,7 +180,7 @@ always @(posedge clk) begin
 	end
 end
 
-blk_mem_gen_8_16384 inst_mem (
+blk_mem_gen_7_1024 inst_mem (
 	.clka (clk                  ),
 	.ena  (enable               ),
 	.wea  (rd_wr_sel            ),

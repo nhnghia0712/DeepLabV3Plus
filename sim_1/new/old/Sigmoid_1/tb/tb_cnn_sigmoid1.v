@@ -6,20 +6,21 @@ module tb_cnn_sigmoid1 ();
    parameter DATA_WIDTH = 32;
 
 // General
-parameter IMAGE_WIDTH  = 2448; //Width
-parameter IMAGE_HEIGHT = 2448; //Height
-parameter CHANNEL_NUM  = 1   ; //The number of channel
+parameter IMAGE_WIDTH  = 256; //Width
+parameter IMAGE_HEIGHT = 256; //Height
+parameter CHANNEL_NUM  = 7  ; //The number of channel
 
 localparam IMAGE_SIZE        = IMAGE_WIDTH * IMAGE_HEIGHT;
 localparam CHANNEL_NUM_PIXEL = CHANNEL_NUM * IMAGE_SIZE  ;
 
-localparam IMAGE_INPUT_FILE = "D:/GitHub/CNNs/Text_file/Input/R.txt";
-localparam IMAGE_OUTPUT_FILE = "D:/GitHub/CNNs/Text_file/Output/Output_cnn_sigmoid1.txt";
+// localparam IMAGE_INPUT_FILE = "D:/GitHub/CNNs/Text_file/Input/Input_image/Output_cnn_maxp_3x3_01.txt";
+localparam IMAGE_INPUT_FILE = "D:/GitHub/CNNs/Text_file/Input/Input_image/input_test.txt";
+localparam IMAGE_OUTPUT_FILE = "D:/GitHub/CNNs/Text_file/Output/Output_cnn_sigmoid1_trial.txt";
 
 
-parameter ENDTIME          = 12000000          ;
-parameter SIMULATION_CLOCK = SIMULATION_CYCLE/2;
+// parameter ENDTIME          = 24000             ;
 parameter SIMULATION_CYCLE = 10                ;
+parameter SIMULATION_CLOCK = SIMULATION_CYCLE/2;
 
 reg                  clk                               ;
 reg                  rst_n                             ;
@@ -40,10 +41,10 @@ reg [DATA_WIDTH-1:0] test_data  [0:CHANNEL_NUM_PIXEL-1];
    wire                  top_underflow;
    wire                  done         ;
 
-   integer i;
+   integer i      ;
+   integer counter;
 
-
-   cnn_sigmoid1 u_top (
+   cnn_sigmoid_top_synth u_top (
       .in_fp        (in_fp        ),
       .out_fp       (out_fp       ),
       .clk          (clk          ),
@@ -63,7 +64,7 @@ reg [DATA_WIDTH-1:0] test_data  [0:CHANNEL_NUM_PIXEL-1];
       addr_reg    = addr;
    end
 
-   rom u_rom (
+   rom_cnn_sigmoid_synth u_rom (
       .clk    (clk        ),
       .rst_n  (rst_n      ),
       .addr   (addr_reg   ),
@@ -74,7 +75,8 @@ reg [DATA_WIDTH-1:0] test_data  [0:CHANNEL_NUM_PIXEL-1];
 
 initial begin
    clk = 1'b0;
-   $readmemb(IMAGE_INPUT_FILE, test_data);
+   counter = 0;
+   $readmemh(IMAGE_INPUT_FILE, test_data);
    result_data = $fopen(IMAGE_OUTPUT_FILE);
 end
 
@@ -85,22 +87,31 @@ initial begin
    start = 1'b0;
    #15;
    rst_n = 1'b1;
-   for (i=0; i<IMAGE_SIZE;i=i+1) begin
+   for (i=0; i<CHANNEL_NUM_PIXEL;i=i+1) begin
       start = 1'b1;
-      while (!done) begin
-         in_fp = test_data[i];
-         #SIMULATION_CYCLE;
-         start = 1'b0;
-      end
-      if (done) begin
-         result_data = out_fp;
-      end
+      // while (!done) begin
+      in_fp = test_data[i];
       #SIMULATION_CYCLE;
+      // start = 1'b0;
+      // end
    end
-   #ENDTIME;
-   $finish;
+   if (i >= CHANNEL_NUM_PIXEL) begin
+      start = 1'b0;
+   end
+   // #SIMULATION_CYCLE;
+   // #ENDTIME;
+   // $finish;
 end
 
+always @(posedge clk) begin
+   if (done) begin
+      counter <= counter + 1'b1;
+      $fdisplay(result_data,"%h",out_fp);
+   end
+   else if(counter >= (CHANNEL_NUM_PIXEL)) begin
+      #(SIMULATION_CYCLE*10) $finish;
+   end
+end
 
 endmodule
 

@@ -34,12 +34,12 @@ module cnn_conv_3x3_test (
 /////////////////////////////////////////////////////////////////////////
 // Parameter Declarations
 // General
-parameter IMAGE_WIDTH     = 64; //Width
-parameter IMAGE_HEIGHT    = 64; //Height
-parameter CHANNEL_NUM_IN  = 64; //The number of channel in
-parameter CHANNEL_NUM_OUT = 2 ; //The number of channel out
+parameter IMAGE_WIDTH     = 16; //Width
+parameter IMAGE_HEIGHT    = 16; //Height
+parameter CHANNEL_NUM_IN  = 4 ; //The number of channel in
+parameter CHANNEL_NUM_OUT = 4 ; //The number of channel out
 parameter KERNEL          = 3 ; //Kernel width
-parameter RATE            = 1 ; //Rate of dialtion
+parameter RATE            = 2 ; //Rate of dialtion
 
 `include "D:/GitHub/CNNs/CNN_DeepLabV3Plus/CNN_DeepLabV3Plus.srcs/sources_1/new/param/param_def_conv_3x3.vh"
 // KhaiT
@@ -75,7 +75,7 @@ reg                   valid_out;
 wire [DATA_WIDTH-1:0] loop_data_out      ;
 wire                  valid_loop_data_out;
 
-conv_loop_data_in_64x64x64 #(
+conv_loop_data_in_16x16x4 #(
 	.DATA_WIDTH          (DATA_WIDTH          ),
 	.IMAGE_WIDTH         (IMAGE_WIDTH         ),
 	.RATE                (RATE                ),
@@ -98,7 +98,7 @@ conv_loop_data_in_64x64x64 #(
 wire [DATA_WIDTH-1:0] pxl_out_conv  ;
 wire                  valid_out_conv;
 
-conv_3x3_top_01_02 #(
+conv_3x3_top_12_13_14 #(
 	.DATA_WIDTH                  (DATA_WIDTH                  ),
 	.IMAGE_WIDTH                 (IMAGE_WIDTH                 ),
 	.IMAGE_HEIGHT                (IMAGE_HEIGHT                ),
@@ -127,7 +127,7 @@ conv_3x3_top_01_02 #(
 wire [DATA_WIDTH-1:0] adder_out      ;
 wire                  valid_adder_out;
 
-conv_channel_in_adder_64x64#(
+conv_channel_in_adder_16x16#(
 	.DATA_WIDTH    (DATA_WIDTH    ),
 	.CHANNEL_NUM_IN(CHANNEL_NUM_IN),
 	.IMAGE_SIZE    (IMAGE_SIZE    )
@@ -158,7 +158,7 @@ always @(posedge clk) begin : proc_
   end
 end
 
-fifo_generator_6_8192 inst_fifo1 (
+fifo_generator_7_1024 inst_fifo1 (
 	//input
 	.clk  (clk            ),
 	.srst (reset          ),

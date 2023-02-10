@@ -246,7 +246,7 @@ wire                  sigmoid_read_en;
 					$fdisplay(image_output,"%h",pxl_out);
 					counter <= counter + 1'b1;
 				end
-			if(counter > (IMAGE_SIZE*7)) begin
+			if(counter >= (IMAGE_SIZE*7)) begin
 				#(SIMULATION_CYCLE*10) $finish;
 			end
 		end
