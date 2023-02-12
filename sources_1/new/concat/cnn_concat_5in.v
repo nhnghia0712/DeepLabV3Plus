@@ -86,7 +86,7 @@ wire                  fifo_empty_1  ;
 
 wire fifo_full_4;
 
-fifo_generator_0 inst_fifo1 (
+fifo_generator_1 inst_fifo1 (
 	//input
 	.clk  (clk            ),
 	.srst (reset          ),
@@ -103,7 +103,7 @@ fifo_generator_0 inst_fifo1 (
 wire [DATA_WIDTH-1:0] pxl_out_fifo_2;
 wire                  fifo_empty_2  ;
 
-fifo_generator_0 inst_fifo2 (
+fifo_generator_1 inst_fifo2 (
   //input
   .clk  (clk            ),
   .srst (reset          ),
@@ -120,7 +120,7 @@ fifo_generator_0 inst_fifo2 (
 wire [DATA_WIDTH-1:0] pxl_out_fifo_3;
 wire                  fifo_empty_3  ;
 
-fifo_generator_0 inst_fifo3 (
+fifo_generator_1 inst_fifo3 (
   //input
   .clk  (clk            ),
   .srst (reset          ),
@@ -137,7 +137,7 @@ fifo_generator_0 inst_fifo3 (
 wire [DATA_WIDTH-1:0] pxl_out_fifo_4;
 wire                  fifo_empty_4  ;
 
-fifo_generator_0 inst_fifo4 (
+fifo_generator_1 inst_fifo4 (
   //input
   .clk  (clk           ),
   .srst (reset         ),
@@ -154,7 +154,7 @@ fifo_generator_0 inst_fifo4 (
 wire [DATA_WIDTH-1:0] pxl_out_fifo_5;
 wire                  fifo_empty_5  ;
 
-fifo_generator_0 inst_fifo5 (
+fifo_generator_1 inst_fifo5 (
   //input
   .clk  (clk                        ),
   .srst (reset                      ),
