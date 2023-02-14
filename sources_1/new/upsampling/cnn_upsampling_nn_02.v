@@ -166,10 +166,6 @@ wire [DATA_WIDTH-1:0] pxl_out_fifo_7;
 wire                  fifo_full_7   ;
 wire                  fifo_empty_7  ;
 
-wire [DATA_WIDTH-1:0] pxl_out_fifo_8;
-wire                  fifo_full_8   ;
-wire                  fifo_empty_8  ;
-
 fifo_generator_1 inst_fifo1 (
 	//input
 	.clk  (clk           ),
