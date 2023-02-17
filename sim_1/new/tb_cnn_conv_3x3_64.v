@@ -7,16 +7,16 @@ module tb_cnn_conv_3x3_64 ();
 	parameter DATA_WIDTH = 32;
 
 // General
-	parameter IMAGE_WIDTH     = 16; //Width
-	parameter IMAGE_HEIGHT    = 16; //Height
-	parameter CHANNEL_NUM_IN  = 4 ; //The number of channel in
-	parameter CHANNEL_NUM_OUT = 4 ; //The number of channel out
-	parameter KERNEL          = 3 ; //Kernel width
-	parameter RATE            = 2 ; //Rate of dialtion
+	parameter IMAGE_WIDTH     = 16 ; //Width
+	parameter IMAGE_HEIGHT    = 16 ; //Height
+	parameter CHANNEL_NUM_IN  = 512; //The number of channel in
+	parameter CHANNEL_NUM_OUT = 1  ; //The number of channel out
+	parameter KERNEL          = 3  ; //Kernel width
+	parameter RATE            = 12 ; //Rate of dialtion
 
-	localparam IMAGE_INPUT_FILE = "D:/GitHub/CNNs/Text_file/Input/Input_image/input_test_h.txt";
-	localparam WEIGHTS_INPUT_FILE = "D:/GitHub/CNNs/Text_file/Input/weight_test.txt";
-	localparam IMAGE_OUTPUT_FILE = "D:/GitHub/CNNs/Text_file/Output/Output_cnn_conv_3x3_trial.txt";
+	localparam IMAGE_INPUT_FILE = "D:/GitHub/CNNs/Text_file/Output/second_trial/encoder/layer4/Output_cnn_layer4_02.txt";
+	localparam WEIGHTS_INPUT_FILE = "D:/GitHub/CNNs/Text_file/Input/Weight_hex/Decoder/decoder.aspp.0.convs.1.0.0.weight.txt";
+	localparam IMAGE_OUTPUT_FILE = "D:/GitHub/CNNs/Text_file/Output/second_trial/decoder/aspp/row2/Output_cnn_conv_3x3_15_aspp.txt";
 
 	localparam SIMULATION_CLOCK = 5 ;
 	localparam SIMULATION_CYCLE = 10;
@@ -28,7 +28,7 @@ module tb_cnn_conv_3x3_64 ();
 	localparam CHANNEL_NUM_IN_PIXEL = CHANNEL_NUM_IN * IMAGE_SIZE     ;
 	localparam WEIGHT_NUM           = CHANNEL_NUM * KERNEL_SIZE       ; // 2x2x3x3
 
-	localparam ENDTIME = ((9 * ($clog2(CHANNEL_NUM_IN))) + (CHANNEL_NUM_OUT * ((IMAGE_SIZE * (CHANNEL_NUM_IN - 1)) + ((CHANNEL_NUM_IN * RATE) * (IMAGE_WIDTH + 1)))) + 46 + (IMAGE_SIZE * (CHANNEL_NUM_OUT)) + 1)*2;
+	localparam ENDTIME = ((9 * ($clog2(CHANNEL_NUM_IN))) + (CHANNEL_NUM_OUT * ((IMAGE_SIZE * (CHANNEL_NUM_IN - 1)) + ((CHANNEL_NUM_IN * RATE) * (IMAGE_WIDTH + 1)))) + 46 + (IMAGE_SIZE * (CHANNEL_NUM_OUT)) + 1) * 3;
 
 	reg                  clk            ;
 	reg                  reset          ;
@@ -87,7 +87,7 @@ module tb_cnn_conv_3x3_64 ();
 		end
 	end
 
-	cnn_conv_3x3_test #(
+	cnn_conv_15_16_17_3x3 #(
 		.IMAGE_WIDTH    (IMAGE_WIDTH    ),
 		.IMAGE_HEIGHT   (IMAGE_HEIGHT   ),
 		.CHANNEL_NUM_IN (CHANNEL_NUM_IN ),

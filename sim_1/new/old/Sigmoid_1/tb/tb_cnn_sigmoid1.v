@@ -14,8 +14,8 @@ localparam IMAGE_SIZE        = IMAGE_WIDTH * IMAGE_HEIGHT;
 localparam CHANNEL_NUM_PIXEL = CHANNEL_NUM * IMAGE_SIZE  ;
 
 // localparam IMAGE_INPUT_FILE = "D:/GitHub/CNNs/Text_file/Input/Input_image/Output_cnn_maxp_3x3_01.txt";
-localparam IMAGE_INPUT_FILE = "D:/GitHub/CNNs/Text_file/Input/Input_image/input_test.txt";
-localparam IMAGE_OUTPUT_FILE = "D:/GitHub/CNNs/Text_file/Output/Output_cnn_sigmoid1_trial.txt";
+localparam IMAGE_INPUT_FILE = "D:/GitHub/CNNs/Text_file/Output/first_trial/decoder/Output_cnn_upsampling_nn_02.txt";
+localparam IMAGE_OUTPUT_FILE = "D:/GitHub/CNNs/Text_file/Output/first_trial/decoder/Output_cnn_sigmoid.txt";
 
 
 // parameter ENDTIME          = 24000             ;

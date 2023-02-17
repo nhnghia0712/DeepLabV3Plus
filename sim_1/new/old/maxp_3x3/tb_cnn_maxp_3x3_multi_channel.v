@@ -7,22 +7,22 @@ module tb_cnn_maxp_3x3_multi_channel ();
 parameter DATA_WIDTH  = 32;
 
 // General
-parameter IMAGE_WIDTH  = 128; //Width
-parameter IMAGE_HEIGHT = 128; //Height
+parameter IMAGE_WIDTH  = 16; //Width
+parameter IMAGE_HEIGHT = 16; //Height
 parameter KERNEL       = 3  ; //3*3 Kernel
 parameter RATE         = 1  ; //3*3 Kernel
 
-localparam CHANNEL_NUM_IN       = 64                         ; //The number of channel
+localparam CHANNEL_NUM_IN       = 512                        ; //The number of channel
 localparam IMAGE_SIZE           = IMAGE_WIDTH * IMAGE_HEIGHT ;
 localparam CHANNEL_NUM_IN_PIXEL = CHANNEL_NUM_IN * IMAGE_SIZE;
 
-localparam IMAGE_INPUT_FILE = "D:/GitHub/CNNs/Text_file/Input/Input_image/conv7x7_output_model_hex.txt";
-localparam IMAGE_OUTPUT_FILE = "D:/GitHub/CNNs/Text_file/Output/Output_cnn_maxp_3x3_01.txt";
+localparam IMAGE_INPUT_FILE = "D:/GitHub/CNNs/Text_file/Output/second_trial/encoder/layer4/Output_cnn_layer4_02.txt";
+localparam IMAGE_OUTPUT_FILE = "D:/GitHub/CNNs/Text_file/Output/second_trial/decoder/aspp/row5/Output_cnn_avgp_3x3_01_aspp.txt";
 
 
-parameter ENDTIME          = IMAGE_WIDTH + 9 + (CHANNEL_NUM_IN * (IMAGE_SIZE + IMAGE_WIDTH + 1)) + ((IMAGE_SIZE/4) * CHANNEL_NUM_IN);
-parameter SIMULATION_CLOCK = 5                                                                                                      ;
-parameter SIMULATION_CYCLE = 10                                                                                                     ;
+parameter ENDTIME          = (IMAGE_WIDTH + 9 + (CHANNEL_NUM_IN * (IMAGE_SIZE + IMAGE_WIDTH + 1)) + ((IMAGE_SIZE/4) * CHANNEL_NUM_IN)) * 2;
+parameter SIMULATION_CLOCK = 5                                                                                                            ;
+parameter SIMULATION_CYCLE = 10                                                                                                           ;
 
 
 reg                  clk     ;
@@ -46,7 +46,6 @@ initial begin
 	reset = 1'b1;
 	#SIMULATION_CYCLE
 		reset = 1'b0;
-	valid_in = 1'b0;
 
 	$readmemh(IMAGE_INPUT_FILE, image_input);
 	image_output = $fopen(IMAGE_OUTPUT_FILE);
@@ -72,28 +71,28 @@ always @(posedge clk) begin
 	end
 end
 
-// ReLU
-wire [DATA_WIDTH-1:0] out_relu_5      ;
-wire                  valid_out_relu_5;
+// // ReLU
+// wire [DATA_WIDTH-1:0] out_relu_5      ;
+// wire                  valid_out_relu_5;
 
-cnn_conv_relu #(.DATA_WIDTH(DATA_WIDTH)) relu5 (
-    .clk      (clk             ),
-    .reset    (reset           ),
-    .valid_in (valid_in        ),
-    .in       (pxl_in          ),
-    //output
-    .out      (out_relu_5      ),
-    .valid_out(valid_out_relu_5)
-);
+// cnn_conv_relu #(.DATA_WIDTH(DATA_WIDTH)) relu5 (
+//     .clk      (clk             ),
+//     .reset    (reset           ),
+//     .valid_in (valid_in        ),
+//     .in       (pxl_in          ),
+//     //output
+//     .out      (out_relu_5      ),
+//     .valid_out(valid_out_relu_5)
+// );
 
-cnn_maxp_01_3x3 DUT (
-	.clk      (clk             ),
-	.reset    (reset           ),
-	.valid_in (valid_out_relu_5),
-	.pxl_in   (out_relu_5      ),
+cnn_avgp_01_3x3 DUT (
+	.clk      (clk      ),
+	.reset    (reset    ),
+	.valid_in (valid_in ),
+	.pxl_in   (pxl_in   ),
 	//output
-	.pxl_out  (pxl_out         ),
-	.valid_out(valid_out       )
+	.pxl_out  (pxl_out  ),
+	.valid_out(valid_out)
 );
 
 endmodule

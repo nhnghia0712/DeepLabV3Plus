@@ -7,20 +7,20 @@ module tb_cnn_upsampling_nn ();
 parameter DATA_WIDTH  = 32;
 
 // General
-parameter IMAGE_WIDTH  = 16; //Width
-parameter IMAGE_HEIGHT = 16; //Height
-parameter CHANNEL_NUM  = 4 ; //The number of channel
+parameter IMAGE_WIDTH  = 64; //Width
+parameter IMAGE_HEIGHT = 64; //Height
+parameter CHANNEL_NUM  = 7 ; //The number of channel
 
 localparam IMAGE_SIZE        = IMAGE_WIDTH * IMAGE_HEIGHT;
 localparam CHANNEL_NUM_PIXEL = CHANNEL_NUM * IMAGE_SIZE  ;
 
-localparam IMAGE_INPUT_FILE = "D:/GitHub/CNNs/Text_file/Input/Input_image/1499_satB_h.txt";
-localparam IMAGE_OUTPUT_FILE = "D:/GitHub/CNNs/Text_file/Output/Output_cnn_upsampling_nn_testB.txt";
+localparam IMAGE_INPUT_FILE = "D:/GitHub/CNNs/Text_file/Output/first_trial/decoder/Output_cnn_conv_1x1_13.txt";
+localparam IMAGE_OUTPUT_FILE = "D:/GitHub/CNNs/Text_file/Output/first_trial/decoder/Output_cnn_upsampling_nn_02.txt";
 
 
-parameter ENDTIME          = 21000;
-parameter SIMULATION_CLOCK = 5    ;
-parameter SIMULATION_CYCLE = 10   ;
+parameter ENDTIME          = 21000 * 28;
+parameter SIMULATION_CLOCK = 5         ;
+parameter SIMULATION_CYCLE = 10        ;
 
 
 reg                  clk     ;
@@ -69,7 +69,7 @@ always @(posedge clk) begin
 	end
 end
 
-	cnn_upsampling_nn_test DUT (
+	cnn_upsampling_nn_02 DUT (
 		.clk      (clk      ),
 		.reset    (reset    ),
 		.valid_in (valid_in ),

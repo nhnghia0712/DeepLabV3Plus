@@ -5,11 +5,11 @@ module tb_cnn_concat_2in ();
 /////////////////////////////////////////////////////////////////////////
 // Parameter Declarations
 parameter DATA_WIDTH        = 32       ;
-parameter CHANNEL_NUM_PIXEL = 16*16*256;
+parameter CHANNEL_NUM_PIXEL = 16*16*512;
 
-parameter T = 8000000;
-parameter C = 5      ;
-parameter I = 10     ;
+parameter T = (CHANNEL_NUM_PIXEL * 3) + 10;
+parameter C = 5                           ;
+parameter I = 10                          ;
 
 
 reg                  clk         ;
@@ -39,9 +39,9 @@ initial begin
 		reset = 1'b0;
 
 	// $readmemh("D:/GitHub/CNNs/Text_file/Input/RGB.txt", In);
-	$readmemh("D:/GitHub/CNNs/Text_file/Input/Input_image/encoder.layer3.1.conv2.output_h.txt", In_list_no1);
-	$readmemh("D:/GitHub/CNNs/Text_file/Output/Output_cnn_layer3_01.txt", In_list_no2);
-	Out = $fopen("D:/GitHub/CNNs/Text_file/Output/Output_cnn_layer3_02.txt");
+	$readmemh("D:/GitHub/CNNs/Text_file/Input/Input_image/second_trial/encoder/layer4/encoder.layer4.1.conv2_output_h.txt", In_list_no1);
+	$readmemh("D:/GitHub/CNNs/Text_file/Output/second_trial/encoder/layer4/Output_cnn_layer4_01.txt", In_list_no2);
+	Out = $fopen("D:/GitHub/CNNs/Text_file/Output/second_trial/encoder/layer4/Output_cnn_layer4_02.txt");
 end
 
 always #(C) clk = ~ clk;
@@ -53,7 +53,7 @@ always @(posedge clk) begin
 		if (i >= (CHANNEL_NUM_PIXEL)) begin
 			valid_in_no2 <= 1'b0;
 			if (i >= (CHANNEL_NUM_PIXEL*2)) begin
-				in_no1       <= In_list_no1[i[15:0]];
+				in_no1       <= In_list_no1[i[($clog2(CHANNEL_NUM_PIXEL)-1):0]];
 				valid_in_no1 <= 1'b1;
 				if (i >= (CHANNEL_NUM_PIXEL*3)) begin
 					valid_in_no1 <= 1'b0;
@@ -71,7 +71,7 @@ always @(posedge clk) begin
 	end
 end
 
-	cnn_add_layer3 #(.DATA_WIDTH(DATA_WIDTH)) DUT (
+	cnn_add_layer14 #(.DATA_WIDTH(DATA_WIDTH)) DUT (
 		.clk         (clk         ),
 		.reset       (reset       ),
 		.valid_in_no1(valid_in_no1),
